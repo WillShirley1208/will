@@ -1,6 +1,6 @@
 # html lang
 # ---------------
-language: en
+language: zh-Hans
 
 # Main menu navigation
 # ---------------
@@ -19,8 +19,7 @@ favicon: /favicon.ico
 # ---------------
 pwa:
   enable: false
-  manifest: 
-
+  manifest:
 
 # Highlight theme
 # ---------------
@@ -28,13 +27,13 @@ highlight_theme: default
 
 # Nav settings
 # ---------------
-#social:
-  #icon_name: url
+social:
+  github: https://github.com/jackblack369
 
 # Algolia search
 # ---------------
 algolia_search:
-  enable: false
+  enable: true
   hits:
     per_page: 10
   labels:
@@ -115,13 +114,13 @@ toc:
   enable: true
 
 post_copyright:
-  enable: true
+  enable: false
   license: CC BY-NC-SA 4.0
   license_url: https://creativecommons.org/licenses/by-nc-sa/4.0/
 
-# auto_excerpt:
-#   enable: false
-#   length: 150
+auto_excerpt:
+   enable: true
+   length: 150
 
 # slide
 # For reveal.js config, see https://github.com/hakimel/reveal.js#configuration
@@ -199,7 +198,7 @@ disqus:
 
 # Footer Settings
 # ---------------
-since: 2013
+since: 2017
 
 ICP:
   enable: false

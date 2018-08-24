@@ -159,8 +159,8 @@ addThis:
 
 # Comments System
 # ---------------
-disqus:
-  enable: false 
+#disqus:
+#  enable: false
   #shortname: 
   #count: 
 

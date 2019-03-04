@@ -118,3 +118,4 @@ System.out.println("future.get() = " + future.get());
 - Thread Pool frees application developer from thread management stuff and allows to focus on business logic.
 
 ### volatile vs atomic variable
+

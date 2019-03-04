@@ -89,4 +89,32 @@ System.out.println("future.get() = " + future.get());
 ### synchronized vs concurrent collection
 
 > later is more scalable than former
+>
+>  synchronized collections locks the whole collection e.g. whole Map or List while concurrent collection never locks the whole Map or List. They achieve thread safety by using advanced and sophisticated techniques like lock stripping. For example, the ConcurrentHashMap divides the whole map into several segments and locks only the relevant segments, which allows multiple threads to access other segments of same ConcurrentHashMap without locking.
 
+#### CopyOnWriteArrayList
+
+>  CopyOnWriteArrayList allows multiple reader threads to read without synchronization and when a write happens it copies the whole ArrayList and swap with a newer one.
+
+### Stack and Heap
+
+> - Each thread has their own stack, which is used to store local variables, method parameters and call stack. Variable stored in one Thread’s stack is not visible to other.
+> - heap is a common memory area which is shared by all threads.Objects whether local or at any level is created inside heap.
+
+- To improve performance thread tends to cache values from heap into their stack, which can create problems if that variable is modified by more than one thread, this is where volatile variables comes in picture. volatile suggest threads to read value of variable always from main memory. 
+- If there is no memory left in the stack for storing function call or local variable, JVM will throw java.lang.StackOverFlowError, while if there is no more heap space for creating an object, JVM will throw java.lang.OutOfMemoryError: Java Heap Space
+- Variables stored in stacks are only visible to the owner Thread while objects created in the heap are visible to all thread. In other words, stack memory is kind of private memory of Java Threads while heap memory is shared among all threads.
+
+### thread pool
+
+> Java API provides Executor framework, which allows you to create different types of thread pools e.g. single thread pool, which process one task at a time, fixed thread pool (a pool of fixed number of thread) or cached thread pool (an expandable thread pool suitable for applications with many short lived tasks).
+
+#### the benefits
+
+- Use of Thread Pool reduces response time by avoiding thread creation during request or task processing.
+
+- Use of Thread Pool allows you to change your execution policy as you need. you can go from single thread to multiple threads by just replacing ExecutorService implementation.
+- Thread Pool in Java application increases the stability of the system by creating a configured number of threads decided based on system load and available resource.
+- Thread Pool frees application developer from thread management stuff and allows to focus on business logic.
+
+### volatile vs atomic variable

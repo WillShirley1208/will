@@ -280,6 +280,7 @@ public class MainClass
 }
 ```
 
+
 ### try-catch-finally
 
 1. 不管有木有出现异常，finally块中代码都会执行** 
@@ -287,3 +288,89 @@ public class MainClass
 3. **finally是在return后面的表达式运算后执行的（此时并没有返回运算后的值，而是先把要返回的值保存起来，管finally中的代码怎么样，返回的值都不会改变，仍然是之前保存的值），所以函数返回值是在finally执行前确定的；** 
 4. **finally中最好不要包含return，否则程序会提前退出，返回值不是try或catch中保存的返回值。** 
 5. 任何执行try 或者catch中的return语句之前，都会先执行finally语句，如果finally中有return语句，那么程序就return了，所以finally中的return是一定会被return的。
+
+### ReentrantLock
+
+```java
+import java.util.concurrent.locks.ReentrantLock;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+/**
+ * Java program to show, how to use ReentrantLock in Java.
+ * Reentrant lock is an alternative way of locking
+ * apart from implicit locking provided by synchronized keyword in Java.
+ *
+ * @author  Javin Paul
+ */
+public class ReentrantLockHowto {
+
+    private final ReentrantLock lock = new ReentrantLock();
+    private int count = 0;
+
+     //Locking using Lock and ReentrantLock
+     public int getCount() {
+        lock.lock();
+        try {
+            System.out.println(Thread.currentThread().getName() + " gets Count: " + count);
+            return count++;
+        } finally {
+            lock.unlock();
+        }
+     }
+
+     //Implicit locking using synchronized keyword
+     public synchronized int getCountTwo() {
+            return count++;
+     }
+
+    
+
+    public static void main(String args[]) {
+        final ThreadTest counter = new ThreadTest();
+        Thread t1 = new Thread() {
+
+            @Override
+            public void run() {
+                while (counter.getCount() &lt; 6) {
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException ex) {
+                        ex.printStackTrace();                    }
+                }
+            }
+        };
+      
+        Thread t2 = new Thread() {
+
+            @Override
+            public void run() {
+                while (counter.getCount() &lt; 6) {
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            }
+        };
+      
+        t1.start();
+        t2.start();
+      
+    }
+}
+```
+
+```
+Output:
+Thread-0 gets Count: 0
+Thread-1 gets Count: 1
+Thread-1 gets Count: 2
+Thread-0 gets Count: 3
+Thread-1 gets Count: 4
+Thread-0 gets Count: 5
+Thread-0 gets Count: 6
+Thread-1 gets Count: 7
+```
+

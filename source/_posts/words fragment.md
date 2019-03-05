@@ -51,3 +51,6 @@ categories: fragement
 - Promise(承诺)、Earnest(诚挚)、Respect(尊重)、Forgiveness(宽容)、Enioy(享受)、Cherish(珍惜)、Trust(信任)
 - In any case, measure, don't guess! Only a measurement will tell you if the parallelism is worth it or not.(from stack overflow's someone)
 
+### 技术碎片
+
+- compare two things at different points, this not only makes them easy to compare but also makes it easy to remember differences.

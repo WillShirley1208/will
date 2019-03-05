@@ -119,3 +119,22 @@ System.out.println("future.get() = " + future.get());
 
 ### volatile vs atomic variable
 
+> Volatile variable provides you happens-before guarantee that a write will happen before any subsequent write, it doesn’t guarantee atomicity. For example count++ operation will not become atomic just by declaring count variable as volatile. On the other hand AtomicInteger class provides atomic method to perform such compound operation atomically.
+
+### 3 multi-threading best practice
+
+- Always give meaningful name to your thread
+- Avoid locking or Reduce scope of Synchronization
+
+- Prefer Synchronizers over wait and notify
+- Prefer Concurrent Collection over Synchronized Collection
+
+### Wait、Sleep、Yield
+
+- sleep() and yield() methods are defined in thread class while wait() is defined in the Object class
+
+- The key difference between wait() and sleep() is that former is used for inter-thread communication while later is used to introduced to pause the current thread for a short duration. 
+- This difference is more obvious from the fact that, when a thread calls the wait() method, it releases the monitor or lock it was holding on that object, but when a thread calls the sleep() method, it never releases the monitor even if it is holding. 
+
+- yield() just releases the CPU hold by Thread to give another thread an opportunity to run though it's not guaranteed who will get the CPU. It totally depends upon thread scheduler and **it's even possible that the thread which calls the yield() method gets the CPU again**(有可能自己会再次获取到cpu执行时间). Hence, it's not reliable to depend upon yield() method, it's just on best effort basis.
+  - If there is no waiting thread or all the waiting threads have a lower priority then the same thread will continue its execution.

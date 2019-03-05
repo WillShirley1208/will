@@ -18,6 +18,13 @@ Do not be afraid to break things as that is perfectly normal. Troubleshooting an
 ## session
 
 - kill seesion `screen -X -S [session # you want to kill] quit`
+- 新建screen会话           screen -S xxx
+
+- 恢复指定会话               screen -r xxx
+
+- 查看所有会话                screen -ls
+
+- 删除指定会话                screen -S xxx -X quit
 
 ## PORT 
 - Check the listening ports
@@ -65,3 +72,18 @@ Firewall is active and enabled on system startup
 $ sudo ufw disable
 Firewall stopped and disabled on system startup
 ```
+
+### 查看系统配置
+
+- 查看内核
+  - `cat /proc/version`
+  - `uname -a`
+- 查看linux版本
+  - `lsb_release -a`
+  - `cat /etc/issue`
+
+### 磁盘相关
+
+- 查看系统磁盘占用情况    ` df -h`
+
+- 查看目录下文件大小        `du -sh`

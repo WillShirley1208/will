@@ -24,7 +24,9 @@ categories: hibernate
 
 ![](https://www.javatpoint.com/images/hibernate/arc2.jpg)
 
-![](https://www.javatpoint.com/images/hibernate/architecture.jpg)
+Hibernate Application Architecture：
+
+![](https://www.tutorialspoint.com/hibernate/images/hibernate_architecture.jpg)
 
 > JDBC (Java Database Connectivity)
 >
@@ -33,6 +35,10 @@ categories: hibernate
 > JNDI (Java Naming Directory Interface)
 
 ### Elements of Hibernate Architecture
+
+- Configuration
+  - **Database Connection** − This is handled through one or more configuration files supported by Hibernate. These files are **hibernate.properties** and **hibernate.cfg.xml**.
+  - **Class Mapping Setup** − This component creates the connection between the Java classes and database tables.
 
 - SessionFactory
 
@@ -47,7 +53,13 @@ categories: hibernate
 
 - ConnectionProvider
 
-- TransactionFactory
+- Query
+
+  > Query objects use SQL or Hibernate Query Language (HQL) string to retrieve data from the database and create objects. A Query instance is used to bind query parameters, limit the number of results returned by the query, and finally to execute the query.
+
+- Criteria
+
+  > Criteria objects are used to create and execute object oriented criteria queries to retrieve objects.
 
 ### About SQL
 
@@ -95,7 +107,7 @@ categories: hibernate
 
 2. One to Many
 
-   > 一对多）单向：会产生中间表，此时可以用@onetoMany @Joincolumn（name=" "）避免产生中间表**，并且指定了外键的名字（别看 @joincolumn在一中写着，但它存在在多的那个表中）
+   > （一对多）单向：会产生中间表，此时可以用@onetoMany @Joincolumn（name=" "）避免产生中间表**，并且指定了外键的名字（别看 @joincolumn在一中写着，但它存在在多的那个表中）
 
 3. Many to One
 

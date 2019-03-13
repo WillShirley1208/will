@@ -29,5 +29,5 @@ categories: Socket
 -   Use TCP, if you can't afford to lose any message, while UDP is better for high-speed data transmission, where loss of a single packet is acceptable e.g. video streaming or online multiplayer games.
 
 
-  
+
 

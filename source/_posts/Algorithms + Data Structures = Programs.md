@@ -2,7 +2,7 @@
 title: Algorithms + Data Structures = Programs
 date: 2018-12-18 22:00:30
 tags: snippet
-categories: Algorithms + Data Structures
+categories: DSA
 ---
 
 ### What is a Data Structure

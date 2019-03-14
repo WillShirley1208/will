@@ -19,32 +19,39 @@ Do not be afraid to break things as that is perfectly normal. Troubleshooting an
 
 - kill seesion `screen -X -S [session # you want to kill] quit`
 - 新建screen会话           screen -S xxx
-
 - 恢复指定会话               screen -r xxx
-
 - 查看所有会话                screen -ls
-
 - 删除指定会话                screen -S xxx -X quit
+- 回到终端                        Ctrl-a d
 
 ## PORT 
 - Check the listening ports
 
   Run any one of the following command:
-  ```
-  	sudo lsof -i -P -n | grep LISTEN 
-  	sudo netstat -tulpn | grep LISTEN
-  	sudo nmap -sTU -O IP-address-Here
+  ```bash
+  sudo lsof -i -P -n | grep LISTEN 
+  sudo netstat -tulpn | grep LISTEN
+  sudo nmap -sTU -O IP-address-Here
   ```
 
 - checking remote system tcp 80 port status
   1. Telnet
   2. nc
   3. nmap
-  ```
+  ```bash
   telnet myserver.com 80 
   nc -v myserver.com 80
   nmap myserver.com 80 
   ```
+
+- 通过进程名查看占用端口
+
+  - 先查看进程pid	`ps -ef | grep 进程名 `
+  - 再通过pid查看占用端口    `netstat -nap | grep 进程pid `
+
+- 通过端口查看进程
+
+  `netstat -nap | grep 端口号 `或`netstat -apn | grep 端口号`
 
 ## tar
 

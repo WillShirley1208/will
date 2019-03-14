@@ -63,6 +63,12 @@ select a.* from A a where exists(select 1 from B b where a.id=b.id)
 
 sql查询条件中`where 1=1,1=2和1=0`，这种写法，主要是为了拼凑动态的sql语句，如果使用不好会起到副作用的，是根据个人的一些习惯，是为了避免where 关键字后面的第一个词直接就是 “and”而导致语法错误，是为了后面附加and ...方便程序逻辑处理用的。 
 
+- select count(*)和select count(1)的区别
+
+  ```
+  一般情况下，Select Count(*)和Select Count(1)两着返回结果是一样的，假如表没有主键(Primary key), 那么count(1)比count(*)快，如果有主键的话，那主键作为count的条件时候count(主键)最快，如果你的表只有一个字段的话那count(*)就是最快的。
+  ```
+
 ### 事物隔离级别
 
 - read uncommitted（读取未提交数据）

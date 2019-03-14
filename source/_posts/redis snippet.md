@@ -5,6 +5,91 @@ tags: snippet
 categories: redis
 ---
 
+###　数据类型
+
+- String
+
+  ```
+  redis 127.0.0.1:6379> SET name "runoob"
+  OK
+  redis 127.0.0.1:6379> GET name
+  "runoob"
+  ```
+
+- Hash
+
+  ```
+  redis> HMSET myhash field1 "Hello" field2 "World"
+  "OK"
+  redis> HGET myhash field1
+  "Hello"
+  redis> HGET myhash field2
+  "World"
+  ```
+
+- List
+
+  ```
+  redis 127.0.0.1:6379> lpush runoob redis
+  (integer) 1
+  redis 127.0.0.1:6379> lpush runoob mongodb
+  (integer) 2
+  redis 127.0.0.1:6379> lpush runoob rabitmq
+  (integer) 3
+  redis 127.0.0.1:6379> lrange runoob 0 10
+  1) "rabitmq"
+  2) "mongodb"
+  3) "redis"
+  redis 127.0.0.1:6379>
+  ```
+
+- Set
+
+  ```
+  redis 127.0.0.1:6379> sadd runoob redis
+  (integer) 1
+  redis 127.0.0.1:6379> sadd runoob mongodb
+  (integer) 1
+  redis 127.0.0.1:6379> sadd runoob rabitmq
+  (integer) 1
+  redis 127.0.0.1:6379> sadd runoob rabitmq
+  (integer) 0
+  redis 127.0.0.1:6379> smembers runoob
+  
+  1) "redis"
+  2) "rabitmq"
+  3) "mongodb"
+  ```
+
+- zset(sorted set：有序集合)
+
+  - Redis zset 和 set 一样也是string类型元素的集合,且不允许重复的成员。
+
+    不同的是每个元素都会关联一个double类型的分数。redis正是通过分数来为集合中的成员进行从小到大的排序。zset的成员是唯一的,但分数(score)却可以重复。
+
+  - 命令
+
+    ```
+    zadd key score member 
+    ```
+
+  - 实例
+
+    ```
+    redis 127.0.0.1:6379> zadd runoob 0 redis
+    (integer) 1
+    redis 127.0.0.1:6379> zadd runoob 0 mongodb
+    (integer) 1
+    redis 127.0.0.1:6379> zadd runoob 0 rabitmq
+    (integer) 1
+    redis 127.0.0.1:6379> zadd runoob 0 rabitmq
+    (integer) 0
+    redis 127.0.0.1:6379> > ZRANGEBYSCORE runoob 0 1000
+    1) "mongodb"
+    2) "rabitmq"
+    3) "redis"
+    ```
+
 ### 知识点
 
 - show all keys

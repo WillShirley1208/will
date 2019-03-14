@@ -1,5 +1,5 @@
 ---
-title: ubunut snippet
+title: linux snippet
 date: 2017-05-9 10:01:30
 tags: snippet
 categories: linux

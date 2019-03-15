@@ -3,6 +3,7 @@ title: Java Concept of The Day
 date: 2016-10-16 12:01:30
 tags: learn
 categories: java
+top: true
 ---
 
 - Stack is used only for execution purpose. Heap is used for storage purpose.

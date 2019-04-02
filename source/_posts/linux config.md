@@ -17,3 +17,9 @@ categories: linux
 ### other
 
 - `/etc/environment`是设置整个系统的环境，而`/etc/profile`是设置所有用户的环境 
+
+### vmware centos ip config
+
+1. ` vi /etc/sysconfig/network-scripts/ifcfg-ens33`,设置`ONBOOT=yes`
+2. `service network restart `
+3. `ip a`查看ip

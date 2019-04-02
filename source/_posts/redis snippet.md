@@ -137,3 +137,46 @@ daemonize  yes表示后台运行
  
 客户端启动时	redis-cli -p xxxx
  ```
+
+### Enable remote Redis connection
+
+- Replaced `bind 127.0.0.1` with `bind 0.0.0.0` in the `/etc/redis/redis.conf` file, the line does not have a leading `#` nor space,
+- Replaced `protected-mode yes` with `protected-mode no` in this same file,
+- Allowed all traffic to port `6379` using `ufw allow 6379` and `ufw allow 6379/tcp`
+
+### secure redis
+
+By default, UFW is not available in CentOS repository. So you will need to install the EPEL repository to your system. You can do this by running the following 
+
+linux command
+
+```
+# yum install epel-release -y
+```
+
+Once the EPEL repository is installed, you can install UFW by just running the following linux command:
+
+```
+# yum install --enablerepo="epel" ufw -y
+```
+
+After installing UFW, start UFW service and enable it to start on boot time by running the following 
+
+linux command
+
+```
+# ufw enable 
+```
+
+Next, check the status of UFW with the following linux command. You should see the following output:
+
+```
+# ufw status 
+Status: active 
+```
+
+You can also disable UFW firewall by running the following linux command:
+
+```
+# ufw disable 
+```

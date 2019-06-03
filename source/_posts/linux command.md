@@ -94,3 +94,7 @@ Firewall stopped and disabled on system startup
 - 查看系统磁盘占用情况    ` df -h`
 
 - 查看目录下文件大小        `du -sh`
+
+### find
+
+查找具体文件	`find / -name 文件名称`

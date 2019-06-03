@@ -1,5 +1,5 @@
 ---
-title: java learn
+title: javascript learn
 date: 2019-03-29 12:01:30
 tags: learn
 categories: javascript
@@ -304,3 +304,30 @@ y(7); // returns 27
 ```
 
 > Scope objects form a chain called the scope chain, similar to the prototype chain used by JavaScript's object system.
+
+## Other
+
+**curly braces**
+
+括号（）
+
+**Spread syntax**
+
+省略号
+
+- The spread syntax is simply three dots: `...`
+- It allows an iterable to expand in places where 0+ arguments are expected.
+
+#### asterisk
+
+星号 *
+
+### regular expression
+
+- 校验含有空格
+
+  `reg = /^((?! ).)*$/;`
+
+- 校验只有数字、字母和下划线
+
+  `reg = /^[_0-9a-z]*$/;`

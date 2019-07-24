@@ -1,3 +1,12 @@
+---
+title: vmware snippet
+date: 2019-04-20 16:15:30
+tags: snippet
+categories: vmware
+---
+
+
+
 ### 用户
 
 - 新增用户

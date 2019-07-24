@@ -98,3 +98,7 @@ Firewall stopped and disabled on system startup
 ### find
 
 查找具体文件	`find / -name 文件名称`
+
+### ls
+
+`ls -lh`以可读性G、M查看文件的大小

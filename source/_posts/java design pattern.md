@@ -7,12 +7,17 @@ categories: design pattern
 
 ## Creational Design Patterns
 
+> These design patterns provide a way to create objects while hiding the creation logic, rather than instantiating objects directly using new operator. This gives program more flexibility in deciding which objects need to be created for a given use case.
+
 ### Singleton
+
+> In Factory pattern, we create object without exposing the creation logic to the client and refer to newly created object using a common interface.
 
 - different approaches to implement:
   - Private constructor to restrict instantiation of the class from other classes.
   - Private static variable of the same class that is the only instance of the class.
   - Public static method that returns the instance of the class, this is the global access point for outer world to get the instance of the singleton class.
+
 - design concerns with the implementation
   - Eager initialization
   - Static block initialization
@@ -22,6 +27,46 @@ categories: design pattern
   - Using Reflection to destroy Singleton Pattern
   - Enum Singleton
   - Serialization and Singleton
+
+  ```java
+  //SingleObject.java
+  public class SingleObject {
+  
+     //create an object of SingleObject
+     private static SingleObject instance = new SingleObject();
+  
+     //make the constructor private so that this class cannot be
+     //instantiated
+     private SingleObject(){}
+  
+     //Get the only object available
+     public static SingleObject getInstance(){
+        return instance;
+     }
+  
+     public void showMessage(){
+        System.out.println("Hello World!");
+     }
+  }
+  
+  //SingletonPatternDemo.java
+  public class SingletonPatternDemo {
+     public static void main(String[] args) {
+  
+        //illegal construct
+        //Compile Time Error: The constructor SingleObject() is not visible
+        //SingleObject object = new SingleObject();
+  
+        //Get the only object available
+        SingleObject object = SingleObject.getInstance();
+  
+        //show the message
+        object.showMessage();
+     }
+  }
+  ```
+
+  
 
 ### Factory
 
@@ -44,6 +89,8 @@ categories: design pattern
 - Prototype design pattern is used when the Object creation is a costly affair and requires a lot of time and resources and you have a similar object already existing.Prototype pattern provides a mechanism to copy the original object to a new object and then modify it according to our needs. Prototype design pattern uses java cloning to copy the object.
 
 ## Structural Design Patterns
+
+> These design patterns concern class and object composition. Concept of inheritance is used to compose interfaces and define ways to compose objects to obtain new functionalities.
 
 ### Adapter
 
@@ -75,6 +122,8 @@ categories: design pattern
 - The disadvantage of decorator design pattern is that it uses a lot of similar kind of objects (decorators).
 
 ## Behavioral Design Patterns
+
+> These design patterns are specifically concerned with communication between objects.
 
 ### Template Method
 

@@ -1,8 +1,8 @@
 ---
-title: mysql snippet
+title: database snippet
 date: 2015-12-16 20:01:30
 tags: snippet
-categories: mysql
+categories: database
 ---
 
 ### 知识点
@@ -94,3 +94,9 @@ sql查询条件中`where 1=1,1=2和1=0`，这种写法，主要是为了拼凑�
 - serializable（串行化）
 
   > 当我们将当前会话的隔离级别设置为serializable的时候，其他会话对该表的写操作将被挂起。可以看到，这是隔离级别中最严格的，但是这样做势必对性能造成影响。所以在实际的选用上，我们要根据当前具体的情况选用合适的。
+
+### DDL VS DML
+
+DML statements are SQL statements that manipulate data. DML stands for Data Manipulation Language. The SQL statements that are in the DML class are INSERT, UPDATE and DELETE. Some people also lump the SELECT statement in the DML classification.
+
+Data Definition Languages (DDL) are used to define the database structure. Any CREATE, DROP and ALTER commands are examples of DDL SQL statements.

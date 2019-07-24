@@ -92,6 +92,24 @@ categories: java
 
 #### 2. Heap Area
 
+> **Heap space in Java is used for dynamic memory allocation for Java objects and JRE classes at the runtime**. New objects are always created in heap space and the references to this objects are stored in stack memory.
+
+These objects have global access and can be accessed from anywhere in the application.
+
+This memory model is further broken into smaller parts called generations, these are:
+
+1. **Young Generation –** this is where all new objects are allocated and aged. A minor Garbage collection occurs when this fills up
+2. **Old or Tenured Generation –** this is where long surviving objects are stored. When objects are stored in the Young Generation, a threshold for the object’s age is set and when that threshold is reached, the object is moved to the old generation
+3. **Permanent Generation –** this consists of JVM metadata for the runtime classes and application methods
+
+- It’s accessed via complex memory management techniques that include Young Generation, Old or Tenured Generation, and Permanent Generation
+- If heap space is full, Java throws *java.lang.OutOfMemoryError*
+- Access to this memory is relatively slower than stack memory
+- This memory, in contrast to stack, isn’t automatically deallocated. It needs Garbage Collector to free up unused objects so as to keep the efficiency of the memory usage
+- Unlike stack, a heap isn’t threadsafe and needs to be guarded by properly synchronizing the code
+
+---
+
 - Objects and corresponding instance variables will be stored in the heap area.
 - Every array in java is object only hence arrays also will be stored in the heap area.
 
@@ -119,12 +137,28 @@ java -Xms256m -Xmx1024m HeapSpaceDemo
 
 #### 3. Stack Memory
 
-- Each and every method call performed by the thread and corresponding local variables will be stored by in the stack,
+> **Stack Memory in Java is used for static memory allocation and the execution of a thread.** It contains primitive values that are specific to a method and references to objects that are in a heap, referred from the method.
 
-  ![](https://2.bp.blogspot.com/-K03M6Uni9m4/VyRNcS9tf4I/AAAAAAAAAbQ/MYBamJ20cb08iQTbDmnNmO4DyxMR_2giACLcB/s1600/Untitled.png)
+```
+Access to this memory is in Last-In-First-Out (LIFO) order. Whenever a new method is called, a new block on top of the stack is created which contains values specific to that method, like primitive variables and references to objects.
+
+When the method finishes execution, it’s corresponding stack frame is flushed, the flow goes back to the calling method and space becomes available for the next method.
+```
+
+- It grows and shrinks as new methods are called and returned respectively
+
+- Variables inside stack exist only as long as the method that created them is running
+
+- It’s automatically allocated and deallocated when method finishes execution
+
+- If this memory is full, Java throws *java.lang.StackOverFlowError*
+
+- Access to this memory is fast when compared to heap memory
+
+- This memory is threadsafe as each thread operates in its own stack
 
 
-##### Stack Frame Structure
+---
 
 - Local Variable Array
 
@@ -145,6 +179,18 @@ java -Xms256m -Xmx1024m HeapSpaceDemo
     ![](https://3.bp.blogspot.com/-z0BIzBb7RSk/VyRoO5281LI/AAAAAAAAAb4/xU2X3082YSA7qyoelCxDj36l8luQkWjgwCLcB/s1600/Untitled.png)
 
 - Frame Data
+
+**Stack Memory vs Heap Space**
+
+| Parameter               | Stack Memory                                                 | Heap Space                                                   |
+| ----------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| Application             | Stack is used in parts, one at a time during execution of a thread | The entire application uses Heap space during runtime        |
+| Size                    | Stack has size limits depending upon OS and is usually smaller then Heap | There is no size limit on Heap                               |
+| Storage                 | Stores only primitive variables and references to objects that are created in Heap Space | All the newly created objects are stored here                |
+| Order                   | It is accessed using Last-in First-out (LIFO) memory allocation system | This memory is accessed via complex memory management techniques that include Young Generation, Old or Tenured Generation, and Permanent Generation. |
+| Life                    | Stack memory only exists as long as the current method is running | Heap space exists as long as the application runs            |
+| Efficiency              | Comparatively much faster to allocate when compared to heap  | Slower to allocate when compared to stack                    |
+| Allocation/Deallocation | This Memory is automatically allocated and deallocated when a method is called and returned respectively | Heap space is allocated when new objects are created and deallocated by Gargabe Collector when they are no longer referenced |
 
 #### 4. PC Registers(Program Counter Registers)
 

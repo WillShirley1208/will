@@ -625,3 +625,14 @@ And then we have used **super** keyword to call the constructor of the parent cl
 - When a value is consumed by calling the generator's **next** method, the Generator function executes until it encounters the **yield** keyword.
   - Each `yield` in a generator basically represents an asynchronous step in a more synchronous/sequential process — somewhat like `await` in an `async`function.
 - The function can be called as many times as desired and returns a new Generator each time, however each Generator may only be iterated once.
+
+### some method
+
+- includes
+
+  construct an array of the items, and use [`includes`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes):
+
+  ```js
+  ['a', 'b', 'c'].includes('b')
+  ```
+

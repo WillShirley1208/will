@@ -305,6 +305,8 @@ y(7); // returns 27
 
 > Scope objects form a chain called the scope chain, similar to the prototype chain used by JavaScript's object system.
 
+
+
 ## Other
 
 **curly braces**
@@ -331,3 +333,7 @@ y(7); // returns 27
 - 校验只有数字、字母和下划线
 
   `reg = /^[_0-9a-z]*$/;`
+
+### setInterval
+
+定时调度

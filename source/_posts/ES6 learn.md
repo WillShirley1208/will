@@ -86,6 +86,7 @@ There are two things to explain here.
 
 1. If you have a function with single parameter, you don’t need (). In our case **element** is the parameter.
 2. And If you have single line as the body of the function you don’t need {} and also JS will implicitly returns the value after executing the function. You don’t have to use **return** keyword.
+3. Arrow functions shine best with anything that requires `this` to be bound to the context, and not the function itself.
 
 ### For of loop
 

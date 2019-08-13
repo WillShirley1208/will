@@ -259,6 +259,12 @@ Let’s quickly recap what’s going on and the order in which the methods are c
 
 state改变->render()
 
+### componentWillReceiveProps
+
+componentWillReceiveProps在初始化render的时候不会执行，它会在Component接受到新的状态(Props)时被触发，一般用于父组件状态更新时子组件的重新渲染。
+
+在componentWillReceiveProps中想作任何变更最好都将两个状态进行比较，假如状态有异才执行下一步。不然容易造成组件的多次渲染，并且这些渲染都是没有意义的。
+
 ## Events
 
 ## Conditional Rendering

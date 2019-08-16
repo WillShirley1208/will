@@ -5,6 +5,8 @@ tags: snippet
 categories: java
 ---
 
+线程安全是编程中的术语，指某个函数、函数库在并发环境中被调用时，能够正确地处理多个线程之间的共享变量，使程序功能正确完成。即在多线程场景下，不发生有序性、原子性以及可见性问题。
+
 ### how to avoid deadlock
 
 ![](https://2.bp.blogspot.com/-63RZ-BTlAFs/VfGeHMnGdFI/AAAAAAAADuw/gwqtrVliMsM/s400/Deadlock%2Bof%2BThreads.jpg)

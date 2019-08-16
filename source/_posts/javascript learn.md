@@ -277,6 +277,8 @@ avg(2, 3, 4, 5); // 3.5
 
 #### Inner functions
 
+方法是存储在对象属性中的函数
+
 ```js
 function parentFunc() {
   var a = 1;

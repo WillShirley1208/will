@@ -53,6 +53,8 @@ Do not be afraid to break things as that is perfectly normal. Troubleshooting an
 
   `netstat -nap | grep 端口号 `或`netstat -apn | grep 端口号`
 
+  `netstat -tln | grep 8080` 查看端口8080的使用情况
+
 ## tar
 
 - c – Creates a new .tar archive file.

@@ -5,6 +5,13 @@ tags: snippet
 categories: restful
 ---
 
+- **GET**: A safe read-only method that reads a single or a list of resources.
+- **POST**: Creates a new resource.
+- **PUT**: Completely replaces the resource(s) at the given location with the new data.
+- **PATCH**: Merges the resource(s) at the given location with the new data.
+- **DELETE**: Deletes the resource(s) at a location.
+- **HEAD**: Same as GET but only returns the header and no data.
+
 **用 URL 表示要操作的资源，用不同的 HTTP 请求（GET，POST，PUT，DELETE）描述对资源的操作，通过 HTTP 的状态码来判断此次对资源操作的结果**，这就是 Restful风格。 
 
 1. GET 用来获取资源

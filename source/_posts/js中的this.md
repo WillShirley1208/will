@@ -206,7 +206,7 @@ const numbers = {
      return calculate();
    }
 };
-numbers.sum(); // => NaN 
+numbers.sum(); // => NaN
 复制代码
 ```
 
@@ -388,8 +388,8 @@ function Animal(type, legs) {
   }
 }
 const myCat = new Animal('Cat', 4);
-// The undefined has undefined legs 
-setTimeout(myCat.logInfo, 1000); 
+// The undefined has undefined legs
+setTimeout(myCat.logInfo, 1000);
 复制代码
 ```
 
@@ -452,7 +452,7 @@ setTimeout(myCat.logInfo, 1000);
 ```
 function Country(name, traveled) {
    this.name = name ? name : 'United Kingdom';
-   this.traveled = Boolean(traveled); 
+   this.traveled = Boolean(traveled);
 }
 Country.prototype.travel = function() {
   this.traveled = true;
@@ -562,7 +562,7 @@ function Vehicle(type, wheelsCount) {
   this.wheelsCount = wheelsCount;
   return this;
 }
-// 忘记使用 new 
+// 忘记使用 new
 const car = Vehicle('Car', 4);
 car.type;       // => 'Car'
 car.wheelsCount // => 4

@@ -111,3 +111,8 @@ categories: DSA
 Here’s an illustration of how the hash is mapped in an array. The index of this array is calculated through a Hash Function.
 
 ![](https://i.imgur.com/fkxWuxr.png)
+
+reference:
+
+- [图解Java常用数据结构](https://www.cnblogs.com/xdecode/p/9321848.html)
+

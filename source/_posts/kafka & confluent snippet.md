@@ -5,6 +5,8 @@ tags: snippet
 categories: kafka
 ---
 
+## port
+
 | Component                         | Default Port |
 | :-------------------------------- | :----------- |
 | Zookeeper                         | 2181         |
@@ -13,4 +15,3 @@ categories: kafka
 | REST Proxy                        | 8082         |
 | Kafka Connect REST API            | 8083         |
 | Confluent Control Center          | 9021         |
-

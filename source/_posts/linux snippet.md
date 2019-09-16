@@ -25,3 +25,26 @@ categories: linux
 - /srv/    存储系统提供的服务数据。
 - /sys/    系统设备和文件层次结构，并向用户程序提供详细的内核数据信息。
 
+## 装机问题
+
+### Wifi Not Enabled Acer Aspire 4750
+
+```shell
+~$ rfkill list all
+0: phy0: Wireless LAN
+Soft blocked: no
+Hard blocked: yes
+
+~$ sudo rmmod acer-wmi
+​```
+
+add below line at the end of the file : /etc/modprobe.d/blacklist.conf
+blacklist acer-wmi
+
+Then restart the system.
+~$ rfkill list all
+0: phy0: Wireless LAN
+Soft blocked: no
+Hard blocked: no
+```
+

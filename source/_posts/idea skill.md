@@ -22,6 +22,10 @@ categories: idea
 
   - 参照[强大的草稿功能](https://blog.csdn.net/theape/article/details/70194185)
 
+  - scratch中文乱码解决办法
+
+    需要在`C:\Users\Administrator\.IntelliJIdea2019.1\config`中修改文件`idea64.exe.vmoptions`,在后面加上设置`-Dfile.encoding=UTF-8`
+
 - **Lombok **插件
 
   提高编码效率

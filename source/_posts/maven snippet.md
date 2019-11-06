@@ -51,6 +51,13 @@ categories: maven
     ```
 
 
+
+## 创建本地引用包
+
+```sh
+mvn install:install-file -Dfile=xxx.jar -DgroupId=xx.xxx.xx -DartifactId=xx -Dversion=xx -Dpackaging=jar
+```
+
 # 相关问题
 
 - [idea中的maven模块变成灰色的可能原因](https://www.cnblogs.com/baixiaoshuai/p/8939989.html)

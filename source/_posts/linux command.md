@@ -104,3 +104,7 @@ Firewall stopped and disabled on system startup
 ### ls
 
 `ls -lh`以可读性G、M查看文件的大小
+
+### history
+
+查看历史命令，支持 grep过滤操作

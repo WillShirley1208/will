@@ -34,8 +34,24 @@ categories: fragement
 - Don't bury your failures. Let them inspire you.
 - Whether you think you can or you think you can't, you are right.
 - "An investment in knowledge pays the best interest."Benjamin Franklin
+- Be brave. Take risks. Nothing can substitute experience.
+- Learn to walk before run
+- This is love, deep in the trenches, worthy of respect, admiration and gratitude.
+- You will learn more in three days of acting than in six months of researching.
 
 ### 中文碎片
+
+- 虽千万人，吾往矣。
+- 在一个跪下去才能活着的时代，请给站着的人一点掌声！
+- 一个人一旦接触到真相，便无法再回头去相信谎言！
+- 码农不问出处，大佬不看岁数
+- 英雄不问出处，流氓不看岁数
+- 长多大屁股，穿多大裤衩
+- 没有最好的开发语言，只有最好的开发者
+- 赚臭傻逼们的钱，他们的境遇配得上那颗肮胀的内心
+- 女人，刀子嘴豆腐心，名副其实。做男人的，让着点吧
+- 能干的人，不在情绪上计较，只在做事上认真；无能的人！不在做事上认真，只在情绪上计较。
+- 把每一次练习都当成一次考试
 
 - some body
   - 谎言不攻不破

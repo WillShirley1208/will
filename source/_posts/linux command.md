@@ -108,3 +108,40 @@ Firewall stopped and disabled on system startup
 ### history
 
 查看历史命令，支持 grep过滤操作
+
+### 卸载安装的软件
+
+```shell
+浏览已安装的程序	dpkg --list
+卸载程序和所有配置文件	sudo apt-get --purge remove <programname>
+只卸载程序	sudo apt-get remove <programname>
+```
+
+### 文件权限
+
+```
+r=4，w=2，x=1
+若要rwx属性则4+2+1=7；
+若要rw-属性则4+2=6；
+若要r-x属性则4+1=7
+```
+
+###　安装deb文件出错时
+
+使用`apt-get -f -y install`修复之后，再进行安装
+
+## 光标
+
+```
+Ctrl+a：光标回到命令行首。 （a：ahead）
+Ctrl+e：光标回到命令行尾。 （e：end）
+Ctrl+b：光标向行首移动一个字符。 （b：backwards）
+Ctrl+ f：光标向行尾移动一个字符。 （f：forwards）
+Ctrl+w: 删除光标处到行首的字符。
+Ctrl+k：删除光标处到行尾的字符。
+Ctrl+u：删除整个命令行文本字符。
+Ctrl+h：向行首删除一个字符。
+Ctrl+d：向行尾删除一个字符。
+
+```
+

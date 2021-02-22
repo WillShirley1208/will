@@ -36,11 +36,24 @@ Do not be afraid to break things as that is perfectly normal. Troubleshooting an
 
 - checking remote system tcp 80 port status
   1. Telnet
+
   2. nc
+
+     ```
+      nc -zvw10 192.168.0.1 22
+     其中参数：
+     z: zero-I/O mode which is used for scanning
+     v: for verbose output
+     w10: timeout wait seconds
+     ```
+
+     
+
   3. nmap
   ```bash
   telnet myserver.com 80 
   nc -v myserver.com 80
+  nc -vn 192.168.40.146 2424
   nmap myserver.com 80 
   ```
 
@@ -97,6 +110,10 @@ Firewall stopped and disabled on system startup
 
 - 查看目录下文件大小        `du -sh`
 
+- 查看当前目录下一级子文件和子目录占用的磁盘容量: `du -lh --max-depth=1 `
+
+  
+
 ### find
 
 查找具体文件	`find / -name 文件名称`
@@ -130,6 +147,12 @@ r=4，w=2，x=1
 
 使用`apt-get -f -y install`修复之后，再进行安装
 
+```
+1.执行命令sudo dpkg　-i　XXX.deb　返回依赖关系错误提示
+2.执行sudo apt-get -f install　这条命令将自动安装需要的依赖包．
+3.再次执行命令sudo dpkg　-i　XXX.deb　安装成功
+```
+
 ## 光标
 
 ```
@@ -142,6 +165,130 @@ Ctrl+k：删除光标处到行尾的字符。
 Ctrl+u：删除整个命令行文本字符。
 Ctrl+h：向行首删除一个字符。
 Ctrl+d：向行尾删除一个字符。
-
 ```
 
+### AWK
+
+- `awk -v FS="输入分隔符" -v OFS='输出分隔符' '{if($1==$5) print $1,$5,$10} filename'`
+
+  查找filename文件（文件中列的分隔符为“输入分隔符”）中，每一行第一列和第五列相等的行，并输出第一列、第五列、第十列，切输出字段分隔符为“输出分隔符”。如果不配置FS和OFS，那么输入输出分隔符均默认为空
+
+- [exclude a column with awk](https://www.commandlinefu.com/commands/view/6872/exclude-a-column-with-awk), 比如打印除第5列的其它所有列
+
+  awk '{ $5=""; print }' file
+
+### 统计文件行数
+
+语法：wc [选项] 文件…
+
+说明：该命令统计给定文件中的字节数、字数、行数。如果没有给出文件名，则从标准输入读取。wc同时也给出所有指定文件的总统计数。字是由空格字符区分开的最大字符串。
+
+该命令各选项含义如下：
+
+　　- c 统计字节数。
+
+　　- l 统计行数。
+
+　　- w 统计字数。
+
+这些选项可以组合使用。
+
+### 权限
+
+使文件可以直接执行的命令：chmod +x filename
+
+使所有用户对目录都有读写权限：sudo chmod ugo+rw /opt
+
+### 时区
+
+[CentOS 7 时区设置](https://www.cnblogs.com/zhangeamon/p/5500744.html)
+
+### grep
+
+限定查询结果之后的前几行 `grep -m 10 <pattern> <file> `
+
+限定查询结果倒数的几行 `grep <pattern> <file> | tail -10`
+
+### 日期
+
+- 判断　day of year 	
+
+  `doy=$(date +%j)`
+
+- 制定日期减一天
+
+  `date -d"20140101 -1 days" +"%Y%m%d"`
+
+### 剪切板
+
+将剪切板中的内容输出到文件 	echo $(xsel --clipboard) >> a.txt 
+
+将文件的内容复制到剪切板 		cat a.txt | xsel --clipboard
+
+#### securtCRT
+
+```
+下载服务器文件	sz filename
+上传本地文件 rz filename
+```
+
+#### 格式化json
+
+```shell
+echo '{"kind": "Service", "apiVersion": "v1", "status": {"loadBalancer": true}}'|jq .
+```
+
+#### SED
+
+- 替换字符
+
+  ```shell
+  sed -i 's/Search_String/Replacement_String/g' Input_File
+  ```
+
+#### 转换文件编码格式
+
+首先我们来看看在 Linux 系统中如何查看文件的编码格式，可以在 vim 中使用如下命令查看：
+
+```shell
+:set fileencoding
+```
+
+输出可能是这样
+
+```
+fileencoding=utf-81
+```
+
+也可以使用 `file` 和 `identify` 命令查看。
+
+然后使用 `iconv` 进行编码格式的转换，比如将一个 utf-8 编码的文件转换成 GBK 编码，命令如下：
+
+```shell
+$ iconv -f UTF-8 -t GBK input.file -o output.file
+```
+
+- 如果遇到]iconv: 未知xxxx处的非法输入序列,一种解决方法是加入 -c选项：忽略无效字符
+
+  ```shell
+  iconv -c  -f gb2312 -t utf8 test.txt -o output.file
+  ```
+
+  
+
+  iconv -f gb18030 -t UTF-8 input.file -o output.file
+
+  gb18030
+
+
+
+### tr命令
+
+tr -- translate or delete characters 
+
+- 大小写转换
+
+  ```shell
+  cat file | tr A-Z a-z 
+  cat file | tr a-z A-Z
+  ```

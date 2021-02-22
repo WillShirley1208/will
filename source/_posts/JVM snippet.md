@@ -157,7 +157,6 @@ When the method finishes execution, it’s corresponding stack frame is flushed,
 
 - This memory is threadsafe as each thread operates in its own stack
 
-
 ---
 
 - Local Variable Array
@@ -224,3 +223,14 @@ When the method finishes execution, it’s corresponding stack frame is flushed,
 
 ![](https://3.bp.blogspot.com/-0qA9I4nPJ5s/VyXRhVVabDI/AAAAAAAAAeE/JYW4byFQCMICubzScaBIaQvEVblinG7cgCLcB/s1600/Untitled.png)
 
+
+
+
+
+### 内存大小设置
+
+- 在命令行下用  java -Xmx1200m -XX:Max Perm Size=60m -version 命令来进行测试，然后逐渐的增大XXXX的值，如果执行正常就表示指定的内存大小可用，否则会打印错误信息。
+  最后得到的虚拟机实际分配到的 
+  总内存大小=堆内存+非堆内存
+  1200m：为堆内存大小，如果不指定后者参数则有最大数限制，网上很多文章认为这就是JVM内存， -Xmx为设置最大堆内存
+  60m： 为非堆内存大小， -XX: Max PermSize实为 永久域内存，在堆内存之外，属于非堆内存部分，jdk1.5我测了好像默认为62m，即得到非堆部分默认内存）

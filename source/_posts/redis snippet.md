@@ -180,3 +180,6 @@ You can also disable UFW firewall by running the following linux command:
 ```
 # ufw disable 
 ```
+### 中文乱码
+
+在启动命令中添加 --raw即可

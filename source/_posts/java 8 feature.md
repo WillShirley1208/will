@@ -1,8 +1,8 @@
 ---
 title: java 8
 date: 2015-09-01 12:01:30
-tags: java
-categories: learn
+tags: learn
+categories: java
 ---
 
 ### forEach() method in Iterable interface

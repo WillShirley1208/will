@@ -1,5 +1,5 @@
 ---
-title: database snippet
+title: mysql snippet
 date: 2015-12-16 20:01:30
 tags: snippet
 categories: database
@@ -100,3 +100,30 @@ sql查询条件中`where 1=1,1=2和1=0`，这种写法，主要是为了拼凑�
 DML statements are SQL statements that manipulate data. DML stands for Data Manipulation Language. The SQL statements that are in the DML class are INSERT, UPDATE and DELETE. Some people also lump the SELECT statement in the DML classification.
 
 Data Definition Languages (DDL) are used to define the database structure. Any CREATE, DROP and ALTER commands are examples of DDL SQL statements.
+
+
+
+
+
+### mysqldump
+
+- 导出数据库
+
+  ```shell
+  mysqldump -h127.0.0.1 -P3306 -uroot -p database > file.sql
+  其中 -h和-P可以省略（不过mysql在docker中不可以省略）,database是数据库名称
+  ```
+
+- 导出数据表数据（根据sql的where条件）
+
+  ```shell
+  mysqldump -uroot -p database --tables tablename --where="id>8" > result.sql 
+  ```
+
+- 执行sql文件
+
+  ```shell
+  mysql> source /path/to/files/filename.sql
+  ```
+
+  

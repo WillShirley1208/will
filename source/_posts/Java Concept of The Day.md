@@ -3,7 +3,6 @@ title: Java Concept of The Day
 date: 2016-10-16 12:01:30
 tags: learn
 categories: java
-top: true
 ---
 
 - Stack is used only for execution purpose. Heap is used for storage purpose.
@@ -316,7 +315,7 @@ Important Note : These three methods must be called within synchronized method o
 
 - Collection Framework – The Deque Interface
   -  the hierarchy diagram of Deque interface：
-    ![](https://javaconceptoftheday.com/wp-content/uploads/2014/11/Deque.png)
+      ![](https://javaconceptoftheday.com/wp-content/uploads/2014/11/Deque.png)
     - The main advantage of Deque is that you can use it as both Queue (FIFO) as well as Stack (LIFO).
     - Deque is nothing but the double ended queue. That means, you can insert, retrieve and remove the elements from both the ends. 
       ![](https://javaconceptoftheday.com/wp-content/uploads/2014/11/HowDequeWorks.png)

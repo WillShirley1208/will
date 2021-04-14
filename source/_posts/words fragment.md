@@ -1,8 +1,8 @@
 ---
 title: words fragment
 date: 2018-08-28 17:01:30
-tags: words
-categories: fragement
+tags: fragment
+categories: words
 ---
 
 ### 英文碎片
@@ -53,10 +53,8 @@ categories: fragement
 - 能干的人，不在情绪上计较，只在做事上认真；无能的人！不在做事上认真，只在情绪上计较。
 - 把每一次练习都当成一次考试
 
-- some body
-  - 谎言不攻不破
-  - 没经历过事，成不了大事
-  - 母亲给了你生命，也会把生命给你
+  
+
 ### 名人碎片
 - 极深的暴力当中隐藏着极致的温柔	(北野武)
 

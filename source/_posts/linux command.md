@@ -97,6 +97,9 @@ Firewall stopped and disabled on system startup
 
 ### 查看系统配置
 
+- 查看系统
+  - `cat /etc/os-release`
+
 - 查看内核
   - `cat /proc/version`
   - `uname -a`
@@ -111,6 +114,16 @@ Firewall stopped and disabled on system startup
 - 查看目录下文件大小        `du -sh`
 
 - 查看当前目录下一级子文件和子目录占用的磁盘容量: `du -lh --max-depth=1 `
+
+  ```
+  查看当前目录下user目录的大小，并不想看其他目录以及其子目录：
+  du -sh user
+  -s表示总结的意思，即只列出一个总结的值
+  du -h --max-depth=0 user
+  --max-depth=n表示只深入到第n层目录，此处设置为0，即表示不深入到子目录。
+  ```
+
+  
 
   
 
@@ -165,6 +178,8 @@ Ctrl+k：删除光标处到行尾的字符。
 Ctrl+u：删除整个命令行文本字符。
 Ctrl+h：向行首删除一个字符。
 Ctrl+d：向行尾删除一个字符。
+
+Ctrl + xx ：在命令行尾和光标之间移动
 ```
 
 ### AWK

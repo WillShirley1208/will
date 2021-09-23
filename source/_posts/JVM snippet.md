@@ -68,13 +68,10 @@ categories: java
 
 #### 3. Class loader sub system follows delegation hierarchy algorithm
 
-![](https://4.bp.blogspot.com/-iMNVExYkMHU/VyMRlZEllzI/AAAAAAAAAZk/slOt-86cWUIR5bLdRRYo5d83O63-7iGqgCLcB/s640/JVM3.png)
-
 - **Customized class loader**
 
   Sometimes we may not satisfy with default class loader mechanism then we can go for Customized class loader. For example:
 
-  ![](https://2.bp.blogspot.com/-eaOaDxPhWh4/VyMvvGfOO9I/AAAAAAAAAZ4/3v1d3iuqieMWMp5_HfKiRLaChQFcmFIMACLcB/s640/JVM4.png)
 
 ### Various Memory Areas in JVM
 
@@ -88,7 +85,6 @@ categories: java
 
   > All threads share the same method area, so access to the method area's data structures must be designed to be thread-safe. 
 
-  ![](https://2.bp.blogspot.com/-u01Q_6NhvPk/VyM_pBkp3kI/AAAAAAAAAag/MgiZfTRTz0wxG6-6SEB02hTM7_ZE3SMHQCKgB/s1600/Untitled.png)
 
 #### 2. Heap Area
 
@@ -114,8 +110,6 @@ This memory model is further broken into smaller parts called generations, these
 - Every array in java is object only hence arrays also will be stored in the heap area.
 
 - Heap area can be access by multiple threads and hence the data stored in the heap area is not thread safe.
-
-![](https://2.bp.blogspot.com/-oLUpq44AMXM/VyNIAVtyZ3I/AAAAAAAAAa0/lCVcaictQnk0MxCpCwxbUpXyL4Fy_83gACLcB/s1600/Untitled.png)
 
 ```
 Set Maximum and Minimum heap size
@@ -165,8 +159,6 @@ When the method finishes execution, it’s corresponding stack frame is flushed,
 
   - the occupied slot 
 
-    ![](https://4.bp.blogspot.com/-ROv0VjQvVGs/VyRf_zpQSpI/AAAAAAAAAbk/4kX92SN32gwi5KW4tPgQlEYmcnADWqrwgCLcB/s1600/Untitled.png)
-
 - Operand Stack
 
   - JVM uses operand stack as work space.
@@ -174,8 +166,6 @@ When the method finishes execution, it’s corresponding stack frame is flushed,
   - last-in first-out (LIFO) 
 
   - how a Java virtual machine would add two local variables that contain ints and store the int result in a third local variable:
-
-    ![](https://3.bp.blogspot.com/-z0BIzBb7RSk/VyRoO5281LI/AAAAAAAAAb4/xU2X3082YSA7qyoelCxDj36l8luQkWjgwCLcB/s1600/Untitled.png)
 
 - Frame Data
 
@@ -199,9 +189,7 @@ When the method finishes execution, it’s corresponding stack frame is flushed,
 
 > Here also for every Thread a separate run time stack will be created. It contains all the native methods used in the application. Native method means methods written in a language other than the Java programming language. In other words, it is a stack used to execute C/C++ codes invoked through JNI (Java Native Interface). According to the language, a C stack or C++ stack is created.
 
-![](https://4.bp.blogspot.com/-4bE2RL52NtA/VyRuBlfum-I/AAAAAAAAAcM/LzCOXj-d1F81ipQsZWs17QohYqrolOo0gCLcB/s1600/Untitled.png)
 
-![](https://1.bp.blogspot.com/-YIMpPCtloyM/VyRvvs1tf0I/AAAAAAAAAcY/XkvoL2nuRS8hKUDMHR3gw0OCjaUeePrzQCLcB/s1600/Untitled.png)
 
 ### Execution Engine
 
@@ -215,13 +203,11 @@ When the method finishes execution, it’s corresponding stack frame is flushed,
 
 - **Profiler** which is the part of JIT compiler is responsible to identify Hotspot(Repeated Used Methods).
 
-![](https://1.bp.blogspot.com/-ANGvCzUbah4/VyXPF7DZ_vI/AAAAAAAAAdw/WXoC1nvYlLcPgVxyyLfSQtD6wM2fCDzMwCLcB/s1600/Untitled.png)
-
 ### Java Native Interface(JNI)
 
 > JNI is acts as a bridge (Mediator) for java method calls and corresponding native libraries. 
 
-![](https://3.bp.blogspot.com/-0qA9I4nPJ5s/VyXRhVVabDI/AAAAAAAAAeE/JYW4byFQCMICubzScaBIaQvEVblinG7cgCLcB/s1600/Untitled.png)
+
 
 
 

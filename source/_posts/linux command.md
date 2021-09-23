@@ -103,9 +103,34 @@ Firewall stopped and disabled on system startup
 - 查看内核
   - `cat /proc/version`
   - `uname -a`
+
 - 查看linux版本
   - `lsb_release -a`
   - `cat /etc/issue`
+
+- > 总核数 = 物理CPU个数 X 每颗物理CPU的核数 
+  >
+  > 总逻辑CPU数 = 物理CPU个数 X 每颗物理CPU的核数 X 超线程数
+
+  - 查看物理CPU个数
+
+    ```shell
+    cat /proc/cpuinfo| grep "physical id"| sort| uniq| wc -l
+    ```
+
+  - 查看每个物理CPU中core的个数(即核数)
+
+    ```shell
+    cat /proc/cpuinfo| grep "cpu cores"| uniq
+    ```
+
+  - 查看逻辑CPU的个数
+
+    ```shell
+    cat /proc/cpuinfo| grep "processor"| wc -l
+    ```
+
+    
 
 ### 磁盘相关
 
@@ -123,6 +148,13 @@ Firewall stopped and disabled on system startup
   --max-depth=n表示只深入到第n层目录，此处设置为0，即表示不深入到子目录。
   ```
 
+- 总结du常用命令
+
+  **du -h --max-depth=1 |grep 'G' |sort   #查看上G目录并排序**
+
+  du -h --max-depth=1 |grep [TG] |sort   #查找上G和T的目录并排序
+  du -sh --max-depth=1  #查看当前目录下所有一级子目录文件夹大小
+  
   
 
   
@@ -184,7 +216,7 @@ Ctrl + xx ：在命令行尾和光标之间移动
 
 ### AWK
 
-- `awk -v FS="输入分隔符" -v OFS='输出分隔符' '{if($1==$5) print $1,$5,$10} filename'`
+- `awk -v FS="输入分隔符" -v OFS='输出分隔符' '{if($1==$5) print $1,$5,$10}' filename`
 
   查找filename文件（文件中列的分隔符为“输入分隔符”）中，每一行第一列和第五列相等的行，并输出第一列、第五列、第十列，切输出字段分隔符为“输出分隔符”。如果不配置FS和OFS，那么输入输出分隔符均默认为空
 
@@ -291,11 +323,13 @@ $ iconv -f UTF-8 -t GBK input.file -o output.file
 
   
 
+  ```
   iconv -f gb18030 -t UTF-8 input.file -o output.file
-
+  
   gb18030
+  ```
 
-
+  
 
 ### tr命令
 
@@ -307,3 +341,49 @@ tr -- translate or delete characters
   cat file | tr A-Z a-z 
   cat file | tr a-z A-Z
   ```
+
+
+
+### top
+
+- “1”
+
+  查看所有CPU核的使用情况
+
+- “c”
+
+  查看具体进程的路径
+
+```
+   l- 开启或关闭第一部分第一行top信息显示
+
+　　t - 开启或关闭第一部分第二行Tasks和第三行 Cpu(s) 信息显示
+
+　　m - 开启或关闭第一部分第四行 Mem 和 第五行 Swap 信息显示
+
+　　N - 以 PID 的大小的顺序排列表示进程列表
+
+　　P - 以 CPU 占用率大小的顺序排列进程列表
+
+　　M - 以内存占用率大小的顺序排列进程列表
+
+　　h - 显示帮助
+
+　　n - 设置在进程列表所显示进程的数量（按完n，再输入个数）
+
+　　q - 退出 top
+
+　　s - 设置显示信息的刷新频率（由于是命令行模式，显示的过程其实是刷屏的过程）
+```
+
+
+
+### markdown
+
+- markdown文件转word文件
+
+  ```shell
+  pandoc -o output.docx -f markdown -t docx filename.md
+  ```
+
+  

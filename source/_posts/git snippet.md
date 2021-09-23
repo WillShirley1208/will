@@ -21,3 +21,74 @@ git add .
 git commit -m "update .gitignore"
 ```
 
+
+
+
+
+- 提交单个文件
+
+  ```shell
+  git commit <file> -m "your comment" 
+  git pull
+  git push
+  ```
+
+  
+
+- 提交多个文件，但是需要排除指定的文件
+
+  ```shell
+  git add -u
+  git reset -- main/dontcheckmein.txt
+  然后进行commit、pull等操作
+  ```
+
+  
+
+#### Git fork后的分支，更新最新的源代码
+
+```
+sourcer为源项目代码
+forker为fork之后的项目代码
+
+1、找一个空的目录下签出 fork 后的代码
+git clone https://github.com/sourcer/demo.git
+查看 remote 信息
+git remote -v
+
+2、然后添加源项目地址（距离定义为 source）
+git remote add source https://github.com/forker/demo.git
+查看 remote 信息，可以看到新增两条信息
+git remote -v
+
+3、fetch 源项目
+git fetch source
+
+4、合并代码
+git merge source/master
+
+5、把合并最新的代码推送到你的fork项目上
+git push origin master
+```
+
+
+
+#### 比较文件，在不同版本的区别
+
+```
+# uncommited file to HEAD
+git diff <path>
+
+# uncommited file to before last commit
+git diff HEAD^ -- <path>
+
+#last commit to before last commit
+git diff HEAD^ HEAD -- <path>
+
+#difference between HEAD and n-th grandparent
+git diff HEAD~n HEAD -- <path>
+
+#Another cool feature is whatchanged command
+git whatchanged -- <path>
+```
+

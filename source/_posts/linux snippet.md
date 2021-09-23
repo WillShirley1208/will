@@ -67,3 +67,9 @@ Hard blocked: no
 ### 操作文件名中含有“-”的文件
 
 - 使用转移字符 “--”， 比如查看文件“-abc.txt“，命令为 `vim -- -abc.txt`
+
+
+
+### KVM
+
+KVM 的全称是：Kernel-based Virtual Machine，简单一句话概括，就是一个基于 Linux 内核的虚拟化管理系统。

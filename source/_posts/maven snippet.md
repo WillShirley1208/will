@@ -54,9 +54,63 @@ categories: maven
 
 ## 创建本地引用包
 
+####  1.直接引用本地jar
+
+将jar放在项目中，例如web项目就放在 `webapp/WEB-INF/lib`下面
+然后再`pom.xml`中添加jar的依赖：
+
+```
+<dependency>
+    <groupId>myjar</groupId>
+    <artifactId>myjar</artifactId>
+    <version>1.0.0</version>
+    <scope>system</scope>
+    <systemPath>${project.basedir}/webapp/WEB-INF/lib/myjar-1.0.0.jar</systemPath>
+</dependency>
+```
+
+#### 2.安装到本地仓库
+
 ```sh
 mvn install:install-file -Dfile=xxx.jar -DgroupId=xx.xxx.xx -DartifactId=xx -Dversion=xx -Dpackaging=jar
+
+参数说明:
+-DgroupId:对应dependency的groupId
+-DartifactId:对应dependency的artifactId
+-Dversion:对应dependency中的version
+-Dpackaging:安装的类型，jar或者pom
+-Dfile:要安装的jar文件的路径
 ```
+
+
+
+
+
+## 依赖传递原则
+
+几乎所有的Jar包冲突都和依赖传递原则有关，所以我们先说Maven中的依赖传递原则：
+
+**最短路径优先原则**
+
+假如引入了2个Jar包A和B，都传递依赖了Z这个Jar包：
+
+A -> X -> Y -> Z(2.5)
+B -> X -> Z(2.0)
+
+那其实最终生效的是Z(2.0)这个版本。因为他的路径更加短。如果我本地引用了Z(3.0)的包，那生效的就是3.0的版本。一样的道理。
+
+**最先声明优先原则**
+
+如果路径长短一样，优先选最先声明的那个。
+
+A -> Z(3.0)
+B -> Z(2.5)
+
+这里A最先声明，所以传递过来的Z选择用3.0版本的。
+
+
+
+
 
 # 相关问题
 

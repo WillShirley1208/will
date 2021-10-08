@@ -35,10 +35,26 @@ categories: java
 
 
 
+#### System.gc常识
+
+- system.gc其实是做一次full gc
+- system.gc会暂停整个进程
+- system.gc一般情况下我们要禁掉，使用-XX:+DisableExplicitGC
+- system.gc在cms gc下我们通过-XX:+ExplicitGCInvokesConcurrent来做一次稍微高效点的GC(效果比Full GC要好些)
+- system.gc最常见的场景是RMI/NIO下的堆外内存分配等
+
+
+
+
+
 # jvm常用参数的设置和含义
 
 **1.设置堆的最大和最小值**
  -Xmx20M(最大值) ,-Xms20M(最小值)。
+
+```
+-Xms和-Xmx实际上是 -XX:InitialHeapSize 和-XX:MaxHeapSize 的缩写
+```
 
 **2.设置栈的大小**
  -Xss128k： 设置每个线程的堆栈大小。JDK5.0以后每个线程堆栈大小为1M，以前每个线程堆栈大小为256K。更具应用的线程所需内存大小进行调整。在相同物理内 存下，减小这个值能生成更多的线程。但是操作系统对一个进程内的线程数还是有限制的，不能无限生成，经验值在3000~5000左右。

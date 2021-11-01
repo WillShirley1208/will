@@ -92,3 +92,20 @@ git diff HEAD~n HEAD -- <path>
 git whatchanged -- <path>
 ```
 
+
+
+
+
+#### 回滚远程分支
+
+1、本地代码回滚到上一版本
+
+> git reset --hard HEAD~1
+
+（或者回滚到指定版本commitId）
+
+> git reset --hard commitId
+
+2、加入-f参数，强制提交，远程端将强制跟新到reset版本
+
+>  git push -f

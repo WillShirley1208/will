@@ -105,14 +105,16 @@ sudo -u postgres psql
    }
    ```
 
-   
 
 
 
+#### 配合electron-ssr进行终端外网访问
 
+在`/etc/profile`中添加配置
 
----
+```
+export http_proxy="http://127.0.0.1:12333"
+export https_proxy="http://127.0.0.1:12333"
+```
 
-网络自动配置
-
-http://127.0.0.1:2333/proxy.pac
+然后`source /etc/profile`即可

@@ -109,3 +109,17 @@ git whatchanged -- <path>
 2、加入-f参数，强制提交，远程端将强制跟新到reset版本
 
 >  git push -f
+
+
+
+
+
+#### 拉取远程分支
+
+First, fetch the remote branches:
+
+**git fetch origin**
+
+Next, checkout the branch you want. In this case, the branch we want is called “branchxyz”.
+
+**git checkout -b branchxyz origin/branchxyz**

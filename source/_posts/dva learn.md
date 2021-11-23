@@ -15,7 +15,7 @@ dva = React-Router + Redux + Redux-saga
 
 
 
-![](https://zos.alipayobjects.com/rmsportal/PPrerEAKbIoDZYr.png)
+![](./img/PPrerEAKbIoDZYr.png)
 
 
 
@@ -61,7 +61,7 @@ Subscriptions 是一种从 **源** 获取数据的方法，它来自于 elm。
 
 ### 数据流图
 
-![](https://zos.alipayobjects.com/rmsportal/hUFIivoOFjVmwNXjjfPE.png)
+![](./img/hUFIivoOFjVmwNXjjfPE.png)
 
 - State 是储存数据的地方，收到 Action 以后，会更新数据。
 
@@ -97,7 +97,7 @@ Subscriptions 是一种从 **源** 获取数据的方法，它来自于 elm。
 
 ### 数据流图二
 
-![](https://zos.alipayobjects.com/rmsportal/pHTYrKJxQHPyJGAYOzMu.png)
+![](./img/pHTYrKJxQHPyJGAYOzMu.png)
 
 ### Model 对象的属性
 

@@ -179,7 +179,11 @@ Firewall stopped and disabled on system startup
 
 ### find
 
-查找具体文件	`find / -name 文件名称`
+查找具体文件	
+
+```
+find / -name 文件名称
+```
 
 ### ls
 
@@ -402,6 +406,22 @@ tr -- translate or delete characters
 
   ```shell
   pandoc -o output.docx -f markdown -t docx filename.md
+  ```
+
+  
+
+### 网络代理
+
+- 查看本地网络代理
+
+  ```
+  export | grep -i proxy
+  ```
+
+- 关闭代理
+
+  ```shell
+  unset http_proxy 
   ```
 
   

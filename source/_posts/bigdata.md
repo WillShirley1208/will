@@ -15,11 +15,11 @@ categories: bigdata
 
 ## Hadoop EcoSystem and Components
 
-![](https://www.guru99.com/images/Big_Data/061114_0803_LearnHadoop4.png)
+![](./img/061114_0803_LearnHadoop4.png)
 
 ### Hadoop Architecture
 
-![](https://www.guru99.com/images/1/hadoop-architecture.png)
+![](./img/hadoop-architecture.png)
 
 #### HDFS Architecture
 
@@ -27,19 +27,19 @@ HDFS cluster primarily consists of a **NameNode** that manages the file system *
 
 - Read Operation In HDFS
 
-  ![](https://www.guru99.com/images/Big_Data/061114_0923_LearnHDFSAB1.png)
+  ![](./img/061114_0923_LearnHDFSAB1.png)
 
 - Write Operation In HDFS
 
-  ![](https://www.guru99.com/images/Big_Data/061114_0923_LearnHDFSAB2.png)
+  ![](./img/061114_0923_LearnHDFSAB2.png)
 
 #### MapReduce
 
 The whole process goes through four phases of execution namely, splitting, mapping, shuffling, and reducing.
 
-![](https://www.guru99.com/images/Big_Data/061114_0930_Introductio1.png)
+![](./img/061114_0930_Introductio1.png)
 
 1. **Jobtracker**: Acts like a **master** (responsible for complete execution of submitted job)
 2. **Multiple Task Trackers**: Acts like **slaves,** each of them performing the job
 
-![](https://www.guru99.com/images/Big_Data/061114_0930_Introductio2.png)
+![](./img/061114_0930_Introductio2.png)

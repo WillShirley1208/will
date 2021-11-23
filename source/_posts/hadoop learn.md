@@ -5,9 +5,9 @@ tags: blog
 categories: java
 ---
 
-![](https://d2h0cx97tjks2p.cloudfront.net/blogs/wp-content/uploads/sites/2/2018/08/Hadoop-Multi-node-Cluster.png)
+![](./img/Hadoop-Multi-node-Cluster.png)
 
-![](https://hadoop.apache.org/docs/r1.2.1/images/hdfsarchitecture.gif)
+![](./img/hdfsarchitecture.gif)
 
 ### NameNode
 

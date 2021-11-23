@@ -121,3 +121,60 @@ MAP KEYS TERMINATED BY '\u0003'
 （2）COLLECTION ITEMS，多个集合之间的分隔符是'\u0002'，例如（kv1，kv2，kv3）这种多个键值对之间的分隔符就是'\u0002'
 
 （3）MAP KEYS，单个map的k和v之间的分隔符是\\u0003\，例如kv1里，k \u0003 v
+
+
+
+
+
+### 查看orc文件
+
+```shell
+hive --orcfiledump <hdfs-location-of-orc-file>
+```
+
+
+
+### 修改字段类型
+
+```sql
+ALTER TABLE <table-name> CHANGE <old-col-name> <new-col-name> <data-type>;
+ALTER TABLE employee CHANGE e_id e_id INT;
+```
+
+
+
+### 建表
+
+- Create ORC table
+
+- Login to the web console
+
+- Launch Hive by typing `hive` in the web console. Run the below commands in Hive.
+
+- Use your database by using the below command. `${env:USER}` gets replaced by your username automatically:
+
+  ```
+  use ${env:USER};
+  ```
+
+- To create an ORC file format:
+
+  ```
+  CREATE TABLE orc_table (
+      first_name STRING, 
+      last_name STRING
+   ) 
+   STORED AS ORC;
+  ```
+
+- To insert values in the table:
+
+  ```
+  INSERT INTO orc_table VALUES ('John','Gill');
+  ```
+
+- To retrieve all the values in the table:
+
+  ```
+  SELECT * FROM orc_table;
+  ```

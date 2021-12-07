@@ -50,3 +50,15 @@ psql postgres	# login command
 \c some_database	# choose database
 \i \path\TO\file_name.sql	# execute sql
 ```
+
+
+
+
+
+### 连接指定schema
+
+- 如果不指定schema的话，会默认访问public的schema
+
+- 指定schema
+
+  `jdbc:postgresql://localhost:5432/mydatabase?currentSchema=myschema`

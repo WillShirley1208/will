@@ -7,7 +7,7 @@ categories: java
 
 ## 堆内与堆外
 
-#### 堆
+### 堆
 
 - 常说的堆，指的是堆内内存，由JVM「托管」的内存区域。对应的英文是：on-heap Memory。所有的对象都是放在堆中。
 
@@ -16,7 +16,7 @@ categories: java
 - - 由GC管理，一旦堆大小大于1GB会出现比较明显的暂停。
   - 对象存储到GC中无需进行序列化、反序列化的。
 
-#### 堆外
+### 堆外
 
 - 堆外就是JVM开辟出来的，堆以外的一块「非托管」内存区域。对应的英文是：off-heap Memory。堆外内存也是 JVM 进程开辟的一块内存空间。只不过，GC不会「光顾」这里。
 
@@ -33,9 +33,13 @@ categories: java
 
 因为堆外内存由此特点，很多高性能的应用组件基于off-heap来提高性能。
 
+#### 堆外内存常配合使用System GC
+
+> 堆外内存主要针对java.nio.DirectByteBuffer，这些对象的创建过程会通过Unsafe接口直接通过os::malloc来分配内存，然后将内存的起始地址和大小存到java.nio.DirectByteBuffer对象里，这样就可以直接操作这些内存。这些内存只有在DirectByteBuffer回收掉之后才有机会被回收，因此如果这些对象大部分都移到了old，但是一直没有触发CMS GC或者Full GC，那么悲剧将会发生，因为你的物理内存被他们耗尽了，因此为了避免这种悲剧的发生，通过-XX:MaxDirectMemorySize来指定最大的堆外内存大小，当使用达到了阈值的时候将调用System.gc来做一次full gc，以此来回收掉没有被使用的堆外内存。
 
 
-#### System.gc常识
+
+### System.gc常识
 
 - system.gc其实是做一次full gc
 - system.gc会暂停整个进程
@@ -152,3 +156,42 @@ categories: java
 | -XX:LoopUnrollLimit=                            |                               | Unroll loop bodies with server compiler intermediate representation node count less than this value. The limit used by the server compiler is a function of this value, not the actual value. The default value varies with the platform on which the JVM is running. |
 | -XX:InitialTenuringThreshold=7                  |                               | 设置初始的对象在新生代中最大存活次数                         |
 | -XX:MaxTenuringThreshold=                       |                               | 设置对象在新生代中最大的存活次数,最大值15,并行回收机制默认为15,CMS默认为4 |
+
+
+
+### 最佳实践
+
+> 查看服务设置的jvm
+>
+> jps -v
+>
+> 查看服务jvm的默认参数
+>
+> jinfo -flags PID
+
+- 参考kafka服务的运行参数
+
+  ```shell
+  -server
+  -XX:+UseG1GC
+  -XX:MaxGCPauseMillis=20
+  -XX:InitiatingHeapOccupancyPercent=35
+  -XX:+ExplicitGCInvokesConcurrent
+  ```
+
+  **-XX:MaxGCPauseMillis=200**
+
+  为所需的最长暂停时间设置目标值。默认值是 200 毫秒。这个数值是一个软目标，也就是说JVM会尽一切能力满足这个暂停要求，但是不能保证每次暂停一定在这个要求之内。
+
+  根据测试发现，如果我们将这个值设定成50毫秒或者更低的话，JVM为了达到这个要求会将年轻代内存空间设定的非常小，从而导致youngGC的频率大大增高。所以我们并不设定这个参数。
+
+  **-XX:InitiatingHeapOccupancyPercent=45**
+
+  设置触发标记周期的 Java 堆占用率阈值。默认占用率是整个 Java 堆的 45%。就是说当使用内存占到堆总大小的45%的时候，G1将开始**并发标记阶段。**为混合GC做准备，这个数值在测试的时候我想让混合GC晚一些处理所以设定成了70%，经过观察发现如果这个数值设定过大会导致JVM无法启动并发标记，直接进行FullGC处理。
+
+  G1的FullGC是单线程，一个22G的对GC完成需要8S的时间，所以这个值在调优的时候写的45%
+
+
+
+> 之前查看ignite，12秒回收了71G
+

@@ -5,63 +5,11 @@ tags: snippet
 categories: ignite
 ---
 
-## ignite-2.7.0
+### ignite-2.7.0
 
 -  编译ignite-core模块的时候需要使用jdk8，因为会报jdk.internal.misc.SharedSecrets找不到的错误
 
   原因：估计是在GridUnsafe.java中的miscPackage方法以及javaNioAccessObject的`Class<?> cls = Class.forName(pkgName + ".misc.SharedSecrets");`出现的问题，jdk11中SharedSecrets出现的位置是`jdk.internal.access.SharedSecrets`
-
-
-
-### 问题
-
-#### 1. BinaryObjectException: Conflicting enum values
-
-- 原因
-
-  ```
-  存入ignite的数据格式
-  key: String , value: Map<Enum, BigDecimal>
-  Enum类型包含
-  {
-    A,
-    B,
-    C
-  }
-  
-  在之后由于业务变更，需要新增新的enum项目，并添加D在A与B之间
-  {
-      A,
-      D,
-      B,
-      C
-  }
-  ```
-
-- 分析
-
-  ```
-  由于在数据存入ignite之后，ignite会保存数据相关的schema信息,此时在enum项目之间修改item，会打乱之前的index
-  ```
-
-- 解决 
-
-  ```
-  方法一：
-  更改enum类的名称，不再使用原有的schema信息
-  方法二：
-  enum类新增项目时，需要在最后面添加，避免打乱已有的schema索引
-  方法三（未验证）：
-  删除 $IGNITE_HOME/work/binary_meta/Nodex里面的文件
-  ```
-
-- 官方说明
-
-  > - You cannot change the types of existing fields.
-  > - You cannot change the order of enum values or add new constants at the beginning or in the middle of the list of enum’s values. You can add new constants to the end of the list though.
-
-
-
 
 
 ### 持久化
@@ -73,6 +21,48 @@ categories: ignite
 
 
 
-#### ZooKeeper Discovery
+### ZooKeeper Discovery
 
 ZooKeeper Discovery是为需要保持易扩展性和线性性能的大规模部署而设计的。然而，同时使用Ignite和ZooKeeper需要配置和管理两个分布式系统，这可能是一个挑战。因此，我们建议你只有在计划扩展到100个或1000个节点时才使用ZooKeeper Discovery。否则，最好使用TCP/IP发现。
+
+
+
+----
+
+
+### 目录结构
+
+- marshaller
+
+  >  $IGNITE_HOME/work/db/marshaller	类classpath信息
+
+- binary_meta
+
+  > $IGNITE_HOME/work/db/binary_meta    类的元素信息
+
+
+
+**下面三个配置项是在配置文件中进行配置**
+
+- storagePath
+
+  > $RDX_HOME/data/ignite/persistent	持久化文件
+
+- walPath
+
+  > $RDX_HOME/data/ignite/wal_store	持久化数据的元数据信息（类名、元素名、位置）
+
+  - walPath和storagePath存储的数据的关联
+
+- walArchivePath
+
+  > $RDX_HOME/data/ignite/wal_archive
+
+  - 和walPath存储的数据结构一样，二者的关系
+
+
+
+---
+
+
+

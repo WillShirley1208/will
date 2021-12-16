@@ -57,11 +57,22 @@ OPTIONS说明：
   docker run -it -p 8899:8899 --name test $REPOSITORY:$TAG
   
   -it：表示交互式终端的容器，非启动后立刻结束的容器
-  -p 8899:8899 ：前面为docker内部的端口，后面后映射到的外面端口
   --name test：给容器取个名字，嫌麻烦可以省去
   $REPOSITORY:$TAG：容器是用哪个镜像启动的（一个容器，必须依赖一个镜像启动）
   -v 指定了宿主机上的目录用来作为docker仓库的存储位置，如果不指定的话，registry镜像重启之后会丢失已经存储在本地仓库的镜像文件
+  -p hostPort:containerPort
+  -v hostVolume:containerVolume 这两个地址如果不存在都会创建，一旦容器运行，两部分会完全同步
   ```
+
+  #### volume
+
+> Docker Image可以理解成多个只读文件叠加而成，因此Docker Image是只读的。
+>
+> 当我们将其运行起来，就相当于在只读的Image外包裹了一层读写层变成了容器。
+>
+> 当你删除容器之后，使用这个镜像重新创建一个容器，此时的镜像的只读层还和原来的一样，但是你在读写层的修改全部都会丢失（没有使用原有volume的前提下）。
+>
+>  docker使用volume实现数据的持久化，不仅如此volume还能帮助容器和容器之间，容器和host之间共享数据。
 
 - 进入运行的容器
 
@@ -105,7 +116,7 @@ docker build -t $repository -f $path/dockerfile .
 
 
 
-### 操作容器
+### 容器
 
 ```shell
 查看正在运行
@@ -134,6 +145,11 @@ docker restart $container_id
 docker logs $container_id
 ```
 
+
+
+
+>
+>
 
 ### Docker File vs Docker Compose
 

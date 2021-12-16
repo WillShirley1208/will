@@ -193,6 +193,36 @@ find / -name 文件名称
 
 查看历史命令，支持 grep过滤操作
 
+### file
+
+**1.** To delete all files in a directory except filename, type the command below:
+
+```shell
+rm -v !("filename")
+```
+
+**2.** To delete all files with the exception of **filename1** and **filename2**:
+
+```shell
+rm -v !("filename1"|"filename2") 
+```
+
+**3.** The example below shows how to remove all files other than all `.zip` files interactively:
+
+```shell
+rm -i !(*.zip)
+```
+
+**4.** Next, you can delete all files in a directory apart from all `.zip` and `.odt` files as follows, while displaying what is being done:
+
+```shell
+rm -v !(*.zip|*.odt)
+```
+
+
+
+
+
 ### 卸载安装的软件
 
 ```shell

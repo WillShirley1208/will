@@ -21,7 +21,7 @@ create [-s] [-e] path data #其中-s 为有序节点，-e临时节点。不写 -
 get path
 ```
 
-![](/data/知识点/img/zkInfo.png)
+![](./img/zkInfo.png)
 
 - 查看节点状态
 
@@ -39,7 +39,7 @@ set path data [dataVersion]
 
 可以用set命令修改节点数据。也可以基于版本号进行修改，当传入的dataVersion与当前版本号不一致时，zookeeper会拒绝修改。
 
-![](/data/知识点/img/修改节点.png)
+![](./img/修改节点.png)
 
 
 

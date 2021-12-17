@@ -5,6 +5,79 @@ tags: snippet
 categories: docker
 ---
 
+### 容器
+
+```shell
+查看正在运行
+docker ps
+查看所有
+docker ps -a
+启动
+docker start 容器名或容器id
+终止
+docker stop [NAME]/[CONTAINER ID]:将容器退出。
+docker kill [NAME]/[CONTAINER ID]:强制停止一个容器。
+
+查看容器端口
+docker port 容器名或容器id
+
+
+删除
+docker rm -f 容器id
+导出
+docker export 容器id > xxx.tar
+导入
+docker import - test/xxx:v1
+重启
+docker restart $container_id
+日志
+docker logs $container_id
+```
+
+
+### 查看container现在工作网络模式
+
+- 列出docker的所有网络模式
+
+  ```shell
+  docker network ls
+  ```
+
+- 针对bridge和host分别查找有哪些container在其中
+
+  ```shell
+  docker network inspect bridge
+  docker network inspect host
+  ```
+
+- 直接查看container的信息，找到network段查看。或者用grep筛选出network。
+
+  ```shell
+  docker inspect 容器名/容器ID
+  docker inspect 容器名/容器ID | grep -i “network” # 其中grep的“-i”表示不区分大小写。
+  ```
+
+
+
+#### Exit Codes
+
+Common exit codes associated with docker containers are:
+
+- **Exit Code 0**: Absence of an attached foreground process
+- **Exit Code 1**: Indicates failure due to application error
+- **Exit Code 137**: Indicates failure as container received SIGKILL (Manual intervention or ‘oom-killer’ [OUT-OF-MEMORY])
+- **Exit Code 139**: Indicates failure as container received SIGSEGV
+- **Exit Code 143**: Indicates failure as container received SIGTERM
+
+- **Exit Code 126**: Permission problem or command is not executable
+- **Exit Code 127**: Possible typos in shell script with unrecognizable characters
+
+
+
+
+
+
+
 ### mysql
 
 - 密码123456
@@ -156,8 +229,6 @@ version: "3.7"                                                                  
 ```
 
 > 使用 docker-compose --verbose up redis启动，可查看启动详情
-
-
 
 
 

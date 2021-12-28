@@ -5,4 +5,10 @@ tags: vim
 categories: linux
 ---
 
-![vimium](https://i.imgur.com/8ouxjED.png)
+- format json
+
+  ```shell
+  :%!jq .
+  ```
+
+  

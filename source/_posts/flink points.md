@@ -23,7 +23,7 @@ categories: flink
 
 > 实现了 Watermark 的机制，能够支持基于事件的时间的处理，或者说基于系统时间的处理，能够容忍数据的延时、容忍数据的迟到、容忍乱序的数据。
 
-![](./img/flink/flink_time.png)
+![](/images/flink/flink_time.png)
 
 - Event Time：是事件创建的时间。它通常由事件中的时间戳描述，例如采集的日志数据中，每一条日志都会记录自己的生成时间，Flink 通过时间戳分配器访问事件时间戳。
 
@@ -45,7 +45,7 @@ categories: flink
 
 > Flink 提供了开箱即用的各种窗口，比如滑动窗口、滚动窗口、会话窗口以及非常灵活的自定义的窗口。
 
-![](./img/flink/flink_window.png)
+![](/images/flink/flink_window.png)
 
 - 滚动窗口（Tumbling Window）
 
@@ -57,7 +57,7 @@ categories: flink
 
   例如：如果你指定了一个 5 分钟大小的滚动窗口，窗口的创建如下图所示：
 
-  ![](./img/flink/flink_window_tumbling.png)
+  ![](/images/flink/flink_window_tumbling.png)
 
   
 
@@ -73,7 +73,7 @@ categories: flink
 
   例如，你有 10 分钟的窗口和 5 分钟的滑动，那么每个窗口中 5 分钟的窗口里包含着上个 10 分钟产生的数据，如下图所示：
 
-  ![](./img/flink/flink_window_sliding.png)
+  ![](/images/flink/flink_window_sliding.png)
 
 - 会话窗口（Session Window）
 
@@ -83,7 +83,7 @@ categories: flink
 
   session 窗口分配器通过 session 活动来对元素进行分组，session 窗口跟滚动窗口和滑动窗口相比，不会有重叠和固定的开始时间和结束时间的情况，相反，当它在一个固定的时间周期内不再收到元素，即非活动间隔产生，那个这个窗口就会关闭。一个 session 窗口通过一个 session 间隔来配置，这个 session 间隔定义了非活跃周期的长度，当这个非活跃周期产生，那么当前的 session 将关闭并且后续的元素将被分配到新的 session 窗口中去。
 
-​		![](./img/flink/flink_window_session.png)
+​		![](/images/flink/flink_window_session.png)
 
 
 
@@ -95,7 +95,7 @@ categories: flink
 
 flink API
 
-![](./img/flink/flink_runtime.png)
+![](/images/flink/flink_runtime.png)
 
 
 

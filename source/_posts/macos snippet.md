@@ -26,3 +26,11 @@ installer -pkg myapp.pkg -target CurrentUserHomeDirectory
 ```
 
 > will install the package in ~/Applications.
+
+
+
+
+
+### mysql
+
+-  [Location of my.cnf file on macOS](https://stackoverflow.com/questions/10757169/location-of-my-cnf-file-on-macos)

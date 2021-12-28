@@ -1,3 +1,16 @@
+> Hive-site里面的配置！！！
+
+### get started
+
+```shell
+nohup hive --service metastore &
+nohup hive --service hiveserver2 &
+```
+
+
+
+
+
 ### beeline
 
 1）metadata ：hive元数据，即hive定义的表名，字段名，类型，分区，用户这些数据。一般存储关系型书库mysql中，在测试阶段也可以用hive内置Derby数据库。
@@ -178,3 +191,16 @@ ALTER TABLE employee CHANGE e_id e_id INT;
   ```
   SELECT * FROM orc_table;
   ```
+
+
+
+
+
+### 其它
+
+查看hive进程
+
+```shell
+jps -ml  | grep Hive
+```
+

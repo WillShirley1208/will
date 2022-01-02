@@ -11,4 +11,10 @@ categories: linux
   :%!jq .
   ```
 
+- formate xml
+
+  ```
+  :%!xmllint --format %
+  ```
+
   

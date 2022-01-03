@@ -1,3 +1,10 @@
+---
+title: hive snippet
+date: 2022-01-04 00:10:30
+tags: snippet
+categories: hive
+---
+
 > Hive-site里面的配置！！！
 
 ### get started
@@ -6,10 +13,6 @@
 nohup hive --service metastore &
 nohup hive --service hiveserver2 &
 ```
-
-
-
-
 
 ### beeline
 
@@ -40,10 +43,6 @@ hiveserver2 会启动一个hive服务端默认端口为：10000，可以通过be
 !connect jdbc:hive2://localhost:10000/default root 123
 ```
 
-
-
-
-
 # hive中几种分割符
 
 **分隔符**
@@ -61,15 +60,13 @@ hiveserver2 会启动一个hive服务端默认端口为：10000，可以通过be
 
 **分隔符在HIVE中的用途**
 
-| 分隔符     | 描述                                                         |
-| ---------- | ------------------------------------------------------------ |
-| \n         | 对于文本文件来说，每行都是一条记录，因此换行符可以分隔记录   |
-| ^A(Ctrl+A) | 用于分隔字段(列)。在CREATE TABLE语句中可以使用八进制编码\001表示 |
+| 分隔符        | 描述                                                                     |
+| ---------- | ---------------------------------------------------------------------- |
+| \n         | 对于文本文件来说，每行都是一条记录，因此换行符可以分隔记录                                          |
+| ^A(Ctrl+A) | 用于分隔字段(列)。在CREATE TABLE语句中可以使用八进制编码\001表示                              |
 | ^B(Ctrl+B) | 用于分隔ARRAY或者STRUCT中的元素，或用于MAP中键-值对之间的分隔。在CREATE TABLE语句中可以使用八进制编码\002表示 |
-| ^C(Ctrl+C) | 用于MAP中键和值之间的分隔。在CREATE TABLE语句中可以使用八进制编码\003表示 |
+| ^C(Ctrl+C) | 用于MAP中键和值之间的分隔。在CREATE TABLE语句中可以使用八进制编码\003表示                         |
 
->  
->
 > Hive 中没有定义专门的数据格式，数据格式可以由用户指定，用户定义数据格式需要指定三个属性：列分隔符（通常为空格、”\t”、”\x001″）、行分隔符（”\n”）以及读取文件数据的方法。由于在加载数据的过程中，不需要从用户数据格式到 Hive 定义的数据格式的转换，因此，Hive 在加载的过程中不会对数据本身进行任何修改，而只是将数据内容复制或者移动到相应的 HDFS 目录中。
 
 我们可以在create表格的时候，选择如下，表格加载input的文件的时候就会按照下面格式匹配
@@ -83,7 +80,7 @@ lines terminated by '\n'
 stored as textfile;
 ```
 
- ### 如何查看和修改分割符，特殊符号
+### 如何查看和修改分割符，特殊符号
 
 1. 查看隐藏字符的方法
 
@@ -135,17 +132,11 @@ MAP KEYS TERMINATED BY '\u0003'
 
 （3）MAP KEYS，单个map的k和v之间的分隔符是\\u0003\，例如kv1里，k \u0003 v
 
-
-
-
-
 ### 查看orc文件
 
 ```shell
 hive --orcfiledump <hdfs-location-of-orc-file>
 ```
-
-
 
 ### 修改字段类型
 
@@ -153,8 +144,6 @@ hive --orcfiledump <hdfs-location-of-orc-file>
 ALTER TABLE <table-name> CHANGE <old-col-name> <new-col-name> <data-type>;
 ALTER TABLE employee CHANGE e_id e_id INT;
 ```
-
-
 
 ### 建表
 
@@ -165,13 +154,13 @@ ALTER TABLE employee CHANGE e_id e_id INT;
 - Launch Hive by typing `hive` in the web console. Run the below commands in Hive.
 
 - Use your database by using the below command. `${env:USER}` gets replaced by your username automatically:
-
+  
   ```
   use ${env:USER};
   ```
 
 - To create an ORC file format:
-
+  
   ```
   CREATE TABLE orc_table (
       first_name STRING, 
@@ -181,20 +170,16 @@ ALTER TABLE employee CHANGE e_id e_id INT;
   ```
 
 - To insert values in the table:
-
+  
   ```
   INSERT INTO orc_table VALUES ('John','Gill');
   ```
 
 - To retrieve all the values in the table:
-
+  
   ```
   SELECT * FROM orc_table;
   ```
-
-
-
-
 
 ### 其它
 
@@ -203,4 +188,3 @@ ALTER TABLE employee CHANGE e_id e_id INT;
 ```shell
 jps -ml  | grep Hive
 ```
-

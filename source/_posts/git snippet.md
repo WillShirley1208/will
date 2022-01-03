@@ -5,10 +5,10 @@ tags: skill
 categories: git
 ---
 
-#### Git修改.gitignore不生效 
+#### Git修改.gitignore不生效
 
 - 在git中，如果想忽略某个文件，不让这个文件提交到版本库中，可以修改根目录中的.gitignore文件
-
+  
   但有时候把某些目录或者文件加入忽略规则，发现并未生效
 
 - 未生效原因：.gitignore只能忽略那些原来没有被追踪(track)的文件，如果某些文件已经被纳入了版本管理中，则修改.gitignore是无效的
@@ -21,29 +21,23 @@ git add .
 git commit -m "update .gitignore"
 ```
 
-
-
 #### 文件提交
 
 - 提交单个文件
-
+  
   ```shell
   git commit <file> -m "your comment" 
   git pull
   git push
   ```
 
-  
-
 - 提交多个文件，但是需要排除指定的文件
-
+  
   ```shell
   git add -u
   git reset -- main/dontcheckmein.txt
   然后进行commit、pull等操作
   ```
-
-  
 
 #### Git fork后的分支，更新最新的源代码
 
@@ -71,8 +65,6 @@ git merge source/master
 git push origin master
 ```
 
-
-
 #### 比较文件，在不同版本的区别
 
 ```
@@ -92,10 +84,6 @@ git diff HEAD~n HEAD -- <path>
 git whatchanged -- <path>
 ```
 
-
-
-
-
 #### 回滚远程分支
 
 1、本地代码回滚到上一版本
@@ -110,10 +98,6 @@ git whatchanged -- <path>
 
 >  git push -f
 
-
-
-
-
 #### 拉取远程分支
 
 First, fetch the remote branches:
@@ -124,31 +108,27 @@ Next, checkout the branch you want. In this case, the branch we want is called �
 
 **git checkout -b branchxyz origin/branchxyz**
 
-
-
 #### 新建分支
 
 - To create a new branch from a branch you do NOT have checked out:
-
+  
   `git branch new_branch from_branch`
 
 - To create a new branch from the branch you DO have checked out:
-
+  
   `git branch new_branch`
 
 - To create *and check out* a new branch from the branch you DO have checked out:
-
+  
   `git checkout -b new_branch`
 
 - To create *and check out* a new branch from a branch you do NOT have checked out:
-
+  
   `git checkout -b new_branch from_branch`
 
 - To rename a branch
-
+  
   `git branch -m old_name new_name`
-
-
 
 #### 删除分支
 
@@ -162,3 +142,18 @@ git push origin --delete remoteBranchName
 //If someone else has already deleted the branch, you just do below
 git fetch -p
 ```
+
+
+
+#### 合并策略
+
+warning: 不建议在没有为偏离分支指定合并策略时执行pull操作。  
+您可以在执行下一次pull操作之前执行下面一条命令来抑制本消息：
+
+git config pull.rebase false # 合并（缺省策略）  
+git config pull.rebase true # 变基  
+git config pull.ff only # 仅快进
+
+您可以将 "git config" 替换为 "git config --global" 以便为所有仓库设置  
+缺省的配置项。您也可以在每次执行 pull 命令时添加 --rebase、--no-rebase，  
+或者 --ff-only 参数覆盖缺省设置。

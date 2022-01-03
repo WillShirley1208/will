@@ -1,4 +1,5 @@
 ---
+
 title: linux command
 date: 2015-10-16 12:01:30
 tags: command
@@ -8,10 +9,13 @@ categories: linux
 [Bash Scripting Tutorial for Beginners](https://linuxconfig.org/bash-scripting-tutorial-for-beginners)
 
 ### Bash Shell Scripting Definition
+
 - Bash:Bourne-Again SHell
   Bash is a command language interpreter. 
-## conclusion
-Do not be afraid to break things as that is perfectly normal. Troubleshooting and fixing code is perhaps the best booster for you to enhance your understanding of bash scripting and to improve your ability.
+  
+  ## conclusion
+  
+  Do not be afraid to break things as that is perfectly normal. Troubleshooting and fixing code is perhaps the best booster for you to enhance your understanding of bash scripting and to improve your ability.
 
 [Bash scripting Tutorial](https://linuxconfig.org/bash-scripting-tutorial#h24-stdout-to-screen)
 
@@ -24,10 +28,12 @@ Do not be afraid to break things as that is perfectly normal. Troubleshooting an
 - 删除指定会话                screen -S xxx -X quit
 - 回到终端                        Ctrl-a d
 
-## PORT 
-- Check the listening ports
+## PORT
 
+- Check the listening ports
+  
   Run any one of the following command:
+  
   ```bash
   sudo lsof -i -P -n | grep LISTEN 
   sudo netstat -tulpn | grep LISTEN
@@ -35,10 +41,11 @@ Do not be afraid to break things as that is perfectly normal. Troubleshooting an
   ```
 
 - checking remote system tcp 80 port status
+  
   1. Telnet
-
+  
   2. nc
-
+     
      ```
       nc -zvw10 192.168.0.1 22
      其中参数：
@@ -46,91 +53,97 @@ Do not be afraid to break things as that is perfectly normal. Troubleshooting an
      v: for verbose output
      w10: timeout wait seconds
      ```
-
-     
-
-  3. nmap
-  ```bash
-  telnet myserver.com 80 
-  nc -v myserver.com 80
-  nc -vn 192.168.40.146 2424
-  nmap myserver.com 80 
-  ```
-
+3. nmap
+   
+   ```bash
+   telnet myserver.com 80 
+   nc -v myserver.com 80
+   nc -vn 192.168.40.146 2424
+   nmap myserver.com 80 
+   ```
 - 通过进程名查看占用端口
-
-  - 先查看进程pid	`ps -ef | grep 进程名 `
+  
+  - 先查看进程pid    `ps -ef | grep 进程名 `
   - 再通过pid查看占用端口    `netstat -nap | grep 进程pid `
 
 - 通过端口查看进程
-
+  
   `netstat -nap | grep 端口号 `或`netstat -apn | grep 端口号`
-
+  
   `netstat -tln | grep 8080` 查看端口8080的使用情况
 
 ## tar
 
 - c – Creates a new .tar archive file.
+
 - x — to untar or extract a tar file
 
 - v – Verbosely show the .tar file progress.
+
 - f – File name type of the archive file.
 
 - z — gzip archive file
+
 - j —  bz2 feature compress and create archive file
+
 - t — to list the contents of tar archive file
 
 ## firewall
 
 - check status : `sudo ufw status`
+
 - enable firewall: 
-```bash
-$ sudo ufw enable
-Command may disrupt existing ssh connections. Proceed with operation (y|n)? y
-Firewall is active and enabled on system startup
-```
+  
+  ```bash
+  $ sudo ufw enable
+  Command may disrupt existing ssh connections. Proceed with operation (y|n)? y
+  Firewall is active and enabled on system startup
+  ```
+
 - disable firewall
-```bash
-$ sudo ufw disable
-Firewall stopped and disabled on system startup
-```
+  
+  ```bash
+  $ sudo ufw disable
+  Firewall stopped and disabled on system startup
+  ```
 
 ### 查看系统配置
 
 - 查看系统
+  
   - `cat /etc/os-release`
 
 - 查看内核
+  
   - `cat /proc/version`
   - `uname -a`
 
 - 查看linux版本
+  
   - `lsb_release -a`
   - `cat /etc/issue`
 
 - > 总核数 = 物理CPU个数 X 每颗物理CPU的核数 
-  >
+  > 
   > 总逻辑CPU数 = 物理CPU个数 X 每颗物理CPU的核数 X 超线程数
-
+  
   - 查看物理CPU个数
-
+    
     ```shell
     cat /proc/cpuinfo| grep "physical id"| sort| uniq| wc -l
     ```
-
+  
   - 查看每个物理CPU中core的个数(即核数)
-
+    
     ```shell
     cat /proc/cpuinfo| grep "cpu cores"| uniq
     ```
-
-  - 查看逻辑CPU的个数
-
+  
+  - 查看逻辑CPU的总数
+    
     ```shell
     cat /proc/cpuinfo| grep "processor"| wc -l
     ```
-
-    
 
 ### 磁盘相关
 
@@ -139,7 +152,7 @@ Firewall stopped and disabled on system startup
 - 查看目录下文件大小        `du -sh`
 
 - 查看当前目录下一级子文件和子目录占用的磁盘容量: `du -lh --max-depth=1 `
-
+  
   ```
   查看当前目录下user目录的大小，并不想看其他目录以及其子目录：
   du -sh user
@@ -149,18 +162,16 @@ Firewall stopped and disabled on system startup
   ```
 
 - 总结du常用命令
-
+  
   **du -h --max-depth=1 |grep 'G' |sort   #查看上G目录并排序**
-
+  
   du -h --max-depth=1 |grep [TG] |sort   #查找上G和T的目录并排序
   du -sh --max-depth=1  #查看当前目录下所有一级子目录文件夹大小
 
-  
-
 - 清理指定目录下的文件
-
+  
   例如需要根据时间删除这个目录下的文件，/tmp，清理掉20天之前的无效数据。可以使用下面一条命令去完成：
-
+  
   ```shell
   find /tmp -mtime +21 -name "*" -exec rm -Rf {} \;
   - /tmp ：准备要进行清理的任意目录
@@ -170,16 +181,11 @@ Firewall stopped and disabled on system startup
   - -exec：固定写法
   - rm -Rf：强制删除文件，包括目录(注意R大写，f小写)
   -  {} \; 固定写法，一对大括号+空格+\+; 
-  
   ```
-
-
-
-
 
 ### find
 
-查找具体文件	
+查找具体文件    
 
 ```
 find / -name 文件名称
@@ -219,16 +225,12 @@ rm -i !(*.zip)
 rm -v !(*.zip|*.odt)
 ```
 
-
-
-
-
 ### 卸载安装的软件
 
 ```shell
-浏览已安装的程序	dpkg --list
-卸载程序和所有配置文件	sudo apt-get --purge remove <programname>
-只卸载程序	sudo apt-get remove <programname>
+浏览已安装的程序    dpkg --list
+卸载程序和所有配置文件    sudo apt-get --purge remove <programname>
+只卸载程序    sudo apt-get remove <programname>
 ```
 
 ### 文件权限
@@ -240,7 +242,7 @@ r=4，w=2，x=1
 若要r-x属性则4+1=7
 ```
 
-###　安装deb文件出错时
+### 安装deb文件出错时
 
 使用`apt-get -f -y install`修复之后，再进行安装
 
@@ -269,11 +271,11 @@ Ctrl + xx ：在命令行尾和光标之间移动
 ### AWK
 
 - `awk -v FS="输入分隔符" -v OFS='输出分隔符' '{if($1==$5) print $1,$5,$10}' filename`
-
+  
   查找filename文件（文件中列的分隔符为“输入分隔符”）中，每一行第一列和第五列相等的行，并输出第一列、第五列、第十列，切输出字段分隔符为“输出分隔符”。如果不配置FS和OFS，那么输入输出分隔符均默认为空
 
 - [exclude a column with awk](https://www.commandlinefu.com/commands/view/6872/exclude-a-column-with-awk), 比如打印除第5列的其它所有列
-
+  
   awk '{ $5=""; print }' file
 
 ### 统计文件行数
@@ -310,24 +312,24 @@ Ctrl + xx ：在命令行尾和光标之间移动
 
 ### 日期
 
-- 判断　day of year 	
-
+- 判断　day of year     
+  
   `doy=$(date +%j)`
 
 - 制定日期减一天
-
+  
   `date -d"20140101 -1 days" +"%Y%m%d"`
 
 ### 剪切板
 
-将剪切板中的内容输出到文件 	echo $(xsel --clipboard) >> a.txt 
+将剪切板中的内容输出到文件     echo $(xsel --clipboard) >> a.txt 
 
-将文件的内容复制到剪切板 		cat a.txt | xsel --clipboard
+将文件的内容复制到剪切板         cat a.txt | xsel --clipboard
 
 #### securtCRT
 
 ```
-下载服务器文件	sz filename
+下载服务器文件    sz filename
 上传本地文件 rz filename
 ```
 
@@ -340,7 +342,7 @@ echo '{"kind": "Service", "apiVersion": "v1", "status": {"loadBalancer": true}}'
 #### SED
 
 - 替换字符
-
+  
   ```shell
   sed -i 's/Search_String/Replacement_String/g' Input_File
   ```
@@ -368,42 +370,36 @@ $ iconv -f UTF-8 -t GBK input.file -o output.file
 ```
 
 - 如果遇到]iconv: 未知xxxx处的非法输入序列,一种解决方法是加入 -c选项：忽略无效字符
-
+  
   ```shell
   iconv -c  -f gb2312 -t utf8 test.txt -o output.file
   ```
 
-  
+```
+iconv -f gb18030 -t UTF-8 input.file -o output.file
 
-  ```
-  iconv -f gb18030 -t UTF-8 input.file -o output.file
-  
-  gb18030
-  ```
-
-  
+gb18030
+```
 
 ### tr命令
 
 tr -- translate or delete characters 
 
 - 大小写转换
-
+  
   ```shell
   cat file | tr A-Z a-z 
   cat file | tr a-z A-Z
   ```
 
-
-
 ### top
 
 - “1”
-
+  
   查看所有CPU核的使用情况
 
 - “c”
-
+  
   查看具体进程的路径
 
 ```
@@ -428,30 +424,24 @@ tr -- translate or delete characters
 　　s - 设置显示信息的刷新频率（由于是命令行模式，显示的过程其实是刷屏的过程）
 ```
 
-
-
 ### markdown
 
 - markdown文件转word文件
-
+  
   ```shell
   pandoc -o output.docx -f markdown -t docx filename.md
   ```
 
-  
-
 ### 网络代理
 
 - 查看本地网络代理
-
+  
   ```
   export | grep -i proxy
   ```
 
 - 关闭代理
-
+  
   ```shell
   unset http_proxy 
   ```
-
-  

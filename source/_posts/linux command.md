@@ -1,5 +1,4 @@
 ---
-
 title: linux command
 date: 2015-10-16 12:01:30
 tags: command

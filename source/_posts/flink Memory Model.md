@@ -9,7 +9,7 @@ categories: flink
 
 ### jobmanager
 
-![](./img/flink/jobmanager.jpg)
+![](/images/flink/jobmanager.jpg)
 
 - JVM Heap大小设置对应配置文件`flink-conf.yaml`的**jobmanager.heap.size**
 

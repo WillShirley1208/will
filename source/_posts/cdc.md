@@ -15,8 +15,6 @@ categories: cdc
 - **数据分发**，一个数据源分发给多个下游；
 - **数据采集**(E)，面向数据仓库/数据湖的 ETL 数据集成。
 
-
-
 ## 分类
 
 主要分为**基于查询**和**基于 Binlog** 两种方式
@@ -25,41 +23,31 @@ categories: cdc
 
 ![](/images/cdc/cdc_etl.png)
 
-
-
 ### 基于 Flink CDC 的 ETL 分析
 
 ![](/images/cdc/flink_cdc_etl.png)
-
-
 
 ### 基于 Flink CDC 的聚合分析
 
 ![](/images/cdc/flink_cdc_aggregate.png)
 
-
-
 ### 基于 Flink CDC 的数据打宽
 
 ![](/images/cdc/flink_cdc_merge.png)
-
-
 
 ## 性能点
 
 大数据领域的 4 类场景：
 
-**B**	batch	离线计算
+**B**    batch    离线计算
 
-**A**	Analytical	交互式分析
+**A**    Analytical    交互式分析
 
-**S**	Servering	高并发的在线服务
+**S**    Servering    高并发的在线服务
 
-**T**	Transaction	事务隔离机制
+**T**    Transaction    事务隔离机制
 
 > 离线计算通常在计算层，所以应该重点考虑 A、S 和 T
-
-
 
 ## 考虑点
 
@@ -68,15 +56,11 @@ categories: cdc
 - 实时流处理过程中数据到达顺序无法预知时，如何保证双流 join 时数据能及时关联同时不造成数据堵塞；
 
 - Oracle
-
+  
   ```
   1.Oracle 是第三方厂商维护的，不允许对线上系统有过多的侵入，容易造成监听故障甚至系统瘫痪，
   2.归档日志是在开启那一刻起才开始生成的，之前的存量数据难以进入 kafka，但是后来实时数据又必须依赖前面的计算结果
   ```
-
-  
-
-
 
 ## 实时数仓方案
 
@@ -86,23 +70,17 @@ categories: cdc
 
 ![](/images/cdc/structure_lambda.png)
 
-
-
 ### Kappa 架构
 
 > 相较于 Lambda 架构，它移除了离线生产链路，思路是通过传递任意想要的 offset(偏移量)来达到重新消费处理历史数据的目的。优点是架构相对简化，数据来源单一，共用一套代码，开发效率高；缺点是必须要求消息队列中保存了存量数据，而且主要业务逻辑在计算层，比较消耗内存资源。
 
 ![](/images/cdc/structure_kappa.png)
 
-
-
 ### OLAP 变体架构
 
 > 是 Kappa 架构的进一步演化，它的思路是将聚合分析计算由 OLAP 引擎承担，减轻实时计算部分的聚合处理压力。优点是自由度高，可以满足数据分析师的实时自助分析需求，减轻了计算引擎的处理压力；缺点是必须要求消息队列中保存存量数据，且因为是将计算部分的压力转移到了查询层，对查询引擎的吞吐和实时摄入性能要求较高。
 
 ![](/images/cdc/structure_olap.png)
-
-
 
 ### 数据湖架构
 

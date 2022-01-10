@@ -34,56 +34,52 @@ docker restart $container_id
 docker logs $container_id
 ```
 
-
 ### 查看container现在工作网络模式
 
 - 列出docker的所有网络模式
-
+  
   ```shell
   docker network ls
   ```
 
 - 针对bridge和host分别查找有哪些container在其中
-
+  
   ```shell
   docker network inspect bridge
   docker network inspect host
   ```
 
 - 直接查看container的信息，找到network段查看。或者用grep筛选出network。
-
+  
   ```shell
   docker inspect 容器名/容器ID
   docker inspect 容器名/容器ID | grep -i “network” # 其中grep的“-i”表示不区分大小写。
   ```
-
-
 
 #### Exit Codes
 
 Common exit codes associated with docker containers are:
 
 - **Exit Code 0**: Absence of an attached foreground process
+
 - **Exit Code 1**: Indicates failure due to application error
+
 - **Exit Code 137**: Indicates failure as container received SIGKILL (Manual intervention or ‘oom-killer’ [OUT-OF-MEMORY])
+
 - **Exit Code 139**: Indicates failure as container received SIGSEGV
+
 - **Exit Code 143**: Indicates failure as container received SIGTERM
 
 - **Exit Code 126**: Permission problem or command is not executable
+
 - **Exit Code 127**: Possible typos in shell script with unrecognizable characters
-
-
-
-
-
-
 
 ### mysql
 
 - 密码123456
 
 - 创建容器
-
+  
   ```
   docker run --name mysql-server -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.7
   注意：
@@ -93,29 +89,29 @@ Common exit codes associated with docker containers are:
   ```
 
 - 进入容器
-
+  
   ```shell
   docker exec -it mysql-server /bin/bash
   ```
 
 - 访问
-
+  
   `docker exec -it mysql-server mysql -uroot -p`
 
 - 修改root 可以通过任何客户端连接
-
+  
   ```shell
    ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY '123456';
   ```
 
 - 从外部访问docker mysql-server
-
+  
   ```shell
   mysql -h127.0.0.1 -P3306 -uroot -p
   ```
 
 - 导入sql文件
-
+  
   ```
   先将文件导入到容器
   #docker cp **.sql 容器名:/root/
@@ -128,54 +124,50 @@ Common exit codes associated with docker containers are:
   ```
 
 - 导出数据库
-
+  
   ```shell
   docker exec -it  mysql-server（容器名） mysqldump -uroot -p123456 数据库名称 > /opt/sql_bak/test_db.sql（导出表格路径）
   ```
 
-
-
 ### portainer
 
 - 密码重置
-
+  
   - 下载帮助镜像portainer/helper-reset-password
-
+    
     ```shell
     docker pull portainer/helper-reset-password
     ```
-
+  
   - 停止运行的portainer
-
+    
     ```shell
     docker stop "id-portainer-container"
     ```
-
+  
   - 运行重置命令
-
+    
     ```shell
     docker run --rm -v portainer_data:/data portainer/helper-reset-password
     ```
-
+  
   - 结果
-
+    
     ```verilog
     2020/06/04 00:13:58 Password successfully updated for user: admin
     2020/06/04 00:13:58 Use the following password to login: &_4#\3^5V8vLTd)E"NWiJBs26G*9HPl1
     ```
-
+  
   - 重新运行portainer,密码 为👆重置的 &_4#\3^5V8vLTd)E"NWiJBs26G*9HPl1
-
+    
     ```shell
     docker start "id-portainer-container"
     ```
 
 - 现在密码为 admin/admin
 
-
-
 - 重新安装
-
+  
   ```shell
   sudo docker run -d -p 8000:8000 -p 9443:9443 --name portainer \
       --restart=always \
@@ -184,25 +176,19 @@ Common exit codes associated with docker containers are:
       cr.portainer.io/portainer/portainer-ce:2.9.3
   ```
 
-  
-
-
-
 ### nacos
 
 - run
-
+  
   ```shell
   docker run -d --name nacos -p 8848:8848 -e PREFER_HOST_MODE=hostname -e MODE=standalone nacos/nacos-server
   ```
-
+  
   - Linux memory is insufficient
-
+    
     ```shell
     docker run -e JVM_XMS=256m -e JVM_XMX=256m --env MODE=standalone --name nacos -d -p 8848:8848 nacos/nacos-server
     ```
-
-    
 
 ### redis
 
@@ -230,8 +216,6 @@ version: "3.7"                                                                  
 
 > 使用 docker-compose --verbose up redis启动，可查看启动详情
 
-
-
 ### 修改已有容器的端口映射
 
 1. 停止容器 
@@ -239,7 +223,7 @@ version: "3.7"                                                                  
 2. 停止docker服务(systemctl stop docker) 
 
 3. 修改这个容器的hostconfig.json文件中的端口（原帖有人提到，如果config.v2.json里面也记录了端口，也要修改）
-
+   
    ```shell
    cd /var/lib/docker/3b6ef264a040* #这里是CONTAINER ID
    vi hostconfig.json
@@ -254,8 +238,6 @@ version: "3.7"                                                                  
 4. 启动docker服务(systemctl start docker) 
 
 5. 启动容器
-
-
 
 ### 配置容器的镜像源（安装vim）
 

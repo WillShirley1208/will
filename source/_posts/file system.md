@@ -1,6 +1,6 @@
 ---
 title: file system
-date: 
+date: 2022-01-07 13:59:21
 tags: snippet
 categories: file system
 ---

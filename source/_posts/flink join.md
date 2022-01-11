@@ -70,5 +70,15 @@ categories: flink
   [LEFT] JOIN t2 FOR SYSTEM_TIME AS OF t1.proctime [AS <alias2>]
   ON t1.column1 = t2.key-name1
   ```
-  
-  
+
+
+
+
+
+
+
+---
+
+reference:
+
+[Flink SQL 实战：双流 join 场景应用-阿里云开发者社区](https://developer.aliyun.com/article/780048?accounttraceid=dd5fdbf3eed04f6185ed6461d8a33012zihq)

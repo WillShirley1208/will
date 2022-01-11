@@ -12,7 +12,7 @@ categories: DSA
 ### Why do we need Data Structure
 
 > As data structures are used to store data in an organized form, and since data is the most crucial entity in computer science.
->
+> 
 > Based on different scenarios, data needs to be stored in a specific format. We have a handful of data structures that cover our need to store data in different formats.
 
 ### Commonly used Data Structure
@@ -82,7 +82,7 @@ categories: DSA
 ![](https://i.imgur.com/R6zwf9U.png)
 
 - the types of trees
-
+  
   - N-ary Tree
   - Balanced Tree
   - Binary Tree
@@ -90,7 +90,7 @@ categories: DSA
   - AVL Tree
   - Red Black Tree
   - 2–3 Tree
-
+  
   > Out of the above, Binary Tree and Binary Search Tree are the most commonly used trees.
 
 #### 7. Trie
@@ -100,7 +100,7 @@ categories: DSA
 #### 8. Hash Table
 
 > Hashing is a process used to uniquely identify objects and store each object at some pre-calculated unique index called its “key.”
->
+> 
 > Hash tables are generally implemented using arrays.
 
 - The performance of hashing data structure depends upon these three factors:
@@ -115,4 +115,3 @@ Here’s an illustration of how the hash is mapped in an array. The index of thi
 reference:
 
 - [图解Java常用数据结构](https://www.cnblogs.com/xdecode/p/9321848.html)
-

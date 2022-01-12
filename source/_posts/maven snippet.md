@@ -16,45 +16,42 @@ categories: maven
 
 ### tomcat项目的部署
 
-  - 参照 [tomcat 设置热部署](https://blog.csdn.net/u012076316/article/details/46907823)
-  - 参照[war和war exploded区别及问题汇总](http://www.jb51.net/article/117334.htm)
-  - 参照[tomcat部署的不同方式](https://www.jianshu.com/p/fb0ed26c35d5)
-  - 启动项目时，如果test包里面有测试程序，为了忽略编译test测试程序，需要运行命令打包`mvn clean package -DskipTests`，另外运行tomcat的时候以debug模式进行启动。
+- 参照 [tomcat 设置热部署](https://blog.csdn.net/u012076316/article/details/46907823)
+- 参照[war和war exploded区别及问题汇总](http://www.jb51.net/article/117334.htm)
+- 参照[tomcat部署的不同方式](https://www.jianshu.com/p/fb0ed26c35d5)
+- 启动项目时，如果test包里面有测试程序，为了忽略编译test测试程序，需要运行命令打包`mvn clean package -DskipTests`，另外运行tomcat的时候以debug模式进行启动。
 
 ### maven多项目之间相互引用
 
-  - 应该在父目录下进行maven install操作，会自动生成子模块的jar或war包。
-
+- 应该在父目录下进行maven install操作，会自动生成子模块的jar或war包。
 
 - **解决maven无法加载本地lib/下的jar包问题(程序包XXX不存在)**
-
+  
   - 原因
-
+    
     若该程序包是第三方的jar，解决方案是让maven既加载maven库中的jar包，又要加载本地WEB-INF/lib下的jar包。 
-
+  
   - 解决
-
+    
     ```
     <plugin>
-    	<groupId>org.apache.maven.plugins</groupId>
-    	<artifactId>maven-compiler-plugin</artifactId>
-    	<version>3.6.0</version>
-    	<configuration>
-    		<source>1.8</source>
-    		<target>1.8</target>
-    		<encoding>UTF-8</encoding>
-    		<compilerArguments>
-    			<extdirs>${project.basedir}/src/main/webapp/WEB-INF/lib</extdirs>
-    		</compilerArguments>
-    	</configuration>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.6.0</version>
+        <configuration>
+            <source>1.8</source>
+            <target>1.8</target>
+            <encoding>UTF-8</encoding>
+            <compilerArguments>
+                <extdirs>${project.basedir}/src/main/webapp/WEB-INF/lib</extdirs>
+            </compilerArguments>
+        </configuration>
     </plugin>
     ```
 
-
-
 ## 创建本地引用包
 
-####  1.直接引用本地jar
+#### 1.直接引用本地jar
 
 将jar放在项目中，例如web项目就放在 `webapp/WEB-INF/lib`下面
 然后再`pom.xml`中添加jar的依赖：
@@ -82,8 +79,6 @@ mvn install:install-file -Dfile=xxx.jar -DgroupId=xx.xxx.xx -DartifactId=xx -Dve
 -Dfile:要安装的jar文件的路径
 ```
 
-
-
 ## scope
 
 - compile
@@ -99,11 +94,7 @@ mvn install:install-file -Dfile=xxx.jar -DgroupId=xx.xxx.xx -DartifactId=xx -Dve
   provided意味着打包的时候可以不用包进去，别的设施(Web Container)会提供。事实上该依赖理论上可以参与编译，测试，运行等周期。相当于compile，但是在打包阶段做了exclude的动作。
 
 - system
-  从参与度来说，也provided相同，不过被依赖项不会从maven仓库抓，而是从本地文件系统拿，一定需要配合systemPath属性使用
-
-
-
-
+  从参与度来说，和provided相同，不过被依赖项不会从maven仓库抓，而是从本地文件系统拿，一定需要配合systemPath属性使用
 
 ## 依赖传递原则
 
@@ -129,13 +120,43 @@ B -> Z(2.5)
 
 
 
+## 引用本地jar包依赖
+
+1. jar包放入项目指定位置 ie：${project.basedir}/src/main/resources/lib/xxx.jar
+
+2. pom文件引入依赖
+   
+   ```xml
+   <dependency>
+       <groupId>com.aliyun</groupId>
+       <artifactId>sdk.core</artifactId>
+       <version>3.3.1</version>
+       <scope>system</scope>
+       <systemPath>${project.basedir}/src/main/resources/lib/xxx.jar</systemPath>
+   </dependency>
+   ```
+   
+   > systemPath这个路径是jar包的路径。${project.basedir}只是一个系统自己的常量。
+
+3. 在将项目用Maven打包是需要在 <plugin> 标签中加入:
+   
+   ```xml
+   <plugin>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-maven-plugin</artifactId>
+       <configuration>
+           <includeSystemScope>true</includeSystemScope>
+       </configuration>
+   </plugin>
+   ```
+   
+   
+
 
 
 # 相关问题
 
 - [idea中的maven模块变成灰色的可能原因](https://www.cnblogs.com/baixiaoshuai/p/8939989.html)
 - [jar包和war包的介绍与区别](https://blog.csdn.net/qq_38663729/article/details/78275209)
-
-
 
 - 由于没有mvn install操作，没有在本地下载依赖包到lib目录下，所以启动项目，会提示java.lang.ClassNotFoundException: org.springframework.web.context.ContextLoaderListener错误

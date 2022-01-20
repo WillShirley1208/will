@@ -8,5 +8,5 @@ categories: spring cloud
 ### 启动
 
 - 2.0.3版本启动，需要添加 -m属性
-
+  
   `./startup.sh -m standalone`

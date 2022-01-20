@@ -8,7 +8,7 @@ categories: database
 ### 知识点
 
 - the size of blob column
-
+  
   ```
     A BLOB can be 65535 bytes (64 KB) maximum.
   If you need more consider using:
@@ -20,7 +20,7 @@ categories: database
   ![](https://i.stack.imgur.com/VQ5XP.png)
 
 - string convert to timstamp
-
+  
   `SELECT STR_TO_DATE('2014-05-28 11:30:10','%Y-%m-%d %H:%i:%s');`
 
 ### sql语句
@@ -64,7 +64,7 @@ select a.* from A a where exists(select 1 from B b where a.id=b.id)
 sql查询条件中`where 1=1,1=2和1=0`，这种写法，主要是为了拼凑动态的sql语句，如果使用不好会起到副作用的，是根据个人的一些习惯，是为了避免where 关键字后面的第一个词直接就是 “and”而导致语法错误，是为了后面附加and ...方便程序逻辑处理用的。 
 
 - select count(*)和select count(1)的区别
-
+  
   ```
   一般情况下，Select Count(*)和Select Count(1)两着返回结果是一样的，假如表没有主键(Primary key), 那么count(1)比count(*)快，如果有主键的话，那主键作为count的条件时候count(主键)最快，如果你的表只有一个字段的话那count(*)就是最快的。
   ```
@@ -72,27 +72,27 @@ sql查询条件中`where 1=1,1=2和1=0`，这种写法，主要是为了拼凑�
 ### 事物隔离级别
 
 - read uncommitted（读取未提交数据）
-
+  
   > 我们将事务隔离级别设置为read uncommitted，即便是事务没有commit，但是我们仍然能读到未提交的数据，这是所有隔离级别中最低的一种。
-  >
+  > 
   > 脏读
 
 - read committed（可以读取其他事务提交的数据）
-
+  
   > 大多数数据库默认的隔离级别;
-  >
+  > 
   > 当我们将当前会话的隔离级别设置为read committed的时候，当前会话只能读取到其他事务提交的数据，未提交的数据读不到。
 
 - repeatable read（可重读）
-
+  
   > MySQL默认的隔离级别
-  >
+  > 
   > 当我们将当前会话的隔离级别设置为repeatable read的时候，当前会话可以重复读，就是每次读取的结果集都相同，而不管其他事务有没有提交。
-  >
+  > 
   > 幻读
 
 - serializable（串行化）
-
+  
   > 当我们将当前会话的隔离级别设置为serializable的时候，其他会话对该表的写操作将被挂起。可以看到，这是隔离级别中最严格的，但是这样做势必对性能造成影响。所以在实际的选用上，我们要根据当前具体的情况选用合适的。
 
 ### DDL VS DML
@@ -101,36 +101,29 @@ DML statements are SQL statements that manipulate data. DML stands for Data Mani
 
 Data Definition Languages (DDL) are used to define the database structure. Any CREATE, DROP and ALTER commands are examples of DDL SQL statements.
 
-
-
-
-
 ### mysqldump
 
 - 导出数据库
-
+  
   ```shell
   mysqldump -h127.0.0.1 -P3306 -uroot -p database > file.sql
   其中 -h和-P可以省略（不过mysql在docker中不可以省略）,database是数据库名称
   ```
 
 - 导出数据表数据（根据sql的where条件）
-
+  
   ```shell
   mysqldump -uroot -p database --tables tablename --where="id>8" > result.sql 
   ```
 
 - 执行sql文件
-
+  
   ```shell
   mysql> source /path/to/files/filename.sql
   ```
 
 - 导出所有数据库
-
+  
   ```shell
   mysqldump -u root -p --all-databases > backup_filename.sql
   ```
-
-  
-

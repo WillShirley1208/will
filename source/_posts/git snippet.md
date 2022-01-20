@@ -143,8 +143,6 @@ git push origin --delete remoteBranchName
 git fetch -p
 ```
 
-
-
 #### 合并策略
 
 warning: 不建议在没有为偏离分支指定合并策略时执行pull操作。  

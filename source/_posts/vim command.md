@@ -6,15 +6,13 @@ categories: linux
 ---
 
 - format json
-
+  
   ```shell
   :%!jq .
   ```
 
 - formate xml
-
+  
   ```
   :%!xmllint --format %
   ```
-
-  

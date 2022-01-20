@@ -25,8 +25,6 @@ categories: flink
   [LEFT/INNER/FULL OUTER] JOIN t2
   ON t1.column1 = t2.key-name1
   ```
-  
-  
 
 ### interval join
 
@@ -51,8 +49,6 @@ categories: flink
   [LEFT/INNER/FULL OUTER] JOIN t2
   ON t1.column1 = t2.key-name1 AND t2.timestamp <= t1.timestamp and t1.timestamp <=  t2.timestamp + + INTERVAL ’10' MINUTE ;
   ```
-  
-  
 
 ### temproal table join
 
@@ -70,12 +66,6 @@ categories: flink
   [LEFT] JOIN t2 FOR SYSTEM_TIME AS OF t1.proctime [AS <alias2>]
   ON t1.column1 = t2.key-name1
   ```
-
-
-
-
-
-
 
 ---
 

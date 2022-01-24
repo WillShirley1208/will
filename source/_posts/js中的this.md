@@ -74,11 +74,7 @@ console.log(message) // => 'Hello World!'
 
 局对象由执行环境决定。在浏览器中，`this`是 `window` 对象。
 
-
-
 ![img](https://user-gold-cdn.xitu.io/2019/8/13/16c884b811a409ab?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
-
-
 
 在函数调用中，执行上下文是全局对象。
 
@@ -123,11 +119,7 @@ console.log(window.myString); // => 'Hello World!'
 
 启用后，严格模式会影响执行上下文，`this` 在常规函数调用中值为`undefined`。 与上述情况`2.1`相反，执行上下文不再是全局对象。
 
-
-
 ![img](https://user-gold-cdn.xitu.io/2019/8/13/16c884ceb97a4874?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
-
-
 
 严格模式函数调用示例：
 
@@ -308,11 +300,7 @@ isNaN(0);            // 函数调用
 
 当调用对象上的方法时，`this`就变成了对象本身。
 
-
-
 ![img](https://user-gold-cdn.xitu.io/2019/8/13/16c884d308092da0?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
-
-
 
 创建一个对象，该对象有一个递增数字的方法
 
@@ -500,11 +488,7 @@ paris.travel();
 
 构造函数调用的上下文是新创建的对象。它利用构造函数的参数初始化新的对象，设定属性的初始值，添加事件处理函数等等。
 
-
-
 ![img](https://user-gold-cdn.xitu.io/2019/8/13/16c884d774863ecb?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
-
-
 
 来看看下面示例中的上下文
 
@@ -690,11 +674,7 @@ double(10); // => 20
 
 `.bind()`的作用是创建一个新函数，调用该函数时，将上下文作为传递给`.bind()`的第一个参数。它是一种强大的技术，使咱们可以创建一个定义了`this`值的函数。
 
-
-
 ![img](https://user-gold-cdn.xitu.io/2019/8/13/16c884dceeb04418?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
-
-
 
 来看看，如何在如何在绑定函数设置 `this`
 
@@ -781,11 +761,7 @@ sumArguments(5, 5, 6); // => 16
 
 箭头函数不会创建自己的执行上下文，而是从定义它的外部函数中获取 `this`。 换句话说，箭头函数在词汇上绑定 `this`。
 
-
-
 ![img](https://user-gold-cdn.xitu.io/2019/8/13/16c884dfd5bf33de?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
-
-
 
 下面的例子说明了这个上下文透明的特性：
 

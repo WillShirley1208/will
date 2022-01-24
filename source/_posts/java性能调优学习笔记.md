@@ -5,7 +5,7 @@ tags: snippet
 categories: course
 ---
 
-## 核心	
+## 核心
 
 “纸上得来终觉浅，绝知此事要躬行”。
 
@@ -62,15 +62,15 @@ categories: course
 - 对象和对象引用
 
 - 使用 String.intern 来节省内存空间，从而优化 String 对象的存储
-
+  
   > 具体做法就是，在每次赋值的时候使用 String 的 intern 方法，如果常量池中有相同值，就会重复使用该对象，返回对象引用，这样一开始的对象就可以被回收掉。这种方式可以使重复性非常高的地址信息存储大小从 20G 降到几百兆。
-  >
+  > 
   > 如果调用 intern 方法，会去查看字符串常量池中是否有等于该对象的字符串，如果没有，就在常量池中新增该对象，并返回该对象引用；如果有，就返回常量池中的字符串引用。堆内存中原有的对象由于没有引用指向它，将会通过垃圾回收器回收。
-
+  
   ```java
   String a =new String("abc").intern();
   String b = new String("abc").intern();
-      	  
+  
   if(a==b) {// a 和 b 引用的是同一个对象。
       System.out.print("a==b");//正常输出
   }
@@ -83,7 +83,7 @@ categories: course
 [![MGDWWQ.md.jpg](https://s2.ax1x.com/2019/11/13/MGDWWQ.md.jpg)](https://imgchr.com/i/MGDWWQ)
 
 > 正则表达式是一个用正则符号写出的公式，程序对这个公式进行语法分析，建立一个语法分析树，再根据这个分析树结合正则表达式的引擎生成执行程序（这个执行程序我们把它称作状态机，也叫状态自动机），用于字符匹配。
->
+> 
 > 如果使用正则表达式能使你的代码简洁方便，那么在做好性能排查的前提下，可以去使用；如果不能，那么正则表达式能不用就不用，以此避免造成更多的性能问题。
 
 ### ArrayList VS LinkedList
@@ -94,4 +94,3 @@ categories: course
 ### Stream
 
 [![MY0E6A.md.jpg](https://s2.ax1x.com/2019/11/14/MY0E6A.md.jpg)](https://imgchr.com/i/MY0E6A)
-

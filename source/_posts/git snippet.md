@@ -155,3 +155,18 @@ git config pull.ff only # 仅快进
 您可以将 "git config" 替换为 "git config --global" 以便为所有仓库设置  
 缺省的配置项。您也可以在每次执行 pull 命令时添加 --rebase、--no-rebase，  
 或者 --ff-only 参数覆盖缺省设置。
+
+
+
+#### 推送本地离线项目到远程github
+
+```shell
+mkdir my_project
+cd my_project
+touch .gitignore
+git init
+git add .
+git commit -m "Initial commit"
+git remote add origin youruser@yourserver.com:/path/to/my_project.git
+git push origin master
+```

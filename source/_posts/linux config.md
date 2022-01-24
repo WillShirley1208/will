@@ -10,6 +10,7 @@ categories: linux
 - Use `java -XshowSettings:properties` to show the java.library.path (and others) value.
 
 ### native lib config
+
 - `/lib` contain "essential" libraries that may be needed even in single-user (admin-only) mode and without /usr mounted
 - `/usr/lib` are the libraries for the normal user-programs, that mostly can be found under /usr.
 - `/usr/local/lib` are the libraries for locally installed programs and packages ie. things you've compiled and installed from source-packages yourself.
@@ -24,8 +25,6 @@ categories: linux
 2. `service network restart `
 3. `ip a`查看ip
 
-
-
 ### ssh
 
 1. 进入目录 /root/.ssh
@@ -37,31 +36,26 @@ categories: linux
 4. 在其它机器重复上述操作
 
 5. 将其它机器的公钥拷贝到第一台机器的authorized_keys文件中
-
+   
    `ssh-copy-id -i id_rsa.pub 用户@ip`
-
+   
    > 注意，一定不要使用复制拷贝的方式把公钥复制到authorized_keys文件中，因为复制的时候会有特殊字符的加入，可以在vim中使用`:set list`进行验证
 
 6. 将第一台机器的authorized_keys复制到其它机器上
-
+   
    `scp authorized_keys 用户@ip:/路径/.ssh/`
-
-  注意点
-
+   
+   注意点
 - authorized_keys的权限是600，即读和写（如果默认不是的话，需要修改）
-
-
 
 ### 界面卡死
 
 1. 使用 Ctrl+Alt+F1或F2或到F6，进入tty终端（输入用户名和密码）
 
 2. 执行命令注销桌面重新登录
-
+   
    ```shell
    sudo pkill Xorg
    或
    sudo restart lightdm
    ```
-
-   

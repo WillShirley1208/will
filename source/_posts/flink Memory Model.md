@@ -92,8 +92,6 @@ categories: flink
   
   `taskmanager.memory.jvm-overhead.min`：JVM额外开销的最小值，默认192MB；`taskmanager.memory.jvm-overhead.max`：JVM额外开销的最大值，默认1GB；`taskmanager.memory.jvm-overhead.fraction`：JVM额外开销占TM进程总内存`taskmanager.memory.process.size`（注意不是Flink总内存）的比例，默认值0.1。若根据此比例算出的内存量比最小值小或比最大值大，就会限制到最小值或者最大值。
 
-
-
 ### Flink内存参数与JVM参数的关系
 
 上述内存参数会直接影响启动TaskManager时使用的JVM参数，使用相关工具可以观察到。
@@ -103,12 +101,6 @@ categories: flink
 - `-XX:MaxDirectMemorySize`：对应三块直接内存，即堆外框架内存、任务内存与网络缓存之和；
 
 - `-XX:MaxMetaspaceSize`：对应JVM元空间设置。
-
-
-
-
-
-
 
 ## 配置优化
 

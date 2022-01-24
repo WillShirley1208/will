@@ -8,9 +8,8 @@ categories: springboot
 ## 问题随记
 
 1. Spring Boot通过Mybatis，使用mapper接口和xml配置sql，连接数据库
-
 - 首先在配置文件application.properties
-
+  
   ```properties
   spring.datasource.url=jdbc:mysql://localhost:3306/test
   spring.datasource.username=***
@@ -25,7 +24,7 @@ categories: springboot
   ```
 
 - 在启动类Application.java中写上配置信息 
-
+  
   ```java
   @SpringBootApplication
   @MapperScan("com.xxx.dao") // mybatis扫描路径，针对的是接口Mapper类
@@ -36,13 +35,7 @@ categories: springboot
       }
   }
   ```
-
-  
-
 2. mysql连接异常`java.sql.SQLException: Value '0000-00-00' can not be represented as java.sql.Date`
-
 - 解决办法
-
-  `jdbc:mysql://yourserver:3306/yourdatabase?zeroDateTimeBehavior=convertToNull `
-
   
+  `jdbc:mysql://yourserver:3306/yourdatabase?zeroDateTimeBehavior=convertToNull `

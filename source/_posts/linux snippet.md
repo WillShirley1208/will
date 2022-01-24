@@ -52,8 +52,6 @@ Hard blocked: no
 
 - 防火墙 firewalld.service
 
-
-
 ## shell
 
 **shell与export命令**
@@ -62,13 +60,9 @@ Hard blocked: no
 
 在子 shell中定义的变量只在该子shell内有效。如果在一个shell脚本程序中定义了一个变量，当该脚本程序运行时，这个定义的变量只是该脚本程序内 的一个局部变量，其他的shell不能引用它，要使某个变量的值可以在其他shell中被改变，可以使用export命令对已定义的变量进行输出。 export命令将使系统在创建每一个新的shell时定义这个变量的一个拷贝。这个过程称之为变量输出。
 
-
-
 ### 操作文件名中含有“-”的文件
 
 - 使用转移字符 “--”， 比如查看文件“-abc.txt“，命令为 `vim -- -abc.txt`
-
-
 
 ### KVM
 

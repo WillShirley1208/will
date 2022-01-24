@@ -16,23 +16,23 @@ categories: jpa
 ![](https://www.tutorialspoint.com/jpa/images/jpa_provider.png)
 
 - JPA Pro
-
-  >JPA is an open source API, therefore various enterprise vendors such as Oracle, Redhat, Eclipse, etc. provide new products by adding the JPA persistence flavor in them. Some of these products include:**Hibernate, Eclipselink, Toplink, Spring Data JPA, etc.**
+  
+  > JPA is an open source API, therefore various enterprise vendors such as Oracle, Redhat, Eclipse, etc. provide new products by adding the JPA persistence flavor in them. Some of these products include:**Hibernate, Eclipselink, Toplink, Spring Data JPA, etc.**
 
 ### Architecture
 
 ![](https://www.tutorialspoint.com/jpa/images/jpa_class_level_architecture.png)
 
 - jpa class relationships
-
+  
   ![](https://www.tutorialspoint.com/jpa/images/jpa_class_relationships.png)
 
 - ORM Architecture
-
+  
   ![](https://www.tutorialspoint.com/jpa/images/object_relational_mapping.png)
 
-
 - Entity Relationships
+  
   - @ManyToOne Relation
   - @OneToMany Relation
   - @OneToOne Relation

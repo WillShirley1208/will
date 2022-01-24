@@ -8,23 +8,23 @@ categories: jquery
 ### 语法
 
 - 设置标签属性
-
+  
   `$("div").attr("属性名","属性值");`
 
 - 设置标签样式
-
+  
   `$("div").css("color","yellow"); `或`$("div").css("padding-left"))`
 
 - 移除属性
-
+  
   ` $("div").removeAttr("id");`
 
 - 遍历数组
-
+  
   - 原生js有两种方法都可以使用[for(var i;i<arr.length;i++){},for(var i in arr){}] 
-
+  
   - jquery有两个函数共计四种方法都可以使用
-
+    
     ```js
     $.each(arr,function(i,item){}),
     $(arr).each(function(i,item){}), 
@@ -33,11 +33,11 @@ categories: jquery
     ```
 
 - 遍历对象 
-
+  
   - 原生js有一种方法可以使用[for(var i in obj){}] 
-
+  
   - jquery有两个函数共计两种方法可以使用
-
+    
     ```js
     $.each(obj,function(i,item){})
     $.map(obj,function(i,item){})

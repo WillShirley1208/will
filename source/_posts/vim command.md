@@ -16,3 +16,11 @@ categories: linux
   ```
   :%!xmllint --format %
   ```
+
+- 显示不可见字符
+  
+  ```shell
+  :set list
+  ```
+  
+  

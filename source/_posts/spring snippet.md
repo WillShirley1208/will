@@ -10,12 +10,13 @@ categories: spring
 #### 传JSON字符串+@RequestBody接收
 
 - 前端
-```java
-function icheckDelete(url){
+  
+  ```java
+  function icheckDelete(url){
     var parms = {
         list : array //这是个数组
     };
-
+  
     $.ajax({
         dataType: "JSON",
         contentType:'application/json;charset=UTF-8',//关键是要加上这行
@@ -31,8 +32,10 @@ function icheckDelete(url){
             alert(data.responseText);
         }
     });
+  ```
 
 }
+
 ```
 - 后端
 ```java

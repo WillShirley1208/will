@@ -41,7 +41,7 @@ git commit -m "update .gitignore"
 
 #### Git fork后的分支，更新最新的源代码
 
-```
+```shell
 sourcer为源项目代码
 forker为fork之后的项目代码
 
@@ -67,7 +67,7 @@ git push origin master
 
 #### 比较文件，在不同版本的区别
 
-```
+```shell
 # uncommited file to HEAD
 git diff <path>
 
@@ -148,15 +148,15 @@ git fetch -p
 warning: 不建议在没有为偏离分支指定合并策略时执行pull操作。  
 您可以在执行下一次pull操作之前执行下面一条命令来抑制本消息：
 
+```shell
 git config pull.rebase false # 合并（缺省策略）  
 git config pull.rebase true # 变基  
 git config pull.ff only # 仅快进
+```
 
 您可以将 "git config" 替换为 "git config --global" 以便为所有仓库设置  
 缺省的配置项。您也可以在每次执行 pull 命令时添加 --rebase、--no-rebase，  
 或者 --ff-only 参数覆盖缺省设置。
-
-
 
 #### 推送本地离线项目到远程github
 
@@ -170,3 +170,7 @@ git commit -m "Initial commit"
 git remote add origin youruser@yourserver.com:/path/to/my_project.git
 git push origin master
 ```
+
+#### 查看本地分支与远程分支的关联
+
+`git branch -vv`

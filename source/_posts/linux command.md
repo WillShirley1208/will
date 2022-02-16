@@ -18,7 +18,7 @@ categories: linux
 
 [Bash scripting Tutorial](https://linuxconfig.org/bash-scripting-tutorial#h24-stdout-to-screen)
 
-## session
+### session
 
 - kill seesion `screen -X -S [session # you want to kill] quit`
 - 新建screen会话           screen -S xxx
@@ -27,7 +27,7 @@ categories: linux
 - 删除指定会话                screen -S xxx -X quit
 - 回到终端                        Ctrl-a d
 
-## PORT
+### PORT
 
 - Check the listening ports
   
@@ -71,7 +71,7 @@ categories: linux
   
   `netstat -tln | grep 8080` 查看端口8080的使用情况
 
-## tar
+### tar
 
 - c – Creates a new .tar archive file.
 
@@ -87,7 +87,7 @@ categories: linux
 
 - t — to list the contents of tar archive file
 
-## firewall
+### firewall
 
 - check status : `sudo ufw status`
 
@@ -251,7 +251,7 @@ r=4，w=2，x=1
 3.再次执行命令sudo dpkg　-i　XXX.deb　安装成功
 ```
 
-## 光标
+### 光标
 
 ```
 Ctrl+a：光标回到命令行首。 （a：ahead）
@@ -325,20 +325,20 @@ Ctrl + xx ：在命令行尾和光标之间移动
 
 将文件的内容复制到剪切板         cat a.txt | xsel --clipboard
 
-#### securtCRT
+### securtCRT
 
 ```
 下载服务器文件    sz filename
 上传本地文件 rz filename
 ```
 
-#### 格式化json
+### 格式化json
 
 ```shell
 echo '{"kind": "Service", "apiVersion": "v1", "status": {"loadBalancer": true}}'|jq .
 ```
 
-#### SED
+### SED
 
 - 替换字符
   
@@ -346,7 +346,7 @@ echo '{"kind": "Service", "apiVersion": "v1", "status": {"loadBalancer": true}}'
   sed -i 's/Search_String/Replacement_String/g' Input_File
   ```
 
-#### 转换文件编码格式
+### 转换文件编码格式
 
 首先我们来看看在 Linux 系统中如何查看文件的编码格式，可以在 vim 中使用如下命令查看：
 
@@ -444,3 +444,7 @@ tr -- translate or delete characters
   ```shell
   unset http_proxy 
   ```
+
+### 查看指定服务的运行情况
+
+`journalctl -u xxx.service`

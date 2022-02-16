@@ -5,8 +5,6 @@ tags: command
 categories: macos
 ---
 
-
-
 - 解压带有中文名称的zip包
 
 ```shell

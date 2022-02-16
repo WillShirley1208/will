@@ -67,20 +67,10 @@ categories: flink
   ON t1.column1 = t2.key-name1
   ```
 
-
-
-
-
-
-
-
-
 ---
 
 reference:
 
 [Flink SQL 实战：双流 join 场景应用-阿里云开发者社区](https://developer.aliyun.com/article/780048?accounttraceid=dd5fdbf3eed04f6185ed6461d8a33012zihq)
-
-
 
 [Flink SQL 功能解密系列 —— 维表 JOIN 与异步优化](https://www.liangzl.com/get-article-detail-114889.html)

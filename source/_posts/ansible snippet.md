@@ -8,8 +8,7 @@ categories: ansible
 ### roles
 
 ```
-defaults	参数
-tasks		启动脚本
-templates	配置文档
+defaults    参数
+tasks        启动脚本
+templates    配置文档
 ```
-

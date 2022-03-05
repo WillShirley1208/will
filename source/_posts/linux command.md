@@ -67,9 +67,10 @@ categories: linux
 
 - 通过端口查看进程
   
-  `netstat -nap | grep 端口号 `或`netstat -apn | grep 端口号`
-  
-  `netstat -tln | grep 8080` 查看端口8080的使用情况
+  ```shell
+  netstat -an | grep <portnumber>
+  lsof -i:<portnumber>
+  ```
 
 ### tar
 
@@ -342,8 +343,16 @@ echo '{"kind": "Service", "apiVersion": "v1", "status": {"loadBalancer": true}}'
 
 - 替换字符
   
+  linux环境：
+  
   ```shell
   sed -i 's/Search_String/Replacement_String/g' Input_File
+  ```
+  
+  mac环境（需要设置备份，以防文件损坏）
+  
+  ```shell
+  sed -i .bak 's/Search_String/Replacement_String/g' Input_File
   ```
 
 ### 转换文件编码格式

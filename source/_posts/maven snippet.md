@@ -118,8 +118,6 @@ B -> Z(2.5)
 
 这里A最先声明，所以传递过来的Z选择用3.0版本的。
 
-
-
 ## 引用本地jar包依赖
 
 1. jar包放入项目指定位置 ie：${project.basedir}/src/main/resources/lib/xxx.jar
@@ -149,14 +147,31 @@ B -> Z(2.5)
        </configuration>
    </plugin>
    ```
-   
-   
+
+## init project
+
+```shell
+mvn archetype:generate -DgroupId=brook.hbase -DartifactId=hbase-client -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion=1.4 -DinteractiveMode=false
+```
+
+
+
+## 命令启动springboot
+
+```shell
+mvn spring-boot:run
+```
+
+
+
+
 
 
 
 # 相关问题
 
 - [idea中的maven模块变成灰色的可能原因](https://www.cnblogs.com/baixiaoshuai/p/8939989.html)
+
 - [jar包和war包的介绍与区别](https://blog.csdn.net/qq_38663729/article/details/78275209)
 
 - 由于没有mvn install操作，没有在本地下载依赖包到lib目录下，所以启动项目，会提示java.lang.ClassNotFoundException: org.springframework.web.context.ContextLoaderListener错误

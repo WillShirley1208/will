@@ -22,5 +22,3 @@ categories: linux
   ```shell
   :set list
   ```
-  
-  

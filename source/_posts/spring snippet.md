@@ -36,9 +36,8 @@ categories: spring
 
 }
 
-```
-- 后端
 ```java
+- 后端
 Controller:
 
 @RequestMapping(value = "deleteList", method = RequestMethod.DELETE)

@@ -21,6 +21,7 @@ categories: java
 ### File
 
 - a file is split into one or more blocks and these blocks are stored in a set of DataNodes. 
+
 - all blocks in a file except the last block are the same size.
 
 - Files in HDFS are write-once and have strictly one writer at any time.
@@ -34,8 +35,6 @@ categories: java
 
 **Blockreport**: DataNode scans through its local file system, generates a list of all HDFS data blocks that correspond to each of these local files and sends this report to the NameNode
 
-
-
 ### 源码
 
 2.7.3源码
@@ -47,4 +46,3 @@ categories: java
 
 解决：cd到hadoop-maven-plugins，执行mvn clean 然后 install 一下，再执行编译通过
 ```
-

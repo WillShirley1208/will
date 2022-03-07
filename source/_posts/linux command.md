@@ -457,3 +457,23 @@ tr -- translate or delete characters
 ### 查看指定服务的运行情况
 
 `journalctl -u xxx.service`
+
+
+
+## 文件分割
+
+```shell
+split [-a] [-b] [-C] [-l] [要分割的文件名] [分割后的文件名前缀]
+–version 显示版本信息
+– 或者-l,指定每多少行切割一次，用于文本文件分割
+-b 指定切割文件大小,单位 m 或 k
+-C 与-b类似，但尽量维持每行完整性
+-d 使用数字而不是字母作为后缀名
+-a 指定后缀名的长度，默认为2位
+```
+
+将多个分割的文件进行合并
+
+```shell
+cat files_name_1 files_name_2 files_name_3 > files_name
+```

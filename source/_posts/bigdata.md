@@ -26,11 +26,11 @@ categories: bigdata
 HDFS cluster primarily consists of a **NameNode** that manages the file system **Metadata** and a **DataNodes** that stores the **actual data**.
 
 - Read Operation In HDFS
-
+  
   ![](./img/061114_0923_LearnHDFSAB1.png)
 
 - Write Operation In HDFS
-
+  
   ![](./img/061114_0923_LearnHDFSAB2.png)
 
 #### MapReduce

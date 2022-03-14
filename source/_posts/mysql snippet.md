@@ -127,3 +127,17 @@ Data Definition Languages (DDL) are used to define the database structure. Any C
   ```shell
   mysqldump -u root -p --all-databases > backup_filename.sql
   ```
+
+### 新增主键
+
+suppose you don't have column for auto increment like id, no, then you can add using following query:
+
+```sql
+ALTER TABLE table_name ADD id int NOT NULL AUTO_INCREMENT primary key FIRST
+```
+
+If you've column, then alter to auto increment using following query:
+
+```sql
+ ALTER TABLE table_name MODIFY column_name datatype(length) AUTO_INCREMENT PRIMARY
+```

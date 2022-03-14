@@ -5,8 +5,6 @@ tags: warehouse
 categories: flink
 ---
 
-
-
 流式数仓（Streaming Warehouse）更准确地说，其实是“make data warehouse streaming”，就是让整个数仓的数据全实时地流动起来，且是以纯流的方式而不是微批（mini-batch）的方式流动。
 
 目标是实现一个具备端到端实时性的纯流服务（Streaming Service），用一套 API 分析所有流动中的数据，当源头数据发生变化，比如捕捉到在线服务的 Log 或数据库的 Binlog 以后，就按照提前定义好的 Query 逻辑或数据处理逻辑，对数据进行分析，分析后的数据落到数仓的某一个分层，再从第一个分层向下一个分层流动，然后数仓所有分层会全部流动起来，最终流到一个在线系统里，用户可以看到整个数仓的全实时流动效果。

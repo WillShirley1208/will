@@ -252,6 +252,15 @@ r=4，w=2，x=1
 3.再次执行命令sudo dpkg　-i　XXX.deb　安装成功
 ```
 
+### 加密
+
+用zip命令对文件加密压缩和解压
+
+```shell
+zip -re filename.zip filename 
+回车，输入2次密码
+```
+
 ### 光标
 
 ```
@@ -457,8 +466,6 @@ tr -- translate or delete characters
 ### 查看指定服务的运行情况
 
 `journalctl -u xxx.service`
-
-
 
 ## 文件分割
 

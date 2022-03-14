@@ -154,19 +154,11 @@ B -> Z(2.5)
 mvn archetype:generate -DgroupId=brook.hbase -DartifactId=hbase-client -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion=1.4 -DinteractiveMode=false
 ```
 
-
-
 ## 命令启动springboot
 
 ```shell
 mvn spring-boot:run
 ```
-
-
-
-
-
-
 
 # 相关问题
 

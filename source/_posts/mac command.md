@@ -10,5 +10,3 @@ categories: macos
 ```shell
 ditto -V -x -k --sequesterRsrc filename.zip destination
 ```
-
-

@@ -16,5 +16,3 @@
 | 16010                  | HTTP  | http://namenode1:16010/ | 集群监控                                |                |
 | HBase RegionServer     | 16020 |                         | N/A                                 | 客户端接入          |
 | 16030                  | HTTP  | http://datanode1:16030/ | 节点监控                                |                |
-
-

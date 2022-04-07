@@ -9,18 +9,16 @@ categories: shiro
 
 ------
 
-
-
 - Subject
-
+  
   主体，代表了当前的用户
 
 - SecurityManager
-
+  
   安全管理器，它管理着所有Subject，相当于springmvc中的DispatcherServlet(前端控制器)
 
 - Realm
-
+  
   域，Shiro从Realm获取安全数据（如用户、角色、权限） ，是验证主体subject的数据源
 
 流程如图：
@@ -59,5 +57,5 @@ shiro的内部结构如图：
 授权，也叫访问控制，即在应用中控制谁能访问哪些资源（如访问页面/编辑数据/页面操作等）。在授权中需了解的几个关键对象：主体（Subject）、资源（Resource）、权限（Permission）、角色（Role）。 
 
 - 授权方式
-
+  
   编程式、注解式、jsp/gsp标签式

@@ -1,5 +1,8 @@
 ---
-
+title: hbase point
+date: 2022-04-01 10:01:30
+tags: point
+categories: hbase
 ---
 
 | 节点                     | 端口号   | 协议                      | 使用                                  | 说明             |

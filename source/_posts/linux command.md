@@ -3,7 +3,6 @@ title: linux command
 date: 2015-10-16 12:01:30
 tags: command
 categories: linux
-
 ---
 
 [Bash Scripting Tutorial for Beginners](https://linuxconfig.org/bash-scripting-tutorial-for-beginners)

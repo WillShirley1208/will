@@ -1,3 +1,10 @@
+---
+title: hadoop snippet
+date: 2019-05-24 12:01:30
+tags: snippet
+categories: hadoop
+---
+
 ## 1. Create a directory in HDFS at given path(s).
 
 ```

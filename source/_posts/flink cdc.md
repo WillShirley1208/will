@@ -1,5 +1,8 @@
 ---
-
+title: flink cdc
+date: 2022-01-15 16:24:07
+tags: cdc
+categories: flink
 ---
 
 reference

@@ -130,6 +130,18 @@ Next, checkout the branch you want. In this case, the branch we want is called �
   
   `git branch -m old_name new_name`
 
+#### 推送新分支到远程
+
+在新建分支完成的前提下
+
+1. 将develop分支推送到远程
+   
+   `git push origin new_branch:new_branch`
+
+2. 建立本地至上游（远程）分支的链接
+   
+   `git branch --set-upstream-to=orgin/new_branch new_branch`
+
 #### 删除分支
 
 ```shell

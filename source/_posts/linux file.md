@@ -3,6 +3,7 @@ title: linux file command
 date: 2015-10-16 12:01:30
 tags: command
 categories: linux
+
 ---
 
 ## delete
@@ -193,14 +194,4 @@ zip -re filename.zip filename
 
 ```bash
 rename -n -e 's/待替换字符串/替换字符串/'  *.png
-```
-
-## 查找目录下的所有文件中是否含有某个字符串
-
-```shell
-[root@wuseyukui]# grep -rn "someinfo" *
-说明：
--r 是递归查找
--n 是显示行号
-* : 表示当前目录所有文件，也可以是某个文件名
 ```

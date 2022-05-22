@@ -195,3 +195,9 @@ zip -re filename.zip filename
 ```bash
 rename -n -e 's/待替换字符串/替换字符串/'  *.png
 ```
+
+## 查找指定目录下的文件内容
+
+```shell
+grep -rn "info" *
+```

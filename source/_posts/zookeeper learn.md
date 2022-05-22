@@ -5,6 +5,34 @@ tags: learn
 categories: zookeeper
 ---
 
+## 参数配置
+
+- tickTime
+
+Length of a single tick, in milliseconds. ZooKeeper uses tick as the basic time unit to regulate timeouts. Default is 2000.
+
+- initLimit
+
+Number of ticks after which the ZooKeeper server times out during the synchronization process. Default is 10.
+
+- syncLimit
+
+Maximum number of ticks for the followers to wait to synchronize with the leader before the followers time out. Default is 5.
+
+- dataDir
+
+Absolute path for the ZooKeeper to store the in-memory snapshots of the data and the transactional log of updates to the database.
+
+- clientPort
+
+Port on which the ZooKeeper server listens for client connections.
+
+- maxClientCnxns
+
+Maximum number of concurrent connections that a single client can make to a single member of the ZooKeeper ensemble. Default is 10.
+
+## 终端操作
+
 ### 新増节点
 
 ```

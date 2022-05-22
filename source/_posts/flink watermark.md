@@ -15,8 +15,6 @@ Watermark的产生和Apache Flink内部处理逻辑如下图所示:
 
 ![](/images/flink/flink_watermark.png)
 
-
-
 ### 产生方式
 
 - Punctuated - 数据流中每一个递增的EventTime都会产生一个Watermark。 在实际的生产中Punctuated方式在TPS很高的场景下会产生大量的Watermark在一定程度上对下游算子造成压力，所以只有在实时性要求非常高的场景才会选择Punctuated的方式进行Watermark的生成。

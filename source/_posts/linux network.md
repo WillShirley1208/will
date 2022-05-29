@@ -1,5 +1,5 @@
 ---
-title: linux snippet
+title: linux network
 date: 2017-05-9 10:01:30
 tags: snippet
 categories: linux

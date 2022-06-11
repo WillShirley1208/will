@@ -202,3 +202,18 @@ tr -- translate or delete characters
 ### 查看指定服务的运行情况
 
 - `journalctl -u xxx.service`
+
+
+
+### 资源占用
+
+```shell
+ps -aux | grep 服务名称或pid
+# 显示
+root  19496  0.0  2.4 4826152 1603360 ?     Sl    2020 503:15 java -jar -Xms1024m -Xmx1024m jenkins.war --httpPort=55555
+
+19496 为PID
+0.0 为CPU占用百分比（注意：如果有两个CPU，32核64线程，那么总占比是6400%，占用一线程，cpu占比是100%）
+2.4 为内存占用百分比
+
+```

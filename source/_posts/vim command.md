@@ -22,3 +22,11 @@ categories: linux
   ```shell
   :set list
   ```
+
+- 统计字符出现次数
+
+  ```
+  :%s/字符串//ng
+  ```
+
+  

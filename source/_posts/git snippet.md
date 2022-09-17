@@ -155,6 +155,12 @@ git push origin --delete remoteBranchName
 git fetch -p
 ```
 
+#### 重命名分支
+
+```shell
+git branch -m new-branch-name
+```
+
 #### 合并策略
 
 warning: 不建议在没有为偏离分支指定合并策略时执行pull操作。  

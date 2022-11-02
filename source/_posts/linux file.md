@@ -101,9 +101,23 @@ cat files_name_1 files_name_2 files_name_3 > files_name
 
 查找具体文件    
 
-```
+```shell
 find / -name 文件名称
 ```
+
+查找指定用户的文件
+
+```shell
+find ./* -user 用户名
+```
+
+查找指定用户组的文件
+
+```shell
+find ./* -group 用户组
+```
+
+
 
 ## ls
 
@@ -201,3 +215,27 @@ rename -n -e 's/待替换字符串/替换字符串/'  *.png
 ```shell
 grep -rn "info" *
 ```
+
+## 查询大文件里面的内容
+
+格式：
+
+```shell
+// 使用管道符可以实现过滤既满足时间又满足ip的行。
+grep -n -e “10.198.2.133” prometheus.log |grep -e “2019-09-24”|head -n 3
+```
+
+参数解释：
+-n 参数的作用是显示查找结果的所在行号
+-e 参数表示我们需要搜索的关键字，多个关键字就用多个 -e 参数
+prometheus.log 表示待搜索的大日志文件
+head -n 3 表示显示前面查询结果的前三条记录
+
+## 排除指定内容
+
+要仅打印与搜索模式不匹配的行，可以使用grep的`-v`或`--invert-match`选项。进行反转的匹配。
+
+```shell
+grep -v xxx
+```
+

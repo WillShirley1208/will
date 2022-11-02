@@ -7,6 +7,8 @@ categories: hive
 
 > Hive-site里面的配置！！！
 
+## level-1
+
 ### get started
 
 ```shell
@@ -43,7 +45,7 @@ hiveserver2 会启动一个hive服务端默认端口为：10000，可以通过be
 !connect jdbc:hive2://localhost:10000/default root 123
 ```
 
-# hive中几种分割符
+### hive中几种分割符
 
 **分隔符**
 
@@ -188,3 +190,25 @@ ALTER TABLE employee CHANGE e_id e_id INT;
 ```shell
 jps -ml  | grep Hive
 ```
+
+
+
+## level-2
+
+### 内部表vs外部表
+
+**内部表**
+
+1. 按照表数据的生命周期，可以将表分为内部表和外部表两类；
+2. 内部表也叫管理表或临时表，该类型表的生命周期时由hive控制的，默认情况下数据都存放在/user/hive/warehouse/下面；
+3. 删除表时数据会被删除；
+4. 以下命令创建的就是内部表，可见前面两篇文章中创建的表都是内部表
+
+**外部表**
+
+- 创建表的SQL语句中加上external，创建的就是外部表了；
+- 外部表的数据生命周期不受Hive控制；
+- 删除外部表的时候不会删除数据；
+- 外部表的数据，可以同时作为多个外部表的数据源共享使用；
+- 接下来开始实践，下面是建表语句：
+- 在实际生产业务系统开发中，外部表是我们主要应用的表类型

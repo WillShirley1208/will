@@ -63,3 +63,9 @@ categories: linux
   ```shell
   unset http_proxy 
   ```
+
+## curl
+
+- pretty json 
+
+  curl 'address:port' | json_pp

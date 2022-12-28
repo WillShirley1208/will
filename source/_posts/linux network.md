@@ -17,7 +17,7 @@ categories: linux
   sudo nmap -sTU -O IP-address-Here
   ```
 
-- checking remote system tcp 80 port status
+- checking **remote system** tcp 80 port status
   
   1. Telnet
   
@@ -46,7 +46,7 @@ categories: linux
 - 通过端口查看进程
   
   ```shell
-    netstat -an | grep <portnumber>
+  netstat -an | grep <portnumber>
   lsof -i:<portnumber>
   ```
 

@@ -239,3 +239,12 @@ head -n 3 表示显示前面查询结果的前三条记录
 grep -v xxx
 ```
 
+
+
+## wget
+
+- 下载指定目录
+
+```bash
+wget -r --no-parent http://abc.tamu.edu/projects/tzivi/repository/revisions/2/raw/tzivi/
+```

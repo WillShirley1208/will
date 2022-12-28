@@ -137,3 +137,20 @@ bin/kafka-console-consumer.sh \
 | utils       | 工具类                                               |
 | zk          | 提供与ZooKeeper交互的管理方法和在管道之上的更高级别的Kafka特定操作          |
 | zookeeper   | 一个促进管道传输请求的ZooKeeper客户端                           |
+
+
+
+## 主题分区
+
+- 调整分区
+
+```shell
+kafka-topics --zookeeper localhost:2181 --alter --topic my-topic --partitions 10
+```
+
+- 查看分区
+
+```shell
+kafka-topics --zookeeper localhost:2181 --describe --topic my-topic
+```
+

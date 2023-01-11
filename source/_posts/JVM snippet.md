@@ -210,3 +210,60 @@ When the method finishes execution, it’s corresponding stack frame is flushed,
   总内存大小=堆内存+非堆内存
   1200m：为堆内存大小，如果不指定后者参数则有最大数限制，网上很多文章认为这就是JVM内存， -Xmx为设置最大堆内存
   60m： 为非堆内存大小， -XX: Max PermSize实为 永久域内存，在堆内存之外，属于非堆内存部分，jdk1.5我测了好像默认为62m，即得到非堆部分默认内存）
+
+
+
+# 进程内存
+
+## 查看进程对象大小
+
+- **jmap -histo 进程id**  
+
+  ```shell
+  jmap -histo 123456 | head -n15
+  ```
+
+## 查看内存分布及回收情况
+
+- **jstat -gc 进程id 毫秒**
+
+  ```shell
+  jstat -gc 1692 5000
+  ```
+
+  S0C: Young Generation第一个survivor space的内存大小 (kB).
+  S1C: Young Generation第二个survivor space的内存大小 (kB).
+  S0U: Young Generation第一个Survivor space当前已使用的内存大小 (kB).
+  S1U: Young Generation第二个Survivor space当前已经使用的内存大小 (kB).
+  EC: Young Generation中eden space的内存大小 (kB).
+  EU: Young Generation中Eden space当前已使用的内存大小 (kB).
+  OC: Old Generation的内存大小 (kB).
+  OU: Old Generation当前已使用的内存大小 (kB).
+  MC: Permanent Generation的内存大小 (kB)
+  MU: Permanent Generation当前已使用的内存大小 (kB).
+  YGC: 从启动到采样时Young Generation GC的次数
+  YGCT: 从启动到采样时Young Generation GC所用的时间 (s).
+  FGC: 从启动到采样时Old Generation GC的次数.
+  FGCT: 从启动到采样时Old Generation GC所用的时间 (s).
+  GCT: 从启动到采样时GC所用的总时间 (s).
+
+## 查看堆栈占用
+
+- **jmap -heap 进程id**  
+
+  ```
+  S0： 新生代中Survivor space 0区已使用空间的百分比
+  S1： 新生代中Survivor space 1区已使用空间的百分比
+  E ：新生代已使用空间的百分比 Eden space
+  O： 老年代已使用空间的百分比（P:  永久带已使用空间的百分比）
+  
+  M： 元空间使用百分比
+  CCS： 压缩类空间利用率为百分比
+  YGC： YGC次数
+  YGCT： 年轻一代垃圾收集时间
+  FGC： FGC次数.
+  FGCT： 完全垃圾收集时间
+  GCT： 垃圾回收总时间
+  ```
+
+  

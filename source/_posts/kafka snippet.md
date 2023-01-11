@@ -138,9 +138,7 @@ bin/kafka-console-consumer.sh \
 | zk          | 提供与ZooKeeper交互的管理方法和在管道之上的更高级别的Kafka特定操作          |
 | zookeeper   | 一个促进管道传输请求的ZooKeeper客户端                           |
 
-
-
-## 主题分区
+# 主题分区
 
 - 调整分区
 
@@ -154,3 +152,43 @@ kafka-topics --zookeeper localhost:2181 --alter --topic my-topic --partitions 10
 kafka-topics --zookeeper localhost:2181 --describe --topic my-topic
 ```
 
+
+
+# Restful API
+
+## AVRO主题相关
+
+> 一般schema registry 默认端口是8081（有时候避免与flink-jobmanager端口冲突，改为别的端口号 8091）
+
+- 获取所有主题信息
+
+  ```shell
+  curl -X GET "http://<schema-registry-url>:<port>/subjects"
+  ```
+
+- 根据schema id查下相关信息
+
+  ```shell
+  curl -X GET "http://<schema-registry-url>:<port>/schemas/ids/<schema-id>"
+  ```
+
+- 获取指定主题key/value相关schema信息
+
+  ```shell
+  GET http://<schema-registry-url>:<port>/subjects/<topic-name>-value/versions/latest
+  ```
+
+  or
+
+  ```shell
+  GET http://<schema-registry-url>:<port>/subjects/<topic-name>-key/versions/latest
+  ```
+
+  
+
+# 参数调优
+
+# producer
+
+- batch.size 默认16384
+- request.time.ms 默认30000（30秒）

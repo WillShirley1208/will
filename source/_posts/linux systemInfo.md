@@ -66,3 +66,12 @@ categories: linux
 ## 时区
 
 [CentOS 7 时区设置](https://www.cnblogs.com/zhangeamon/p/5500744.html)
+
+
+
+## 清理内存
+
+```shell
+sync; echo 1 > /proc/sys/vm/drop_caches
+```
+

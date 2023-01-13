@@ -248,3 +248,23 @@ grep -v xxx
 ```bash
 wget -r --no-parent http://abc.tamu.edu/projects/tzivi/repository/revisions/2/raw/tzivi/
 ```
+
+
+
+## 软连接
+
+- 创建软连接
+
+  ```shell
+  ln  -s  [源文件或目录]  [目标文件或目录]
+  ```
+
+  
+
+- 查找指定目录的软连接文件
+
+  ```shell
+  ls -alR | grep ^l
+  ```
+
+  

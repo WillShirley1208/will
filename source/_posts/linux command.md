@@ -217,3 +217,12 @@ root  19496  0.0  2.4 4826152 1603360 ?     Sl    2020 503:15 java -jar -Xms1024
 2.4 为内存占用百分比
 
 ```
+
+
+
+## 清理缓存
+
+```shell
+sync; echo 1 > /proc/sys/vm/drop_caches
+```
+

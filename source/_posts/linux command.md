@@ -226,3 +226,11 @@ root  19496  0.0  2.4 4826152 1603360 ?     Sl    2020 503:15 java -jar -Xms1024
 sync; echo 1 > /proc/sys/vm/drop_caches
 ```
 
+
+
+## centos安装离线依赖
+
+```shell
+rpm -ivh name.rpm
+```
+

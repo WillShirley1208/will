@@ -192,3 +192,16 @@ git push origin master
 #### 查看本地分支与远程分支的关联
 
 `git branch -vv`
+
+#### 查看每一行是哪次提交最后修改的
+
+```shell
+git blame filename 
+```
+
+#### 列出文件的所有修改记录
+
+```shell
+git log -p filename
+```
+

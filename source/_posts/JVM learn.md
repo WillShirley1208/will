@@ -180,3 +180,19 @@ categories: java
   G1的FullGC是单线程，一个22G的对GC完成需要8S的时间，所以这个值在调优的时候写的45%
 
 > 之前查看ignite，12秒回收了71G
+
+
+
+# Garbage Collectors
+
+The JVM (Java Virtual Machine) has several different garbage collectors, including the **Parallel Scavenge collector** and the **G1 (Garbage-First) collector**. Both collectors have a "young generation" that is responsible for storing newly created objects, but they work in different ways.
+
+- Parallel Scavenge collector
+
+The Parallel Scavenge collector's young generation, also known as the "PS young generation", is divided into two regions called "Eden" and "Survivor". The Eden region is where newly created objects are initially allocated, while the Survivor regions are used to store objects that have survived one or more garbage collection cycles. The idea is to quickly identify and collect objects that are no longer needed, while promoting long-lived objects to the older generation.
+
+- G1 collector
+
+The G1 collector also has a young generation, which is referred to as the "G1 young generation". Unlike the PS young generation, the G1 young generation does not have fixed regions like Eden and Survivor. Instead, the G1 collector divides the heap into equal-sized "regions" that can be used for both young and old objects, depending on their age and usage patterns. The G1 collector also uses a "remembered set" to keep track of references between regions, which allows it to more efficiently identify and collect objects that are no longer needed.
+
+Overall, both the PS and G1 collectors have their own strengths and weaknesses, and the best choice depends on the specific requirements and characteristics of the application. The G1 collector is generally considered to be more flexible and adaptive to different usage patterns, but the PS collector may be better suited for applications with short-lived objects and high object creation rates.

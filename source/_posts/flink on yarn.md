@@ -5,7 +5,17 @@ tags: point
 categories: flink
 ---
 
-**Flink提供了两种在yarn上运行的模式，分别为Session-Cluster和Per-Job-Cluster模式，本文分析两种模式及启动流程。**
+# Flink on YARN模式
+在这种模式下Flink的资源由YARN来进行管理，Flink服务被提交到YARN的ResourceManager后，YARN的NodeManager会为Flink生成对应的容器，Flink再将JobManager和TaskManager实例部署到容器中。在这种情况下Flink可以通过JobManager所需要的slots数量来动态的调整TaskManager的资源，达到了资源的可拓展性。Flink官方也推荐正式的生产环境使用这种部署模式。
+在YARN上，又分为三种部署模式：
+## Session Mode
+共享JobManager和TaskManager，所有提交的任务都在一个集群中运行，集群的生命周期独立于任务，任务的开始、结束不影响集群的生命周期。类似于上面的Standalone-cluster模式，任务与任务之间不隔离，共享同一套资源。
+## Per-Job Mode
+为每个任务创建单独的JobManager和TaskManager集群，每个任务之间互相隔离互不干扰，集群的生命周期随着任务的生命周期结束而结束。这种模式的优点就是任务独占一个集群，资源的隔离性好。
+## Application Mode
+一个Application可以存在多个任务，这时YARN为每个Application创建集群，Application中的任务共享该集群，资源的隔离是Application级别的，集群的生命周期随着Application的生命周期结束。这种模式更像是Session Mode和Pre-Job Mode的折中方案，既做到了资源的隔离，又提高了任务之间资源的利用率。
+
+
 
 ## interaction
 

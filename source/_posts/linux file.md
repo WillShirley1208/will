@@ -32,6 +32,12 @@ rm -i !(*.zip)
 rm -v !(*.zip|*.odt)
 ```
 
+**5.** 删除指定目录下指定日期的目录，可以使用 `find` 和 `rm` 命令来删除指定目录下指定日期的目录
+
+```
+find /path/to/directory -type d -mtime +365 -exec rm -rf {} \;
+```
+
 ## AWK
 
 - `awk -v FS="输入分隔符" -v OFS='输出分隔符' '{if($1==$5) print $1,$5,$10}' filename`
@@ -99,25 +105,37 @@ cat files_name_1 files_name_2 files_name_3 > files_name
 
 ## find
 
-查找具体文件    
+- 查找具体文件    
 
 ```shell
 find / -name 文件名称
 ```
 
-查找指定用户的文件
+- 查找指定用户的文件
 
 ```shell
 find ./* -user 用户名
 ```
 
-查找指定用户组的文件
+- 查找指定用户组的文件
 
 ```shell
 find ./* -group 用户组
 ```
 
+- 匹配查找除了某个特定文件类型以外的所有文件，并将结果传递给 `rm` 命令进行删除
 
+  ```shell
+  find . ! -name "*.txt" -delete
+  ```
+
+- 匹配多个
+
+  ```shell
+  find . ! \( -name "log4j*" -o -name "flink*" \)
+  ```
+
+  
 
 ## ls
 

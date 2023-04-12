@@ -80,7 +80,7 @@ sudo umount /cdrom
 sudo eject /cdrom
 ```
 
-### postgre
+## postgre
 
 在本机安装，非docker，user: postgres 	pw:postgres 
 
@@ -88,9 +88,7 @@ sudo eject /cdrom
 sudo -u postgres psql
 ```
 
-
-
-#### 更改 Ubuntu 18.04 登陆背景
+## 更改 Ubuntu 18.04 登陆背景
 
 1. `sudo vi /etc/alternatives/gdm3.css`
 
@@ -105,10 +103,7 @@ sudo -u postgres psql
    }
    ```
 
-
-
-
-#### 配合electron-ssr进行终端外网访问
+## 配合electron-ssr进行终端外网访问
 
 在`/etc/profile`中添加配置
 
@@ -118,3 +113,25 @@ export https_proxy="http://127.0.0.1:12333"
 ```
 
 然后`source /etc/profile`即可
+
+## 升级到2204版本中文输入法只在终端可用解决
+
+> 参考：https://zhuanlan.zhihu.com/p/508797663
+
+- /etc/profile 添加
+
+```
+export XMODIFIERS=@im=fcitx
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+```
+
+- ~/.pam_environment 添加以下几行：
+
+```
+GTK_IM_MODULE DEFAULT=fcitx
+QT_IM_MODULE DEFAULT=fcitx
+XMODIFIERS DEFAULT=@im=fcitx
+SDL_IM_MODULE DEFAULT=fcitx
+```
+

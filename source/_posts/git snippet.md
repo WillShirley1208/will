@@ -205,3 +205,89 @@ git blame filename
 git log -p filename
 ```
 
+# 更改https协议进行推送
+
+> 如果之前是使用ssh协议进行推送，现改为http协议
+
+1. 查看当前Git项目的远程地址
+
+   ```shell
+   git remote -v
+   ```
+
+   该命令会列出所有已配置的远程仓库地址，并显示它们的读取和写入访问URL。示例输出如下所示：
+
+   ```shell
+   origin  https://github.com/username/repository.git (fetch)
+   origin  https://github.com/username/repository.git (push)
+   ```
+
+   其中，`origin`是远程仓库的名称，`https://github.com/username/repository.git`是远程仓库的地址，`(fetch)`和`(push)`分别表示读取和写入访问URL。
+
+2. 将Git仓库的URL替换为HTTP协议的URL
+
+   ```shell
+   git remote set-url origin http://gitlab.xxx.com/username/repository.git
+   ```
+
+3. 然后使用以下命令进行Git push操作
+
+后记：需要注意的是，使用HTTP协议进行Git push操作的速度可能会比使用SSH协议慢一些，因为HTTP协议需要建立TCP连接、发送HTTP请求、接收HTTP响应等过程。同时，HTTP协议的安全性也比SSH协议稍低，因此在安全性要求较高的情况下，建议使用SSH协议进行Git push操作。
+
+# stash命令
+
+在Git中，`stash`命令用于暂存当前未提交的代码修改，以便在后续时刻再次应用它们。它可以暂存已修改但还未添加到暂存区的文件，也可以暂存已经添加到暂存区但还未提交的文件。
+
+以下是`stash`命令的使用方式：
+
+1. 暂存当前修改：(这个命令将当前的修改暂存起来，让你的工作目录变成干净的状态。)
+
+   ```shell
+   git stash
+   ```
+
+2. 恢复暂存的修改：
+
+   ```shell
+   git stash apply
+   ```
+
+   这个命令将之前暂存的修改应用到当前分支上。如果你有多个stash，可以使用`git stash apply stash@{n}`来指定恢复某个特定的stash。
+
+3. 删除stash：
+
+   ```shel
+   git stash drop
+   ```
+
+   这个命令会删除最近的一个stash。
+
+4. 列出所有stash：
+
+   ```SHELL
+   git stash list
+   ```
+
+5. 应用并删除stash：
+
+   ```shell
+   git stash pop
+   ```
+
+   这个命令相当于`git stash apply`和`git stash drop`的组合，它会将最近的一个stash应用到当前分支，并将其删除。
+
+6. 暂存特定的文件：
+
+   ```bash
+   git stash push path/to/file
+   ```
+
+   这个命令可以将指定的文件暂存起来，而不是暂存整个工作目录。
+
+7. 给stash添加描述：
+
+   ```BASH
+   git stash save "stash message"
+   ```
+
+   

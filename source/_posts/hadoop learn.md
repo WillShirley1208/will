@@ -83,7 +83,7 @@ categories: java
 
 
 
-     8032  yarn.resourcemanager.address   RM的applications manager(ASM)端口
+    8032  yarn.resourcemanager.address   RM的applications manager(ASM)端口
     8030  yarn.resourcemanager.scheduler.address  scheduler组件的IPC端口
     8031  yarn.resourcemanager.resource-tracker.address  IPC
     8033  yarn.resourcemanager.admin.address  IPC
@@ -91,43 +91,52 @@ categories: java
 
 ##     NodeManager
 
-
-​     8040  yarn.nodemanager.localizer.address  localizer IPC
-​    8042  yarn.nodemanager.webapp.address   http服务端口（**从节点node管理界面，可查看节点的任务处理信息**）
-​    8041  yarn.nodemanager.address   NM中container manager的端口
+ ```
+ 8040  yarn.nodemanager.localizer.address  localizer IPC
+ 8042  yarn.nodemanager.webapp.address   http服务端口（**从节点node管理界面，可查看节点的任务处理信息**）
+ 8041  yarn.nodemanager.address   NM中container manager的端口
+ ```
 
 ##     JobHistory Server
 
 
-     10020   mapreduce.jobhistory.address   IPC
+    10020   mapreduce.jobhistory.address   IPC
     19888   mapreduce.jobhistory.webapp.address   http服务端口
 
 #  HBase
 
-
+  ```
    Master
-     60000   hbase.master.port  IPC
-     60010   hbase.master.info.port  http服务端口
+       60000   hbase.master.port  IPC
+       60010   hbase.master.info.port  http服务端口
    RegionServer
-     60020   hbase.regionserver.port   IPC
-     60030   hbase.regionserver.info.port   http服务端口
+       60020   hbase.regionserver.port   IPC
+       60030   hbase.regionserver.info.port   http服务端口
    HQuorumPeer
-     2181  hbase.zookeeper.property.clientPort   HBase-managed ZK mode，使用独立的ZooKeeper集群则不会启用该端口。
-     2888  hbase.zookeeper.peerport   HBase-managed ZK mode，使用独立的ZooKeeper集群则不会启用该端口。
-     3888  hbase.zookeeper.leaderport  HBase-managed ZK mode，使用独立的ZooKeeper集群则不会启用该端口。
+       2181  hbase.zookeeper.property.clientPort   HBase-managed ZK mode，使用独立的ZooKeeper集群则不会启用该端口。
+       2888  hbase.zookeeper.peerport   HBase-managed ZK mode，使用独立的ZooKeeper集群则不会启用该端口。
+       3888  hbase.zookeeper.leaderport  HBase-managed ZK mode，使用独立的ZooKeeper集群则不会启用该端口。
+  ```
+
+
 
 #  Hive
 
-
-   Metastore
+```
+Metastore
      9083  /etc/default/hive-metastore中export PORT=<port>来更新默认端口   
-   HiveServer
+HiveServer
      10000   /etc/hive/conf/hive-env.sh中export HIVE_SERVER2_THRIFT_PORT=<port>来更新默认端口   
+```
+
+
 
 #  ZooKeeper
 
-
-   Server
+```
+Server
      2181  /etc/zookeeper/conf/zoo.cfg中clientPort=<port>  对客户端提供服务的端口
      2888  /etc/zookeeper/conf/zoo.cfg中server.x=[hostname]:nnnnn[:nnnnn]，标蓝部分  follower用来连接到leader，只在leader上监听该端口。
      3888  /etc/zookeeper/conf/zoo.cfg中server.x=[hostname]:nnnnn[:nnnnn]，标蓝部分  用于leader选举的。只在electionAlg是1,2或3(默认)时需要。
+```
+

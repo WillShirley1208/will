@@ -104,3 +104,10 @@ netstat -an | grep <port>
    ```
    sudo ufw status numbered
    ```
+
+## 根据PID查看子进程
+
+```
+netstat -lntp |grep PID
+```
+

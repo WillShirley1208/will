@@ -34,9 +34,29 @@ rm -v !(*.zip|*.odt)
 
 **5.** 删除指定目录下指定日期的目录，可以使用 `find` 和 `rm` 命令来删除指定目录下指定日期的目录
 
-```
+```shell
 find /path/to/directory -type d -mtime +365 -exec rm -rf {} \;
 ```
+
+**6**. 删除指定目录下前一个星期的文件，可以使用 `find` 和 `rm` 命令来删除指定目录下指定日期的文件
+
+```shell
+find /path/to/directory -type f -mtime +7 -exec rm {} \;
+```
+
+or
+
+```shell
+find /path/to/directory -type f -mtime +7 -delete
+```
+
+- 可指定相关名称
+
+  ```shell
+  find /var/log -name "*.log" -type f -mtime +30 
+  ```
+
+  
 
 ## AWK
 
@@ -94,6 +114,34 @@ split [-a] [-b] [-C] [-l] [要分割的文件名] [分割后的文件名前缀]
 ```shell
 cat files_name_1 files_name_2 files_name_3 > files_name
 ```
+
+- 按行数分割
+
+  ```
+  split -l 10000 bigfile.txt smallfile
+  ```
+
+  > 分割之后的文件不影响读取
+
+- 统计某个文件中的字符数，需要注意的是，如果文件中包含多字节字符（如中文），则每个字符将被视为多个字符来计算。
+
+  ```shell
+  wc -c /path/to/file
+  ```
+
+  在这基础上，统计内容所占KB
+
+  ```shell
+  wc -c /path/to/file | awk '{print $1/1024}'
+  ```
+
+- awk对文件按照指定多列的内容进行排序
+
+  ```
+  awk '{print $0}' head_100.csv | sort -t ',' -k2,3 > head_100_sort.csv
+  ```
+
+  > 并用`sort`命令根据指定列的内容进行排序。`-t`选项表示使用制表符作为字段分隔符，`[列数]`是你要排序的那一列，“-k1,2”表示先按照第1列排序，若第1列相同则按照第2列排序。
 
 ## markdown
 
@@ -162,6 +210,14 @@ echo '{"kind": "Service", "apiVersion": "v1", "status": {"loadBalancer": true}}'
   ```shell
   sed -i .bak 's/Search_String/Replacement_String/g' Input_File
   ```
+
+- 删除指定多行
+
+  ```shell
+  sed -i '1,5d' example.txt
+  ```
+
+  
 
 ## 转换文件编码格式
 
@@ -286,3 +342,13 @@ wget -r --no-parent http://abc.tamu.edu/projects/tzivi/repository/revisions/2/ra
   ```
 
   
+
+# sort
+
+```
+sort --parallel=8 -S 4G -T /data -k2,3 largefile.txt > sorted_file.txt
+```
+
+> 使用了8个线程并行排序，并且sort命令在排序过程中最多使用4GB的内存缓冲区。我们还使用了`-T /data`选项，指定sort命令使用/data目录来存储临时文件，而不是默认路径。
+>
+> “-k1,2”表示先按照第1列排序，若第1列相同则按照第2列排序。

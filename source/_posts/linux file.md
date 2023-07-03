@@ -343,7 +343,7 @@ wget -r --no-parent http://abc.tamu.edu/projects/tzivi/repository/revisions/2/ra
 
   
 
-# sort
+## sort
 
 ```
 sort --parallel=8 -S 4G -T /data -k2,3 largefile.txt > sorted_file.txt
@@ -352,3 +352,15 @@ sort --parallel=8 -S 4G -T /data -k2,3 largefile.txt > sorted_file.txt
 > 使用了8个线程并行排序，并且sort命令在排序过程中最多使用4GB的内存缓冲区。我们还使用了`-T /data`选项，指定sort命令使用/data目录来存储临时文件，而不是默认路径。
 >
 > “-k1,2”表示先按照第1列排序，若第1列相同则按照第2列排序。
+
+## 编码
+
+- Base64
+
+  - 解码
+
+    `echo [base64-encoded-string] | base64 --decode`
+
+  - 编码
+
+    `echo "your string" | base64`

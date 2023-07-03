@@ -41,7 +41,9 @@ YARN 看做一个云操作系统，它负责为应用程序启 动 ApplicationMa
 
 > NodeManager 是 ResourceManager 在每台机器的上代理，负责容器的管理，并监控他们的资源使用情况（cpu，内存，磁盘及网络等），以及向 ResourceManager/Scheduler 提供这些资源使用报告。
 
-## submit application to yarn
+## 命令
+
+### submit application to yarn
 
 ![](/images/yarn/submit_app_flow.jpeg)
 
@@ -50,6 +52,71 @@ YARN 看做一个云操作系统，它负责为应用程序启 动 ApplicationMa
 3. ApplicationMaster 启动以后，对 作业（也就是 Application） 进行拆分，拆分 task 出来，这些 task 可以运行在一个或多个容器中。然后向 ResourceManager 申请要运行程序的容器，并定时向 ResourceManager 发送心跳。
 4. 申请到容器后，ApplicationMaster 会去和容器对应的 NodeManager 通信，而后将作业分发到对应的 NodeManager 中的容器去运行，这里会将拆分后的 MapReduce 进行分发，对应容器中运行的可能是 Map 任务，也可能是 Reduce 任务。
 5. 容器中运行的任务会向 ApplicationMaster 发送心跳，汇报自身情况。当程序运行完成后， ApplicationMaster 再向 ResourceManager 注销并释放容器资源。
+
+### 停止应用
+
+```yarn application -kill appID```
+
+
+
+## yarn资源参数配置
+
+每个job提交到yarn上执行时，都会分配Container容器去运行，而这个容器需要资源才能运行，这个资源就是Cpu和内存。
+
+1、CPU资源调度
+
+目前的CPU被Yarn划分为虚拟CPU，这是yarn自己引入的概念，因为每个服务器的Cpu计算能力不一样，有的机器可能是 其他机器的计算能力的2倍，然后可以通过多配置几个虚拟内存弥补差异。在yarn中，cpu的相关配置如下。
+
+yarn.nodemanager.resource.cpu-vcores
+
+表示该节点服务器上yarn可以使用的虚拟的CPU个数，默认是8，推荐配置与核心个数相同，如果节点CPU的核心个数不足8个，需要调小这个值，yarn不会智能的去检测物理核数。如果机器性能较好，可以配置为物理核数的2倍。
+
+yarn.scheduler.minimum-allocation-vcores
+
+表示单个任务最小可以申请的虚拟核心数，默认为1
+
+yarn.sheduler.maximum-allocation-vcores
+
+表示单个任务最大可以申请的虚拟核数，默认为4；如果申请资源时，超过这个配置，会抛出 InvalidResourceRequestException
+
+2、Memory资源调度
+
+yarn一般允许用户配置每个节点上可用的物理资源，可用指的是将机器上内存减去hdfs的，hbase的等等剩下的可用的内存。
+
+yarn.nodemanager.resource.memory-mb
+
+设置该节点上yarn可使用的内存，默认为8G，如果节点内存不足8G，要减少这个值，yarn不会智能的去检测内存资源，一般这个值式yarn的可用内存资源。
+
+yarn.scheduler.minmum-allocation-mb
+
+单个任务最小申请物理内存量，默认是1024M，根据自己业务设定
+
+yarn.scheduler.maximum-allocation-mb
+
+单个任务最大可以申请的物理内存量，默认为8291M
+
+二、如果设置这几个参数
+如果一个服务器是32核，虚拟后为64核，128G内存，我们该如何设置上面的6个参数呢？即如何做到资源最大化利用
+
+生产上我们一般要预留15-20%的内存，那么可用内存就是128*0.8=102.4G，去除其他组件的使用，我们设置成90G就可以了。
+
+1、yarn.sheduler.maximum-allocation-vcores
+1.
+一般就设置成4个，cloudera公司做过性能测试，如果CPU大于等于5之后，CPU的利用率反而不是很好。这个参数可以根据生成服务器决定，比如公司服务器很富裕，那就直接设置成1:1；设置成32，如果不是很富裕，可以直接设置成1:2。我们以1:2来计算。
+
+2、yarn.scheduler.minimum-allocation-vcores
+1.
+如果设置vcoure = 1，那么最大可以跑64/1=64个container，如果设置成这样，最小container是64/4=16个。
+
+3、yarn.scheduler.minmum-allocation-mb
+
+如果设置成2G，那么90/2=45最多可以跑45个container，如果设置成4G，那么最多可以跑24个；vcore有些浪费。
+
+4、yarn.scheduler.maximum-allocation-mb
+
+这个要根据自己公司的业务设定，如果有大任务，需要5-6G内存，那就设置为8G，那么最大可以跑11个container。
+
+
 
 ---
 

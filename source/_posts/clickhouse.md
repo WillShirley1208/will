@@ -24,3 +24,21 @@ ClickHouse 是完全列式的存储计算引擎，而且是以有序存储为核
 ### 高并发服务方面
 
 Clickhouse 的并发能力其实是与并行计算量和机器资源决定的。如果查询需要扫描的数据量和计算复杂度很大，并发度就会降低，但是如果保证单个 query 的 latency 足够低（增加内存和 cpu 资源），部分场景下用户可以通过设置合适的系统参数来提升并发能力，比如 max_threads 等。其他分析型系统（例如 Elasticsearch）的并发能力为什么很好，从 Cache 设计层面来看，ES 的 Cache 包括 Query Cache, Request Cache，Data Cache，Index Cache，从查询结果到索引扫描结果层层的 Cache 加速，因为 Elasticsearch 认为它的场景下存在热点数据，可能被反复查询。反观 ClickHouse，只有一个面向 IO 的 UnCompressedBlockCache 和系统的 PageCache，为了实现更优秀的并发，我们很容易想到在 Clickhouse 外面加一层 Cache，比如 redis，但是分析场景下的数据和查询都是多变的，查询结果等 Cache 都不容易命中，而且在广投业务中实时查询的数据是基于 T 之后不断更新的数据，如果外挂缓存将降低数据查询的时效性。
+
+## 技巧
+
+### 唯一键约束
+
+```sql
+CREATE TABLE IF NOT EXISTS qilu.t_01(
+	C1 String,
+	C2 String,
+	C3 String,
+	C4 Date,
+	PRIMARY KEY (C1) # 要设置主键
+) engine=ReplacingMergeTree() # 引擎要用ReplacingMergeTree
+ ORDER BY C1; # 要设置排序
+
+optimize table t_01 FINAL; # 要强制合并分区
+```
+

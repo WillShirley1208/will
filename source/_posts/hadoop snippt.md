@@ -5,6 +5,8 @@ tags: snippet
 categories: hadoop
 ---
 
+# Command
+
 ## 1. Create a directory in HDFS at given path(s).
 
 ```
@@ -255,3 +257,38 @@ hdfs dfs -du /user/saurzcode/dir1/abc.txt
 ```
 
 Please comment which of these commands you found most useful while dealing with Hadoop /HDFS.
+
+
+
+# Solution
+
+## Hadoop Operation category READ is not supported in state standby
+
+- 报错原因
+  hadoop集群中的两个NameNode均为standby状态。
+
+  ```shell
+  hdfs haadmin -getServiceState nn1
+  hdfs haadmin -getServiceState nn2
+  ```
+
+​		如果两个NameNode均为standby状态，那么很有可能是DFSZKFailoverController出现了问题。
+
+- 报错解决
+
+  - 手动改变其中一个NameNode的状态
+
+    ```shell
+    hdfs haadmin -transitionToActive -forcemanual nn1
+    ```
+
+  - 如果手动改变状态不能解决问题，那就重启dfs
+
+    ```shell
+    stop-dfs.sh
+    start-dfs.sh
+    ```
+
+- 再检查NameNode状态
+
+  此时正常状态是nn1为active，nn2为standby

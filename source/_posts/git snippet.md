@@ -290,4 +290,36 @@ git log -p filename
    git stash save "stash message"
    ```
 
-   
+
+# 合并多个commit
+
+1. merge the last 3 commits into a single commit.
+
+   ```shell
+   git rebase -i HEAD~3
+   ```
+
+2. replace all those `pick` with `squash` (or simply `s`) apart from the first one.
+
+   ![](https://www.freecodecamp.org/news/content/images/2023/03/Screenshot-2023-03-22-at-11.28.12.png)
+
+   **Note:** `pick` or `p` will only use those commits, but `squash` or `s` will use them and combine them all together.
+
+   The first commit is the one you will combine them into without losing your changes.
+
+3. After doing that, save the file and close it. Git will open up another editor where you can see the new commit message it generates for you.
+
+   ![](https://www.freecodecamp.org/news/content/images/2023/03/Screenshot-2023-03-22-at-11.36.02.png)
+
+   You can get rid of all of them and add your custom message:
+
+   ![](https://www.freecodecamp.org/news/content/images/2023/03/Screenshot-2023-03-22-at-11.37.45.png)
+
+    Or you can leave it as is. If you add a new commit message, save the file and close it.
+
+4. Pushing changes, You should run git push to add a new commit to the remote origin. If you have already pushed your commits, then you should force push them using the git push command with — force flag (suppose, the name of remote is origin, which is by default)
+
+   ```shell
+   git push --force origin HEAD
+   ```
+

@@ -258,6 +258,14 @@ hdfs dfs -du /user/saurzcode/dir1/abc.txt
 
 Please comment which of these commands you found most useful while dealing with Hadoop /HDFS.
 
+## 11. 查看指定目录下的所有文件
+
+```shell
+hadoop fs -lsr /your/hdfs/directory
+```
+
+
+
 
 
 # Solution

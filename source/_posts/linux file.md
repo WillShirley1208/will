@@ -143,6 +143,14 @@ cat files_name_1 files_name_2 files_name_3 > files_name
 
   > 并用`sort`命令根据指定列的内容进行排序。`-t`选项表示使用制表符作为字段分隔符，`[列数]`是你要排序的那一列，“-k1,2”表示先按照第1列排序，若第1列相同则按照第2列排序。
 
+- 统计字符的长度
+
+  ```shell
+  echo 字符 | wc -m
+  ```
+
+  
+
 ## markdown
 
 - markdown文件转word文件

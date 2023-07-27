@@ -143,6 +143,14 @@ Ctrl + xx ：在命令行尾和光标之间移动
   
   `date -d"20140101 -1 days" +"%Y%m%d"`
 
+- 当前时间戳（秒）
+
+  ```shell
+  date +%s
+  ```
+
+  
+
 ### 剪切板
 
 将剪切板中的内容输出到文件     echo $(xsel --clipboard) >> a.txt 

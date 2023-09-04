@@ -1,4 +1,5 @@
 ---
+
 title: flink join
 date: 2022-01-05 16:52:01
 tags: learn
@@ -66,6 +67,11 @@ categories: flink
   [LEFT] JOIN t2 FOR SYSTEM_TIME AS OF t1.proctime [AS <alias2>]
   ON t1.column1 = t2.key-name1
   ```
+
+### lookup join
+
+- 维表必须指定主键。维表JOIN时，ON的条件必须包含所有主键的等值条件
+
 
 ---
 

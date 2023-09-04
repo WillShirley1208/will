@@ -119,13 +119,19 @@ Data Definition Languages (DDL) are used to define the database structure. Any C
 - 执行sql文件
   
   ```shell
-  mysql> source /path/to/files/filename.sql
+  mysql> source /path/to/files/file.sql
   ```
 
 - 导出所有数据库
   
   ```shell
   mysqldump -u root -p --all-databases > backup_filename.sql
+  ```
+
+- 只导出建表语句
+
+  ```sql
+  mysqldump -u your_username -p --no-data your_database > backup.sql
   ```
 
 ### 新增主键

@@ -140,7 +140,7 @@ categories: redis
   3.启动脚本    /etc/init.d/redis_xxxx
   ```
 
-客户端启动时    redis-cli -p xxxx
+- 客户端启动时    redis-cli -p xxxx
 
 ```
 ### Enable remote Redis connection

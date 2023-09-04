@@ -6,6 +6,16 @@ categories: linux
 
 ---
 
+## grep
+
+- 去除包含特定字符串的行：
+
+```shell
+grep -v "pattern" inputfile > outputfile
+```
+
+参数 `-v` 是用来反向匹配的选项，它会将不匹配指定模式的行输出
+
 ## delete
 
 **1.** To delete all files in a directory except filename, type the command below:

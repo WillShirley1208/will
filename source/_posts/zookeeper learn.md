@@ -33,6 +33,12 @@ Maximum number of concurrent connections that a single client can make to a sing
 
 ## 终端操作
 
+### 登录
+
+```
+zkCli.sh -server 127.0.0.1:2181
+```
+
 ### 新増节点
 
 ```

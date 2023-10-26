@@ -5,8 +5,6 @@ tags: issue
 categories: ignite
 ---
 
-### 
-
 ### BinaryObjectException: Conflicting enum values
 
 - 原因

@@ -7,7 +7,11 @@ categories: kafka
 
 
 
+> 已验证Kafka 3.3.2
+>
 > 此方案的缺点，在sasl_plaintext模式下，不能动态创建用户，或修改用户账号信息
+>
+> 优点是，无需在zookeeper上配置jaas
 
 # 服务端
 
@@ -55,7 +59,7 @@ sasl.enabled.mechanisms=PLAIN
 ```properties
 # authorizer.class.name=kafka.security.auth.SimpleAclAuthorizer 旧版本配置
 authorizer.class.name=kafka.security.authorizer.AclAuthorizer
-super.users=User:admin
+super.users=User:admin;User:ANONYMOUS
 allow.everyone.if.no.acl.found=false
 ```
 

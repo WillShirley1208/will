@@ -208,3 +208,61 @@ Kafka的每个Topic都可以被分成多个Partition，每个Partition只会被�
 Kafka中的副本是指每个Partition的备份，一个Partition可以有多个副本，每个副本都保存着完整的数据副本。副本之间有一个Leader-Follower的关系，其中一个副本作为Leader，其他副本作为Follower。客户端只能向Leader发送读写请求，而Follower只用于备份和同步数据，不能直接处理客户端请求。当Leader出现故障时，Kafka会自动将Follower升级为新的Leader，保证服务的可用性。
 
 **总结：分区实现了数据的水平切分和负载均衡，而副本则提供了数据的冗余备份和高可用性，确保数据安全和业务连续性。在实际应用中，需要根据具体的业务需求和技术规划来设置分区和副本的数量，以提高Kafka服务的可靠性和性能。**
+
+
+
+## 消费者
+
+- 消费sasl_plaintext scram-sha-256认证的主题
+
+  ```shell
+  kafka-console-consumer.sh --bootstrap-server your_kafka_bootstrap_servers --topic your_topic --group your_consumer_group --consumer.config client-sasl.properties --from-beginning
+  ```
+
+  其中client-sasl.properties信息
+
+  ```shell
+  security.protocol=SASL_PLAINTEXT
+  sasl.mechanism=SCRAM-SHA-256
+  sasl.jaas.config=org.apache.kafka.common.security.scram.ScramLoginModule required username="your_username" password="your_password";
+  ```
+
+  
+
+## 消费者组
+
+- 查询消费者组的偏移量
+
+  ```shell
+  kafka-consumer-groups.sh --bootstrap-server <bootstrap-server> --group <consumer-group> --describe
+  ```
+
+- 指定消费者组的偏移量
+
+  ```shell
+  kafka-consumer-groups.sh --bootstrap-server <bootstrap-server> --group <consumer-group> --topic <topic> --reset-offsets --to-offset <new-offset> --execute
+  ```
+
+- 指定消费组偏移量到最早
+
+  ```shell
+  kafka-consumer-groups.sh --bootstrap-server <bootstrap-server> --group <consumer-group> --reset-offsets --to-earliest --execute --topic your_topic
+  ```
+
+  
+
+## 主题
+
+- 使为特定主题（topic）配置数据的保留时间。
+
+  ```shell
+  ./kafka-configs.sh --bootstrap-server <KAFKA_BROKER_ADDRESS> --alter --entity-type topics --entity-name <TOPIC_NAME> --add-config retention.ms=<RETENTION_TIME_IN_MILLISECONDS>
+  ```
+
+  eg:(设置my-topic主题保留一天数据)
+
+  ```shell
+  ./kafka-configs.sh --bootstrap-server localhost:9092 --alter --entity-type topics --entity-name my-topic --add-config retention.ms=86400000
+  ```
+
+  

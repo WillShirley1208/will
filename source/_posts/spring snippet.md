@@ -49,3 +49,7 @@ public String delete(@RequestBody DeleteListRequest request) throws WebTransExce
     return "success";
 }
 ```
+
+## RESTFUL
+
+-  `@RestController` class level annotation and then add the following `@RequestMapping` to the class

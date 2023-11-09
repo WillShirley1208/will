@@ -50,6 +50,16 @@ categories: linux
   lsof -i:<portnumber>
   ```
 
+## 进程号
+
+- 根据进程号查看启动文件所在位置
+
+  `readlink /proc/<线程ID>/exe`
+
+- 查看进程的启动命令
+
+  `cat /proc/<线程ID>/cmdline`
+
 ## 网络代理
 
 - 查看本地网络代理

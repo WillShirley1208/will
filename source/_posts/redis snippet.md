@@ -90,7 +90,7 @@ categories: redis
     3) "redis"
     ```
 
-### 知识点
+### 操作
 
 - show all keys
   
@@ -106,6 +106,15 @@ categories: redis
     Delete all keys of the specified Redis database:
     `$ redis-cli -n <database_number> FLUSHDB`
   ```
+
+- 删除指定前缀的数据
+
+  ```shell
+  # 删除指定CCR866前缀的redis数据
+  path/to/redis-cli -p 16379 -a Redis6379  -n 1 keys 'CCR866*' | xargs ./redis-cli -p 16379 -a Redis6379 -n 1 del
+  ```
+
+- 在启动命令中添加 --raw,可以查看value的中文信息
 
 ### 问题解决
 
@@ -141,53 +150,3 @@ categories: redis
   ```
 
 - 客户端启动时    redis-cli -p xxxx
-
-```
-### Enable remote Redis connection
-
-- Replaced `bind 127.0.0.1` with `bind 0.0.0.0` in the `/etc/redis/redis.conf` file, the line does not have a leading `#` nor space,
-- Replaced `protected-mode yes` with `protected-mode no` in this same file,
-- Allowed all traffic to port `6379` using `ufw allow 6379` and `ufw allow 6379/tcp`
-
-### secure redis
-
-By default, UFW is not available in CentOS repository. So you will need to install the EPEL repository to your system. You can do this by running the following 
-
-linux command
-```
-
-# yum install epel-release -y
-
-```
-Once the EPEL repository is installed, you can install UFW by just running the following linux command:
-```
-
-# yum install --enablerepo="epel" ufw -y
-
-```
-After installing UFW, start UFW service and enable it to start on boot time by running the following 
-
-linux command
-```
-
-# ufw enable
-
-```
-Next, check the status of UFW with the following linux command. You should see the following output:
-```
-
-# ufw status
-
-Status: active 
-
-```
-You can also disable UFW firewall by running the following linux command:
-```
-
-# ufw disable
-
-```
-
-### 中文乱码
-
-在启动命令中添加 --raw即可

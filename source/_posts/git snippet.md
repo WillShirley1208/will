@@ -323,3 +323,80 @@ git log -p filename
    git push --force origin HEAD
    ```
 
+# 在fork项目中配置源项目地址
+
+[docs.github.com](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork)
+
+### 初始化仓库
+
+1. List the current configured remote repository for your fork.
+
+   ```shell
+   $ git remote -v
+   > origin  https://github.com/YOUR_USERNAME/YOUR_FORK.git (fetch)
+   > origin  https://github.com/YOUR_USERNAME/YOUR_FORK.git (push)
+   ```
+
+2. Specify a new remote *upstream* repository that will be synced with the fork.
+
+   ```shell
+   git remote add upstream https://github.com/ORIGINAL_OWNER/ORIGINAL_REPOSITORY.git
+   ```
+
+3. Verify the new upstream repository you've specified for your fork.
+
+   ```shell
+   $ git remote -v
+   > origin    https://github.com/YOUR_USERNAME/YOUR_FORK.git (fetch)
+   > origin    https://github.com/YOUR_USERNAME/YOUR_FORK.git (push)
+   > upstream  https://github.com/ORIGINAL_OWNER/ORIGINAL_REPOSITORY.git (fetch)
+   > upstream  https://github.com/ORIGINAL_OWNER/ORIGINAL_REPOSITORY.git (push)
+   ```
+
+### 同步代码
+
+1. Change the current working directory to your local project.
+
+2. Fetch the branches and their respective commits from the upstream repository. Commits to `BRANCHNAME` will be stored in the local branch `upstream/BRANCHNAME`.
+
+   ```shell
+   $ git fetch upstream
+   > remote: Counting objects: 75, done.
+   > remote: Compressing objects: 100% (53/53), done.
+   > remote: Total 62 (delta 27), reused 44 (delta 9)
+   > Unpacking objects: 100% (62/62), done.
+   > From https://github.com/ORIGINAL_OWNER/ORIGINAL_REPOSITORY
+   >  * [new branch]      main     -> upstream/main
+   ```
+
+3. Check out your fork's local default branch - in this case, we use `main`.
+
+   ```shell
+   $ git checkout main
+   > Switched to branch 'main'
+   ```
+
+4. Merge the changes from the upstream default branch - in this case, `upstream/main` - into your local default branch. This brings your fork's default branch into sync with the upstream repository, without losing your local changes.
+
+   ```shell
+   $ git merge upstream/main
+   > Updating a422352..5fdff0f
+   > Fast-forward
+   >  README                    |    9 -------
+   >  README.md                 |    7 ++++++
+   >  2 files changed, 7 insertions(+), 9 deletions(-)
+   >  delete mode 100644 README
+   >  create mode 100644 README.md
+   ```
+
+   If your local branch didn't have any unique commits, Git will perform a fast-forward. For more information, see [Basic Branching and Merging](https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging) in the Git documentation.
+
+   ```shell
+   $ git merge upstream/main
+   > Updating 34e91da..16c56ad
+   > Fast-forward
+   >  README.md                 |    5 +++--
+   >  1 file changed, 3 insertions(+), 2 deletions(-)
+   ```
+
+   If your local branch had unique commits, you may need to resolve conflicts. For more information, see "[Addressing merge conflicts](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/addressing-merge-conflicts)."

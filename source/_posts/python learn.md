@@ -357,7 +357,17 @@ Welcome! The context for this book is indeed nothing.
 
 - 抽象类就是这么一种存在，它是一种自上而下的设计风范，你只需要用少量的代码描述清楚要做的事情，定义好接口，然后就可以交给不同开发人员去开发和对接。
 
+
+
 ## 用法tips
 
 - 引用规范 `from your_file import function_name, class_name`
 - 每个Python文件都有一个特殊的变量`__name__`。当一个Python文件被直接运行时，`__name__`的值被设置为`'__main__'`。当一个Python文件被导入到另一个文件中时，`__name__`的值被设置为该文件的名字，所以用`if __name__ == '__main__'`来避开 import 时执行。
+
+- 比较和拷贝
+
+  - `'=='`操作符比较对象之间的值是否相等
+
+  - `'is'`操作符，相当于比较对象之间的 ID 是否相等
+
+    > 对于整型数字来说，以上`a is b`为 True 的结论，只适用于 -5 到 256 范围内的数字

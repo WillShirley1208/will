@@ -5,23 +5,7 @@ tags: skill
 categories: git
 ---
 
-#### Git修改.gitignore不生效
-
-- 在git中，如果想忽略某个文件，不让这个文件提交到版本库中，可以修改根目录中的.gitignore文件
-  
-  但有时候把某些目录或者文件加入忽略规则，发现并未生效
-
-- 未生效原因：.gitignore只能忽略那些原来没有被追踪(track)的文件，如果某些文件已经被纳入了版本管理中，则修改.gitignore是无效的
-
-- 解决方案：先把本地缓存删除（改变成未track状态），然后提交。
-
-```
-git rm -r --cached <要忽略的具体文件或者目录> 或者 git rm -r --cached . 
-git add .
-git commit -m "update .gitignore"
-```
-
-#### 文件提交
+## 文件
 
 - 提交单个文件
   
@@ -83,6 +67,26 @@ git diff HEAD~n HEAD -- <path>
 #Another cool feature is whatchanged command
 git whatchanged -- <path>
 ```
+
+#### 查看本地分支与远程分支的关联
+
+`git branch -vv`
+
+#### 查看每一行是哪次提交最后修改的
+
+```shell
+git blame filename 
+```
+
+#### 列出文件的所有修改记录
+
+```shell
+git log -p filename
+```
+
+
+
+## 分支
 
 #### 回滚远程分支
 
@@ -161,7 +165,9 @@ git fetch -p
 git branch -m new-branch-name
 ```
 
-#### 合并策略
+## 其它
+
+### 合并策略
 
 warning: 不建议在没有为偏离分支指定合并策略时执行pull操作。  
 您可以在执行下一次pull操作之前执行下面一条命令来抑制本消息：
@@ -176,7 +182,7 @@ git config pull.ff only # 仅快进
 缺省的配置项。您也可以在每次执行 pull 命令时添加 --rebase、--no-rebase，  
 或者 --ff-only 参数覆盖缺省设置。
 
-#### 推送本地离线项目到远程github
+### 推送本地离线项目到远程github
 
 ```shell
 mkdir my_project
@@ -189,23 +195,7 @@ git remote add origin youruser@yourserver.com:/path/to/my_project.git
 git push origin master
 ```
 
-#### 查看本地分支与远程分支的关联
-
-`git branch -vv`
-
-#### 查看每一行是哪次提交最后修改的
-
-```shell
-git blame filename 
-```
-
-#### 列出文件的所有修改记录
-
-```shell
-git log -p filename
-```
-
-# 更改https协议进行推送
+### 更改https协议进行推送
 
 > 如果之前是使用ssh协议进行推送，现改为http协议
 
@@ -234,7 +224,23 @@ git log -p filename
 
 后记：需要注意的是，使用HTTP协议进行Git push操作的速度可能会比使用SSH协议慢一些，因为HTTP协议需要建立TCP连接、发送HTTP请求、接收HTTP响应等过程。同时，HTTP协议的安全性也比SSH协议稍低，因此在安全性要求较高的情况下，建议使用SSH协议进行Git push操作。
 
-# stash命令
+### Git修改.gitignore不生效
+
+- 在git中，如果想忽略某个文件，不让这个文件提交到版本库中，可以修改根目录中的.gitignore文件
+
+  但有时候把某些目录或者文件加入忽略规则，发现并未生效
+
+- 未生效原因：.gitignore只能忽略那些原来没有被追踪(track)的文件，如果某些文件已经被纳入了版本管理中，则修改.gitignore是无效的
+
+- 解决方案：先把本地缓存删除（改变成未track状态），然后提交。
+
+```
+git rm -r --cached <要忽略的具体文件或者目录> 或者 git rm -r --cached . 
+git add .
+git commit -m "update .gitignore"
+```
+
+## stash
 
 在Git中，`stash`命令用于暂存当前未提交的代码修改，以便在后续时刻再次应用它们。它可以暂存已修改但还未添加到暂存区的文件，也可以暂存已经添加到暂存区但还未提交的文件。
 
@@ -290,8 +296,7 @@ git log -p filename
    git stash save "stash message"
    ```
 
-
-# 合并多个commit
+## merge commit
 
 1. merge the last 3 commits into a single commit.
 
@@ -323,11 +328,13 @@ git log -p filename
    git push --force origin HEAD
    ```
 
-# 在fork项目中配置源项目地址
+## remote
+
+### fork remote
 
 [docs.github.com](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork)
 
-### 初始化仓库
+#### 初始化仓库
 
 1. List the current configured remote repository for your fork.
 
@@ -353,7 +360,7 @@ git log -p filename
    > upstream  https://github.com/ORIGINAL_OWNER/ORIGINAL_REPOSITORY.git (push)
    ```
 
-### 同步代码
+#### 同步代码
 
 1. Change the current working directory to your local project.
 
@@ -400,3 +407,25 @@ git log -p filename
    ```
 
    If your local branch had unique commits, you may need to resolve conflicts. For more information, see "[Addressing merge conflicts](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/addressing-merge-conflicts)."
+
+### submodule
+
+> 对于项目中包含子项目的git项目
+>
+> reference https://git-scm.com/book/zh/v2/Git-%E5%B7%A5%E5%85%B7-%E5%AD%90%E6%A8%A1%E5%9D%97
+
+- 如何是首次克隆，初始化代码需要
+
+  `git clone --recurse-submodules https://github.com/chaconinc/MainProject`
+
+​		或如果首次没有使用`--recurse-submodules`，那后面可以通过
+
+​		`git submodule init`和`git submodule update`，进行子模块的拉取更新
+
+
+
+- 如何要对子模块的代码也用克隆地址
+
+  1. `git config -f .gitmodules -e    # opens editor, update URLs for your forks`
+
+  2. `git submodule sync`

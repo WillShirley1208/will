@@ -25,8 +25,6 @@ categories: gateway
 
 > 实现思路：使用nacos的配置中心，将路由配置放在nacos上，写个监听器监听nacos上配置的变化，将变化后的配置更新到GateWay应用的进程内。
 
-
-
 - 场景一（基础）
 
   可以先在nacos的配置管理中，添加微服务的配置信息（端口、路由等），然后启动微服务程序（不用配置相关端口配置）
@@ -48,10 +46,6 @@ categories: gateway
 
 
 
-
-
-
-
 ---
 
 ## 注意
@@ -64,8 +58,6 @@ categories: gateway
   	<artifactId>spring-cloud-starter-loadbalancer</artifactId>
   </dependency>
   ```
-
-  
 
 ---
 

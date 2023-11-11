@@ -75,3 +75,6 @@ categories: linux
 sync; echo 1 > /proc/sys/vm/drop_caches
 ```
 
+## 查看buff/cache
+
+- 工具推荐 https://github.com/silenceshell/hcache

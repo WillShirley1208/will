@@ -11,7 +11,7 @@ YARN 看做一个云操作系统，它负责为应用程序启 动 ApplicationMa
 
 ![](/images/yarn/yarn_construct.gif)
 
-### 概念
+## 概念
 
 #### contrainer
 
@@ -59,11 +59,11 @@ YARN 看做一个云操作系统，它负责为应用程序启 动 ApplicationMa
 
 
 
-## yarn资源参数配置
+## 参数配置
 
 每个job提交到yarn上执行时，都会分配Container容器去运行，而这个容器需要资源才能运行，这个资源就是Cpu和内存。
 
-1、CPU资源调度
+### CPU资源调度
 
 目前的CPU被Yarn划分为虚拟CPU，这是yarn自己引入的概念，因为每个服务器的Cpu计算能力不一样，有的机器可能是 其他机器的计算能力的2倍，然后可以通过多配置几个虚拟内存弥补差异。在yarn中，cpu的相关配置如下。
 
@@ -79,7 +79,7 @@ yarn.sheduler.maximum-allocation-vcores
 
 表示单个任务最大可以申请的虚拟核数，默认为4；如果申请资源时，超过这个配置，会抛出 InvalidResourceRequestException
 
-2、Memory资源调度
+### Memory资源调度
 
 yarn一般允许用户配置每个节点上可用的物理资源，可用指的是将机器上内存减去hdfs的，hbase的等等剩下的可用的内存。
 
@@ -115,6 +115,35 @@ yarn.scheduler.maximum-allocation-mb
 4、yarn.scheduler.maximum-allocation-mb
 
 这个要根据自己公司的业务设定，如果有大任务，需要5-6G内存，那就设置为8G，那么最大可以跑11个container。
+
+
+
+## TIPS
+
+### 配置指定用户启停
+`start-yarn.sh`和`stop-yarn.sh`添加如下配置
+
+```shell
+YARN_RESOURCEMANAGER_USER=xxx
+YARN_NODEMANAGER_USER=xxx
+```
+
+ps: 如果某个节点nodemanager没有拉起，需要执行`./yarn --daemon start nodemanager`
+
+### 在资源够用的情况，无法发布新的应用
+修改`capacity-scheduler.xml`
+ ```xml
+ <property>
+  <name>yarn.scheduler.capacity.maximum-am-resource-percent</name>
+          <!--<value>0.1</value>-->
+  <value>0.8</value>
+  <description>
+    Maximum percent of resources in the cluster which can be used to run
+    application masters i.e. controls number of concurrent running
+    applications.
+  </description>
+   </property>
+ ```
 
 
 

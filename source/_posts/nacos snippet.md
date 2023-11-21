@@ -55,4 +55,32 @@ curl -d 'namespaceId=jarvex_space' \
 curl -X DELETE "http://127.0.0.1:8848/nacos/v2/ns/instance?serviceName=jarvex-gateway&ip=192.168.1.148&port=8085&namespaceId=jarvex_space&groupName=jarvex-common-group&ephemeral=false"
 ```
 
-  
+  ## 动态配置
+
+### 方案一: nacos config配置中心获取
+
+- 通过配置nacos config和 controller获取
+
+  ```properties
+  config:
+    enabled: true
+    server-addr: ${spring.cloud.nacos.server-addr}
+    file-extension: yaml
+    namespace: public
+  ```
+
+  controller类使用 @Refresh，刷新动态配置
+
+### 方案二：nacos client 监听指定配置文件（recommended）
+
+- 编写监听类
+- 手动刷新配置
+
+
+
+### reference 
+
+- https://www.lijunyi.xyz/docs/SpringCloud/SpringCloud.html#%E6%95%B4%E4%BD%93%E5%A4%A7%E7%BA%B2%F0%9F%92%A8
+- http://47.109.59.205/2023/01/02/SpringCloud%E5%AE%9E%E7%94%A8%E7%AF%8702/#1-Nacos%E9%85%8D%E7%BD%AE%E7%AE%A1%E7%90%86
+- https://cloud.tencent.com/developer/article/2096938
+- https://www.cnblogs.com/taojietaoge/p/16638226.html

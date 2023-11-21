@@ -1,13 +1,9 @@
 ---
-title: problems
+title: tmp problems
 date: 2022-09-27 17:33:47
-tags: points
-categories: problems
+tags: problems
+categories: scratch
 ---
-
-
-
-
 
 # DB2
 

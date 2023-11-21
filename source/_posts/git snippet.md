@@ -88,6 +88,10 @@ git log -p filename
 
 ## 分支
 
+#### 查看分支对应的远程分支
+
+`git branch -vv`
+
 #### 回滚远程分支
 
 1、本地代码回滚到上一版本
@@ -149,7 +153,7 @@ Next, checkout the branch you want. In this case, the branch we want is called �
 #### 删除分支
 
 ```shell
-// delete branch locally
+// delete branch locally (如果要删除这个分支的话，需要跳转至其他分支后进行删除操作)
 git branch -d localBranchName
 
 // delete branch remotely
@@ -429,3 +433,7 @@ git rm -r --cached <要忽略的具体文件或者目录> 或者 git rm -r --cac
 git add .
 git commit -m "update .gitignore"
 ```
+
+```properties
+```
+

@@ -92,8 +92,10 @@ Common exit codes associated with docker containers are:
   
   ```shell
   docker exec -it mysql-server /bin/bash
+  或
+  docker exec -it mysql-server /bin/sh
   ```
-
+  
 - 访问
   
   `docker exec -it mysql-server mysql -uroot -p`

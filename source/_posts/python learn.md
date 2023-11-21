@@ -357,11 +357,276 @@ Welcome! The context for this book is indeed nothing.
 
 - 抽象类就是这么一种存在，它是一种自上而下的设计风范，你只需要用少量的代码描述清楚要做的事情，定义好接口，然后就可以交给不同开发人员去开发和对接。
 
+### 装饰器
+
+> **所谓的装饰器，其实就是通过装饰器函数，来修改原函数的一些功能，使得原函数不需要修改。**
+>
+> Decorators is to modify the behavior of the function through a wrapper so we don’t have to actually modify the function.
+
+#### 函数装饰器
+
+- 通常情况下，我们会把`*args`和`**kwargs`，作为装饰器内部函数 wrapper() 的参数。`*args`和`**kwargs`，表示接受任意数量和类型的参数，因此装饰器就可以写成下面的形式：
+
+  ```python
+  def my_decorator(func):
+      def wrapper(*args, **kwargs):
+          print('wrapper of decorator')
+          func(*args, **kwargs)
+      return wrapper
+
+- 装饰器可以接受原函数任意类型和数量的参数，除此之外，它还可以接受自己定义的参数。
+
+  ```python
+  def repeat(num):
+      def my_decorator(func):
+          def wrapper(*args, **kwargs):
+              for i in range(num):
+                  print('wrapper of decorator')
+                  func(*args, **kwargs)
+          return wrapper
+      return my_decorator
+   
+  @repeat(4)
+  def greet(message):
+      print(message)
+   
+  greet('hello world')
+   
+  # 输出：
+  wrapper of decorator
+  hello world
+  wrapper of decorator
+  hello world
+  wrapper of decorator
+  hello world
+  wrapper of decorator
+  hello world
+  ```
+
+#### 类装饰器
+
+- 类装饰器主要依赖于函数`__call_()`，每当你调用一个类的示例时，函数`__call__()`就会被执行一次。
+
+  ```python
+  class Count:
+      def __init__(self, func):
+          self.func = func
+          self.num_calls = 0
+   
+      def __call__(self, *args, **kwargs):
+          self.num_calls += 1
+          print('num of calls is: {}'.format(self.num_calls))
+          return self.func(*args, **kwargs)
+   
+  @Count
+  def example():
+      print("hello world")
+   
+  example()
+   
+  # 输出
+  num of calls is: 1
+  hello world
+   
+  example()
+   
+  # 输出
+  num of calls is: 2
+  hello world
+  ```
+
+#### 装饰器的嵌套
+
+- 执行顺序从里到外
+
+  ```python
+  @decorator1
+  @decorator2
+  @decorator3
+  def func():
+      ...
+  # 等同于
+  decorator1(decorator2(decorator3(func)))
+  ```
+
+### metaclass
 
 
-## 用法tips
+
+## 协程（Asyncio）
+
+```python
+import asyncio
+ 
+async def crawl_page(url):
+    print('crawling {}'.format(url))
+    sleep_time = int(url.split('_')[-1])
+    await asyncio.sleep(sleep_time)
+    print('OK {}'.format(url))
+ 
+async def main(urls):
+    tasks = [asyncio.create_task(crawl_page(url)) for url in urls]
+    for task in tasks:
+        await task
+    '''
+    task遍历的另一种写法
+    await asyncio.gather(*tasks)
+    '''
+ 
+%time asyncio.run(main(['url_1', 'url_2', 'url_3', 'url_4']))
+ 
+########## 输出 ##########
+ 
+crawling url_1
+crawling url_2
+crawling url_3
+crawling url_4
+OK url_1
+OK url_2
+OK url_3
+OK url_4
+Wall time: 3.99 s
+```
+
+- 协程和多线程的区别，主要在于两点，一是协程为单线程；二是协程由用户决定，在哪些地方交出控制权，切换到下一个任务。
+- 协程的写法更加简洁清晰，把 async / await 语法和 create_task 结合来用，对于中小级别的并发需求已经毫无压力。
+- 写协程程序的时候，你的脑海中要有清晰的事件循环概念，知道程序在什么时候需要暂停、等待 I/O，什么时候需要一并执行到底。
+
+## concurrency
+
+> 并发通常用于 I/O 操作频繁的场景，而并行则适用于 CPU heavy 的场景。
+
+### 并发
+
+>  在 Python 中，并发并不是指同一时刻有多个操作（thread、task）同时进行。相反，某个特定的时刻，它只允许有一个操作发生，只不过线程 / 任务之间会互相切换，直到完成
+
+![concurrency](/images/python/concurrency.png)
+
+> 图中出现了 thread 和 task 两种切换顺序的不同方式，分别对应 Python 中并发的两种形式——threading 和 asyncio。
+
+**futures实现并发**
+
+```python
+def download_all(sites):
+    with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
+        executor.map(download_one, sites)
+```
+
+> 虽然线程的数量可以自己定义，但是线程数并不是越多越好，因为线程的创建、维护和删除也会有一定的开销。所以如果你设置的很大，反而可能会导致速度变慢。我们往往需要根据实际的需求做一些测试，来寻找最优的线程数量。
+
+**多线程每次只能有一个线程执行的原因**
+
+> 事实上，Python 的解释器并不是线程安全的，为了解决由此带来的 race condition 等问题，Python 便引入了全局解释器锁，也就是同一时刻，只允许一个线程执行。当然，在执行 I/O 操作时，如果一个线程被 block 了，全局解释器锁便会被释放，从而让另一个线程能够继续执行。
+
+### 并行
+
+>  所谓的并行，指的是同一时刻、同时发生。Python 中的 multi-processing 便是这个意思
+
+![](/images/python/multi-processing.png)
+
+- 并发通常应用于 I/O 操作频繁的场景，比如你要从网站上下载多个文件，I/O 操作的时间可能会比 CPU 运行处理的时间长得多。
+- 而并行则更多应用于 CPU heavy 的场景，比如 MapReduce 中的并行计算，为了加快运行速度，一般会用多台机器、多个处理器来完成。
+
+**futures实现并行**
+
+```python
+def download_all(sites):
+    with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
+        to_do = []
+        for site in sites:
+            future = executor.submit(download_one, site)
+            to_do.append(future)
+            
+        for future in concurrent.futures.as_completed(to_do):
+            future.result()
+```
+
+> 函数 ProcessPoolExecutor() 表示创建进程池，使用多个进程并行的执行程序。不过，这里我们通常省略参数 workers，因为系统会自动返回 CPU 的数量作为可以调用的进程数。
+
+### 总结
+
+```python
+# 伪代码
+if io_bound:
+    if io_slow:
+        print('Use Asyncio')
+    else:
+        print('Use multi-threading')
+else if cpu_bound:
+    print('Use multi-processing')
+```
+
+## GIL
+
+>  Global Interpreter Lock，即全局解释器锁
+
+**python引进GIL的原因**
+
+- 一是设计者为了规避类似于内存管理这样的复杂的竞争风险问题（race condition）；
+- 二是因为 CPython 大量使用 C 语言库，但大部分 C 语言库都不是原生线程安全的（线程安全会降低性能和增加复杂度）
+
+**工作机制**
+
+![](/images/python/GIL.png)
+
+**check interval**
+
+> CPython 中还有另一个机制，叫做 check_interval，意思是 CPython 解释器会去轮询检查线程 GIL 的锁住情况。每隔一段时间，Python 解释器就会强制当前线程去释放 GIL，这样别的线程才能有执行的机会。
+
+![](/images/python/check-interval.png)
+
+## assert
+
+> assert 语句，可以说是一个 debug 的好工具，主要用于测试一个条件是否满足。如果测试的条件满足，则什么也不做，相当于执行了 pass 语句；如果测试条件不满足，便会抛出异常 AssertionError，并返回具体的错误信息（optional）
+
+语法
+
+```python
+assert_stmt ::=  "assert" expression ["," expression]
+```
+
+例如：
+
+```python
+例子1：
+assert 1 == 2
+相当于
+if __debug__:
+    if not expression: raise AssertionError
+
+例子2：
+assert 1 == 2,  'assertion is wrong'
+相当于
+if __debug__:
+    if not expression1: raise AssertionError(expression2)
+    
+例子3（促销价格大于0元）：
+def apply_discount(price, discount):
+    updated_price = price * (1 - discount)
+    assert 0 <= updated_price <= price, 'price should be greater or equal to 0 and less or equal to original price'
+    return updated_price
+```
+
+- 不要在使用 assert 时加入括号，否则无论表达式对与错，assert 检查永远不会 fail
+
+
+
+---
+
+## 用法 tips
 
 - 引用规范 `from your_file import function_name, class_name`
+
+- 定义函数时，所有非默认参数将在默认参数之前
+
+  ```python
+  def my_function(arg1, arg3, arg2="default"):
+      # 函数实现
+      pass
+  ```
+
+- `pass` 是一个用于暂时占位或作为空占位符的关键字，它确保代码能够顺利通过语法检查而不做任何实际的操作。
+
 - 每个Python文件都有一个特殊的变量`__name__`。当一个Python文件被直接运行时，`__name__`的值被设置为`'__main__'`。当一个Python文件被导入到另一个文件中时，`__name__`的值被设置为该文件的名字，所以用`if __name__ == '__main__'`来避开 import 时执行。
 
 - 比较和拷贝
@@ -371,3 +636,13 @@ Welcome! The context for this book is indeed nothing.
   - `'is'`操作符，相当于比较对象之间的 ID 是否相等
 
     > 对于整型数字来说，以上`a is b`为 True 的结论，只适用于 -5 到 256 范围内的数字
+
+- 值传递、引用传递
+  - 变量的赋值，只是表示让变量指向了某个对象，并不表示拷贝对象给变量；而一个对象，可以被多个变量所指向。
+  - 可变对象（列表，字典，集合等等）的改变，会影响所有指向该对象的变量。
+  - 对于不可变对象（字符串，整型，元祖等等），所有指向该对象的变量的值总是一样的，也不会改变。但是通过某些操作（+= 等等）更新不可变对象的值时，会返回一个新的对象。
+  - 变量可以被删除，但是对象无法被删除。
+
+- 容器是可迭代对象，可迭代对象调用 iter() 函数，可以得到一个迭代器。迭代器可以通过 next() 函数来得到下一个元素，从而支持遍历。
+- 生成器是一种特殊的迭代器（注意这个逻辑关系反之不成立）。使用生成器，你可以写出来更加清晰的代码；合理使用生成器，可以降低内存占用、优化程序结构、提高程序速度。
+

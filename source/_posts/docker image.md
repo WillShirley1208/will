@@ -86,13 +86,11 @@ OPTIONS说明：
 
 
 
-
-
-
-
 ### 把jar包程序制作成镜像
 
-编辑dockerfile
+- step1: 
+
+  编辑dockerfile
 
 ```dockerfile
 # 基础镜像
@@ -108,7 +106,9 @@ COPY ${JAR_FILE} nacos-provider.jar
 ENTRYPOINT ["java","-jar","nacos-provider.jar"]
 ```
 
-在$path的一级目录执行（比如dockerfile位置/a/b/dockerfile，那命令在a目录下执行）
+- Step2: 
+
+  在$path的一级目录执行（比如dockerfile位置/a/b/dockerfile，那命令在a目录下执行）
 
 ```shell
 docker build -t $repository -f $path/dockerfile .

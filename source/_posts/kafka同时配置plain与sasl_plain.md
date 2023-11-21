@@ -89,8 +89,15 @@ bin/kafka-server-start.sh -daemon ./config/server.properties
 
 - 授权bigdata用户可以访问主题前缀为ODS的数据，且限制消费组 GROUP-BIGDATA
 
+  ```shell
+  bin/kafka-acls.sh --bootstrap-server 172.20.58.93:29092 --command-config /home/sasl/kafka_2.13-3.3.2/config/acl-config.properties --add --allow-principal User:bigdata --operation Read --topic ODS --group GROUP-BIGDATA --resource-pattern-type prefixed
   ```
-  bin/kafka-acls.sh --bootstrap-server 172.20.58.93:29092 --command-config /home/sasl/kafka_2.13-3.3.2/config/acl-config.properties --add --allow-principal User:bigdata --operation Read --topic ODS* --group GROUP-BIGDATA --group 'GROUP-BIGDATA'
+
+
+- 禁止指定用户写入、删除主题前缀为ODS的数据
+
+  ```shell
+  bin/kafka-acls.sh --bootstrap-server 172.20.58.93:29092 --command-config /home/sasl/kafka_2.13-3.3.2/config/acl-config.properties --add --deny-principal User:bigdata --operation Write --operation Delete --topic ODS --resource-pattern-type prefixed
   ```
 
   

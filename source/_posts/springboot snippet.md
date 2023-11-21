@@ -5,9 +5,22 @@ tags: snippet
 categories: springboot
 ---
 
+## 配置文件
+
+- ```
+  bootstrap.yml（bootstrap.properties）用来程序引导时执行，应用于更加早期配置信息读取，如可以使用来配置application.yml中使用到参数等
+  
+  application.yml（application.properties) 应用程序特有配置信息，可以用来配置后续各个模块中需使用的公共参数等。
+  
+  加载顺序：bootstrap.yml > application.yml > application-dev(prod).yml 
+  ```
+
+  
+
 ## 问题随记
 
-1. Spring Boot通过Mybatis，使用mapper接口和xml配置sql，连接数据库
+### Spring Boot通过Mybatis，使用mapper接口和xml配置sql，连接数据库
+
 - 首先在配置文件application.properties
   
   ```properties

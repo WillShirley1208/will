@@ -59,12 +59,32 @@ categories: gateway
   </dependency>
   ```
 
----
+## 跨域请求
 
-## 参考
+```yaml
+    gateway:
+      # 跨域配置
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+              - HEAD
+```
+
+
+
+# 参考
 
 - [官网]( https://cloud.spring.io/spring-cloud-gateway/reference/html/#configuring-route-predicate-factories-and-gateway-filter-factories)
 - [程序员欣宸](https://blog.csdn.net/boling_cavalry/category_9278131.html)
 
 - 其它
   - https://blog.csdn.net/abu935009066/article/details/112245330
+
+- http://47.109.59.205/2023/01/02/SpringCloud%E5%AE%9E%E7%94%A8%E7%AF%8702/#3-Gateway%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B3

@@ -38,7 +38,7 @@ query_port = 19030
 edit_log_port = 19010
 ```
 
-- 启动fe
+- 启动FE
   `start_fe.sh --daemon`
 
 - 查看FE状态+

@@ -611,6 +611,87 @@ def apply_discount(price, discount):
 
 
 
+## with
+
+> 在 Python 中，解决资源泄露的方式是上下文管理器（context manager）。上下文管理器，能够帮助你自动分配并且释放资源，其中最典型的应用便是 with 语句
+
+```python
+示例一：
+for x in range(10000000):
+    with open('test.txt', 'w') as f:
+        f.write('hello')
+等同于
+f = open('test.txt', 'w')
+try:
+    f.write('hello')
+finally:
+    f.close()
+
+示例二：
+some_lock = threading.Lock()
+with somelock:
+    ...
+等同于
+some_lock = threading.Lock()
+some_lock.acquire()
+try:
+    ...
+finally:
+    some_lock.release()
+```
+
+- 基于类的上下文管理器
+
+  > 当我们用类来创建上下文管理器时，必须保证这个类包括方法`”__enter__()”`和方法`“__exit__()”`。其中，方法`“__enter__()”`返回需要被管理的资源，方法`“__exit__()”`里通常会存在一些释放、清理资源的操作，比如这个例子中的关闭文件等等。
+
+```python
+class FileManager:
+    def __init__(self, name, mode):
+        print('calling __init__ method')
+        self.name = name
+        self.mode = mode 
+        self.file = None
+        
+    def __enter__(self):
+        print('calling __enter__ method')
+        self.file = open(self.name, self.mode)
+        return self.file
+ 
+ 
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        print('calling __exit__ method')
+        if self.file:
+            self.file.close()
+# 使用       
+with FileManager('test.txt', 'w') as f:
+    print('ready to write to file')
+    f.write('hello world')
+
+```
+
+- 基于生成器的上下文管理器
+
+> 使用装饰器 contextlib.contextmanager，来定义自己所需的基于生成器的上下文管理器，用以支持 with 语句
+
+```python
+from contextlib import contextmanager
+ 
+@contextmanager
+def file_manager(name, mode):
+    try:
+        f = open(name, mode)
+        yield f
+    finally:
+        f.close()
+        
+with file_manager('test.txt', 'w') as f:
+    f.write('hello world')
+```
+
+## 性能调试
+
+### cProfile
+
 ---
 
 ## 用法 tips

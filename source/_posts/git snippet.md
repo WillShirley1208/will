@@ -225,6 +225,123 @@ git branch -m new-branch-name
    git stash save "stash message"
    ```
 
+## rebase
+
+[git rebase 用法详解与工作原理](https://waynerv.com/posts/git-rebase-intro/)
+
+[How to Rebase a Fork](https://johneverettcase.com/git-how-to-rebase-a-fork)
+
+1. **更新本地主分支（通常是 master 或 main）:** 获取原始仓库的最新更改并合并到你的本地主分支：
+
+   ```shell
+   git checkout master  # 切换到你的本地主分支
+   git pull upstream master  # 从原始仓库拉取最新更改到本地主分支
+   ```
+
+   或
+
+   ```shell
+   git fetch upstream
+   ```
+
+   
+
+2. **切换到你的分支并进行 rebase:** 切换到你的分支并将其 rebase 到主分支上：
+
+   - 如果是新分支
+
+   ```shell
+   git checkout <新分支>
+   git rebase master  # 将新分支 rebase 到你的本地主分支
+   ```
+
+   - 如果是已有分支
+
+   ```shell
+   git checkout <已有分支>
+   git rebase upstream/master
+   ```
+
+   
+
+3. **解决冲突（如果有）:** 如果在 rebase 过程中出现冲突，你需要手动解决冲突，然后使用 `git add` 标记为已解决。
+
+   - 展示冲突代码（可省略）
+
+   ```shell
+   git diff --name-only --diff-filter=U
+   ```
+
+   - 解决代码冲突
+
+     - IDE手动解决
+
+     - vimdiff解决
+
+       
+
+   - 解决之后
+
+   ```shell
+   git add .
+   git commit -m "xxx"
+   git rebase --continue
+   ```
+
+   
+
+4. **推送更改到远程仓库:** 推送你的更改到远程仓库：
+
+   - 如果是新分支
+
+   ```shell
+   git push origin <分支> --force  # 强制推送到你的 fork 仓库的新分支上
+   或
+   git push -f origin <分支>
+   ```
+
+   请注意：使用 `--force` 参数进行强制推送时，请确保你了解它的影响。它可能会覆盖远程分支的历史记录，因此务必小心操作。
+
+   - 如果是已有分支
+
+   ```shell
+   git push
+   ```
+
+5. **创建 Pull Request:** 在你的 fork 仓库中，从新分支创建一个 Pull Request（PR），将你的更改合并到原始仓库的目标分支
+
+   
+
+## commit rule
+
+```
+<type>(<scope>): <subject>
+
+<body>
+
+<footer>
+```
+
+- Type
+
+  > You can use your own commit types, but here are the most common use cases:
+
+  - feat: a new feature, or change to an existing feature.
+
+  - fix: Fixing a bug or known issue in code.
+
+  - test: Adding additional tests for existing features.
+
+  - chore: Updating build tools, like webpack, gulp, ascripts, etc.
+
+  - docs: Update to documentation like README, wiki, etc.
+
+- Scope
+
+  > The scope of the commit can be kept as granular as required and is bound to change based on the complexity of the project. If you are starting off a project, it might not seem necessary at the beginning, although, it is highly recommended as it makes you think twice and harder about the changes that you are about to push.
+
+- reference [7 Rules for Writing a Good Commit Message](https://hackernoon.com/7-rules-for-writing-a-good-commit-message)
+
 ## merge commit
 
 1. merge the last 3 commits into a single commit.

@@ -7,6 +7,13 @@ categories: python
 
 
 
+## 虚拟环境
+
+项目粒度：python -m venv venv
+        			poetry
+系统粒度：pyenv
+        			conda
+
 ## 指令
 
 - 安装tar.gz，解压之后，执行
@@ -15,10 +22,20 @@ categories: python
   python3 setup.py install
   ```
 
+### pip
+
+- 安装子模块
+
+  ```shell
+  pip install 'fastapi_amis_admin[cli]'  # 注意引号
+  ```
+  
+  
+  
 - 查看指定依赖版本
 
   ```python
-  pip3 show package_name
+  pip show package_name
   ```
 
 
@@ -28,6 +45,14 @@ categories: python
   pip freeze > requirements.txt
   ```
 
+- 清除缓存
+
+  ```shell
+  python -m pip cache purge
+  ```
+
+  
+
 ## 信创
 
 - 安装python3-devel
@@ -35,6 +60,7 @@ categories: python
   ```shell
   dnf install python3-devel
   ```
+
 
 
 ## 规范

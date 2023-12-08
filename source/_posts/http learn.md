@@ -35,3 +35,31 @@ var socket = new WebSocket('ws://echo.websocket.org');
   `ws://localhost:9095/webSocket/d72b3660-29a8-4276-9eb1-3373e82fdd92`
 
 - 后台请求的结果传入websocket是通过session建立关联的
+
+## SSE（Server-Sent Events）
+
+![](/images/http/overview-sse.webp)
+
+### client
+
+```shell
+GET/POST /api/v1/live-scores 
+Accept: text/event-stream
+Cache-Control: no-cache
+Connection: keep-alive
+```
+
+> `Accept: text/event-stream` indicates the client waiting for event stream from the server, `Cache-Control: no-cache` indicates that disabling the caching and `Connection: keep-alive` indicates the persistent connection. This request will give us an open connection which we are going to use to fetch updates. After the connection, the server can send messages when the events are ready to send by the server. The important thing is that events are text messages in `UTF-8` encoding.
+
+### server
+
+### Disadvantages
+
+- One potential downside of using Server-Sent Events is the limitations in data format. Since SSE is restricted to transporting UTF-8 messages, binary data is not supported.
+- When not used over HTTP/2, another limitation is the restricted number of concurrent connections per browser. With only six concurrent open SSE connections allowed at any given time, opening multiple tabs with SSE connections can become a bottleneck. (Credit: Dan Messenger)
+
+
+
+### ref
+
+- https://medium.com/deliveryherotechhub/what-is-server-sent-events-sse-and-how-to-implement-it-904938bffd73

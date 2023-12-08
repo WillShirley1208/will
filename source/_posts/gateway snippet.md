@@ -5,6 +5,8 @@ tags: snippet
 categories: gateway
 ---
 
+![](https://www.baeldung.com/wp-content/uploads/2020/05/spring-cloud-gateway-webfilters-2.jpg)
+
 # 概念
 
 - LB， "Load Balancing"（负载均衡）的缩写。负载均衡是一种分布式系统中常见的策略，用于将请求均匀地分发到多个服务实例上，以避免某个实例负载过重，提高整体系统的性能、可靠性和可用性。

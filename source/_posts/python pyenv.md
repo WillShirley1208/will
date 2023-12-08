@@ -34,3 +34,14 @@ pyenv global 3.6.5 2.7.14
 # 实际上当你切换版本后, 相应的pip和包仓库都是会自动切换过去的
 ```
 
+
+
+
+
+
+
+---
+
+reference
+
+- [specifying-your-python-version](https://realpython.com/intro-to-pyenv/#specifying-your-python-version)

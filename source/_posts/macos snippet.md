@@ -35,8 +35,7 @@ installer -pkg myapp.pkg -target CurrentUserHomeDirectory
 
 运行以下命令列出已安装的Java版本：
 
-```
-bashCopy code
+```shell
 jenv versions
 ```
 
@@ -47,8 +46,7 @@ jenv versions
 你可以选择设置一个全局的Java版本，该版本会被默认使用。运行以下命令：
 
 ```
-bashCopy code
-jenv global <jdk_version>
+env global <jdk_version>
 ```
 
 将 `<jdk_version>` 替换为你想要设置为默认的Java版本。
@@ -58,7 +56,6 @@ jenv global <jdk_version>
 如果你想在特定的项目中使用不同的Java版本，可以进入到项目的目录，然后运行以下命令：
 
 ```
-bashCopy code
 jenv local <jdk_version>
 ```
 
@@ -68,8 +65,7 @@ jenv local <jdk_version>
 
 在终端中运行以下命令验证当前系统使用的Java版本：
 
-```
-bashCopy code
+```shell
 java -version
 ```
 

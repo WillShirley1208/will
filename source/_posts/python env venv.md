@@ -54,3 +54,24 @@ categories: python
    这将使虚拟环境退出，并恢复到系统默认环境。
 
 使用虚拟环境有助于隔离项目的依赖，避免与系统其他项目的依赖冲突，并提供更干净的开发环境。
+
+
+
+### uvicorn
+
+> 正常情况下虚拟环境 /path/to/venv/bin/ 下面是有 uvicorn 的启动命令的，即 /xxx/venv/bin/uvicorn
+
+#### 如果当前虚拟环境不识别`uvicorn`，可通过
+
+- 方式一
+
+```shell
+python -m uvicorn xxx:app --reload
+```
+
+- 方式二
+
+```
+pip install --force-reinstall uvicorn
+```
+

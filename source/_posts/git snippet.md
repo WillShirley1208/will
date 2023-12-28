@@ -148,7 +148,7 @@ Next, checkout the branch you want. In this case, the branch we want is called �
 
 2. 建立本地至上游（远程）分支的链接
    
-   `git branch --set-upstream-to=orgin/new_branch new_branch`
+   `git branch --set-upstream-to=origin/new_branch new_branch`
 
 #### 删除分支
 
@@ -273,13 +273,9 @@ git branch -m new-branch-name
    ```
 
    - 解决代码冲突
-
      - IDE手动解决
-
      - vimdiff解决
-
-       
-
+     - meld解决
    - 解决之后
 
    ```shell
@@ -342,7 +338,7 @@ git branch -m new-branch-name
 
 - reference [7 Rules for Writing a Good Commit Message](https://hackernoon.com/7-rules-for-writing-a-good-commit-message)
 
-## merge commit
+## squash/reword commit
 
 1. merge the last 3 commits into a single commit.
 
@@ -373,6 +369,8 @@ git branch -m new-branch-name
    ```shell
    git push --force origin HEAD
    ```
+
+
 
 ## remote
 
@@ -458,7 +456,11 @@ git branch -m new-branch-name
 
 > 对于项目中包含子项目的git项目
 >
-> reference https://git-scm.com/book/zh/v2/Git-%E5%B7%A5%E5%85%B7-%E5%AD%90%E6%A8%A1%E5%9D%97
+> reference
+>
+> https://www.git-scm.com/book/en/v2/Git-Tools-Submodules
+>
+>  https://git-scm.com/book/zh/v2/Git-%E5%B7%A5%E5%85%B7-%E5%AD%90%E6%A8%A1%E5%9D%97
 
 - 如何是首次克隆，初始化代码需要
 
@@ -475,6 +477,16 @@ git branch -m new-branch-name
   1. `git config -f .gitmodules -e    # opens editor, update URLs for your forks`
 
   2. `git submodule sync`
+
+### 在已有项目添加子模块
+
+```shell
+git submodule add https://xxx.git configserver
+```
+
+
+
+
 
 ## 其它
 

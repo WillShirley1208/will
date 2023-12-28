@@ -13,7 +13,7 @@ docker ps
 查看所有
 docker ps -a
 启动
-docker start 容器名或容器id
+docker start 容器名或容器 id
 终止
 docker stop [NAME]/[CONTAINER ID]:将容器退出。
 docker kill [NAME]/[CONTAINER ID]:强制停止一个容器。

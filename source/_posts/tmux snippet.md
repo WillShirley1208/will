@@ -20,3 +20,33 @@ categories: tmux
 |              |                              |                         |
 |              |                              |                         |
 
+
+
+# 命令模式
+
+`ctrl + b` 然后按下`:`
+
+- 创建会话
+
+  `new-session -s <session name>` 
+
+- 切换会话
+
+  `switch-client -t <session name or id>`
+
+- 新建窗口
+
+  `new-window -n <window name>`
+
+- 切换窗口
+
+  `select-window -t <window id>`
+
+  `select-window -n <window name>`
+
+- 分割窗格
+
+  `split-window -h` 水平
+
+  `split-window -v` 垂直
+

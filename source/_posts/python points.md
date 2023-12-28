@@ -24,6 +24,15 @@ categories: python
 
 ### pip
 
+- 国内镜像
+
+  ```
+  pip config set global.index-url https://pypi.mirrors.ustc.edu.cn/simple
+  pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+  ```
+
+  
+
 - 安装子模块
 
   ```shell

@@ -17,8 +17,7 @@ categories: database
   ```
 
 - join sql
-  ![](https://i.stack.imgur.com/VQ5XP.png)
-
+  
 - string convert to timstamp
   
   `SELECT STR_TO_DATE('2014-05-28 11:30:10','%Y-%m-%d %H:%i:%s');`
@@ -100,6 +99,20 @@ sql查询条件中`where 1=1,1=2和1=0`，这种写法，主要是为了拼凑�
 DML statements are SQL statements that manipulate data. DML stands for Data Manipulation Language. The SQL statements that are in the DML class are INSERT, UPDATE and DELETE. Some people also lump the SELECT statement in the DML classification.
 
 Data Definition Languages (DDL) are used to define the database structure. Any CREATE, DROP and ALTER commands are examples of DDL SQL statements.
+
+### 设置远程登录
+
+- mysql 8版本设置可用root远程访问服务
+
+  ```mysql
+  CREATE USER 'root'@'%' IDENTIFIED BY 'password';
+  
+  GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
+  
+  FLUSH PRIVILEGES;
+  ```
+
+  
 
 ### mysqldump
 

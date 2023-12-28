@@ -5,7 +5,23 @@ tags: snippet
 categories: spring cloud
 ---
 
-### 启动
+## 原理
+
+https://juejin.cn/post/7136952484903256077
+
+##### 服务注册
+
+Spring Cloud Alibaba Nacos Discovery 遵循了 Spring Cloud Common 标准，实现了 AutoServiceRegistration、ServiceRegistry、Registration 这三个接口。
+
+在 Spring Cloud 应用的启动阶段，监听了 WebServerInitializedEvent 事件，当 Web 容器初始化完成后，即收到 WebServerInitializedEvent 事件后，会触发注册的动作，调用 ServiceRegistry 的 register 方法，将服务注册到 Nacos Server。
+
+![nacos客户端注册机制](/images/nacos/nacos client register mechanism.png)
+
+- python nacos client
+
+  [nacos-client-python](https://pypi.org/project/nacos-client-python/)
+
+## 启动
 
 - 2.x版本启动，需要添加 -m属性
   
@@ -46,7 +62,7 @@ curl -X PUT '127.0.0.1:8848/nacos/v2/ns/instance/beat' \
 ```shell
 curl -d 'namespaceId=jarvex_space' \
   -d 'namespaceName=jarvex' \
-  -X POS
+  -X POST
 ```
 
 - 删除持久化实例

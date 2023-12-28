@@ -239,6 +239,8 @@ echo '{"kind": "Service", "apiVersion": "v1", "status": {"loadBalancer": true}}'
 
 ## 转换文件编码格式
 
+- 查看编码
+
 首先我们来看看在 Linux 系统中如何查看文件的编码格式，可以在 vim 中使用如下命令查看：
 
 ```shell
@@ -252,6 +254,8 @@ fileencoding=utf-81
 ```
 
 也可以使用 `file` 和 `identify` 命令查看。
+
+- 转换编码
 
 然后使用 `iconv` 进行编码格式的转换，比如将一个 utf-8 编码的文件转换成 GBK 编码，命令如下：
 

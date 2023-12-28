@@ -53,7 +53,9 @@ RESTful API 的返回码可以根据实际情况进行适当扩展和调整，�
 
 
 
+## TIPS
 
+- url中包含传参时，例如delete  /auth/user/{参数}，那此时其他delete方法 /auth/user/other，会发生冲突，需要在路径侯后面添加“/”，变成/auth/user/other/
 
 
 

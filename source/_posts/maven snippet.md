@@ -160,6 +160,43 @@ mvn archetype:generate -DgroupId=brook.hbase -DartifactId=hbase-client -Darchety
 mvn spring-boot:run
 ```
 
+
+
+## add git commit info to jar package
+
+```xml
+<plugin>
+  <groupId>pl.project13.maven</groupId>
+  <artifactId>git-commit-id-plugin</artifactId>
+  <version>2.2.4</version>
+  <executions>
+    <execution>
+      <id>get-the-git-infos</id>
+      <goals>
+        <goal>revision</goal>
+      </goals>
+    </execution>
+  </executions>
+  <configuration>
+    <dotGitDirectory>${project.basedir}/.git</dotGitDirectory>
+    <prefix>git</prefix>
+    <verbose>false</verbose>
+    <generateGitPropertiesFile>true</generateGitPropertiesFile
+  <generateGitPropertiesFilename>${project.build.outputDirectory}/git.properties</generateGitPropertiesFilename>
+    <format>json</format>
+    <gitDescribe>
+      <skip>false</skip>
+      <always>false</always>
+      <dirty>-dirty</dirty>
+    </gitDescribe>
+  </configuration>
+</plugin>
+```
+
+> 生成的`git.properties`会在jar包位置 `BOOT-INF/classes/git.properties`
+
+
+
 # 相关问题
 
 - [idea中的maven模块变成灰色的可能原因](https://www.cnblogs.com/baixiaoshuai/p/8939989.html)

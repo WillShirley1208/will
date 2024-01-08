@@ -51,6 +51,17 @@ Connection: keep-alive
 
 > `Accept: text/event-stream` indicates the client waiting for event stream from the server, `Cache-Control: no-cache` indicates that disabling the caching and `Connection: keep-alive` indicates the persistent connection. This request will give us an open connection which we are going to use to fetch updates. After the connection, the server can send messages when the events are ready to send by the server. The important thing is that events are text messages in `UTF-8` encoding.
 
+```shell
+curl -H "Accept: text/event-stream" -H "Cache-Control: no-cache" -N <SSE_ENDPOINT_URL>
+# e.g.
+curl -X POST -H "Accept: text/event-stream" -H "Cache-Control: no-cache" -H "User-Key: dongwei" -H "Authorization: Bearer xxxxx" -H "Content-Type: application/json" -d '{"content": "你好"}' -N http://xxx/api
+
+# 对照非流式
+curl -X POST -H "Accept: application/json" -H "User-Key: dongwei" -H "Authorization: Bearer xxxxx" -H "Content-Type: application/json" -d '{"content": "你有哪些能力"}' http://xxx/api/
+```
+
+
+
 ### server
 
 ### Disadvantages

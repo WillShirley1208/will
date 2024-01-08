@@ -47,7 +47,7 @@ categories: sso
 
   `$KCADM config credentials --server http://localhost:8080 --realm master --user admin`
 
-  提示输入密码即可
+  提示输入密码即可 (1sou2sou)
 
 ​		验证 `$KCADM get serverinfo`
 

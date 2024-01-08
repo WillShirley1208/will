@@ -118,3 +118,18 @@ docker build -t $repository -f $path/dockerfile .
 
 ---
 
+## add git commit info to image tag
+
+```shell
+#!/bin/sh
+
+IMAGE_NAME=your-image-name
+echo "image name: $IMAGE_NAME"
+
+GIT_BRANCH=$(git symbolic-ref --short HEAD)
+LAST_COMMIT=$(git rev-parse HEAD)
+echo "git commit info : $LAST_COMMIT"
+
+docker build . -t $IMAGE_NAME:"$GIT_BRANCH-$LAST_COMMIT"
+```
+

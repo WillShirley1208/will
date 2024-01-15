@@ -418,6 +418,9 @@ git branch -m new-branch-name
    > Unpacking objects: 100% (62/62), done.
    > From https://github.com/ORIGINAL_OWNER/ORIGINAL_REPOSITORY
    >  * [new branch]      main     -> upstream/main
+   
+   # 指定fetch某个分支
+   git fetch <remote> <branch>
    ```
 
 3. Check out your fork's local default branch - in this case, we use `main`.

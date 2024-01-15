@@ -36,10 +36,6 @@ pyenv global 3.6.5 2.7.14
 
 
 
-
-
-
-
 ---
 
 reference

@@ -22,7 +22,7 @@ categories: python
   指定python版本
 
   ```
-  conda create --name xxx python=3.9
+  conda create --name xxx python=3.10
   ```
 
   

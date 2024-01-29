@@ -17,3 +17,4 @@ categories: python
 ## 依赖
 
 - paddlepaddle依赖只能在 python 3.9版本之内可以安装
+

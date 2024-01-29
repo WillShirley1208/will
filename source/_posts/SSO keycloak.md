@@ -1,7 +1,7 @@
 ---
-title: SSO (single sign-on)
+title: SSO (single sign-on) keycloak
 date: 2023-12-16 10:57:00
-tags: learn
+tags: keycloak
 categories: sso
 ---
 

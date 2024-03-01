@@ -30,3 +30,38 @@ We can break down the components into three main parts.
 ![](./img/kubernetes_cluster.png)
 
 Docker is a platform and tool for building, distributing, and running Docker containers. It offers its own native clustering tool that can be used to orchestrate and schedule containers on machine clusters. Kubernetes is a container orchestration system for Docker containers that is more extensive than Docker Swarm and is meant to coordinate clusters of nodes at scale in production in an efficient manner. It works around the concept of pods, which are scheduling units (and can contain one or more containers) in the Kubernetes ecosystem, and they are distributed among nodes to provide high availability. One can easily run a Docker build on a Kubernetes cluster, but Kubernetes itself is not a complete solution and is meant to include custom plugins.
+
+
+
+# command
+
+## 查看运行程序
+
+```shell
+kubectl get pod -n 命令空间
+```
+
+
+
+## 查看日志
+
+```shell
+kubectl logs -f 容器id -n 命令空间
+```
+
+
+
+## 进入容器
+
+```shell
+kubectl exec -it  容器id -n 命令空间 -c entity-server-server -- sh
+```
+
+
+
+## 复制服务器文件到宿主机
+
+```shell
+kubectl cp 命令空间/容器id:/path/to/source_file ./path/to/local_file
+```
+

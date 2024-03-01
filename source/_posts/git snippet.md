@@ -84,6 +84,15 @@ git blame filename
 git log -p filename
 ```
 
+#### 删除远程仓库文件，但保留本地文件系统的文件
+
+```shell
+# 文件
+git rm --cached path/to/file
+# 目录
+git rm -r --cached path/to/directory
+```
+
 
 
 ## 分支
@@ -284,6 +293,12 @@ git branch -m new-branch-name
    git rebase --continue
    ```
 
+   - 终止rebase
+
+   ```shell
+   git rebase --abort
+   ```
+
    
 
 4. **推送更改到远程仓库:** 推送你的更改到远程仓库：
@@ -370,7 +385,7 @@ git branch -m new-branch-name
    git push --force origin HEAD
    ```
 
-
+> 中途如需终止rebase，运行 git rebase --abort
 
 ## remote
 

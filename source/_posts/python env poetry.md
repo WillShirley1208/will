@@ -41,6 +41,14 @@ categories: python
   poetry shell
   ```
 
+
+- 锁定并安装项目依赖项的确切版本
+
+  ```shell
+  poetry lock
+  poetry install
+  ```
+
   
 
 - 通过`requirement`添加依赖
@@ -61,6 +69,14 @@ categories: python
 
 ### 准备
 
+- 新建项目
+
+  `hatch new "Hatch Demo"`
+
+- 已有项目初始化
+
+  `hatch new --init`
+
 - 虚拟环境
 
   ```shell
@@ -72,7 +88,7 @@ categories: python
 
   ```shell
   hatch env create
-  hatch shell 
+  c 
   ```
 
 - pycharm配置
@@ -89,7 +105,18 @@ categories: python
   hatch env show --ascii
   ```
 
+
+- 格式化
+
+  ```shell
+  hatch run lint:fmt
+  ```
+
   
+
+  
+
+
 
 ### 编译
 
@@ -134,7 +161,7 @@ all = [
 
 
 
-## Flit
+## Flit	
 
 ### 安装依赖
 

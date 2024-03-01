@@ -60,7 +60,14 @@ categories: python
   python -m pip cache purge
   ```
 
-  
+
+
+
+## Buildins
+
+- 装饰器 `staticmethod` 用于定义与类或实例无关的函数，而 `classmethod` 用于定义需要访问类或类变量的函数。
+
+
 
 ## 信创
 

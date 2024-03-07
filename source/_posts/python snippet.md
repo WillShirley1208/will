@@ -5,7 +5,7 @@ tags: snippet
 categories: python
 ---
 
-## 统计运行时间
+### 统计运行时间
 
 ```python
 # 毫秒值
@@ -14,7 +14,7 @@ xxx
 cost_time = int((time.perf_counter() - start_time)* 1000)
 ```
 
-## `__call__函数`
+### `__call__函数`
 
 `__call__` 方法是 Python 中的一个特殊方法（也称为魔术方法），用于将一个对象作为函数调用。当一个对象被作为函数调用时，Python 解释器会自动调用该对象的 `__call__` 方法。
 
@@ -37,7 +37,7 @@ obj()  # 等同于调用 obj.__call__()
 
 使用 `__call__` 方法可以使对象具有类似函数的行为，这在某些情况下非常有用，例如实现可调用的类或实现函数式编程的概念。
 
-## `**`使用
+### `**`使用
 
 - `**` 运算符用于解包字典或关键字参数。当应用于字典时，`**` 运算符可以将字典中的键值对解包为一系列关键字参数传递给函数或方法。
 
@@ -58,7 +58,7 @@ obj()  # 等同于调用 obj.__call__()
 
   
 
-## 布尔真假判断
+### 布尔真假判断
 
 虽然所有用户类实例的布尔值都是真。但是 Python 提供了改变这个行为的办法：**自定义类的 `__bool__` 魔法方法** *（在 Python 2.X 版本中为 `__nonzero__`）*。当类定义了 `__bool__` 方法后，它的返回值将会被当作类实例的布尔值。
 
@@ -70,3 +70,37 @@ obj()  # 等同于调用 obj.__call__()
 
 - `all(seq)`：仅当 `seq` 中所有对象都为布尔真时返回 `True`，否则返回 `False`
 - `any(seq)`：只要 `seq` 中任何一个对象为布尔真就返回 `True`，否则返回 `False`
+
+### 使用 partial 构造新函数
+
+```python
+def multiply(x, y):
+    return x * y
+def double(value):
+    # 返回另一个函数调用结果
+    return multiply(2, value)
+```
+
+可写成
+
+```python
+import functools
+
+double = functools.partial(multiply, 2)
+```
+
+### Mixin
+
+> Mixin 是面向对象编程中的一个术语，它表示一种设计模式，用于将一组功能或行为以模块化的方式添加到类中，而不需要使用继承的方式。
+
+### LOOP
+
+```python
+for i, name in enumerate(names):
+    print(i, name)
+```
+
+- 使用 product 扁平化多层嵌套循环
+- 使用 islice 实现循环内隔行处理
+- 使用 takewhile 替代 break 语句
+- 使用生成器编写自己的修饰函数

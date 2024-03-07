@@ -88,9 +88,8 @@ categories: python
 
   ```shell
   hatch env create
-  c 
   ```
-
+  
 - pycharm配置
 
   虚拟环境需配置成 `hatch shell`提示的目录

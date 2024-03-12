@@ -80,3 +80,42 @@ categories: tmux
 
   `split-window -v` 垂直
 
+
+
+# Tmux Plugin Manager (TPM)
+
+- 配置文件地址`~/.tmux.conf`
+
+  修改配置生效 `tmux source-file ~/.tmux.conf`
+
+- ##### 使用快捷键插件管理
+
+  ```
+  # prefix表示是Tmux的快捷键前缀
+  prefix shift-i      # 安装件列表中的插件
+  prefix shift-u      # 更新件列表中的插件
+  prefix alt-u        # 删除/卸载不在插件列表中的插件
+  ```
+
+- ##### 使用命令行插件管理
+
+  ```
+  ~/.tmux/plugins/tpm/bin/install_plugins                  # 安装件列表中的插件
+  ~/.tmux/plugins/tpm/bin/update_plugins all|plugname      # 更新所有插件或指定插件
+  ~/.tmux/plugins/tpm/bin/clean_plugins                    # 删除/卸载不在插件列表中的插件
+  ```
+
+  
+
+- ##### 保存/恢复会话 tmux-resurrect
+
+  > 默认会话数据路径 /.local/share/tmux/resurrect
+
+  ```
+  保存Tmux会话：前缀键 + Ctrl-s
+  还原Tmux会话： 前缀键 + Ctrl-r
+  
+  Tmux Resurrect 会将 Tmux 会话的详细信息以文本文件形式保存到 ~/.tmux/resurrect 目录；
+  ```
+
+  

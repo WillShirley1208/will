@@ -5,6 +5,60 @@ tags: snippet
 categories: python
 ---
 
+## Principle
+
+### SOLID
+
+- S *（单一职责原则 Single responsibility principle）* 
+
+  - **一个类应该仅仅只有一个被修改的理由。**
+
+    
+
+- O *（开放-关闭原则 Open–closed principle）*
+
+  - **类应该对扩展开放，对修改封闭。**
+
+  
+
+- L *（里氏替换原则 Liskov Substitution Principle）*
+
+  - **子类应该可以随意替换它的父类 ，而不破坏程序 本身的功能**
+
+  
+
+- I *（接口隔离原则 Interface Segregation Principles）*
+
+  - **客户（client）应该不依赖于它不使用的方法**
+
+    
+
+- D *（依赖倒置原则 Dependency Inversion Principle）*
+  - **高层模块不应该依赖于低层模块，二者都应该依赖于抽象。**
+
+
+
+### idea
+
+- 好代码在处理边界情况时应该是简洁的、“润物细无声”的
+
+
+
+## code practise
+
+#### 边界情况（Edge cases）
+
+- bad style: 
+  - LBYL（Look Before You Leap）
+- better style:
+  - EAFP（Easier to Ask for Forgiveness than Permission）
+- best style
+  - 在日常编码时，我们应该尽量避免去手动校验数据。而是应该使用*（或者自己实现）*合适的第三方校验模块，把这部分边界处理工作抽象出去，简化主流程代码。
+
+
+
+## Method
+
 ### 统计运行时间
 
 ```python
@@ -93,6 +147,32 @@ double = functools.partial(multiply, 2)
 
 > Mixin 是面向对象编程中的一个术语，它表示一种设计模式，用于将一组功能或行为以模块化的方式添加到类中，而不需要使用继承的方式。
 
+```python
+class SendMailMixin:
+    def send_mail(self, email):
+        print(f"Sending mail to {email}")
+
+class User:
+    def __init__(self, email):
+        self.email = email
+
+class AdminUser(User, SendMailMixin):
+    def send_admin_mail(self):
+        self.send_mail(self.email)
+
+admin = AdminUser("admin@example.com")
+admin.send_admin_mail()  # 输出: Sending mail to admin@example.com
+```
+
+
+
+**Mixin和abc.ABC的区别:**
+
+1. **用途**: Mixin侧重于代码复用和功能扩展,而abc.ABC则用于定义抽象类和接口。
+2. **继承关系**: Mixin通常与其他类一起使用多重继承,而abc.ABC作为基类被具体类继承。
+3. **抽象程度**: Mixin可以包含具体的实现,而abc.ABC中的抽象方法必须由子类实现。
+4. **类型检查**: abc.ABC可用于类型检查,而Mixin无法直接进行类型检查。
+
 ### LOOP
 
 ```python
@@ -104,3 +184,60 @@ for i, name in enumerate(names):
 - 使用 islice 实现循环内隔行处理
 - 使用 takewhile 替代 break 语句
 - 使用生成器编写自己的修饰函数
+
+### 修改外层变量时记得使用 nonlocal
+
+- 闭包的参数使用
+
+### 类对象
+
+- `cls`
+
+```python
+@classmethod
+def _send_request(cls, method, endpoint, json=None, params=None):
+```
+
+
+
+### 使用 dataclass 简化代码
+
+总结一下,dataclass主要提供了以下几方面的功能:
+
+1. **自动生成构造函数和基本方法**
+    - 自动生成`__init__`构造函数
+    - 自动生成`__repr__`、`__eq__`等基本方法
+
+2. **数据字段管理**
+    - 定义数据字段
+    - 支持为字段设置默认值
+    - 支持字段类型注解
+    - 支持只读字段、后期初始化字段
+
+3. **数据类行为定制**
+    - 可自定义字段排序
+    - 可自定义字段命名规则(snake_case/CamelCase)
+    - 支持自定义`__post_init__`方法做数据校验
+    - 可控制是否生成`__repr__`方法
+    - 支持生成`__hash__`方法用于哈希
+
+4. **性能优化**
+    - 支持使用`__slots__`优化内存使用
+
+5. **与静态类型检查工具结合**
+    - 支持与mypy等类型检查工具结合使用
+
+6. **继承和嵌套**
+    - 支持数据类的继承
+    - 支持嵌套数据类作为字段
+
+通过这些功能,dataclass可以极大简化数据类的定义和使用,减少样板代码。它使得创建数据类变得高效和优雅,同时还提供了足够的定制空间。无论是简单的数据持有对象还是复杂的数据结构,dataclass都能发挥它的优势,提高代码的可读性和可维护性。
+
+
+
+## Package
+
+### 文件处理 
+
+- pathlib
+

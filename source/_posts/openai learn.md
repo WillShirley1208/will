@@ -1,5 +1,8 @@
 ---
-
+title: openai learn
+date: 2024-01-19 10:07:04
+tags: snippet
+categories: fragment
 ---
 
 # UI

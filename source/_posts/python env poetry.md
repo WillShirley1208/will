@@ -65,6 +65,17 @@ categories: python
 
 
 
+一个典型的使用流程如下:
+
+1. 在一个新项目中,首先执行 `poetry install` 安装依赖并生成 `poetry.lock` 文件。
+2. 在开发过程中,如果需要新增或更新依赖,先执行 `poetry add/remove 依赖名`。
+3. 然后执行 `poetry lock` 更新 `poetry.lock` 文件。
+4. 再执行 `poetry install` 安装新的依赖。
+5. 开发或运行代码时,执行 `poetry shell` 进入虚拟环境。
+6. 在虚拟环境中进行开发、测试和运行。
+
+
+
 ## HATCH
 
 ### 准备

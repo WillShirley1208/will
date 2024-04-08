@@ -39,7 +39,10 @@ alt -> command
 
   
 
+- win / alt 按键切换 （匹配win/mac系统）
 
+  ```
+  Fn + Alt 三秒
 
 
 

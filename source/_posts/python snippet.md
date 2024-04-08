@@ -241,3 +241,10 @@ def _send_request(cls, method, endpoint, json=None, params=None):
 
 - pathlib
 
+
+
+
+
+## Grammar
+
+- `*args` 接收并处理所有传递进来的位置参数，`**kwargs` 接收并处理所有传递进来的关键字参数。

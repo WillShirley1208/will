@@ -40,6 +40,14 @@ Spring Cloud Alibaba Nacos Discovery 遵循了 Spring Cloud Common 标准，实�
 
 ## open API
 
+- 获取所有服务列表
+
+```shell
+curl -X GET 'http://127.0.0.1:8848/nacos/v2/ns/service/list'
+```
+
+
+
 - 获取心跳
 
 ```shell

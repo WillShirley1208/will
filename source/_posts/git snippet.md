@@ -68,9 +68,7 @@ git diff HEAD~n HEAD -- <path>
 git whatchanged -- <path>
 ```
 
-#### 查看本地分支与远程分支的关联
 
-`git branch -vv`
 
 #### 查看每一行是哪次提交最后修改的
 
@@ -93,6 +91,22 @@ git rm --cached path/to/file
 git rm -r --cached path/to/directory
 ```
 
+#### 回滚代码
+
+- method 1: 重置当前分支的 HEAD 指针以及工作目录和暂存区的内容到指定的提交，擦除了目标提交之后的所有提交历史。
+
+  ```shell
+  git reset --hard <commit-id>
+  ```
+
+- Method 2: 只想回滚到指定提交，并保留后续提交历史
+
+  ```shell
+  git revert <commit-id>
+  ```
+
+  
+
 
 
 ## 分支
@@ -100,6 +114,10 @@ git rm -r --cached path/to/directory
 #### 查看分支对应的远程分支
 
 `git branch -vv`
+
+#### 更改当前分支对应的远程分支
+
+`git branch -u origin/develop`
 
 #### 回滚远程分支
 
@@ -158,6 +176,10 @@ Next, checkout the branch you want. In this case, the branch we want is called �
 2. 建立本地至上游（远程）分支的链接
    
    `git branch --set-upstream-to=origin/new_branch new_branch`
+   
+   > 如果要推送到的远程分支 origin/new_branch 与本地分支 new_branch 名字相同，那可以使用
+   >
+   > git branch --set-upstream-to origin new_branch
 
 #### 删除分支
 
@@ -470,7 +492,7 @@ git branch -m new-branch-name
 
    If your local branch had unique commits, you may need to resolve conflicts. For more information, see "[Addressing merge conflicts](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/addressing-merge-conflicts)."
 
-### submodule
+## submodule
 
 > 对于项目中包含子项目的git项目
 >
@@ -480,21 +502,25 @@ git branch -m new-branch-name
 >
 >  https://git-scm.com/book/zh/v2/Git-%E5%B7%A5%E5%85%B7-%E5%AD%90%E6%A8%A1%E5%9D%97
 
-- 如何是首次克隆，初始化代码需要
+### 如何是首次克隆，初始化代码需要
 
-  `git clone --recurse-submodules https://github.com/chaconinc/MainProject`
+`git clone --recurse-submodules https://github.com/chaconinc/MainProject`
 
 ​		或如果首次没有使用`--recurse-submodules`，那后面可以通过
 
 ​		`git submodule init`和`git submodule update`，进行子模块的拉取更新
 
+### 如何要对子模块的代码也用克隆地址
 
+1. `git config -f .gitmodules -e    # opens editor, update URLs for your forks`
 
-- 如何要对子模块的代码也用克隆地址
+2. `git submodule sync`
 
-  1. `git config -f .gitmodules -e    # opens editor, update URLs for your forks`
+### 后期从远程仓库更新submodule代码
 
-  2. `git submodule sync`
+```shell
+git submodule update --remote
+```
 
 ### 在已有项目添加子模块
 

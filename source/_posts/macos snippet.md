@@ -5,6 +5,16 @@ tags: snippet
 categories: macos
 ---
 
+## PORT
+
+- 查看指定进程pid的占用端口
+
+  ```shell
+  lsof -i -P -n | grep LISTEN | grep {pid}
+  ```
+
+  
+
 ## Install .pkg
 
 a.

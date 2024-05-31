@@ -49,7 +49,23 @@ categories: python
   poetry install
   ```
 
+
+- 安装test相关依赖
+
+  ```toml
+  [tool.poetry.group.test.dependencies]
+  pytest = "^7.3.0"
+  ...
+  ```
+
   
+
+  ```shell
+   poetry install --with test
+  ```
+
+  
+
 
 - 通过`requirement`添加依赖
 
@@ -114,6 +130,21 @@ categories: python
   ```shell
   hatch env show --ascii
   ```
+
+
+- 查看当前项目环境信息
+
+  ```shell
+  hatch env find
+  ```
+
+- 退出当前环境
+
+  ```shell
+  exit
+  ```
+
+  
 
 
 - 格式化

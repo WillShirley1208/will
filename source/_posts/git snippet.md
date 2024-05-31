@@ -200,6 +200,22 @@ git fetch -p
 git branch -m new-branch-name
 ```
 
+## 暂存区
+
+- 查看暂存内容的差异：
+
+  ```shell
+  git diff --cached
+  ```
+
+- 重置暂存区（对于所有文件）：
+
+  ```shell
+  git reset
+  ```
+
+  
+
 ## stash
 
 在Git中，`stash`命令用于暂存当前未提交的代码修改，以便在后续时刻再次应用它们。它可以暂存已修改但还未添加到暂存区的文件，也可以暂存已经添加到暂存区但还未提交的文件。
@@ -390,6 +406,8 @@ git branch -m new-branch-name
    **Note:** `pick` or `p` will only use those commits, but `squash` or `s` will use them and combine them all together.
 
    The first commit is the one you will combine them into without losing your changes.
+
+   > 注意，一般需要 squash的是后面的commit，需要保证第一条（最早的）commit 信息不被 squash
 
 3. After doing that, save the file and close it. Git will open up another editor where you can see the new commit message it generates for you.
 

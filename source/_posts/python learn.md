@@ -25,6 +25,7 @@ tup
 
 - 列表是动态的，长度可变，可以随意的增加、删减或改变元素。列表的存储空间略大于元组，性能略逊于元组。
 - 元组是静态的，长度大小固定，不可以对元素进行增加、删减或者改变操作。元组相对于列表更加轻量级，性能稍优。
+- set是空的时候，进行和其他非空set取交集，永远是空
 
 ### 字典和集合
 
@@ -219,6 +220,41 @@ def name(param1, param2, ..., paramN):
     statements
     return/yield value # optional
 ```
+
+###  参数
+
+- 为了能让一个函数接受任意数量的位置参数，可以使用一个*参数
+
+  ```python
+  def avg(first, *rest):
+      ...
+  # Sample use
+  avg(1, 2)
+  ```
+
+  
+
+- 为了接受任意数量的关键字参数，使用一个以**开头的参数
+
+  ```python
+  def make_element(name, value, **attrs):
+    ...
+  make_element('item', 'Albatross', size='large', quantity=6)
+  ```
+
+  
+
+  ```python
+  def anyargs(*args, **kwargs):
+      print(args) # A tuple
+      print(kwargs) # A dict
+  ```
+
+- 参数默认值不要设置 []，而是写成 None
+
+  ```python
+  def spam(a, b=[]): # NO! ，后面如果多次调用spam方法，则b的值会一直传递使用
+      ...
 
 ### 函数嵌套
 
@@ -562,7 +598,7 @@ def download_all(sites):
 
 ```python
 def download_all(sites):
-    with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
+    with concurrent.futures.ProcessPoolExecutor(max_workers=5) as executor:
         to_do = []
         for site in sites:
             future = executor.submit(download_one, site)
@@ -586,6 +622,43 @@ if io_bound:
 else if cpu_bound:
     print('Use multi-processing')
 ```
+
+#### multiprocessing vs threading
+
+ `multiprocessing` 模块可以用来创建和管理多个进程，从而实现并发任务处理。而 `threading` 模块则是用于多线程编程。两者在实现并发任务时有一些关键的区别：
+
+1. **进程 vs 线程**:
+   - **多进程 (multiprocessing)**: 每个进程都有自己独立的内存空间和全局解释器锁 (GIL) 是完全独立的，因此多进程适合 CPU 密集型任务，因为不同的进程可以在多个 CPU 核心上并行运行。
+   - **多线程 (threading)**: 多线程共享同一个进程的内存和资源，因此管理起来可能较为复杂。Python 中的线程受到 GIL 的限制，即使在多线程中也是同一时间只允许一个线程执行 Python 字节码。多线程适合 I/O 密集型任务（如网络操作、文件读写等）。
+2. **全局解释器锁 (GIL)**:
+   - **multiprocessing**: 不受 GIL 的限制，因为每个进程都有自己的解释器实例。
+   - **threading**: 受GIL的限制，这在 CPU 密集型任务中会成为瓶颈，但在 I/O 密集型任务中影响不大。
+3. **内存使用**:
+   - **multiprocessing**: 每个进程都有自己的内存空间，因此会使用更多的内存开销。
+   - **threading**: 共享同一内存空间，因此内存开销较小，但是需要注意线程之间的数据同步和竞争问题。
+4. **启动时间和开销**:
+   - **multiprocessing**: 进程启动和切换的开销较大，适合长时间运行的任务。
+   - **threading**: 线程启动和切换的开销较小，适合短时间、高频率任务的并发处理。
+5. **数据共享和通信**:
+   - **multiprocessing**: 进程间数据通信需要使用进程间通信 (IPC) 机制，如队列 (Queue)、管道 (Pipe) 或共享内存 (Shared Memory)，实现起来较为复杂。
+   - **threading**: 线程间直接共享内存，因此数据共享较为方便，但需要注意同步问题，使用锁 (Lock)、条件变量 (Condition) 等机制来避免竞争条件。
+
+在编写并发程序时，选择 `multiprocessing` 或 `threading` 取决于具体的应用场景和任务类型。如果是 CPU 密集型任务，推荐使用 `multiprocessing`；如果是 I/O 密集型任务，`threading` 可能更为合适。
+
+#### multiprocessing vs concurrent.future.ProcessPoolExecutor
+
+1. 模块位置
+   - **multiprocessing**: 位于 `multiprocessing` 模块中，是专门用于处理并行进程的模块。
+   - **concurrent.futures.ProcessPoolExecutor**: 位于 `concurrent.futures` 模块中，是 `concurrent.futures` 提供的高层次异步并发框架的一部分，主要用于简化并发执行。
+2. 使用方式
+   - **multiprocessing**: 提供了相对底层的接口和灵活性，例如 `Process`, `Queue`, `Pipe` 等。你可以直接管理进程的生命周期，手动启动和终止进程，以及处理进程间通信。
+   - **concurrent.futures.ProcessPoolExecutor**: 提供了更高级别的接口，简化了多进程的管理。使用 `Executor` 对象来管理进程池，提交任务，获取结果更加方便和直观。
+3. 任务提交和结果获取
+   - **multiprocessing**: 你需要自己手动管理任务的提交和结果的汇总，通常通过队列 (Queue) 或管道 (Pipe) 来实现。
+   - **concurrent.futures.ProcessPoolExecutor**: 提供了 `submit` 和 `map` 函数来提交任务，并且返回 Future 对象，可以方便地获取任务的执行结果。
+4. 异步特性
+   - **multiprocessing**: 提供了一些基础的异步特性，但主要还是同步调用，需要自行处理异步结果。
+   - **concurrent.futures.ProcessPoolExecutor**: 专门设计为异步框架，与 Python 的 `asyncio` 更加友好，可以使用 `Future` 对象进行异步任务的管理。
 
 ## GIL
 

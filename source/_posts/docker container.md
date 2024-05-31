@@ -12,6 +12,8 @@ categories: docker
 docker ps
 查看所有
 docker ps -a
+创建容器
+docker run -p <宿主机端口>:<容器端口> <镜像名称>[:标签]
 启动
 docker start 容器名或容器 id
 终止

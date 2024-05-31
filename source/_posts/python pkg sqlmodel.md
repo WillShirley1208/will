@@ -46,7 +46,30 @@ role = Role.from_orm(role_update)
 
 ## 列表实体转换为字典列表
 
-- 方式一  **session.exec**
+- 方式一 **session.query** 
+
+> 在直接返回 查询结构的时候，优先使用，可以直接把结果转为json（e.g. res_json = jsonable_encoder(res_data)）
+
+```python
+db_rel_usergroup_roles = (session.query(RelUserGroupUser.user_id, Role.id, Role.name, Role.nick_name, Role.label)
+                             .join(RelUsergroupRole, RelUserGroupUser.usergroup_id == RelUsergroupRole.usergroup_id)
+                             .join(Role, RelUsergroupRole.role_id == Role.id)
+                             .filter(RelUserGroupUser.user_id == user_id)
+                             .all())
+        rel_usergroup_roles_info = []
+        for rel_usergroup_role in db_rel_usergroup_roles:
+            rel_usergroup_roles_info.append(Role(
+                id=rel_usergroup_role[1],
+                name=rel_usergroup_role[2],
+                nick_name=rel_usergroup_role[3],
+                label=rel_usergroup_role[4]
+            ))
+        return rel_usergroup_roles_info
+```
+
+- 方式二 **session.exec**
+
+> 在需要特殊处理查询的不同字段信息时，优先使用此方法
 
 ```python
 rel_usergroup_user_list = session.exec(
@@ -66,26 +89,7 @@ rel_usergroup_user_list = session.exec(
         return converted_list
 ```
 
-- 方式二 **session.query**
-
-```python
-db_rel_usergroup_roles = (session.query(RelUserGroupUser.user_id, Role.id, Role.name, Role.nick_name, Role.label)
-                             .join(RelUsergroupRole, RelUserGroupUser.usergroup_id == RelUsergroupRole.usergroup_id)
-                             .join(Role, RelUsergroupRole.role_id == Role.id)
-                             .filter(RelUserGroupUser.user_id == user_id)
-                             .all())
-        rel_usergroup_roles_info = []
-        for rel_usergroup_role in db_rel_usergroup_roles:
-            rel_usergroup_roles_info.append(Role(
-                id=rel_usergroup_role[1],
-                name=rel_usergroup_role[2],
-                nick_name=rel_usergroup_role[3],
-                label=rel_usergroup_role[4]
-            ))
-        return rel_usergroup_roles_info
-```
-
-
+- 
 
 ## 查询过滤
 
@@ -104,3 +108,33 @@ db_rel_usergroup_roles = (session.query(RelUserGroupUser.user_id, Role.id, Role.
 在使用 SQLModel 进行数据库操作时，可以使用上下文管理器 `with Session(engine) as session` 来创建并管理数据库会话。这样可以确保会话在使用完毕后会被正确关闭，释放数据库连接资源。
 
 在例如 `async def delete_user(*, user_id: int, session: Session = Depends(get_session)):`中，`session` 参数是通过 `Depends(get_session)` 进行依赖注入的，FastAPI 框架会负责在请求处理函数执行完毕后自动关闭会话。所以在请求逻辑中，你不需要手动关闭会话连接。
+
+## in_语法使用
+
+
+
+## session.exec vs session.query
+
+在SQLAlchemy中，`session.query`和`session.exec`都可以用来执行SQL查询。然而，它们之间有一些关键的区别。
+
+`session.query`是SQLAlchemy ORM的一部分，它返回的是模型对象。这意味着你可以使用Python的属性和方法来访问和操作返回的数据。这对于编写面向对象的代码非常有用。
+
+```python
+users = session.query(User).filter(User.name == 'John').all()
+for user in users:
+    print(user.id, user.name)
+```
+
+另一方面，`session.exec`是SQLAlchemy Core的一部分，它返回的是原始的SQL结果。这意味着你需要使用列名作为字符串来访问返回的数据。这对于执行复杂的SQL查询或者需要更接近SQL的性能优化可能更有用。
+
+```python
+result = session.exec(select(User).where(User.name == 'John'))
+for row in result:
+    print(row['id'], row['name'])
+```
+
+总的来说:
+
+如果正在编写面向对象的代码，或者查询相对简单，那么`session.query`可能是更好的选择。
+
+如果需要执行复杂的SQL查询，或者需要更接近SQL的性能优化，那么`session.exec`可能是更好的选择。

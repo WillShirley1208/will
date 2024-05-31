@@ -19,3 +19,14 @@ def validate_engine_and_run_func(self):
     return self
 ```
 
+或
+
+```python
+@model_validator(mode="before")
+@classmethod
+def validate_google(cls, values: dict) -> dict:
+  ...
+  
+其中values 是实例化对象的所有参数
+```
+

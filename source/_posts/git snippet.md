@@ -111,6 +111,12 @@ git rm -r --cached path/to/directory
 
 ## 分支
 
+#### 查看分支提交历史
+
+```shell
+git log --oneline --graph --decorate
+```
+
 #### 查看分支对应的远程分支
 
 `git branch -vv`
@@ -625,6 +631,5 @@ git add .
 git commit -m "update .gitignore"
 ```
 
-```properties
-```
+
 

@@ -35,6 +35,17 @@ Docker is a platform and tool for building, distributing, and running Docker con
 
 # command
 
+- 需要切换到root用户
+- 或使用kubeconfig `kubectl delete pod auth-server-server-5cbfd46c5b-9zs26 --force --kubeconfig=./kubeconfig`
+
+## 查看所有 namespace
+
+```bash
+kubectl get namespaces
+```
+
+
+
 ## 查看运行程序
 
 ```shell
@@ -49,12 +60,24 @@ kubectl get pod -n 命令空间
 kubectl logs -f 容器id -n 命令空间
 ```
 
+## 查看容器启动配置
 
+```
+kubectl get pod 容器id --kubeconfig=/path/to/configfile -o yaml > env-vq48.yaml
+```
 
 ## 进入容器
 
+- without kubeconfig
+
 ```shell
 kubectl exec -it  容器id -n 命令空间 -c entity-server-server -- sh
+```
+
+- With kubeconfig
+
+```shell
+kubectl --kubeconfig=./kubeconfig-vq48 exec -it auth-server-server-687cf494cc-ff4s4 -- sh
 ```
 
 

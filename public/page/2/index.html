@@ -174,6 +174,423 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2024/03/08/GPU%20learn/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/03/08/GPU%20learn/" class="post-title-link" itemprop="url">GPU learn</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2024-03-08 10:08:49 / Modified: 10:28:58" itemprop="dateCreated datePublished" datetime="2024-03-08T10:08:49+08:00">2024-03-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/GPU/" itemprop="url" rel="index"><span itemprop="name">GPU</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h1><ul>
+<li><p>查看卡的数量</p>
+<p><code>nvidia-smi -L</code></p>
+</li>
+<li><p>查看显卡上运行的程序，以及所占内存情况</p>
+<p><code>nvidia-smi --query-compute-apps=pid,process_name,used_memory,gpu_uuid --format=csv</code></p>
+</li>
+<li><p>查看显卡所剩内存</p>
+<p><code>nvidia-smi --query-gpu=memory.free --format=csv,noheader,nounits</code></p>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2024/03/05/python%20pkg%20pydantic/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/03/05/python%20pkg%20pydantic/" class="post-title-link" itemprop="url">python pydantic</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-03-05 11:44:46" itemprop="dateCreated datePublished" datetime="2024-03-05T11:44:46+08:00">2024-03-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2024-04-16 14:22:49" itemprop="dateModified" datetime="2024-04-16T14:22:49+08:00">2024-04-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="model-validator"><a href="#model-validator" class="headerlink" title="model_validator"></a>model_validator</h2><blockquote>
+<p><code>model_validator</code> 是 Pydantic 库提供的一个装饰器，用于定义模型验证器函数。模型验证器函数是一种特殊的方法，用于在创建模型实例或更新模型属性时执行自定义的验证逻辑。</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@model_validator(<span class="params">mode=<span class="string">&quot;after&quot;</span></span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">validate_engine_and_run_func</span>(<span class="params">self</span>):</span></span><br><span class="line">    <span class="keyword">if</span> self.search_engine <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        self.search_engine = SearchEngine.from_search_config(self.config.search, proxy=self.config.proxy)</span><br><span class="line">    <span class="keyword">return</span> self</span><br></pre></td></tr></table></figure>
+
+<p>或</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@model_validator(<span class="params">mode=<span class="string">&quot;before&quot;</span></span>)</span></span><br><span class="line"><span class="meta">@classmethod</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">validate_google</span>(<span class="params">cls, values: <span class="built_in">dict</span></span>) -&gt; <span class="built_in">dict</span>:</span></span><br><span class="line">  ...</span><br><span class="line">  </span><br><span class="line">其中values 是实例化对象的所有参数</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2024/01/24/llm%20agent/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/01/24/llm%20agent/" class="post-title-link" itemprop="url">llm agent</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-01-24 12:21:30" itemprop="dateCreated datePublished" datetime="2024-01-24T12:21:30+08:00">2024-01-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2024-03-12 10:09:24" itemprop="dateModified" datetime="2024-03-12T10:09:24+08:00">2024-03-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/llm/" itemprop="url" rel="index"><span itemprop="name">llm</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>Agent = Large Language Model (LLM) + Observation + Thought + Action + Memory</p>
+<p>MultiAgent = Agents + Environment + Standard Operating Procedure (SOP) + Communication + Economy</p>
+<p>ReAct<a target="_blank" rel="noopener" href="https://learnprompting.org/zh-Hans/docs/advanced_applications/react#fn-1">1</a>(reason, act) 是一种使用自然语言推理解决复杂任务的语言模型范例，ReAct旨在用于允许LLM执行某些操作的任务</p>
+</blockquote>
+<hr>
+<p><strong>reference</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.ionio.ai/blog/what-is-llm-agent-ultimate-guide-to-llm-agent-with-technical-breakdown">https://www.ionio.ai/blog/what-is-llm-agent-ultimate-guide-to-llm-agent-with-technical-breakdown</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2024/01/22/raycast/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/01/22/raycast/" class="post-title-link" itemprop="url">raycast awesome</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-01-22 13:20:28" itemprop="dateCreated datePublished" datetime="2024-01-22T13:20:28+08:00">2024-01-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2024-03-01 11:46:06" itemprop="dateModified" datetime="2024-03-01T11:46:06+08:00">2024-03-01</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/tool/" itemprop="url" rel="index"><span itemprop="name">tool</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="extension"><a href="#extension" class="headerlink" title="extension"></a>extension</h2><h2 id="cake"><a href="#cake" class="headerlink" title="cake"></a>cake</h2><ul>
+<li><p>庆祝彩纸</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">confetti</span><br></pre></td></tr></table></figure></li>
+<li><p>弹跳窗口</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Toggle Bounce Animation</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2024/01/19/keyboards/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brook">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="source is the essence">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/01/19/keyboards/" class="post-title-link" itemprop="url">keyboard</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-01-19 13:58:08" itemprop="dateCreated datePublished" datetime="2024-01-19T13:58:08+08:00">2024-01-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2024-03-13 11:10:05" itemprop="dateModified" datetime="2024-03-13T11:10:05+08:00">2024-03-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/keyboard/" itemprop="url" rel="index"><span itemprop="name">keyboard</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="niz-plum"><a href="#niz-plum" class="headerlink" title="niz plum"></a>niz plum</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">对照</span><br><span class="line">ctrl -&gt; control</span><br><span class="line">win/lock -&gt; option</span><br><span class="line">alt -&gt; command</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li><p>锁定键盘</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">右Fn + Esc</span><br></pre></td></tr></table></figure></li>
+<li><p>电源与蓝牙切换</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Fn + F11键</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ul>
+<li><p>屏幕移动</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ctrl + win(option)</span><br></pre></td></tr></table></figure></li>
+<li><p>win / alt 按键切换 （匹配win/mac系统）</p>
+<p>```<br>Fn + Alt 三秒</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li><p>reference</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_43528451/article/details/113357550">https://blog.csdn.net/qq_43528451/article/details/113357550</a></p>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2024/01/19/finite%20state%20machine/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -741,441 +1158,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/12/29/java%20jenv/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/12/29/java%20jenv/" class="post-title-link" itemprop="url">java jenv</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2023-12-29 16:50:48 / Modified: 16:52:24" itemprop="dateCreated datePublished" datetime="2023-12-29T16:50:48+08:00">2023-12-29</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Jenv"><a href="#Jenv" class="headerlink" title="Jenv"></a>Jenv</h2><h3 id="列出已安装的Java版本："><a href="#列出已安装的Java版本：" class="headerlink" title="列出已安装的Java版本："></a><strong>列出已安装的Java版本：</strong></h3><p>运行以下命令列出已安装的Java版本：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jenv versions</span><br></pre></td></tr></table></figure>
-
-<p>这会显示所有已安装的Java版本。</p>
-<h3 id="5-设置全局Java版本："><a href="#5-设置全局Java版本：" class="headerlink" title="5. 设置全局Java版本："></a>5. <strong>设置全局Java版本：</strong></h3><p>你可以选择设置一个全局的Java版本，该版本会被默认使用。运行以下命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jenv global &lt;jdk_version&gt;</span><br></pre></td></tr></table></figure>
-
-<p>将 <code>&lt;jdk_version&gt;</code> 替换为你想要设置为默认的Java版本。</p>
-<h3 id="6-设置项目特定的Java版本："><a href="#6-设置项目特定的Java版本：" class="headerlink" title="6. 设置项目特定的Java版本："></a>6. <strong>设置项目特定的Java版本：</strong></h3><p>如果你想在特定的项目中使用不同的Java版本，可以进入到项目的目录，然后运行以下命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jenv local &lt;jdk_version&gt;</span><br></pre></td></tr></table></figure>
-
-<p>这会在项目目录下创建一个 <code>.java-version</code> 文件，指定项目特定的Java版本。</p>
-<h3 id="7-验证Java版本："><a href="#7-验证Java版本：" class="headerlink" title="7. 验证Java版本："></a>7. <strong>验证Java版本：</strong></h3><p>在终端中运行以下命令验证当前系统使用的Java版本：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -version</span><br></pre></td></tr></table></figure>
-
-<p>确保输出显示的是你所期望的Java版本信息。</p>
-<p>通过以上步骤，你可以使用 <code>jenv</code> 管理多个Java版本，并且在不同的项目中切换使用不同的Java版本。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/12/19/python%20ASGI/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/12/19/python%20ASGI/" class="post-title-link" itemprop="url">python ASGI</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2023-12-19 01:14:27" itemprop="dateCreated datePublished" datetime="2023-12-19T01:14:27+08:00">2023-12-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-01-24 10:30:37" itemprop="dateModified" datetime="2024-01-24T10:30:37+08:00">2024-01-24</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>the Asynchronous Server Gateway Interface.</p>
-</blockquote>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/12/18/python%20env%20conda/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/12/18/python%20env%20conda/" class="post-title-link" itemprop="url">python conda</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2023-12-18 14:10:58" itemprop="dateCreated datePublished" datetime="2023-12-18T14:10:58+08:00">2023-12-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-01-29 15:39:18" itemprop="dateModified" datetime="2024-01-29T15:39:18+08:00">2024-01-29</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>conda相当于虚拟机，在里面安装python和依赖</p>
-</blockquote>
-<ul>
-<li><p>查看环境</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda env list</span><br></pre></td></tr></table></figure></li>
-<li><p>新建环境</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda create --name your_env_name</span><br></pre></td></tr></table></figure>
-
-<p>指定python版本</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda create --name xxx python=3.10</span><br></pre></td></tr></table></figure></li>
-<li><p>激活环境</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda activate xxx</span><br></pre></td></tr></table></figure></li>
-<li><p>删除环境</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda remove --name xxx --all</span><br></pre></td></tr></table></figure></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/12/16/SSO%20keycloak/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/12/16/SSO%20keycloak/" class="post-title-link" itemprop="url">SSO (single sign-on) keycloak</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2023-12-16 10:57:00" itemprop="dateCreated datePublished" datetime="2023-12-16T10:57:00+08:00">2023-12-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-01-16 17:34:07" itemprop="dateModified" datetime="2024-01-16T17:34:07+08:00">2024-01-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/sso/" itemprop="url" rel="index"><span itemprop="name">sso</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p> SSO (single sign-on)</p>
-</blockquote>
-<blockquote>
-<p><a target="_blank" rel="noopener" href="https://ninjaauth.com/sso-single-sign-on">https://ninjaauth.com/sso-single-sign-on</a></p>
-</blockquote>
-<h2 id="keycloak"><a href="#keycloak" class="headerlink" title="keycloak"></a>keycloak</h2><h3 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h3><ul>
-<li>需要jdk9以上环境</li>
-</ul>
-<h3 id="config-server"><a href="#config-server" class="headerlink" title="config server"></a>config server</h3><ul>
-<li><p>编辑 <code>/conf/keycloak.conf </code>，配置mysql连接信息 (mysql创建keycloak库)</p>
-</li>
-<li><p>配置 <code>admin cli </code>环境变量 （方便直接命令操作，等同于界面操作）</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> keycloak</span></span><br><span class="line">export KCADM=&quot;/Users/dongwei/Applications/keycloak-23.0.3/bin/kcadm.sh&quot;</span><br><span class="line">export HOST_FOR_KCADM=localhost</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="bootstrap"><a href="#bootstrap" class="headerlink" title="bootstrap"></a>bootstrap</h3><ul>
-<li><p>首次启动</p>
-<p><code>KEYCLOAK_ADMIN=admin KEYCLOAK_ADMIN_PASSWORD=xxxxxx ./bin/kc.sh start-dev</code></p>
-</li>
-<li><p>后续启动</p>
-<p><code>./bin/kc.sh start-dev</code></p>
-</li>
-<li><p>生效 <code>KCADM</code></p>
-<p><code>$KCADM config credentials --server http://localhost:8080 --realm master --user admin</code></p>
-<p>提示输入密码即可 (1sou2sou)</p>
-</li>
-</ul>
-<p>​        验证 <code>$KCADM get serverinfo</code></p>
-<h3 id="config-realm"><a href="#config-realm" class="headerlink" title="config realm"></a>config realm</h3><ul>
-<li><p>创建新的realm</p>
-<p><code>$KCADM create realms -s realm=&quot;jarvex&quot; -s enabled=true</code></p>
-</li>
-</ul>
-<h3 id="config-clients"><a href="#config-clients" class="headerlink" title="config clients"></a>config clients</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">KCADM create clients -r jarvex -s clientId=<span class="string">&quot;jarvex-client-test-1&quot;</span> -s enabled=<span class="literal">true</span> -s name=<span class="string">&quot;test Client 1&quot;</span> -s protocol=openid-connect -s publicClient=<span class="literal">true</span> -s standardFlowEnabled=<span class="literal">true</span> -s <span class="string">&#x27;redirectUris=[&quot;http://127.0.0.1:8001/app/*&quot;]&#x27;</span> -s baseUrl=<span class="string">&quot;http://127.0.0.1:8001/app/&quot;</span> -s <span class="string">&#x27;webOrigins=[&quot;*&quot;]&#x27;</span></span></span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/12/15/python%20auth%20-%20fastapi%20jwt%20auth/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="brook">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="source is the essence">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/12/15/python%20auth%20-%20fastapi%20jwt%20auth/" class="post-title-link" itemprop="url">python auth - fastapi jwt auth</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2023-12-15 10:46:58 / Modified: 10:58:11" itemprop="dateCreated datePublished" datetime="2023-12-15T10:46:58+08:00">2023-12-15</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>在 FastAPI JWT Auth 中，Refresh Token（刷新令牌）和 Access Token（访问令牌）是两种不同的令牌，用于实现认证和授权机制。</p>
-<ol>
-<li>Access Token（访问令牌）：Access Token 是一个短期的令牌，用于验证用户的身份并授权用户访问受保护的资源。Access Token 是通过用户提供的凭证（如用户名和密码）进行身份验证后生成的，通常具有较短的有效期（例如几分钟或几小时）。客户端在每次请求受保护的资源时，需要在请求的头部或请求参数中携带 Access Token，以证明其有权访问该资源。</li>
-<li>Refresh Token（刷新令牌）：Refresh Token 是一个长期有效的令牌，用于在 Access Token 过期后重新获取新的 Access Token。当 Access Token 过期时，客户端可以使用 Refresh Token 向服务器发送请求来获取新的 Access Token，而无需重新提供用户名和密码等凭证。通常情况下，Refresh Token 的有效期要比 Access Token 更长。</li>
-</ol>
-<p>使用 Refresh Token 的主要目的是增强安全性和减少频繁的身份验证操作。通过将 Access Token 的有效期设置较短，可以降低令牌泄露的风险。当 Access Token 过期时，使用 Refresh Token 获取新的 Access Token，这样可以减少频繁地要求用户重新提供凭证的情况。</p>
-<p>一般的流程是，客户端在进行身份验证后会收到一个 Access Token 和一个 Refresh Token。客户端使用 Access Token 来访问受保护的资源，当 Access Token 过期时，客户端使用 Refresh Token 向服务器请求新的 Access Token。</p>
-<p>FastAPI JWT Auth 提供了相应的功能和装饰器来处理 Access Token 和 Refresh Token 的生成、验证和刷新等操作，以方便实现 JWT 认证和授权。</p>
-<p>refresh tokens <strong>cannot access</strong> an endpoint that is protected with <strong>jwt_required()</strong>, <strong>jwt_optional()</strong>, and <strong>fresh_jwt_required()</strong> </p>
-<p>access tokens <strong>cannot access</strong> an endpoint that is protected with <strong>jwt_refresh_token_required()</strong>.</p>
-<h2 id="Refresh-Tokens"><a href="#Refresh-Tokens" class="headerlink" title="Refresh Tokens"></a>Refresh Tokens</h2><p>These are long-lived tokens which can be used to create a new access tokens once an old access token has expired. </p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1245,18 +1227,18 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">183</span>
+          <span class="site-state-item-count">188</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">95</span>
+        <span class="site-state-item-count">97</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">55</span>
+        <span class="site-state-item-count">57</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

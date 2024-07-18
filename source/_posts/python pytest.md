@@ -7,6 +7,14 @@ categories: python
 
 ## test
 
+- 查看测试详情
+
+  ```shell
+  pytest -v
+  ```
+
+  
+  
 - 测试信息打印
 
   > 默认情况下，pytest 会捕获所有的输出。这意味着在测试运行期间， `print` 语句的输出不会显示在控制台上。
@@ -37,6 +45,14 @@ categories: python
 
   ```shell
   pytest -m finished tests/test-function/test_with_mark.py
+  ```
+
+  
+
+- 生成测试报告
+
+  ```shell
+  pytest --html=report.html
   ```
 
   

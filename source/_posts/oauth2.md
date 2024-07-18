@@ -7,6 +7,14 @@ categories: oauth2
 
 ## overview
 
+### OAuth 2.0 terminology
+
+- **Resource Owner**: Entity that can grant access to a protected resource. Typically, this is the end-user.
+- **Client**: Application requesting access to a protected resource on behalf of the Resource Owner.
+- **Resource Server**: Server hosting the protected resources. This is the API you want to access.
+- **Authorization Server**: Server that authenticates the Resource Owner and issues Access Tokens after getting proper authorization. In this case, Auth0.
+- **User Agent**: Agent used by the Resource Owner to interact with the Client (for example, a browser or a native application).
+
 ![user-journey-oauth](/images/security/user-journey-oauth.webp)
 
 
@@ -39,3 +47,11 @@ Citations:
 [3] https://auth0.com/blog/the-backend-for-frontend-pattern-bff/
 [4] https://infisical.com/blog/guide-to-implementing-oauth2
 [5] https://www.reddit.com/r/node/comments/skmjjn/0auth_implemented_on_frontend_or_backend/
+
+
+
+----
+
+reference
+
+- https://auth0.com/docs/get-started/authentication-and-authorization-flow/which-oauth-2-0-flow-should-i-use

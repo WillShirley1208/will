@@ -69,7 +69,31 @@ curl -X POST -H "Accept: application/json" -H "User-Key: dongwei" -H "Authorizat
 - One potential downside of using Server-Sent Events is the limitations in data format. Since SSE is restricted to transporting UTF-8 messages, binary data is not supported.
 - When not used over HTTP/2, another limitation is the restricted number of concurrent connections per browser. With only six concurrent open SSE connections allowed at any given time, opening multiple tabs with SSE connections can become a bottleneck. (Credit: Dan Messenger)
 
+## cookie
 
+- Cookies are text string stored as key/value
+- The server Create the cookie and send it to the user’s browser where it’ll be stored.
+- The Browser will send that cookie every time it send a request to that server.
+
+```
+HttpOnly: 这个属性用来限制cookie只能通过HTTP(S)协议访问，不能通过客户端脚本（如JavaScript）访问。这主要是为了减少跨站脚本攻击（XSS）的风险，因为攻击者不能通过脚本读取到这些cookie。
+
+Max-Age: 这个属性定义了cookie的生命周期，单位是秒。在你的例子中，Max-Age=3600表示cookie将在3600秒后过期，即1小时后。过期后，cookie将不再发送到服务器。
+
+Path: 这个属性定义了cookie的路径，即cookie只能被发送到这个路径或其子路径下的请求中。Path=/表示cookie对于整个域名是有效的，无论请求哪个路径。
+
+SameSite: 这个属性用来控制cookie的跨站请求。SameSite=lax是一种设置，它允许cookie在顶级导航中跟随跨站请求，但在第三方请求中不会跟随。这是一种折中的方法，旨在提供一定程度的安全性，同时允许一些合理的跨站请求。lax模式比strict模式更宽松，但比没有SameSite属性或设置为None更安全。
+
+Secure: 这个属性指示cookie只能通过HTTPS协议传输，不能通过HTTP。这增加了cookie的安全性，因为它们不会被明文传输，减少了中间人攻击的风险。
+```
+
+
+
+## session
+
+- This session is associated with a randomly generated unique ID, which is created by the server. It’s called “session ID”.
+- The generated session ID is then sent to the user’s browser and stored as a cookie, while the session data is stored on the server-side.
+- Sessions are often used to store sensitive information such as user credentials and financial data. They are more secure than cookies because the information is stored on the server-side and not on the client-side.
 
 ### ref
 

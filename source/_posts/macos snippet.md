@@ -41,7 +41,28 @@ installer -pkg myapp.pkg -target CurrentUserHomeDirectory
 
 
 
+## brew
 
+- Disable  auto update when install 
+
+  ```shell
+  temp method 1:
+  HOMEBREW_NO_AUTO_UPDATE=1 brew install <formula>
+  
+  temp method 2:
+  export HOMEBREW_NO_AUTO_UPDATE=1
+  
+  permanently method:
+  $ vim ~/.bashrc
+  export HOMEBREW_NO_AUTO_UPDATE=1
+  source ~/.bashrc
+  or
+  $ vim ~/.zshrc
+  export HOMEBREW_NO_AUTO_UPDATE=1
+  source ~/.zshrc
+  ```
+
+  
 
 
 

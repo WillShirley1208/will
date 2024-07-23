@@ -23,7 +23,7 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXkiOiJ1c2VyLWtleSIsImV4cCI6MTU2NDA1MDg
 
 - **可直接使用 Base64 解码 Header 和 Payload**
 
-- 验签
+- **signature验签**
 
   使用 Header里面的算法验证签名需要用到与签名时相同的密钥（公钥）。以下是验证签名的示例代码：
 

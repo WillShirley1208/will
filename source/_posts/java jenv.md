@@ -48,3 +48,9 @@ java -version
 确保输出显示的是你所期望的Java版本信息。
 
 通过以上步骤，你可以使用 `jenv` 管理多个Java版本，并且在不同的项目中切换使用不同的Java版本。
+
+## 新增java版本
+
+1. brew install openjdk21
+2. sudo ln -sfn /opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk-21.jdk
+3. 

@@ -332,7 +332,7 @@ git branch -m new-branch-name
    - 解决之后
 
    ```shell
-   git add .
+   git add .  # resolve conflict, always use add & commit 🚨
    git commit -m "xxx"
    git rebase --continue
    ```
@@ -432,6 +432,22 @@ git branch -m new-branch-name
    ```
 
 > 中途如需终止rebase，运行 git rebase --abort
+
+
+
+5. 其它结合
+
+   ```
+   - 先进行 `git rebase upstream/v1` 可以确保你的分支是基于最新的上游代码。
+   
+   - 然后进行 `git rebase -i HEAD~2` 让你可以在最新代码的基础上修改你的提交。
+   
+     这个顺序可以减少冲突的可能性，因为你先将你的代码基于最新的上游代码，然后再修改你自己的提交。
+   ```
+
+   
+
+
 
 ## remote
 

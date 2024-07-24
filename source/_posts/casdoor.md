@@ -1,5 +1,8 @@
 ---
-
+title: casdoor point
+date: 2024-06-05 17:42:30
+tags: point
+categories: casdoor
 ---
 
 

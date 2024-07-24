@@ -67,3 +67,9 @@ reference：
 7. 系统运维：实时数仓需要进行系统运维和监控，包括数据备份和恢复、系统调优、故障处理等方面，确保系统的稳定性和可靠性。
 
 综上所述，实时数仓的建设需要关注数据源接入、数据质量、数据集成、数据模型设计、实时计算和分析、数据安全以及系统运维等多个方面，需要根据实际需求和场景进行综合考虑和规划。
+
+## 数据湖
+
+数据湖，目前关注度比较高的有 Databricks 推出的 Delta Lake、Uber 的 Hudi 以及 Netflix 的 Iceberg
+
+reference https://mp.weixin.qq.com/s/m8-iFg-ekykWGrG3gXlLew

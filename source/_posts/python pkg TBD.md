@@ -1,7 +1,10 @@
 ---
-title: python fire
+title: python TBD
 date: 2024-04-15 12:02:38
-tags: fire
+tags: TBD
 categories: python
 ---
+
+- fire
+- networkx
 

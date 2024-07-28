@@ -1,10 +1,11 @@
 ---
-title: 挖矿程序
+title: coin snippet
 date: 2019-07-31 10:00:30
 tags: snippet
-categories: linux
+categories: coin
 ---
 
+##  dig mineral
 ```
 config.json （挖矿配置）、
 sysupdate （XMR 挖矿软件）、

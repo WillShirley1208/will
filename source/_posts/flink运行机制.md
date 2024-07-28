@@ -1,5 +1,5 @@
 ---
-title: flink 运行机制
+title: flink runtime framework
 date: 2020-10-01 22:00:30
 tags: learn
 categories: flink

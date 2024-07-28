@@ -105,9 +105,6 @@ git rm -r --cached path/to/directory
   git revert <commit-id>
   ```
 
-  
-
-
 
 ## 分支
 

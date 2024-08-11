@@ -6,6 +6,8 @@ categories: linux
 
 ---
 
+# bash
+
 [Bash Scripting Tutorial for Beginners](https://linuxconfig.org/bash-scripting-tutorial-for-beginners)
 
 ### Bash Shell Scripting Definition
@@ -88,6 +90,8 @@ categories: linux
 ### history
 
 查看历史命令，支持 grep过滤操作
+
+# operate
 
 ### 卸载安装的软件
 

@@ -36,3 +36,24 @@ The key benefits of TDD include:
 
 
 TDD is often used in conjunction with other testing methodologies, like unit testing, integration testing, or acceptance testing, to ensure that your software system is thoroughly tested and reliable.
+
+# idea
+
+- [Make it work, make it right, make it fast](http://wiki.c2.com/?MakeItWorkMakeItRightMakeItFast)
+
+  ```
+  Where 'work' is making the tests pass, 'right' is refactoring the code, and 'fast' is optimizing the code to make it, for example, run quickly. We can only 'make it fast' once we've made it work and made it right. We were lucky that the code we were given was already demonstrated to be working, and didn't need to be refactored. We should never try to 'make it fast' before the other two steps have been performed because[Premature optimization is the root of all evil](http://wiki.c2.com/?PrematureOptimization)
+  ```
+
+- [If it ain't broke, don't fix it](https://en.wikipedia.org/wiki/If_it_ain't_broke,_don't_fix_it) 
+
+- [KISS principle](https://en.wikipedia.org/wiki/KISS_principle) 
+- [Don't repeat yourself](https://en.wikipedia.org/wiki/Don't_repeat_yourself) 
+- [Feature creep](https://en.wikipedia.org/wiki/Feature_creep) 
+- [List of software development philosophies](https://en.wikipedia.org/wiki/List_of_software_development_philosophies) -
+- [Minimum viable product](https://en.wikipedia.org/wiki/Minimum_viable_product)
+- [MoSCoW method](https://en.wikipedia.org/wiki/MoSCoW_method) 
+- [Overengineering](https://en.wikipedia.org/wiki/Overengineering) 
+- [Worse is better](https://en.wikipedia.org/wiki/Worse_is_better) 
+- [S.O.L.I.D.](https://en.wikipedia.org/wiki/SOLID)
+- [Unix philosophy](https://en.wikipedia.org/wiki/Unix_philosophy)

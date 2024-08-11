@@ -1,8 +1,8 @@
 ---
-title: 实时数仓
+title: Real-time Data Warehouse
 date: 2021-12-30 09:52:19
 tags: snippet
-categories: 实时数仓
+categories: Data Warehouse
 ---
 
 > 当设计一款产品或者平台的时候，可以划分为两层，即底层实现和上层抽象。

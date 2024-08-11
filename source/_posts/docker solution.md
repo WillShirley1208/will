@@ -60,3 +60,11 @@ sudo rm -rf /var/lib/docker/network
 sudo systemctl start docker
 ```
 
+### accident delete /var/run/docker.sock
+
+```shell
+sudo systemctl stop docker
+sudo systemctl restart docker.socket
+sudo systemctl start docker
+```
+

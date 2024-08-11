@@ -105,6 +105,23 @@ git rm -r --cached path/to/directory
   git revert <commit-id>
   ```
 
+#### 删除未被追踪的文件或目录
+
+```shell
+# 查看将要删除的文件
+git clean -n
+
+# 删除未追踪的文件
+git clean -f
+
+# 删除未追踪的文件和目录
+git clean -fd
+
+# 删除未追踪的文件、目录和忽略的文件
+git clean -fdx
+```
+
+
 
 ## 分支
 

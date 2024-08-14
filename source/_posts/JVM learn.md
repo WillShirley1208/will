@@ -162,3 +162,16 @@ The Parallel Scavenge collector's young generation, also known as the "PS young 
 The G1 collector also has a young generation, which is referred to as the "G1 young generation". Unlike the PS young generation, the G1 young generation does not have fixed regions like Eden and Survivor. Instead, the G1 collector divides the heap into equal-sized "regions" that can be used for both young and old objects, depending on their age and usage patterns. The G1 collector also uses a "remembered set" to keep track of references between regions, which allows it to more efficiently identify and collect objects that are no longer needed.
 
 Overall, both the PS and G1 collectors have their own strengths and weaknesses, and the best choice depends on the specific requirements and characteristics of the application. The G1 collector is generally considered to be more flexible and adaptive to different usage patterns, but the PS collector may be better suited for applications with short-lived objects and high object creation rates.
+
+# classLoader
+
+## class冲突
+
+可以打印出类的加载顺序，可以用来排查 class 的冲突问题：
+
+```java
+-XX:+TraceClassLoading
+```
+
+
+

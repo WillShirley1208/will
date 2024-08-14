@@ -5,9 +5,99 @@ tags: snippet
 categories: python
 ---
 
-## Principle
+# 虚拟环境
 
-### SOLID
+项目粒度：python -m venv venv
+        			poetry
+系统粒度：pyenv
+        			conda
+
+# 指令
+
+- 安装tar.gz，解压之后，执行
+
+  ```python
+  python3 setup.py install
+  ```
+
+## pip
+
+- 国内镜像
+
+  ```
+  pip config set global.index-url https://pypi.mirrors.ustc.edu.cn/simple
+  pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+  ```
+
+  
+
+- 安装子模块
+
+  ```shell
+  pip install 'fastapi_amis_admin[cli]'  # 注意引号
+  ```
+
+  
+
+- 查看指定依赖版本
+
+  ```python
+  pip show package_name
+  ```
+
+
+- 把项目的依赖放入指定文件
+
+  ```python
+  pip freeze > requirements.txt
+  ```
+
+- 清除缓存
+
+  ```shell
+  python -m pip cache purge
+  ```
+
+# Buildins
+
+- 装饰器 `staticmethod` 用于定义与类或实例无关的函数，而 `classmethod` 用于定义需要访问类或类变量的函数。
+
+# profiler
+
+## py-spy
+
+- record
+
+```shell
+sudo py-spy record -o tableagent.svg --pid 37152
+```
+
+# 信创
+
+- 安装python3-devel
+
+  ```shell
+  dnf install python3-devel
+  ```
+
+# 规范
+
+- **请选择四个空格的缩进，不要使用 Tab，更不要 Tab 和空格混着用。**
+- **全局的类和函数的上方需要空两个空行，而类的函数之间需要空一个空行**
+- 代码的尾部，每个代码文件的最后一行为空行，并且只有这一个空行。
+- 可以使用`#`进行单独注释，请记得要在`#`后、注释前加一个空格。
+
+- 对于操作符，例如`+`，`-`，`*`，`/`，`&`，`|`，`=`，`==`，`!=`，请在两边都保留空格。不过与此对应，括号内的两端并不需要空格。
+- 采用 `from module import func` 这样的语句，请确保 func 在本文件中不会出现命名冲突。不过，你其实可以通过 `from module import func as new_func` 来进行重命名，从而避免冲突。
+- 如果是类的私有变量，请记得前面增加两个下划线。
+- 对于常量，最好的做法是全部大写，并通过下划线连接
+- 对于函数名，同样也请使用小写的方式，通过下划线连接起来，例如：`launch_nuclear_missile()`、`check_input_validation()`。
+
+- 对于类名，则应该首字母大写，然后合并起来，例如：`class SpatialDropout2D()`、`class FeatureSet()`。
+
+# Principle
+
+## SOLID
 
 - S *（单一职责原则 Single responsibility principle）* 
 
@@ -36,9 +126,7 @@ categories: python
 - D *（依赖倒置原则 Dependency Inversion Principle）*
   - **高层模块不应该依赖于低层模块，二者都应该依赖于抽象。**
 
-
-
-### idea
+## idea
 
 - 好代码在处理边界情况时应该是简洁的、“润物细无声”的
 
@@ -55,9 +143,7 @@ categories: python
 - best style
   - 在日常编码时，我们应该尽量避免去手动校验数据。而是应该使用*（或者自己实现）*合适的第三方校验模块，把这部分边界处理工作抽象出去，简化主流程代码。
 
-
-
-## Method
+# Method
 
 ### 统计运行时间
 
@@ -233,9 +319,7 @@ def _send_request(cls, method, endpoint, json=None, params=None):
 
 通过这些功能,dataclass可以极大简化数据类的定义和使用,减少样板代码。它使得创建数据类变得高效和优雅,同时还提供了足够的定制空间。无论是简单的数据持有对象还是复杂的数据结构,dataclass都能发挥它的优势,提高代码的可读性和可维护性。
 
-
-
-## Package
+# Package
 
 ### 文件处理 
 
@@ -250,9 +334,7 @@ json模块主要有四个比较重要的函数，分别是：
 - `load` - 将文件中的JSON数据反序列化成对象
 - `loads` - 将字符串的内容反序列化成Python对象
 
-
-
-## Grammar
+# Grammar
 
 - `*args` 接收并处理所有传递进来的位置参数，`**kwargs` 接收并处理所有传递进来的关键字参数。
 

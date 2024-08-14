@@ -5,15 +5,7 @@ tags: security
 categories: RBAC
 ---
 
-
-
-
-
-
-
-
-
-
+![](/images/rbac/rbac_auth.png)
 
 
 

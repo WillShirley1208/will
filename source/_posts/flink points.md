@@ -82,3 +82,48 @@ flink API
 ![](/images/flink/flink_runtime.png)
 
 > Flink 分别提供了面向流式处理的接口（DataStream API）和面向批处理的接口（DataSet API）。因此，Flink 既可以完成流处理，也可以完成批处理。Flink 支持的拓展库涉及机器学习（FlinkML）、复杂事件处理（CEP）、以及图计算（Gelly），还有分别针对流处理和批处理的 Table API。
+
+# cdc
+
+[Flink Forward Aisa 系列专刊｜Flink CDC 新一代数据集成框架 - 技术原理、入门与生产实践-阿里云开发者社区](https://developer.aliyun.com/article/848448?spm=a2c6h.12873639.0.d102020001.6a5a2de1EwwX6V&utm_content=g_1000316418)
+
+# cep
+
+- 应用场景
+
+  ```
+  风险控制
+  对用户异常行为模式进行实时检测，当一个用户发生了不该发生的行为，判定这个用户是不是有违规操作的嫌疑。
+  
+  策略营销
+  用预先定义好的规则对用户的行为轨迹进行实时跟踪，对行为轨迹匹配预定义规则的用户实时发送相应策略的推广。
+  
+  运维监控
+  灵活配置多指标、多依赖来实现更复杂的监控模式。
+  ```
+
+# streaming warehouse
+
+流式数仓（Streaming Warehouse）更准确地说，其实是“make data warehouse streaming”，就是让整个数仓的数据全实时地流动起来，且是以纯流的方式而不是微批（mini-batch）的方式流动。
+
+目标是实现一个具备端到端实时性的纯流服务（Streaming Service），用一套 API 分析所有流动中的数据，当源头数据发生变化，比如捕捉到在线服务的 Log 或数据库的 Binlog 以后，就按照提前定义好的 Query 逻辑或数据处理逻辑，对数据进行分析，分析后的数据落到数仓的某一个分层，再从第一个分层向下一个分层流动，然后数仓所有分层会全部流动起来，最终流到一个在线系统里，用户可以看到整个数仓的全实时流动效果。
+
+在这个过程中，数据是主动的，而查询是被动的，分析由数据的变化来驱动。同时在垂直方向上，对每一个数据明细层，用户都可以执行 Query 进行主动查询，并且能实时获得查询结果。此外，它还能兼容离线分析场景，API 依然是同一套，实现真正的一体化。
+
+# FAQ
+
+## 依赖冲突
+
+https://flink.apache.org/getting-help/#i-see-a-classcastexception-x-cannot-be-cast-to-x
+
+https://nightlies.apache.org/flink/flink-docs-release-1.17/docs/ops/debugging/debugging_classloading
+
+排查办法
+
+- 使用arthas定位依赖类所在jar包
+
+解决办法
+
+- 对冲突jar包使用maven shaded 的exclude或relocation 进行操作
+
+- 使用7zip等解压软件对jar文件解压删除（人工shaded）

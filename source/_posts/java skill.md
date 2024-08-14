@@ -45,3 +45,18 @@ T 是一个 确定的 类型，通常用于泛型类和泛型方法的定义，�
 ## 时间
 
 在 JDK8 以后，建议使用 DateTimeFormatter 代替 SimpleDateFormat ，因为 SimpleDateFormat 是线程不安全的，而 DateTimeFormatter 是线程安全的。当然，也可以采用第三方提供的线程安全日期格式化函数，比如 apache 的 DateFormatUtils 工具类。
+
+# dynamic compile
+
+静态编译：编译时就把所有用到的Java代码全都编译成字节码，是一次性编译。
+
+动态编译：在Java程序运行时才把需要的Java代码的编译成字节码，是按需编译。
+
+从JDK1.6开始，引入了Java代码重写过的编译器接口，使得我们可以在运行时编译Java源代码，然后再通过类加载器将编译好的类加载进JVM,这种在运行时编译代码的操作就叫做动态编译。
+
+---
+
+[【Java动态编译】动态编译的应用_牛客博客](https://blog.nowcoder.net/n/d2a7554ea2ec4e4b978cf4a74c3c41b2)
+
+[Java动态性(1) - 动态编译(DynamicCompile)](https://segmentfault.com/a/1190000016842546)
+

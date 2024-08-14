@@ -1,7 +1,7 @@
 ---
-title: jconsole snippet
+title: java jconsole
 date: 2021-12-11 21:05:29
-tags: snippet
+tags: jconsole
 categories: java
 ---
 

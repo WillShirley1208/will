@@ -153,11 +153,6 @@ categories: python
   hatch run lint:fmt
   ```
 
-  
-
-  
-
-
 
 ### 编译
 
@@ -209,12 +204,6 @@ all = [
 ```shell
 flit install
 ```
-
-
-
-
-
-
 
 
 

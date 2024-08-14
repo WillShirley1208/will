@@ -5,6 +5,4 @@ tags: bash
 categories: shell
 ---
 
-
-
 - the shell assigns its **exit code** to the `$?` environment variable. The `$?` variable is how we usually test whether a script has succeeded or not in its execution.

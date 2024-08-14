@@ -111,6 +111,12 @@ categories: linux
 3.再次执行命令sudo dpkg　-i　XXX.deb　安装成功
 ```
 
+### centos安装离线依赖
+
+```shell
+rpm -ivh name.rpm
+```
+
 ### 光标
 
 ```
@@ -130,6 +136,9 @@ Ctrl + xx ：在命令行尾和光标之间移动
 ### 时区
 
 [CentOS 7 时区设置](https://www.cnblogs.com/zhangeamon/p/5500744.html)
+
+- GMT（格林尼治标准时间）是格林尼治时间，没有夏令时调整。
+- UTC（协调世界时）是国际时间标准，通常与GMT相同，但在某些情况下，UTC可能会有闰秒的调整。
 
 ### grep
 
@@ -211,6 +220,26 @@ tr -- translate or delete characters
 　　s - 设置显示信息的刷新频率（由于是命令行模式，显示的过程其实是刷屏的过程）
 ```
 
+- 进程CPU占用率
+
+  top显示某个进程占用cpu达到100%，则表明该进程正在使用所有可用的 CPU 资源。这通常是因为该进程执行的任务非常耗费 CPU 资源，或者该进程存在某些问题导致 CPU 使用率异常高。
+
+  在 Linux 系统中，每个进程都只能在单个 CPU 核心上运行。但是，系统可以通过调度程序（scheduler）在多个 CPU 核心之间轮换运行进程，从而达到让多个进程同时执行的效果。
+
+  ```
+  ### cpu
+  us：用户态使用的cpu时间比
+  sy：系统态使用的cpu时间比
+  ni：用做nice加权的进程分配的用户态cpu时间比
+  id：空闲的cpu时间比
+  wa：cpu等待磁盘写入完成时间
+  hi：硬中断消耗时间
+  si：软中断消耗时间
+  st：虚拟机偷取时间
+  ```
+
+  
+
 ### 查看指定服务的运行情况
 
 - `journalctl -u xxx.service`
@@ -230,19 +259,73 @@ root  19496  0.0  2.4 4826152 1603360 ?     Sl    2020 503:15 java -jar -Xms1024
 
 ```
 
+# system
+
+## process
+
+- Tree view all process
+
+  ```shell
+  pstree -g
+  ```
 
 
-## 清理缓存
+## 查看系统配置
+
+- 查看系统
+
+  - `cat /etc/os-release`
+
+- 查看内核
+
+  - `cat /proc/version`
+  - `uname -a`
+
+- 查看linux版本
+
+  - `lsb_release -a`
+  - `cat /etc/issue`
+
+- > 总核数 = 物理CPU个数 X 每颗物理CPU的核数 
+  >
+  > 总逻辑CPU数 = 物理CPU个数 X 每颗物理CPU的核数 X 超线程数
+
+  - 查看物理CPU个数
+
+    1. top命令，然后输入数字1查看，各项参数如下
+       - `us`：用户空间占用 CPU 的百分比。
+       - `sy`：内核空间占用 CPU 的百分比。
+       - `ni`：调整过优先级的进程占用 CPU 的百分比。
+       - `id`：空闲 CPU 的百分比。
+       - `wa`：等待 I/O 的 CPU 时间的百分比。
+       - `hi`：硬中断（hardware interrupt）占用 CPU 的时间的百分比。
+       - `si`：软中断（software interrupt）占用 CPU 的时间的百分比。
+       - `st`：虚拟机或者运行在它上面的虚拟 CPU 占用 CPU 的时间的百分比。
+    2. 输入mpstat查看
+    3. 输入以下命令
+
+    ```shell
+    cat /proc/cpuinfo| grep "physical id"| sort| uniq| wc -l
+    ```
+
+  - 查看每个物理CPU中core的个数(即核数)
+
+    ```shell
+    cat /proc/cpuinfo| grep "cpu cores"| uniq
+    ```
+
+  - 查看逻辑CPU的总数
+
+    ```shell
+    cat /proc/cpuinfo| grep "processor"| wc -l
+    ```
+
+## 清理内存
 
 ```shell
 sync; echo 1 > /proc/sys/vm/drop_caches
 ```
 
+## 查看buff/cache
 
-
-## centos安装离线依赖
-
-```shell
-rpm -ivh name.rpm
-```
-
+- 工具推荐 https://github.com/silenceshell/hcache

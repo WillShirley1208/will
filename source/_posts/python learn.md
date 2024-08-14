@@ -802,6 +802,10 @@ with file_manager('test.txt', 'w') as f:
     f.write('hello world')
 ```
 
+## ASGI
+
+>  the Asynchronous Server Gateway Interface.
+
 ## 性能调试
 
 ### cProfile

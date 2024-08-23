@@ -91,6 +91,19 @@ categories: course
 - 由于 ArrayList 是数组实现的，而数组是一块连续的内存空间，在添加元素到数组头部的时候，需要对头部以后的数据进行复制重排，所以效率很低；而 LinkedList 是基于链表实现，在添加元素的时候，首先会通过循环查找到添加元素的位置，如果要添加的位置处于 List 的前半段，就从前往后找；若其位置处于后半段，就从后往前找。因此 LinkedList 添加元素到头部是非常高效的。
 - LinkedList 的 for 循环性能是最差的，而 ArrayList 的 for 循环性能是最好的。
 
-### Stream
+## jconsole
 
-[![MY0E6A.md.jpg](https://s2.ax1x.com/2019/11/14/MY0E6A.md.jpg)](https://imgchr.com/i/MY0E6A)
+### jconsole配置远程监控
+
+- 远程jvm进程需配置
+
+  ```shell
+  env.java.opts: 
+  -Dcom.sun.management.jmxremote 
+  -Dcom.sun.management.jmxremote.port=9999
+  -Dcom.sun.management.jmxremote.authenticate=false 
+  -Dcom.sun.management.jmxremote.ssl=false
+  ```
+
+  > 其中9999为指定监控端口
+

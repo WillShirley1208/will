@@ -14,6 +14,14 @@ categories: Kubernetes
 > 1. 一组联合挂载在 /var/lib/docker/aufs/mnt 上的 rootfs，这一部分我们称为“容器镜像”（Container Image），是容器的静态视图；
 > 2. 一个由 Namespace+Cgroups 构成的隔离环境，这一部分我们称为“容器运行时”（Container Runtime），是容器的动态视图。
 
+# version
+
+```shell
+Client Version: v1.30.3
+Kustomize Version: v5.0.4-0.20230601165947-6ce0bf390ce3
+Server Version: v1.30.0
+```
+
 # define
 
 > 容器本身没有价值，有价值的是“容器编排”。
@@ -22,9 +30,7 @@ Kubernetes is pronounced **coo-ber-net-ees**, not coo-ber-neats. People also us
 
 > Docker is a containerization platform, and Kubernetes is a container orchestrator for container platforms like Docker. 
 
-
-
-### architecture
+## architecture
 
 We can break down the components into three main parts.
 
@@ -33,8 +39,6 @@ We can break down the components into three main parts.
 3. Pods - Holds containers.
 
 ![](/images/k8s/k8s-architecture-overview.png)
-
-# concept
 
 > kubernetes设计思想**“一切皆对象”**：应用是 Pod 对象，应用的配置是 ConfigMap 对象，应用要访问的密码则是 Secret 对象。
 >
@@ -59,25 +63,21 @@ TBD
 
 > 它只是一个操作系统的所有文件和目录，并不包含内核，最多也就几百兆
 
-
-
-## Kubelet
-
-
-
 ## CRI
 
 > **Container Runtime Interface** 容器运行时接口
 >
 > kubelet 调用下层容器运行时的执行过程，并不会直接调用 Docker 的 API，而是通过CRI的 gRPC 接口来间接执行
 
+# API object
 
-
-## API object
-
-> Kubernetes API 对象，往往由 Metadata 和 Spec 两部分组成
+> Kubernetes API 对象，由元数据 metadata、规范 spec 和状态 status组成
 >
-> 在 Kubernetes 项目中，一个 API 对象在 Etcd 里的完整资源路径，是由：Group（API 组）、Version（API 版本）和 Resource（API 资源类型）三个部分组成的。
+> 元数据是用来标识 API 对象的，每个对象都至少有 3 个元数据：namespace，name 和 uid
+
+- 路径
+
+在 Kubernetes 项目中，一个 API 对象在 Etcd 里的完整资源路径，是由：Group（API 组）、Version（API 版本）和 Resource（API 资源类型）三个部分组成的。
 
 ```yaml
 # “CronJob”就是这个 API 对象的资源类型（Resource），“batch”就是它的组（Group），v2alpha1 就是它的版本（Version）。
@@ -85,79 +85,6 @@ apiVersion: batch/v2alpha1
 kind: CronJob
 ...
 ```
-
-
-
-### Secret
-
-- create
-
-  ```shell
-  kubectl create secret generic user --from-file=./username.txt
-  ```
-
-- check
-
-  ```shell
-  kubectl get secrets
-  ```
-
-  
-
-### ConfigMap
-
-- create
-
-  ```shell
-  kubectl create configmap ui-config --from-file=example/ui.properties
-  ```
-
-- get yaml
-
-  ```shell
-  kubectl get configmaps ui-config -o yaml
-  ```
-
-
-
-### StatefulSet
-
-> StatefulSet 的核心功能，就是通过某种方式记录这些状态，然后在 Pod 被重新创建时，能够为新 Pod 恢复这些状态
-
-#### 拓扑状态
-
-- Headless Service
-
-  > 通过 Headless Service 的方式，StatefulSet 为每个 Pod 创建了一个固定并且稳定的 DNS 记录，来作为它的访问入口。
-
-  ```
-  <pod-name>.<svc-name>.<namespace>.svc.cluster.local
-  ```
-
-#### 存储状态
-
-> Kubernetes 中 PVC 和 PV 的设计，**实际上类似于“接口”和“实现”的思想**。
-
-- **Persistent Volume Claim(PVC)**
-- **persistent Volume(PV)**
-
-### DaemonSet
-
-1. 这个 Pod 运行在 Kubernetes 集群里的每一个节点（Node）上；
-2. 每个节点上只有一个这样的 Pod 实例；
-3. 当有新的节点加入 Kubernetes 集群后，该 Pod 会自动地在新节点上被创建出来；而当旧节点被删除后，它上面的 Pod 也相应地会被回收掉。
-
-### ControllerRevision
-
-### Job
-
-> Batch job
-
-### CronJob
-
-
-
-
 
 ## pod
 
@@ -181,19 +108,100 @@ kind: CronJob
 >
 > 容器，就是未来云计算系统中的进程；容器镜像就是这个系统里的“.exe”安装包
 
-### infra container
+### Deployment
+
+> 管理 长期伺服型（long-running）业务
+
+### DaemonSet
+
+> 管理 节点后台支撑型（node-daemon）业务
+
+1. 这个 Pod 运行在 Kubernetes 集群里的每一个节点（Node）上；
+2. 每个节点上只有一个这样的 Pod 实例；
+3. 当有新的节点加入 Kubernetes 集群后，该 Pod 会自动地在新节点上被创建出来；而当旧节点被删除后，它上面的 Pod 也相应地会被回收掉。
+
+### job
+
+> 管理 批处理型（batch）业务
+
+### StatefulSet
+
+> 管理 有状态应用型（stateful application）业务
+>
+> StatefulSet 的核心功能，就是通过某种方式记录这些状态，然后在 Pod 被重新创建时，能够为新 Pod 恢复这些状态
+
+- 拓扑状态
+
+  - Headless Service
+
+    > 通过 Headless Service 的方式，StatefulSet 为每个 Pod 创建了一个固定并且稳定的 DNS 记录，来作为它的访问入口。
+
+    ```
+    <pod-name>.<svc-name>.<namespace>.svc.cluster.local
+    ```
+
+
+- 存储状态
+
+> Kubernetes 中 PVC 和 PV 的设计，**实际上类似于“接口”和“实现”的思想**。
+
+**Persistent Volume Claim(PVC)**
+
+**persistent Volume(PV)**
+
+
+
+## Secret
+
+- create
+
+  ```shell
+  kubectl create secret generic user --from-file=./username.txt
+  ```
+
+- check
+
+  ```shell
+  kubectl get secrets
+  ```
+
+  
+
+## ConfigMap
+
+- create
+
+  ```shell
+  kubectl create configmap ui-config --from-file=example/ui.properties
+  ```
+
+- get yaml
+
+  ```shell
+  kubectl get configmaps ui-config -o yaml
+  ```
+
+
+
+## ControllerRevision
+
+
+
+## CronJob
+
+## infra container
 
 > 在 Kubernetes 项目里，Pod 的实现需要使用一个中间容器，这个容器叫作 Infra 容器。在这个 Pod 中，Infra 容器永远都是第一个被创建的容器，而其他用户定义的容器，则通过 Join Network Namespace 的方式，与 Infra 容器关联在一起。
 >
 > 在 Kubernetes 项目里，Infra 容器一定要占用极少的资源，所以它使用的是一个非常特殊的镜像，叫作：`k8s.gcr.io/pause`。这个镜像是一个用汇编语言编写的、永远处于“暂停”状态的容器，解压后的大小也只有 100~200 KB 左右。
 
-### config
+## config
 
 - Metadata
 - Spec
 - 
 
-### stragety
+## stragety
 
 - **ImagePullPolicy**
 
@@ -265,7 +273,7 @@ kind: CronJob
 >
 > **CSI 插件体系的设计思想，就是把 Provision 阶段，以及 Kubernetes 里的一部分存储管理功能(比如“Attach 阶段”和“Mount 阶段”的具体操作)，从主干代码里剥离出来，做成了几个单独的组件**
 
-一个 CSI 插件只有一个二进制文件，但它会以 gRPC 的方式对外提供三个服务（gRPC Service），分别叫作：CSI Identity、CSI Controller 和 CSI Node。
+一个 CSI 插件只有一个二进制文件，但它会以 gRPC 的方式对外提供三个服务（gRPC Service），分别叫作：CSI Identity、CSI Controller 和 CSI Node
 
 **CSI 的设计思想**，把插件的职责从“两阶段处理”，扩展成了 Provision、Attach 和 Mount 三个阶段。其中，Provision 等价于“创建磁盘”，Attach 等价于“挂载磁盘到虚拟机”，Mount 等价于“将该磁盘格式化后，挂载在 Volume 的宿主机目录上”。
 
@@ -313,37 +321,74 @@ kind: CronJob
 
 > Role-Based Access Control
 
-### Operator
+## Operator
 
-> Operator 的工作原理，实际上是利用了 Kubernetes 的自定义 API 资源（CRD），来描述我们想要部署的“有状态应用”；然后在自定义控制器里，根据自定义 API 对象的变化，来完成具体的部署和运维工作
+> Operator 的工作原理，实际上是利用了 Kubernetes 的自定义 API 资源（[custom resource definitions (CRDs)](https://kubernetes.io/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions)），来描述我们想要部署的“有状态应用”；然后在自定义控制器里，根据自定义 API 对象的变化，来完成具体的部署和运维工作
+>
+> In other words, Operators are software extensions that use custom resources to manage applications and their components
+
+### controller
+
+> *Controller is just some logic about something that it is supposed to be managed and is usually visualised as an observe and adjust loop.*
+>
+> *Observe the current state, compare it to the desired state and adjust the state*
+
+### custom resource(CR)
+
+### state
+
+> *The state just holds the information of what the desired state of the resource is and the resource is the thing that you are managing.*
+
+## CNI
+
+TBD
 
 # command
 
-## namespace
+- version
+
+```shell
+kubectl version
+kubectl api-versions
+```
+
+- health
+
+```shell
+# check kubernetes inner ip 
+kubectl get svc kubernetes -n default
+
+# check api server
+kubectl get componentstatuses
+
+# check crd
+kubectl get crd | grep cert-manager
+
+# check all pods
+kubectl get pods -A
+```
+
+
+
+- namespace
 
 ```bash
 kubectl get namespaces
 ```
 
-
-
-## pod
+- pod
 
 ```shell
 kubectl get pod -n {namespace}
 ```
 
-
-
-## log
+- log
 
 ```shell
 kubectl logs -f {podId} -n {namespace}
 ```
 
-
-
-## config info
+- config info
 
 ```
 kubectl get pod 容器id --kubeconfig=/path/to/configfile -o yaml > env-vq48.yaml
@@ -353,31 +398,46 @@ kubectl get pod 容器id --kubeconfig=/path/to/configfile -o yaml > env-vq48.yam
 kubectl get -o yaml 这样的参数，会将指定的 Pod API 对象以 YAML 的方式展示出来。
 ```
 
+- exec
 
-
-## exec
-
-- without kubeconfig
+without kubeconfig
 
 ```shell
 kubectl exec -it  容器id -n 命令空间 -c entity-server-server -- sh
 ```
 
-
-
-## describe
+- describe
 
 ```shell
 kubectl describe pod {podName}
 ```
 
-
-
-## cp
+- cp
 
 ```shell
 kubectl cp 命令空间/容器id:/path/to/source_file ./path/to/local_file
 ```
+
+- check daemonsets
+
+```shell
+kubectl get daemonsets --all-namespaces
+```
+
+- storageclass
+
+```shell
+kubectl get storageclass
+```
+
+- label
+
+```shell
+# check node label
+kubectl get nodes --show-labels
+```
+
+
 
 # conclusion
 
@@ -386,4 +446,104 @@ kubectl cp 命令空间/容器id:/path/to/source_file ./path/to/local_file
   而 Kubernetes 项目所擅长的，是按照用户的意愿和整个系统的规则，完全自动化地处理好容器之间的各种关系。**这种功能，就是：编排。**
 
 
+
+# FAQ
+
+## **node pod cidr not assigned**
+
+- Step 1
+
+```shell
+# master node
+sudo vim /etc/kubernetes/manifests/kube-controller-manager.yaml
+```
+
+`kube-controller-manager.yaml` info
+
+```shell
+...
+spec:
+  containers:
+  - command:
+    - kube-controller-manager
+    - --authentication-kubeconfig=/etc/kubernetes/controller-manager.conf
+    - --authorization-kubeconfig=/etc/kubernetes/controller-manager.conf
+		...
+    - --allocate-node-cidrs=true
+    - --cluster-cidr=10.244.0.0/16
+...
+```
+
+- step2 
+
+```shell
+sudo systemctl restart kubelet
+```
+
+## failed to set bridge addr: “cni0“ already has an IP address different from xxx
+
+- check
+
+```shell
+# node1
+cni0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 10.85.0.1  netmask 255.255.0.0  broadcast 10.85.255.255
+        ...
+flannel.1: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1450
+        inet 10.244.0.0  netmask 255.255.255.255  broadcast 0.0.0.0  
+# node2
+cni0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 10.85.0.1  netmask 255.255.0.0  broadcast 10.85.255.255
+        ...
+flannel.1: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1450
+        inet 10.244.1.0  netmask 255.255.255.255  broadcast 0.0.0.0  
+# node3
+# node2
+cni0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 10.85.0.1  netmask 255.255.0.0  broadcast 10.85.255.255
+        ...
+flannel.1: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1450
+        inet 10.244.2.0  netmask 255.255.255.255  broadcast 0.0.0.0  
+```
+
+> cni0与flannel应该需要在一个网段里
+
+- delete `cni0 `
+
+```shell
+# node1/node2/node3
+sudo ifconfig cni0 down 
+sudo ip link delete cni0
+```
+
+- restore `coredns`
+
+```shell
+# error info
+$ kubectl get po -o wide -n kube-system
+NAME                                READY   STATUS             RESTARTS       AGE   IP             NODE  ...
+coredns-7b5944fdcf-mgwq2            0/1     CrashLoopBackOff   6 (2m3s ago)   15d   10.85.0.3      dingo7232 
+coredns-7b5944fdcf-sxfvt            0/1     CrashLoopBackOff   6 (2m8s ago)   15d   10.85.0.2      dingo7232 
+```
+
+>  delete coredns,  k8s system will auto recreate it 
+
+```shell
+$ kubectl get po -o wide -n kube-system
+NAME                                READY   STATUS    RESTARTS   AGE   IP             NODE				...
+coredns-7b5944fdcf-fw87q            1/1     Running   0          11s   10.244.2.175   dingo7234   ...     
+coredns-7b5944fdcf-rzw9b            1/1     Running   0          22s   10.244.1.2     dingo7233   ...
+```
+
+### namespace Terminating
+
+```shell
+# step1: check resource in namespace
+kubectl api-resources --verbs=list --namespaced -o name | xargs -n 1 kubectl get -n <your-ns-to-delete>
+# e.g.: kubectl api-resources --verbs=list --namespaced -o name | xargs -n 1 kubectl get -n curve
+
+# step2: remove the finalizers
+kubectl -n <namespace> patch <RessourceObject> <Object-name> -p '{"metadata":{"finalizers":null}}' --type=merge
+# e.g.: kubectl -n curve patch curvefs my-fscluster -p '{"metadata":{"finalizers":null}}' --type=merge
+```
 

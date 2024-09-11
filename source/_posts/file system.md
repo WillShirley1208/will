@@ -39,6 +39,65 @@ categories: file system
 
 ---
 
+# command
+
+### delete existed volume
+
+```shell
+# step 1:
+lsblk
+NAME                                                                                                  MAJ:MIN RM  SIZE RO TYPE MOUNTPOINTS
+sr0                                                                                                    11:0    1 1024M  0 rom  
+vda                                                                                                   252:0    0  300G  0 disk 
+├─vda1                                                                                                252:1    0    6G  0 part /boot
+└─vda2                                                                                                252:2    0  290G  0 part 
+  └─rl_172--20--7--230-root                                                                           253:0    0  290G  0 lvm  /
+vdb                                                                                                   252:16   0  100G  0 disk 
+└─ceph--d79fdfae--bdd5--4ea7--a907--740181f88091-osd--block--37262a3f--354b--4d6a--95db--eb18abd939ce 253:1    0  100G  0 lvm 
+
+# step3:
+sudo vgchange -an ceph--d79fdfae--bdd5--4ea7--a907--740181f88091-osd--block--37262a3f--354b--4d6a--95db--eb18abd939ce
+
+# step4
+sudo lvchange -an /dev/ceph-d79fdfae-bdd5-4ea7-a907-740181f88091/osd-block-37262a3f-354b-4d6a-95db-eb18abd939ce
+
+# step5
+sudo vgremove ceph-d79fdfae-bdd5-4ea7-a907-740181f88091
+```
+
+
+
+### create lvm 
+
+```shell
+# step1 create vg
+sudo vgcreate s3_vg /dev/vdb
+
+# step2 create lv
+sudo lvcreate -L 50G -n minio_lv s3_vg
+
+# step3 format xfs on lvm
+sudo mkfs.xfs /dev/s3_vg/minio_lv
+
+# step4 create mount point
+sudo mkdir -p /mnt/minio
+
+# step5 mount logic point
+sudo mount -o noatime /dev/s3_vg/minio_lv /mnt/minio
+
+# step6 verify
+df -h /mnt/minio
+
+Filesystem                  Size  Used Avail Use% Mounted on
+/dev/mapper/s3_vg-minio_lv   50G  389M   50G   1% /mnt/minio
+```
+
+
+
+
+
+
+
 reference
 
 [https://www.yinxiang.com/everhub/note/0312ed71-61f5-4c75-9c77-3db0ffdeb613](https://www.yinxiang.com/everhub/note/0312ed71-61f5-4c75-9c77-3db0ffdeb613)

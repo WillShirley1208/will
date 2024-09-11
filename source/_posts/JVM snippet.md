@@ -21,7 +21,7 @@ categories: java
 
 ## basic architecture of the JVM
 
-![](https://i.imgur.com/yI8u4Hr.jpg)
+<img src="https://i.imgur.com/yI8u4Hr.jpg" style="width:50%">
 
 ### Class Loader Sub System
 
@@ -29,15 +29,15 @@ categories: java
 
 - loading the class file and store inside method area
   
-  ![](https://i.imgur.com/57IalMb.png)
+  <img src="https://i.imgur.com/57IalMb.png" style="width:50%">
 
 - Created object is not student object or customer object. It is a predefined class “Class” object that is presently in java.lang package.
   
-  ![](https://i.imgur.com/9hHykjw.png)
+  <img src="https://i.imgur.com/9hHykjw.png" style="width:70%">
 
 - For every loaded .class file, only one class "Class" object will be created by JVM, even though we are using that class multiple times in our program. Example,
   
-  ![](https://i.imgur.com/KKpqYVn.png)
+  <img src="https://i.imgur.com/KKpqYVn.png" style="width:70%">
 
 #### 2. Linking
 

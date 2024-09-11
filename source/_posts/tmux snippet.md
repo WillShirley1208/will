@@ -5,27 +5,19 @@ tags: snippet
 categories: tmux
 ---
 
+# session
 
-- 命令模式
-
-  ```
-  Ctrl+B :
-  ```
-
-  
-
-- session
 | 功能        | macos                      | linux |
 | ----------- | -------------------------- | ----- |
 | 新建session | tmux new -s <session-name> | same  |
 |             |                            |       |
-- 窗口
+# 窗口
 
 | 功能                 | macos                                        | linux |
 | -------------------- | -------------------------------------------- | ----- |
 | 更改当前窗口的索引号 | 命令模式：move-window [space] -t [space]  xx | Same  |
 
-- 窗格
+# 窗格
 
 | 功能         | macos                                | linux                   |
 | ------------ | ------------------------------------ | ----------------------- |
@@ -33,7 +25,8 @@ categories: tmux
 | 窗格内容翻页 | Ctrl + b, (Fn + 上下键) 或 PgUp/PgDn | Ctrl + b, Ctrl + 上下键 |
 |              |                                      |                         |
 
-- 其它
+# 其它
+
 | 功能         | macos                        | linux |
 | ------------ | ---------------------------- | ----- |
 | 内嵌tmux操作 | **按着 ctrl，点击两次 b 键** | Same  |

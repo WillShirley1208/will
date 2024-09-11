@@ -1,8 +1,8 @@
 ---
-title: github copilot
+title: copilot
 date: 2024-03-13 10:00:52
 tags: assistant
-categories: github
+categories: copilot
 ---
 
 

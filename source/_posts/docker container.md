@@ -10,31 +10,34 @@ categories: docker
 ### 容器
 
 ```shell
-查看正在运行
+# 查看正在运行
 docker ps
-查看所有
+# 查看所有
 docker ps -a
-创建容器
+# 创建容器
 docker run -p <宿主机端口>:<容器端口> <镜像名称>[:标签]
-启动
+# 启动
 docker start 容器名或容器 id
-终止
+# 终止
 docker stop [NAME]/[CONTAINER ID]:将容器退出。
 docker kill [NAME]/[CONTAINER ID]:强制停止一个容器。
 
-查看容器端口
+# 查看容器端口
 docker port 容器名或容器id
 
+# 查看容器启动命令
+docker inspect -f '{{.Config.Cmd}}' {container_id}
 
-删除
+
+# 删除
 docker rm -f 容器id
-导出
+# 导出
 docker export 容器id > xxx.tar
-导入
+# 导入
 docker import - test/xxx:v1
-重启
+# 重启
 docker restart $container_id
-日志
+# 日志
 docker logs $container_id
 ```
 

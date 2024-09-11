@@ -47,21 +47,58 @@ We can break down the components into three main parts.
 ## dependency
 
 > Namespace 做隔离，Cgroups 做限制，rootfs 做文件系统
+>
+> 对 容器项目来说，最核心的原理实际上就是为待创建的用户进程：
+>
+> 1. 启用 Linux Namespace 配置；
+> 2. 设置指定的 Cgroups 参数；
+> 3. 切换进程的根目录（Change Root）。
 
 ### namespace
 
-TBD
+>  Linux 操作系统提供了PID、 Mount、UTS、IPC、Network 和 User 这些 Namespace，用来对各种不同的进程上下文进行“障眼法”操作
+
+```
+PID Namespace：隔离进程 ID。
+Network Namespace：隔离网络设备、网络栈、端口等网络资源。
+Mount Namespace：隔离挂载点。
+IPC Namespace：隔离进程间通信资源，如信号量等。
+UTS Namespace：隔离主机名和域名。
+User Namespace：隔离用户和用户组 ID。
+```
+
+- 容器帮助用户启动的，还是原来的应用进程，只不过在创建这些进程时，容器为它们加上了各种各样的 Namespace 参数。进程就会觉得自己是各自 PID Namespace 里的第 1 号进程，只能看到各自 Mount Namespace 里挂载的目录和文件，只能访问到各自 Network Namespace 里的网络设备，就仿佛运行在一个个“容器”里面，与世隔绝
+
+- 在 Linux 内核中，有很多资源和对象是不能被 Namespace 化的，最典型的例子就是：时间
+
+- Linux Namespace 为 Kubernetes Namespace 提供了底层的隔离能力，Kubernetes Namespace 则是在此基础上进行更高级别的抽象和管理。
+
+#### mount namesapce
+
+- Mount Namespace 跟其他 Namespace 的使用略有不同的地方：它对容器进程视图的改变，一定是伴随着挂载操作（mount）才能生效。
+- Mount Namespace 正是基于对 chroot 的不断改良才被发明出来的，它也是 Linux 操作系统里的第一个 Namespace
 
 ### cgoups
 
 >  **Linux Cgroups 的全称是 Linux Control Group。它最主要的作用，就是限制一个进程组能够使用的资源上限，包括 CPU、内存、磁盘、网络带宽等等。**
 
-- Cgroups 给用户暴露出来的操作接口是文件系统，即它以文件和目录的方式组织在操作系统的 /sys/fs/cgroup 路径下
+- Cgroups 给用户暴露出来的操作接口是文件系统，即它以文件和目录的方式组织在操作系统的 `/sys/fs/cgroup` 路径下
 - Linux Cgroups 的设计还是比较易用的，简单粗暴地理解它就是一个子系统目录加上一组资源限制文件的组合
+- Cgroups 技术是用来制造约束的主要手段，而Namespace 技术则是用来修改进程视图的主要方法
 
 ### rootfs
 
-> 它只是一个操作系统的所有文件和目录，并不包含内核，最多也就几百兆
+> Rootfs(根文件系统) 它只是一个操作系统的所有文件和目录，并不包含内核，最多也就几百兆
+>
+> 容器通过 Mount Namespace 单独挂载其他不同版本的操作系统文件
+>
+> **rootfs 只是一个操作系统所包含的文件、配置和目录，并不包括操作系统内核。**
+
+- 挂载在容器根目录上, 为容器进程提供隔离后执行环境的文件系统，就是所谓的“容器镜像”。
+
+- 容器只是运行在宿主机上的一种特殊的进程，那么多个容器之间使用的就还是同一个宿主机的操作系统内核
+
+  
 
 ## CRI
 
@@ -108,6 +145,9 @@ kind: CronJob
 >
 > 容器，就是未来云计算系统中的进程；容器镜像就是这个系统里的“.exe”安装包
 
+- 每个 Pod 都会被分配一个唯一的 IP 地址。Pod 中的所有容器共享网络空间，包括 IP 地址和端口。Pod 内部的容器可以使用 `localhost` 互相通信。Pod 中的容器与外界通信时，必须分配共享网络资源（例如使用宿主机的端口映射）。
+- 可以为一个 Pod 指定多个共享的 Volume。Pod 中的所有容器都可以访问共享的 volume。Volume 也可以用来持久化 Pod 中的存储资源，以防容器重启后文件丢失。
+
 ### Deployment
 
 > 管理 长期伺服型（long-running）业务
@@ -149,6 +189,24 @@ kind: CronJob
 
 **persistent Volume(PV)**
 
+### (lifecycle) hook
+
+- PostStart
+- PreStop
+
+> Hook Handlers: Exec and HTTP
+
+```yaml
+lifecycle:
+      postStart:
+        exec:
+          command: ["/bin/sh", "-c", "echo 'PostStart hook' > /usr/share/message"]
+      preStop:
+        httpGet:
+          path: /shutdown
+          port: 8080
+```
+
 
 
 ## Secret
@@ -189,11 +247,26 @@ kind: CronJob
 
 ## CronJob
 
-## infra container
+## infra container (pause container)
 
 > 在 Kubernetes 项目里，Pod 的实现需要使用一个中间容器，这个容器叫作 Infra 容器。在这个 Pod 中，Infra 容器永远都是第一个被创建的容器，而其他用户定义的容器，则通过 Join Network Namespace 的方式，与 Infra 容器关联在一起。
 >
 > 在 Kubernetes 项目里，Infra 容器一定要占用极少的资源，所以它使用的是一个非常特殊的镜像，叫作：`k8s.gcr.io/pause`。这个镜像是一个用汇编语言编写的、永远处于“暂停”状态的容器，解压后的大小也只有 100~200 KB 左右。
+
+- infra container 负责运行网络和 IPC 命名空间的初始化任务，以及为 Pod 中的其他容器提供共享的网络和 IPC (Inter-Process Communication)环境
+
+```
+Maintains pod network namespace and keeps pod alive
+Also known as the "pause container"
+Automatically created for every pod
+Holds the network namespace for the pod
+Keeps the pod running
+Uses minimal resources
+Not visible in pod specifications
+Runs for the entire lifecycle of the pod
+```
+
+
 
 ## config
 
@@ -256,6 +329,8 @@ kind: CronJob
 
 ### PersistentVolumeController
 
+- pvc的使用需要限制在相同namespace中
+
 ### StorageClass
 
 - 定义
@@ -285,6 +360,8 @@ kind: CronJob
 
   **负责将插件注册到 kubelet 里面**（这可以类比为，将可执行文件放在插件目录下）。而在具体实现上，Driver Registrar 需要请求 CSI 插件的 Identity 服务来获取插件信息。
 
+  > CSIDriver 是集群级别的，供其他namespace调用
+
 - **External Provisioner**
 
   **负责 Provision 阶段**。在具体实现上，External Provisioner 监听（Watch）了 APIServer 里的 PVC 对象。当一个 PVC 被创建时，它就会调用 CSI Controller 的 CreateVolume 方法，创建对应 PV
@@ -294,6 +371,20 @@ kind: CronJob
   **负责“Attach 阶段”**。在具体实现上，它监听了 APIServer 里 VolumeAttachment 对象的变化。VolumeAttachment 对象是 Kubernetes 确认一个 Volume 可以进入“Attach 阶段”的重要标志；
 
   一旦出现了 VolumeAttachment 对象，External Attacher 就会调用 CSI Controller 服务的 ControllerPublish 方法，完成它所对应的 Volume 的 Attach 阶段。
+  
+  ```
+  kubernetes-csi/external-snapshotter: This project contains the sidecar container that watches Kubernetes VolumeSnapshot objects and triggers CreateSnapshot/DeleteSnapshot operations against a CSI endpoint.
+  
+  kubernetes-csi/external-provisioner: The external-provisioner is a sidecar container that watches Kubernetes PersistentVolumeClaim objects and triggers CreateVolume/DeleteVolume operations against a CSI endpoint.
+  
+  kubernetes-csi/external-attacher: The external-attacher is a sidecar container that watches Kubernetes VolumeAttachment objects and triggers ControllerPublish/Unpublish operations against a CSI endpoint.
+  
+  kubernetes-csi/node-driver-registrar: This sidecar container registers a CSI driver with the kubelet using the kubelet plugin registration mechanism.
+  
+  kubernetes-csi/livenessprobe: A sidecar container that can be included in a CSI plugin pod to enable integration with Kubernetes Liveness Probe
+  ```
+  
+  
 
 #### Custom Components
 
@@ -403,6 +494,7 @@ kubectl get -o yaml 这样的参数，会将指定的 Pod API 对象以 YAML 的
 without kubeconfig
 
 ```shell
+# kubectl exec -it {pod_name} -- /bin/bash
 kubectl exec -it  容器id -n 命令空间 -c entity-server-server -- sh
 ```
 
@@ -424,11 +516,27 @@ kubectl cp 命令空间/容器id:/path/to/source_file ./path/to/local_file
 kubectl get daemonsets --all-namespaces
 ```
 
+## storage
+
+- CSIDriver
+
+```shell
+kubectl get csidrivers
+```
+
 - storageclass
 
 ```shell
 kubectl get storageclass
 ```
+
+- pvc
+
+```shell
+kubectl get pvc
+```
+
+
 
 - label
 

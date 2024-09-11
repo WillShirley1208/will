@@ -220,6 +220,14 @@ git fetch -p
 git branch -m new-branch-name
 ```
 
+#### 备份分支
+
+```shell
+git branch bk-dev HEAD
+```
+
+
+
 ## 暂存区
 
 - 查看暂存内容的差异：
@@ -413,6 +421,8 @@ git branch -m new-branch-name
 
 ## squash/reword commit
 
+> 提前备份待操作的分支 git branch bk-dev HEAD
+
 1. merge the last 3 commits into a single commit.
 
    ```shell
@@ -421,7 +431,7 @@ git branch -m new-branch-name
 
 2. replace all those `pick` with `squash` (or simply `s`) apart from the first one.
 
-   ![](https://www.freecodecamp.org/news/content/images/2023/03/Screenshot-2023-03-22-at-11.28.12.png)
+   <img src="https://www.freecodecamp.org/news/content/images/2023/03/Screenshot-2023-03-22-at-11.28.12.png" style="zoom:40%">
 
    **Note:** `pick` or `p` will only use those commits, but `squash` or `s` will use them and combine them all together.
 
@@ -431,11 +441,11 @@ git branch -m new-branch-name
 
 3. After doing that, save the file and close it. Git will open up another editor where you can see the new commit message it generates for you.
 
-   ![](https://www.freecodecamp.org/news/content/images/2023/03/Screenshot-2023-03-22-at-11.36.02.png)
+   <img src="https://www.freecodecamp.org/news/content/images/2023/03/Screenshot-2023-03-22-at-11.36.02.png"   style="zoom:40%;"/>
 
    You can get rid of all of them and add your custom message:
 
-   ![](https://www.freecodecamp.org/news/content/images/2023/03/Screenshot-2023-03-22-at-11.37.45.png)
+   <img src="https://www.freecodecamp.org/news/content/images/2023/03/Screenshot-2023-03-22-at-11.37.45.png" style="zoom:44%;">
 
     Or you can leave it as is. If you add a new commit message, save the file and close it.
 

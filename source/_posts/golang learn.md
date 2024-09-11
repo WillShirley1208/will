@@ -5,7 +5,17 @@ tags: learn
 categories: GO
 ---
 
-## Syntax
+# env
+
+- `GOPATH`
+
+`GOPATH` 是 Go 工作区的根目录，通常包含三个子目录：`src`、`pkg` 和 `bin`
+
+> 可通过 go env GOPATH 查看Go 工作区的根目录。`GOPATH` 中的 `bin` 目录通常包含由 `go install`安装的可执行文件
+
+# Syntax
+
+## base
 
 ### sclice
 
@@ -70,7 +80,7 @@ value, ok := interface{}(container).(map[int]string)
 
 - 
 
-## tool
+# tool
 
 - errcheck
 
@@ -78,12 +88,11 @@ value, ok := interface{}(container).(map[int]string)
   errcheck .
   ```
 
-
-## concurrency
+# concurrency
 
 > Do not communicate by sharing memory; instead, share memory by communicating.
 
-### sync
+## sync
 
 - `Mutex` allows us to add locks to our data
 
@@ -93,11 +102,9 @@ value, ok := interface{}(container).(map[int]string)
 
 - `RWMutex` 读写锁
 
+# best practise
 
-
-## best practise
-
-### directory
+## directory
 
 ```
 project-root/
@@ -134,9 +141,7 @@ project-root/
 └── README.md
 ```
 
-
-
-## Paraphrasing
+# Paraphrasing
 
 - Use channels when passing ownership of data
 - Use mutexes for managing state

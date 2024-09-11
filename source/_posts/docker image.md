@@ -5,8 +5,6 @@ tags: snippet
 categories: docker
 ---
 
-
-
 #### Docker 包括三个基本概念:
 
 - **镜像（Image）**：Docker 镜像（Image），就相当于是一个 root 文件系统。比如官方镜像 ubuntu:16.04 就包含了完整的一套 Ubuntu16.04 最小系统的 root 文件系统。
@@ -16,18 +14,27 @@ categories: docker
 ### 操作镜像
 
 ```shell
-查找
+# 构建 （--no-cache 可以清理缓存进行构建）
+docker build --no-cache -t your-image-name .
+
+# 查找
 docker search xxx
-拉取
+
+# 拉取
 docker pull xxx
-运行(容器)
+
+# 运行(容器)
 docker run xxx
-删除
+
+# 删除
 docker rmi xxx
+
+# 删除所有tag为 none 的镜像
+sudo docker images -q --filter "dangling=true" | sudo xargs docker rmi
 
 docker images : 列出本地镜像。
 
-语法
+# 语法
 docker images [OPTIONS] [REPOSITORY[:TAG]]
 OPTIONS说明：
 -a :列出本地所有的镜像（含中间映像层，默认情况下，过滤掉中间映像层）；

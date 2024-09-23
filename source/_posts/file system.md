@@ -7,7 +7,7 @@ categories: file system
 
 # 文件系统
 
-![fileSystemType.jpeg](/images/fileSystemType.jpeg)
+![fileSystemType.jpeg](/images/fs/fileSystemType.jpeg)
 
 - Mac 默认可以读 Windows 的 NTFS 格式，但不能写。
 
@@ -39,9 +39,13 @@ categories: file system
 
 ---
 
+# FUSE
+
+> Filesystem in Userspace
+
 # command
 
-### delete existed volume
+## delete existed volume
 
 ```shell
 # step 1:
@@ -65,9 +69,7 @@ sudo lvchange -an /dev/ceph-d79fdfae-bdd5-4ea7-a907-740181f88091/osd-block-37262
 sudo vgremove ceph-d79fdfae-bdd5-4ea7-a907-740181f88091
 ```
 
-
-
-### create lvm 
+## create lvm 
 
 ```shell
 # step1 create vg
@@ -92,7 +94,33 @@ Filesystem                  Size  Used Avail Use% Mounted on
 /dev/mapper/s3_vg-minio_lv   50G  389M   50G   1% /mnt/minio
 ```
 
+## unmount lvm
 
+```shell
+# step1 umount directory
+sudo umount /mnt/your_mount_point
+
+# step2 Deactivate the Logical Volume
+sudo lvchange -an /dev/volume_group/logical_volume
+
+# step3 Remove the Logical Volume
+sudo lvremove /dev/volume_group/logical_volume
+
+# (Optional) step4 Remove the Volume Group 
+sudo vgremove volume_group
+
+# (Optional) step5 Remove the Physical Volume
+sudo pvremove /dev/sdX
+```
+
+
+
+## other
+
+```shell
+# check vgs
+sudo vgs
+```
 
 
 

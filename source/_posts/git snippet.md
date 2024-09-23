@@ -91,7 +91,7 @@ git rm --cached path/to/file
 git rm -r --cached path/to/directory
 ```
 
-#### 回滚代码
+#### 回滚分支代码
 
 - method 1: 重置当前分支的 HEAD 指针以及工作目录和暂存区的内容到指定的提交，擦除了目标提交之后的所有提交历史。
 
@@ -104,6 +104,12 @@ git rm -r --cached path/to/directory
   ```shell
   git revert <commit-id>
   ```
+
+#### 撤销代码修改
+
+```shell
+git restore <file>
+```
 
 #### 删除未被追踪的文件或目录
 

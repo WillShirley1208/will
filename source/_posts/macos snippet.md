@@ -152,6 +152,14 @@ VGhpcyBpcyBiYXNlNjQgZW5jb2RlZAo=
 
 # soft
 
+## wechat
+
+- 在系统语言设置english的情况下，设置微信的language
+
+  ```shell
+  defaults write com.tencent.xinWeChat AppleLanguages '("zh-CN")'
+  ```
+
 ## mysql
 
 - https://stackoverflow.com/questions/10757169/location-of-my-cnf-file-on-macos)

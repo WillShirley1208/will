@@ -92,6 +92,10 @@ value, ok := interface{}(container).(map[int]string)
 
 > Do not communicate by sharing memory; instead, share memory by communicating.
 
+## backstone
+
+PMG stands for P (logical **p**rocessors), M (**m**achine threads), and G (**g**oroutines). The key point is that each logical processor (P) can only have one machine thread (M) running on it at any time. And for a goroutine (G) to run, it needs to be attached to a thread (M).
+
 ## sync
 
 - `Mutex` allows us to add locks to our data

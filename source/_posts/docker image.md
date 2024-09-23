@@ -5,13 +5,15 @@ tags: snippet
 categories: docker
 ---
 
-#### Docker 包括三个基本概念:
+# concept
 
 - **镜像（Image）**：Docker 镜像（Image），就相当于是一个 root 文件系统。比如官方镜像 ubuntu:16.04 就包含了完整的一套 Ubuntu16.04 最小系统的 root 文件系统。
 - **容器（Container）**：镜像（Image）和容器（Container）的关系，就像是面向对象程序设计中的类和实例一样，镜像是静态的定义，容器是镜像运行时的实体。容器可以被创建、启动、停止、删除、暂停等。
 - **仓库（Repository）**：仓库可看着一个代码控制中心，用来保存镜像。
 
-### 操作镜像
+## operate
+
+### command
 
 ```shell
 # 构建 （--no-cache 可以清理缓存进行构建）
@@ -93,7 +95,7 @@ OPTIONS说明：
 
 
 
-### 把jar包程序制作成镜像
+### jar -> image
 
 - step1: 
 
@@ -123,7 +125,21 @@ docker build -t $repository -f $path/dockerfile .
 
 
 
+## archive artifact
+
+```shell
+# step1
+docker save -o /tmp/my_app_image.tar my_app:latest
+
+# step2 save_image.tar is equal my_app_image.tar
+docker load -i /path/to/destination/save_immy_app_image.tarage.tar
+```
+
+
+
 ---
+
+# advanced
 
 ## add git commit info to image tag
 

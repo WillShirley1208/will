@@ -106,6 +106,33 @@ User Namespace：隔离用户和用户组 ID。
 >
 > kubelet 调用下层容器运行时的执行过程，并不会直接调用 Docker 的 API，而是通过CRI的 gRPC 接口来间接执行
 
+### ctr
+
+```shell
+# check ctr images on k8s
+sudo ctr -n k8s.io images list | grep {image}
+
+# delete ctr images on k8s
+sudo ctr -n k8s.io images rm {image}:{tag}
+```
+
+
+
+# NODE
+
+```shell
+# show all labels
+kubectl get nodes --show-labels
+
+# add label on node
+kubectl label node <node-name> <label-key>=<label-value>
+
+# remove label from node
+kubectl label node <node-name> <label-key>-
+```
+
+
+
 # API object
 
 > Kubernetes API 对象，由元数据 metadata、规范 spec 和状态 status组成
@@ -323,15 +350,11 @@ Runs for the entire lifecycle of the pod
 - 第一阶段 Attach：虚拟机挂载远程磁盘的操作
 - 第二阶段 Mount：将磁盘设备格式化并挂载到 Volume 宿主机目录的操作
 
-### Dynamic Provisioning
-
-> 自动创建 PV 的机制
-
-### PersistentVolumeController
-
-- pvc的使用需要限制在相同namespace中
-
 ### StorageClass
+
+> **StorageClass** defines the provisioner and parameters for dynamic storage provisioning.
+>
+> a **StorageClass** is a **global resource** and is **not limited to a specific namespace**. It can be used by any pod across all namespaces in the cluster.
 
 - 定义
 
@@ -341,6 +364,24 @@ Runs for the entire lifecycle of the pod
   ```
 
 - 充当 PV 的模板。并且，只有同属于一个 StorageClass 的 PV 和 PVC，才可以绑定在一起
+
+### PVC
+
+> **PersistentVolumeClaim (PVC)** requests storage and can specify a StorageClass to trigger the dynamic creation of a PersistentVolume.
+>
+> The **PVC size** controls how much storage is made available to a pod, and **all of that storage** is accessible to the pod.
+>
+> There is **no way to further subdivide the storage provided to a pod** by the PVC. Once the PVC is created, all storage allocated by it is available to the pod.
+
+### PV
+
+> **PersistentVolume (PV)** is either dynamically created based on the PVC’s request or manually created and bound to a PVC.
+>
+> so PV cannot directly use a StorageClass for dynamic provisioning util a PVC to trigger the provisioning process.
+>
+> in other words, **PVs are either statically provisioned** (manually created) or **dynamically provisioned via a PVC**.
+>
+> so Even if you manually create a PV, it won’t be useful until a **PVC binds to it**.
 
 ### csi
 
@@ -434,126 +475,24 @@ Runs for the entire lifecycle of the pod
 
 TBD
 
-# command
 
-- version
-
-```shell
-kubectl version
-kubectl api-versions
-```
-
-- health
-
-```shell
-# check kubernetes inner ip 
-kubectl get svc kubernetes -n default
-
-# check api server
-kubectl get componentstatuses
-
-# check crd
-kubectl get crd | grep cert-manager
-
-# check all pods
-kubectl get pods -A
-```
-
-
-
-- namespace
-
-```bash
-kubectl get namespaces
-```
-
-- pod
-
-```shell
-kubectl get pod -n {namespace}
-```
-
-- log
-
-```shell
-kubectl logs -f {podId} -n {namespace}
-```
-
-- config info
-
-```
-kubectl get pod 容器id --kubeconfig=/path/to/configfile -o yaml > env-vq48.yaml
-```
-
-```
-kubectl get -o yaml 这样的参数，会将指定的 Pod API 对象以 YAML 的方式展示出来。
-```
-
-- exec
-
-without kubeconfig
-
-```shell
-# kubectl exec -it {pod_name} -- /bin/bash
-kubectl exec -it  容器id -n 命令空间 -c entity-server-server -- sh
-```
-
-- describe
-
-```shell
-kubectl describe pod {podName}
-```
-
-- cp
-
-```shell
-kubectl cp 命令空间/容器id:/path/to/source_file ./path/to/local_file
-```
-
-- check daemonsets
-
-```shell
-kubectl get daemonsets --all-namespaces
-```
-
-## storage
-
-- CSIDriver
-
-```shell
-kubectl get csidrivers
-```
-
-- storageclass
-
-```shell
-kubectl get storageclass
-```
-
-- pvc
-
-```shell
-kubectl get pvc
-```
-
-
-
-- label
-
-```shell
-# check node label
-kubectl get nodes --show-labels
-```
-
-
-
-# conclusion
+# TIPS
 
 - 过去很多的集群管理项目（比如 Yarn、Mesos，以及 Swarm）所擅长的，都是把一个容器，按照某种规则，放置在某个最佳节点上运行起来。这种功能，我们称为“调度”。
 
   而 Kubernetes 项目所擅长的，是按照用户的意愿和整个系统的规则，完全自动化地处理好容器之间的各种关系。**这种功能，就是：编排。**
 
+- 更新pod的image
 
+  ```shell
+  # method 1, config yaml
+  imagePullPolicy: Always
+  
+  # method 2, manually delete pod
+  kubectl delete pod <pod-name>
+  ```
+
+  
 
 # FAQ
 
@@ -643,7 +582,7 @@ coredns-7b5944fdcf-fw87q            1/1     Running   0          11s   10.244.2.
 coredns-7b5944fdcf-rzw9b            1/1     Running   0          22s   10.244.1.2     dingo7233   ...
 ```
 
-### namespace Terminating
+## namespace Terminating
 
 ```shell
 # step1: check resource in namespace
@@ -653,5 +592,23 @@ kubectl api-resources --verbs=list --namespaced -o name | xargs -n 1 kubectl get
 # step2: remove the finalizers
 kubectl -n <namespace> patch <RessourceObject> <Object-name> -p '{"metadata":{"finalizers":null}}' --type=merge
 # e.g.: kubectl -n curve patch curvefs my-fscluster -p '{"metadata":{"finalizers":null}}' --type=merge
+```
+
+## pod Terminating
+
+```shell
+kubectl delete pod <pod-name> --grace-period=0 --force --namespace <namespace>
+```
+
+
+
+## flannel  with kubeadm init
+
+> after install flannel , KubeletNotReady container runtime network not ready: NetworkReady=false reason:NetworkPluginNotReady message:Network plugin returns error: cni plugin not initialized
+>
+> all nodes is NotReady
+
+```shell
+reboot all nodes
 ```
 

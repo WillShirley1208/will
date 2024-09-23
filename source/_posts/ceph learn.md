@@ -27,7 +27,11 @@ ceph orch ls
 ceph orch ps
 ```
 
+## health
 
+```shell
+ceph df
+```
 
 ## host
 

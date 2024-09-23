@@ -28,6 +28,9 @@ docker port 容器名或容器id
 # 查看容器启动命令
 docker inspect -f '{{.Config.Cmd}}' {container_id}
 
+# 查看容器挂载信息
+docker inspect {container_id} --format='{{json .Mounts}}' | jq
+
 
 # 删除
 docker rm -f 容器id
@@ -272,4 +275,10 @@ apt-get install vim
 - **RUN** is executed while the image is being build
 
   while **ENTRYPOINT** is executed after the image has been built.
+
+# advanced
+
+```shell
+echo "/core/core.%e.%p.%t" | sudo tee /proc/sys/kernel/core_pattern
+```
 

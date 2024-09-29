@@ -22,10 +22,17 @@ categories: GO
 - syntax `slice[low:high]`
 - "take from 1 to the end" with `numbers[1:]`.
 
-### test
+## Go's while
 
-- `go test -v`
-- `go test -cover`
+ C's `while` is spelled `for` in Go.
+
+```go
+for sum < 1000 {
+		sum += sum
+}
+```
+
+
 
 ### error
 
@@ -47,7 +54,24 @@ categories: GO
 
 ### pointer
 
-> **when you call a function or a method the arguments are** ***copied***.
+> A pointer holds the memory address of a value.
+>
+> The `&` operator **generates** a pointer to its operand.
+>
+> The `*` operator **denotes** the pointer's underlying value.
+
+```go
+	i := 42
+
+	p := &i         // point to i
+	fmt.Println(*p) // read i through the pointer
+	*p = 21         // set i through the pointer
+	fmt.Println(i)  // see the new value of i
+```
+
+
+
+**when you call a function or a method the arguments are** ***copied***.
 
 ```go
 //When calling func (w Wallet) Deposit(amount int) the w is a copy of whatever we called the method from.
@@ -91,6 +115,11 @@ value, ok := interface{}(container).(map[int]string)
 # concurrency
 
 > Do not communicate by sharing memory; instead, share memory by communicating.
+
+# test
+
+- `go test -v`
+- `go test -cover`
 
 ## backstone
 
@@ -156,3 +185,4 @@ project-root/
 
 - 函数类型属于引用类型，它的零值是`nil`。
 - 结构体类型中的一个字段看作是它的一个属性或者一项数据，再把隶属于它的一个方法看作是附加在其中数据之上的一个能力或者一项操作。将属性及其能力（或者说数据及其操作）封装在一起，是面向对象编程（object-oriented programming）的一个主要原则。
+

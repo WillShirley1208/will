@@ -17,11 +17,22 @@ categories: git
 
 - 提交多个文件，但是需要排除指定的文件
   
+  - method a
+  
   ```shell
   git add -u
   git reset -- main/dontcheckmein.txt
   然后进行commit、pull等操作
   ```
+  
+  - method b
+  
+  ```shell
+  git add . ':!<file-to-exclude>'
+  ```
+  
+  
+  
 
 #### Git fork后的分支，更新最新的源代码
 
@@ -678,4 +689,36 @@ git commit -m "update .gitignore"
 ```
 
 
+
+# github
+
+## ISSUES
+
+## search
+
+`searchKeyWord is:issue is:closed repo:Alamofire/Alamofire` 
+
+这条搜索，searchKeyWord是搜索关键字, `is:issue` 表示我们要搜索 issue， `is:closed` 表示已经关闭的 issue， `repo:Alamofire/Alamofire` 表示我们只搜索这个仓库范围的 issue
+
+
+
+## workflow
+
+> GitHub Actions is a continuous integration and continuous delivery (CI/CD) platform that allows you to automate your build, test, and deployment pipeline.
+
+- [runner host](https://docs.github.com/en/actions/using-github-hosted-runners/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources)
+
+  
+
+## security
+
+- create secret
+
+  ```shell
+  gh secret set SECRET_NAME
+  # or
+  gh secret set SECRET_NAME < secret.txt
+  ```
+
+  
 

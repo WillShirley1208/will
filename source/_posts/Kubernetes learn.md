@@ -373,6 +373,8 @@ Runs for the entire lifecycle of the pod
 >
 > There is **no way to further subdivide the storage provided to a pod** by the PVC. Once the PVC is created, all storage allocated by it is available to the pod.
 
+- **PVCs are namespace-scoped**: PVCs are created within a specific namespace and request storage from available PVs or a StorageClass.
+
 ### PV
 
 > **PersistentVolume (PV)** is either dynamically created based on the PVC’s request or manually created and bound to a PVC.
@@ -382,6 +384,8 @@ Runs for the entire lifecycle of the pod
 > in other words, **PVs are either statically provisioned** (manually created) or **dynamically provisioned via a PVC**.
 >
 > so Even if you manually create a PV, it won’t be useful until a **PVC binds to it**.
+
+- **PVs are global resources**: They can be used across namespaces.
 
 ### csi
 
@@ -447,7 +451,15 @@ Runs for the entire lifecycle of the pod
 
 - 在实际使用 CSI 插件的时候，我们会将这三个 External Components 作为 sidecar 容器和 CSI 插件放置在同一个 Pod 中。由于 External Components 对 CSI 插件的调用非常频繁，所以这种 sidecar 的部署方式非常高效。
 
+### Dynamic provisioning
 
+- Create the PVC first.
+- the CreateVolume request is triggered by Kubernetes when a PVC requests storage, and the CSI driver dynamically provisions the volume based on StorageClass and PVC parameters.
+
+### Static provisioning
+
+- Create the PV first.
+- there is no CreateVolume request. Instead, the PV is manually created, and the CSI driver accesses an already provisioned volume using information like volumeHandle from the PV YAML.
 
 ## RBAC
 

@@ -42,6 +42,9 @@ docker import - test/xxx:v1
 docker restart $container_id
 # 日志
 docker logs $container_id
+
+# 复制文件 在容器运行和停止的状态均可执行
+docker cp <source-path> <container-name>:<destination-path>
 ```
 
 ### 查看container现在工作网络模式

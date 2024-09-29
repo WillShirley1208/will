@@ -93,6 +93,15 @@ categories: linux
 
 # operate
 
+### user
+
+```shell
+# sudo权限用户切换成root
+sudo -i
+```
+
+
+
 ### 卸载安装的软件
 
 ```shell

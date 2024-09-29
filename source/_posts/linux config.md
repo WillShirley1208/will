@@ -7,7 +7,7 @@ categories: linux
 
 ### java config
 
-- Use `java -XshowSettings:properties` to show the java.library.path (and others) value.
+- use `java -XshowSettings:properties` to show the java.library.path (and others) value.
 
 ### native lib config
 
@@ -27,7 +27,7 @@ categories: linux
 
 ### ssh
 
-1. 进入目录 /root/.ssh
+1. 进入目录` /root/.ssh`
 
 2. 执行命令：`ssh-keygen -t rsa`，会生成文件id_rsa和id_rsa.pub
 
@@ -46,7 +46,7 @@ categories: linux
    `scp authorized_keys 用户@ip:/路径/.ssh/`
    
    注意点
-- authorized_keys的权限是600，即读和写（如果默认不是的话，需要修改）
+- authorized_keys 的权限是600，即读和写（如果默认不是的话，需要修改）
 
 ### 界面卡死
 

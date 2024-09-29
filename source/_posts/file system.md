@@ -1,8 +1,8 @@
 ---
 title: file system
-date: 2022-01-07 13:59:21
-tags: snippet
-categories: file system
+date: 2024-08-07 13:59:21
+tags: learn
+categories: fs
 ---
 
 # 文件系统
@@ -39,6 +39,22 @@ categories: file system
 
 ---
 
+# concept
+
+## LVM (Logical Volume Manager)
+
+>  Represents the LVM system that manages the disks (physical volumes), creates VGs, and allocates LVs.
+
+​	•	**Disk**: Represents the physical disks, such as /dev/sda or /dev/vdb.
+
+​	•	**VG (Volume Group)**: Aggregates the space of one or more physical disks.
+
+​	•	**LV (Logical Volume)**: A subdivision of the VG space, which can be mounted.
+
+​	•	**Mount Point**: Where the LV is mounted in the filesystem.
+
+<img src="/images/fs/lvm architecture.png">
+
 # FUSE
 
 > Filesystem in Userspace
@@ -72,10 +88,10 @@ sudo vgremove ceph-d79fdfae-bdd5-4ea7-a907-740181f88091
 ## create lvm 
 
 ```shell
-# step1 create vg
+# step1 create vg(volume group)
 sudo vgcreate s3_vg /dev/vdb
 
-# step2 create lv
+# step2 create lv(logic volume)
 sudo lvcreate -L 50G -n minio_lv s3_vg
 
 # step3 format xfs on lvm

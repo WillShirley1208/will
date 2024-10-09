@@ -708,9 +708,19 @@ git commit -m "update .gitignore"
 
 - [runner host](https://docs.github.com/en/actions/using-github-hosted-runners/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources)
 
+- event
+
   
 
 ## security
+
+- create/check gh_token
+
+  ```shell
+  settings/Developer Settings/Personal access tokens (classic)
+  ```
+  
+  
 
 - create secret
 

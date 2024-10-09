@@ -7,6 +7,18 @@ categories: docker
 
 > 默认情况下，Docker 会为你提供一个隐含的 ENTRYPOINT，即：/bin/sh -c。所以，在不指定 ENTRYPOINT 时，比如运行在容器里的完整进程是：/bin/sh -c “python xxx.py”，即 CMD 的内容就是 ENTRYPOINT 的参数
 
+## user
+
+```shell
+# Add the current user
+sudo usermod -a -G docker $(whoami)
+
+# Add a specific user
+sudo usermod -a -G docker custom-user
+```
+
+
+
 ### 容器
 
 ```shell

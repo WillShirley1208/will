@@ -55,9 +55,86 @@ categories: fs
 
 <img src="/images/fs/lvm architecture.png">
 
+## volume vs fs
+
+The relationship between volumes and file systems is fundamental to understanding how data is organized and stored in computer systems.
+
+**Volume**:
+
+- A volume is a single accessible storage area with a single file system.
+- It's a logical device that can span one or more physical storage devices or parts of them.
+- In simple terms, you can think of a volume as a container for storing data.
+
+**File System**:
+
+- A file system is a method and data structure that the operating system uses to control how data is stored and retrieved on a volume.
+- It defines how files are named, stored, organized, and accessed on the volume.
+
+Relationship:
+
+1. One-to-One Mapping:
+   - Typically, there is a one-to-one relationship between a volume and a file system.
+   - Each volume usually has one file system formatted on it.
+2. Formatting:
+   - When you "format" a volume, you're actually creating a file system on that volume.
+   - This process prepares the volume to store files and directories in a way that the operating system can understand.
+3. Mounting:
+   - When you "mount" a volume, you're making its file system accessible to the operating system.
+   - The mount point becomes the root directory of that file system within the larger file hierarchy.
+4. Types:
+   - Different types of file systems (e.g., NTFS, ext4, XFS, FAT32) can be used on volumes, each with its own features and limitations.
+5. Management:
+   - Volume management often involves tasks like creating, resizing, or deleting volumes.
+   - File system management includes tasks like formatting, checking for errors, and managing permissions.
+6. Abstraction:
+   - The volume provides a level of abstraction between the physical storage (like hard drives or SSDs) and the file system.
+   - This abstraction allows for features like RAID, where multiple physical devices can appear as a single volume.
+7. Performance and Features:
+   - The choice of file system can affect the performance and features available on a volume.
+   - For example, some file systems support larger file sizes, journaling, or built-in compression.
+8. Multiple File Systems:
+   - In some advanced setups, it's possible to have multiple file systems on a single volume, though this is less common.
+9. Logical Volume Management (LVM):
+   - LVM allows for more flexible management of storage, where volumes can be easily resized, and multiple physical devices can be combined into a single logical volume.
+10. Cloud and Virtualization:
+    - In cloud and virtualized environments, volumes and file systems are often abstracted further, allowing for easy scaling and management.
+
+## mount vs bind
+
+- Mount
+
+  - **Mounting** is the process of making a file system accessible at a certain point in the directory tree.
+
+  - Typically used to attach external storage devices, like USB drives or partitions, to a directory.
+
+  - Example: `mount /dev/sdX1 /mnt/mydrive`
+
+- Bind
+
+  - **Bind mounting** allows you to map a directory to another location in the same file system.
+
+  - This is useful for accessing the same files from multiple locations without duplicating them.
+
+  - Example: `mount --bind /source/directory /target/directory`
+
+- Key Differences
+
+  - **Purpose**: Mount is for attaching entire file systems; bind is for duplicating directory paths.
+
+  - **Use Cases**: Mount is common for devices; bind is useful for creating alternative paths to existing directories within the same file system.
+
+So, When you bind mount `directory1` (which is mounted to external file system A) to `directory2`, you create an alias for `directory1` at `directory2`. This means:
+
+- Accessing `directory2` will show the contents of file system A.
+- Any data written to `directory2` will be stored in file system A, not the local file system.
+
+
+
 # FUSE
 
 > Filesystem in Userspace
+
+
 
 # command
 
@@ -110,7 +187,7 @@ Filesystem                  Size  Used Avail Use% Mounted on
 /dev/mapper/s3_vg-minio_lv   50G  389M   50G   1% /mnt/minio
 ```
 
-## unmount lvm
+## umount lvm
 
 ```shell
 # step1 umount directory

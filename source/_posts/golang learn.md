@@ -19,8 +19,24 @@ categories: GO
 
 ### sclice
 
+> sclice selects a half-open range which includes the first element, but excludes the last one.
+
 - syntax `slice[low:high]`
 - "take from 1 to the end" with `numbers[1:]`.
+- A slice does not store any data, it just describes a section of an underlying array. Changing the elements of a slice modifies the corresponding elements of its underlying array. Other slices that share the same underlying array will see those changes.
+
+- The default is zero for the low bound and the length of the slice for the high bound.
+
+  ```go
+  var a [10]int
+  # is equal below 
+  a[0:10]
+  a[:10]
+  a[0:]
+  a[:]
+  ```
+
+  
 
 ## Go's while
 
@@ -79,6 +95,8 @@ for sum < 1000 {
 func (w *Wallet) Balance() int {
 	return (*w).balance
 }
+
+// Pointer receivers: Methods with pointer receivers can modify the value to which the receiver points. Since methods often need to modify their receiver, pointer receivers are more common than value receivers.
 ```
 
 - 不可寻址的情况：
@@ -100,9 +118,7 @@ value, ok := interface{}(container).(map[int]string)
 - 引用类型：切片、字典、通道、函数
 - 值类型：数组、基础数据类型以及结构体类型
 
-### pointer
-
-- 
+### 
 
 # tool
 

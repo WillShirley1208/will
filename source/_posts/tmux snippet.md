@@ -39,7 +39,7 @@ categories: tmux
 
 `ctrl + b` 然后按下`:`
 
-## 会话
+## 会话(session)
 
 - 创建会话
 
@@ -49,7 +49,11 @@ categories: tmux
 
   `switch-client -t <session name or id>`
 
-## 窗口
+- 删除会话
+
+  `tmux kill-session -t <session-name>`
+
+## 窗口(window)
 
 - 交换窗口位置
 
@@ -73,7 +77,7 @@ categories: tmux
 
   `select-window -n <window name>`
 
-## 窗格
+## 窗格(pane)
 
 - 分割窗格
 

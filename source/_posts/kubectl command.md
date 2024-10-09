@@ -45,19 +45,15 @@ kubectl get nodes --show-labels
 kubectl get namespaces
 ```
 
-### check pod
+### pod
 
 ```shell
+# list namespace's pod
 kubectl get pod -n {namespace}
-```
 
-### delete pod
-
-```shell
+# force delete pod
 kubectl delete pod {pod_name} --grace-period=0 --force -n {namespace}
 ```
-
-
 
 ### expose yaml
 
@@ -144,6 +140,19 @@ kubectl get storageclass
 
 ```shell
 kubectl get pvc
+```
+
+### pv
+
+```shell
+# list pv
+kubectl get pv
+
+# delete pv
+## step1: change stragety
+kubectl patch pv PV_NAME -p '{"spec":{"persistentVolumeReclaimPolicy":"Delete"}}'
+## step2: delete
+kubectl delete pv PV_NAME
 ```
 
 

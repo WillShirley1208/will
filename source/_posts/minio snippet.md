@@ -69,7 +69,7 @@ mc cat <ALIAS>/<BUCKET>/<OBJECT>
 mc rm <ALIAS>/<BUCKET>/<OBJECT>
 
 # delete all data
-mc rm --recursive <ALIAS>/<BUCKET>
+mc rm --recursive --force <ALIAS>/<BUCKET>
 
 # force delete bucket
 mc rb --force <ALIAS>/<BUCKET>

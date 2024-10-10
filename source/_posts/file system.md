@@ -5,7 +5,9 @@ tags: learn
 categories: fs
 ---
 
-# 文件系统
+# concept
+
+## FS type
 
 ![fileSystemType.jpeg](/images/fs/fileSystemType.jpeg)
 
@@ -16,7 +18,7 @@ categories: fs
 - Mac 和 Windows 都能正常读写 FAT32 和 ExFAT 格式
 
 - linux
-  
+
   ```
   Linux：存在几十个文件系统类型：ext2，ext3，ext4，xfs，brtfs，zfs（man 5 fs可以取得全部文件系统的介绍）
   
@@ -30,16 +32,14 @@ categories: fs
   ```
 
 - windows
-  
+
   ```
   FAT16：MS—DOS和win95采用的磁盘分区格式，采用16位的文件分配表，只支持2GB的磁盘分区，最大单文件2GB，且磁盘利用率低
   FAT32：（即Vfat）采用32位的文件分配表，支持最大分区128GB，最大文件4GB
   NTFS：支持最大分区2TB，最大文件2TB，安全性和稳定性非常好，不易出现文件碎片。
   ```
 
----
 
-# concept
 
 ## LVM (Logical Volume Manager)
 
@@ -128,7 +128,11 @@ So, When you bind mount `directory1` (which is mounted to external file system A
 - Accessing `directory2` will show the contents of file system A.
 - Any data written to `directory2` will be stored in file system A, not the local file system.
 
+## tmpfs
 
+- tmpfs is a special filesystem that uses RAM (and swap) for fast, temporary file storage.
+- RAM is the hardware that holds the system’s active data, while tmpfs is a virtual filesystem that leverages RAM for storage.
+- tmpfs is useful for temporary data that doesn’t need to persist after reboots, providing fast I/O performance since it’s in memory.
 
 # FUSE
 

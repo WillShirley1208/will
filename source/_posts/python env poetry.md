@@ -5,14 +5,6 @@ tags: lib
 categories: python
 ---
 
-## TODO
-
-- [ ] build backend : use hatch 
-  - https://stackoverflow.com/questions/75408641/whats-the-difference-between-the-tool-poetry-and-project-tables-in-pyprojec
-
-- [ ] [PEP 621 ](https://peps.python.org/pep-0621/)
-- [ ] [Packaging Python Projects](https://packaging.python.org/en/latest/tutorials/packaging-projects/)
-
 ## POETRY 
 
 > 每个使用 Poetry 的项目都会有自己的虚拟环境，这样可以避免不同项目之间的依赖冲突。因此，每个项目的依赖项都会独立存放在各自的虚拟环境中。

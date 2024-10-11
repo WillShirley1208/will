@@ -1,5 +1,5 @@
 ---
-title: macos snippet
+title: macos
 date: 2021-12-20 11:25:00
 tags: snippet
 categories: macos
@@ -48,6 +48,14 @@ Fn-右箭头：End：滚动到文稿末尾
   export HOMEBREW_NO_AUTO_UPDATE=1
   source ~/.zshrc
   ```
+
+- upgrade app
+
+  ```shell
+  HOMEBREW_NO_AUTO_UPDATE=1 brew upgrade <app>  # disable update
+  ```
+
+  
 
 ## PORT
 
@@ -177,6 +185,16 @@ mysql	login：1qaz2wsx
   ```
 
 - [Location of my.cnf file on macOS](https://stackoverflow.com/questions/10757169/location-of-my-cnf-file-on-macos)
+
+## dbeaver
+
+- script脚本位置
+
+  ```shell
+  /Users/dongwei/Library/DBeaverData/workspace6/dingoDB/Scripts
+  ```
+
+  
 
 ## age
 

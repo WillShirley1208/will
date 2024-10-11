@@ -1,9 +1,11 @@
 ---
-title: machine learning
+title: AI
 date: 2023-12-08 09:21:32
 tags: learn
-categories: ML
+categories: AI
 ---
+
+# machine learning
 
 [机器学习术语表](https://developers.google.com/machine-learning/glossary/fundamentals?hl=zh-cn)
 

@@ -21,15 +21,29 @@ sudo usermod -a -G docker custom-user
 
 ### 容器
 
+- check
 ```shell
 # 查看正在运行
 docker ps
 # 查看所有
 docker ps -a
+```
+
+- docker run
+
+  > docker run is a higher-level command that combines multiple subcommands (docker create, docker start, docker exec, etc.) into a single step.
+```shell
 # 创建容器
 docker run -p <宿主机端口>:<容器端口> <镜像名称>[:标签]
+
+# 设置容器停止之后自动清理容器
+docker run --rm xxx  # --rm This flag tells Docker to automatically remove the container when it exits.
+```
+- other
+```shell
 # 启动
 docker start 容器名或容器 id
+
 # 终止
 docker stop [NAME]/[CONTAINER ID]:将容器退出。
 docker kill [NAME]/[CONTAINER ID]:强制停止一个容器。

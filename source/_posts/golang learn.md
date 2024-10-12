@@ -132,11 +132,6 @@ value, ok := interface{}(container).(map[int]string)
 
 > Do not communicate by sharing memory; instead, share memory by communicating.
 
-# test
-
-- `go test -v`
-- `go test -cover`
-
 ## backstone
 
 PMG stands for P (logical **p**rocessors), M (**m**achine threads), and G (**g**oroutines). The key point is that each logical processor (P) can only have one machine thread (M) running on it at any time. And for a goroutine (G) to run, it needs to be attached to a thread (M).
@@ -201,4 +196,15 @@ project-root/
 
 - 函数类型属于引用类型，它的零值是`nil`。
 - 结构体类型中的一个字段看作是它的一个属性或者一项数据，再把隶属于它的一个方法看作是附加在其中数据之上的一个能力或者一项操作。将属性及其能力（或者说数据及其操作）封装在一起，是面向对象编程（object-oriented programming）的一个主要原则。
+
+# test
+
+- `go test -v`
+- `go test -cover`
+
+```shell
+# 测试指定目录下的某个方法
+go test -v /path/to/package -run ^FuncName$
+# e.g. go test -v ./http -run ^TestRunning$
+```
 

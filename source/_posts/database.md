@@ -87,22 +87,73 @@ optimize table t_01 FINAL; # 要强制合并分区
 
 # rqlite
 
+## build
+
+```shell
+cd $GOPATH/src/github.com/rqlite/rqlite
+go install ./...  # install in $GOPATH/bin/ directory
+```
+
+
+
 ## deploy cluster
 
 ```shell
 # node 1
 nohup rqlited -node-id 1 -http-addr host1:4001 -raft-addr host1:4002 ~/rqlite/node > rqlite.log 2>&1 &
+# e.g. rqlited -node-id 1 -http-addr 172.20.7.232:4001 -raft-addr 172.20.7.232:4002 ~/rqlite/node
 
-# enter shell
-rqlite -H 172.20.7.232 -p 4001
+# enter shell with host1 ip
+rqlite -H x.x.x.x -p 4001 
 
 # check health
-curl http://172.20.7.232:4001/status | jq .
-curl http://172.20.7.232:4001/status?pretty
+curl http://x.x.x.x:4001/status | jq .
+curl http://x.x.x.x:4001/status?pretty
 
 # join cluster
 # node 2
+rqlited -node-id 2 -http-addr host2:4001 -raft-addr host2:4002 -join host1:4002 ~/node
+# e.g. nohup rqlited -node-id 2 -http-addr 172.20.7.233:14001 -raft-addr 172.20.7.233:14002 -join 172.20.7.232:14002 ~/rqlite/node > rqlite.log 2>&1 &
+# node 3
+rqlited -node-id 3 -http-addr host3:4001 -raft-addr host3:4002 -join host1:4002 ~/node
+# e.g. nohup rqlited -node-id 3 -http-addr 172.20.7.234:14001 -raft-addr 172.20.7.234:14002 -join 172.20.7.232:14002 ~/rqlite/node > rqlite.log 2>&1 &
 ```
+
+## shell
+
+```shell
+.nodes
+172.20.7.232:14001> .nodes
+1:
+  leader: false
+  time: 2.63e-7
+  time_s: 433ns
+  id: 1
+  api_addr: http://172.20.7.232:14001
+  addr: 172.20.7.232:14002
+  voter: true
+  reachable: true
+2:
+  time_s: 409ns
+  id: 2
+  api_addr: http://172.20.7.233:14001
+  addr: 172.20.7.233:14002
+  voter: true
+  reachable: true
+  leader: true
+  time: 2.34e-7
+3:
+  api_addr: http://172.20.7.234:14001
+  addr: 172.20.7.234:14002
+  voter: true
+  reachable: true
+  leader: false
+  time: 1.91e-7
+  time_s: 354ns
+  id: 3
+```
+
+
 
 # postgreSQL
 

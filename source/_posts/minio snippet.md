@@ -31,6 +31,19 @@ In this configuration, every object is broken into smaller pieces, with redundan
   chmod +x $HOME/minio-binaries/mc
   
   cp $HOME/minio-binaries/mc /usr/bin/
+  
+  # service fiel
+  /usr/lib/systemd/system/minio.service
+  
+  # default config file
+  /etc/default/minio
+   
+  # reload config after modify default file
+  sudo systemctl stop minio
+  sudo systemctl daemon-reload
+  
+  # 如果更改MINIO_VOLUMES信息，并且需要用到之前的一些盘符，需要清理干净相关目录的文件（包括隐藏文件 .minio.sys）
+  需要目录里清理遗留的所有文件 （rm -rf ./* 命令不会清理隐藏文件）
   ```
 
 ## command

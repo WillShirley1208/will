@@ -1,7 +1,7 @@
 ---
-title: vscode snippet
+title: vscode
 date: 2019-04-12 16:15:30
-tags: snippet
+tags: tools
 categories: vscode
 ---
 

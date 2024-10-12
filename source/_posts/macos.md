@@ -275,6 +275,10 @@ brew services start/stop/info redis
 
   gawk: no bottle available!
 
+## karabiner
+
+
+
 ## 破解软件安装
 
 - https://xmac.app/

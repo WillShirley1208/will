@@ -1,7 +1,7 @@
 ---
-title: windows snippet
+title: windows
 date: 2018/5/22 16:44
-tags: snippet
+tags: tools
 categories: windows
 ---
 
@@ -31,3 +31,4 @@ certutil -hashfile filename MD5
 certutil -hashfile filename SHA1
 certutil -hashfile filename SHA256
 ```
+

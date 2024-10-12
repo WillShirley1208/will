@@ -1,8 +1,8 @@
 ---
-title: raycast awesome
+title: raycast
 date: 2024-01-22 13:20:28
-tags: raycast
-categories: tool
+tags: tools
+categories: raycast
 ---
 
 ## extension

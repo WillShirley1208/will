@@ -55,6 +55,69 @@ categories: fs
 
 <img src="/images/fs/lvm architecture.png">
 
+## partitioning vs LVM
+
+The key difference between **partitions** and **LVM** (Logical Volume Management) lies in how they manage and allocate disk space. Here’s a breakdown of each:
+
+### 1. **Partitioning**:
+Partitioning is a traditional way to divide a disk into sections, with each section functioning as a separate storage unit. These partitions are created directly on the disk, and once created, they are static unless you re-partition the disk (which can be complex and risky if the partitions contain data).
+
+- **Physical Disk-Based**: Partitions are fixed divisions of a physical disk, where each partition has a specific size.
+- **Static**: Once created, partitions are hard to resize, and managing space between partitions can be inflexible.
+- **Limited**: Typically, you are limited to a small number of primary partitions (e.g., 4 primary partitions on an MBR disk, though extended partitions can allow more).
+- **Direct Mounting**: Partitions can be formatted with a filesystem (e.g., `xfs`, `ext4`) and mounted directly to the filesystem.
+
+#### Example:
+```
+/dev/sda1  ->  /boot
+/dev/sda2  ->  /
+/dev/sda3  ->  /home
+```
+
+### 2. **LVM (Logical Volume Management)**:
+LVM is a more flexible and advanced disk management system. Instead of dividing a disk into fixed partitions, it uses logical volumes that can span across multiple physical disks. LVM allows you to create, resize, and move logical volumes much more easily than traditional partitions.
+
+- **Flexible**: Logical volumes can be resized, expanded, or shrunk easily without affecting data. You can add more disks to an LVM group to increase space.
+- **Virtual**: LVM creates a layer of abstraction over physical disks. You group one or more physical disks (or partitions) into a **Volume Group (VG)**, and from that pool of storage, you create **Logical Volumes (LV)**.
+- **Resizing**: Logical volumes can be resized on the fly (especially for file systems like XFS or ext4 with online resize capabilities).
+- **Spanning Disks**: LVM allows logical volumes to span multiple physical disks or partitions, meaning you are not limited by the size of a single disk.
+- **Snapshots and RAID**: LVM supports features like snapshots and can be combined with RAID for redundancy.
+
+#### Components:
+1. **Physical Volume (PV)**: These are physical disks or partitions that are part of an LVM system.
+2. **Volume Group (VG)**: A pool of storage made up of one or more physical volumes.
+3. **Logical Volume (LV)**: A virtual partition that you can format and mount like a traditional partition. It is created from the space in the volume group.
+
+#### Example:
+1. You create a **Volume Group** (`vg1`) using two physical disks (`/dev/sdb`, `/dev/sdc`).
+2. From the volume group, you create **Logical Volumes** (`lv_root`, `lv_home`) and mount them.
+   
+   ```
+   /dev/vg1/lv_root  ->  /
+   /dev/vg1/lv_home  ->  /home
+   ```
+
+### Comparison of Partition and LVM
+
+| Feature                 | Partition                                | LVM                                                   |
+| ----------------------- | ---------------------------------------- | ----------------------------------------------------- |
+| **Storage Flexibility** | Static size, hard to resize              | Dynamic, easy to resize or move volumes               |
+| **Number of Volumes**   | Limited (4 primary, extended partitions) | Unlimited logical volumes in a volume group           |
+| **Disk Spanning**       | Partition tied to a single disk          | Logical volumes can span multiple disks               |
+| **Resizing**            | Complex and risky                        | Easily resizable without data loss                    |
+| **Snapshots**           | Not supported                            | Supports snapshots for backups                        |
+| **Management**          | Basic partition management tools         | Advanced management with `lvcreate`, `lvextend`, etc. |
+
+### Example Scenario:
+
+1. **Partition**: You have a 500GB disk, and you partition it into `/boot`, `/`, and `/home`. If you need more space for `/home`, you'd have to resize or repartition the disk, which is not easy.
+
+2. **LVM**: With LVM, you create a Volume Group from a few physical volumes (disks or partitions), and you can create logical volumes (`/`, `/home`) from that pool of space. If `/home` needs more space, you can easily expand it by adding another disk or reallocating space within the volume group.
+
+### Summary:
+- **Partitioning** is a simple, traditional way to divide a disk, but it’s rigid and hard to manage once the partitions are set.
+- **LVM** is a flexible, powerful storage management tool that allows you to create logical volumes that can be resized, expanded, and managed more easily, often spanning multiple disks.
+
 ## volume vs fs
 
 The relationship between volumes and file systems is fundamental to understanding how data is organized and stored in computer systems.
@@ -142,6 +205,15 @@ So, When you bind mount `directory1` (which is mounted to external file system A
 
 # command
 
+```shell
+# list avaliable disk
+sudo fdisk -l
+```
+
+
+
+## LVM
+
 ## delete existed volume
 
 ```shell
@@ -166,7 +238,7 @@ sudo lvchange -an /dev/ceph-d79fdfae-bdd5-4ea7-a907-740181f88091/osd-block-37262
 sudo vgremove ceph-d79fdfae-bdd5-4ea7-a907-740181f88091
 ```
 
-## create lvm 
+### create lvm 
 
 ```shell
 # step1 create vg(volume group)
@@ -191,7 +263,7 @@ Filesystem                  Size  Used Avail Use% Mounted on
 /dev/mapper/s3_vg-minio_lv   50G  389M   50G   1% /mnt/minio
 ```
 
-## umount lvm
+### umount lvm
 
 ```shell
 # step1 umount directory
@@ -210,9 +282,7 @@ sudo vgremove volume_group
 sudo pvremove /dev/sdX
 ```
 
-
-
-## other
+### other
 
 ```shell
 # check vgs

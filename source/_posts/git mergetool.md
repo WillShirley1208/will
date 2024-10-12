@@ -1,7 +1,7 @@
 ---
 title: git mergetool
 date: 2023-12-08 11:21:03
-tags: confict resolve
+tags: skill
 categories: git
 ---
 

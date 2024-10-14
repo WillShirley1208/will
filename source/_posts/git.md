@@ -707,10 +707,18 @@ git commit -m "update .gitignore"
 > GitHub Actions is a continuous integration and continuous delivery (CI/CD) platform that allows you to automate your build, test, and deployment pipeline.
 
 - [runner host](https://docs.github.com/en/actions/using-github-hosted-runners/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources)
-
 - event
 
-  
+
+- env
+
+  ```shell
+  GITHUB_OUTPUT
+  GITHUB_STATE
+  GITHUB_ENV
+  ```
+
+  [Passing information between jobs](https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/passing-information-between-jobs)
 
 ## security
 

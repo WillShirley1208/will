@@ -17,9 +17,7 @@ sudo usermod -a -G docker $(whoami)
 sudo usermod -a -G docker custom-user
 ```
 
-
-
-### 容器
+# 容器
 
 - check
 ```shell
@@ -73,7 +71,27 @@ docker logs $container_id
 docker cp <source-path> <container-name>:<destination-path>
 ```
 
-### 查看container现在工作网络模式
+## volume
+
+### Propagation Modes
+
+> with rshared: Unmounting inside the container affects the host’s mount as well.
+>
+> with rprivate: Unmounting inside the container only affects the container, leaving the host’s mounts untouched.
+
+- rprivate **(Recursive Private)**:
+
+  - **Isolated Mount Propagation**: When a mount point is set to rprivate, any mount or unmount events within that mount are **not propagated** between the container and the host or vice versa. Changes in mounts within the container are isolated.
+
+    **Example**: If you mount or unmount a file system inside the container, it won’t affect the corresponding mount on the host. Similarly, changes to the mounts on the host won’t reflect inside the container.
+
+- rshared **(Recursive Shared)**:
+
+  - **Mount Propagation Between Host and Container**: In rshared mode, mount and unmount events are **propagated both ways** between the host and the container.
+
+    **Example**: If you unmount or mount something inside the container, it will be reflected on the host. Conversely, if the host unmounts or mounts a file system on that mount point, it will also reflect inside the container.
+
+## network
 
 - 列出docker的所有网络模式
   

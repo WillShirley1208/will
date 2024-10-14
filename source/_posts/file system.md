@@ -201,7 +201,13 @@ So, When you bind mount `directory1` (which is mounted to external file system A
 
 > Filesystem in Userspace
 
+- install
 
+  ```shell
+  dnf install fuse fuse-libs
+  ```
+
+  
 
 # command
 

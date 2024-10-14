@@ -36,3 +36,17 @@ categories: AI
 ## 数据
 
 训练集、验证集、测试集
+
+# FSM
+
+> The FSM can change from one state to another in response to some inputs; the change from one state to another is called a *transition*.
+
+![](./images/fsm/Automata_theory.png)
+
+
+
+---
+
+**reference**
+
+- https://en.wikipedia.org/wiki/Finite-state_machine

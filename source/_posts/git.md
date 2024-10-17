@@ -5,6 +5,14 @@ tags: tools
 categories: git
 ---
 
+# architecture
+
+<img src="/images/git/git flow.JPG" style="zoom:50%">
+
+# command
+
+<img src="/images/git/git command.JPG" style="zoom:100%">
+
 ## 文件
 
 - 提交单个文件
@@ -197,6 +205,10 @@ Next, checkout the branch you want. In this case, the branch we want is called �
 - To create *and check out* a new branch from a branch you do NOT have checked out:
   
   `git checkout -b new_branch from_branch`
+
+- Create a new branch from that commit by using the commit hash
+  
+  `git checkout -b new-branch-name commit-id`
 
 - To rename a branch
   

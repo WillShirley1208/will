@@ -1,7 +1,7 @@
 ---
 title: linux network
 date: 2017-05-9 10:01:30
-tags: snippet
+tags: command
 categories: linux
 ---
 

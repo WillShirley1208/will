@@ -1,13 +1,13 @@
 ---
-title: docker solution
-date: 2019-08-16 14:34:30
-tags: snippet
+title: docker best practices
+date: 2021-08-16 14:34:30
+tags: practice
 categories: docker
 ---
 
+# best practices
 
-
-## Manage Docker as a non-root user
+## non-root user manage docker
 
 1. Create the `docker` group.
 
@@ -39,9 +39,121 @@ categories: docker
    $ docker run hello-world
    ```
 
+## migration
+
+reference 
+
+[5 ways to move Docker container to another host](<https://bobcares.com/blog/move-docker-container-to-another-host/>)
+
+[Build a Docker Image with MySQL Database](https://morioh.com/p/d8d9e7732952)
+
+### Plan A
+
+- Step1	create an Image From a Container
+
+> Create a new image from a container’s changes
+>
+> [commit command](<https://docs.docker.com/engine/reference/commandline/commit/>)
+
+```shell
+ sudo docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]
+```
+
+options
+
+| Name, shorthand    | Default | Description                                       |
+| ------------------ | ------- | ------------------------------------------------- |
+| `--author` , `-a`  |         | Author (e.g., "will brook")                       |
+| `--change` , `-c`  |         | Apply Dockerfile instruction to the created image |
+| `--message` , `-m` |         | Commit message                                    |
+| `--pause` , `-p`   | `true`  | Pause container during commit                     |
+
+- Step 2    export the image to a file  
+
+```shell
+sudo docker save -o /path/to/your_image.tar your_image_name
+```
+
+- Step 3 load the Docker image file
+
+```shell
+sudo docker load -i your_image.tar
+```
+
+### Plan B
+
+- Step 1
+
+First save the new image by finding the container ID (using [`docker container ls`](https://docs.docker.com/engine/reference/commandline/ps/)) and then committing it to a new image name. Note that only `a-z0-9-_.` are allowed when naming images:
+
+```shell
+# create image from container
+docker container commit c16378f943fe rhel-httpd:latest
+```
+
+- Step 2
+
+ tag the image with the host name or IP address, and the port of the registry:
+
+```shell
+ # re-tag repository:tag info about image
+ docker image tag rhel-httpd:latest registry-host:5000/myadmin/rhel-httpd:latest
+ or
+ docker tag 0e5574283393 registry-host:5000/myadmin/rhel-httpd:latest
+```
+
+- Step 3
+
+log in from Docker client:
+
+```
+docker login <harbor_address>
+```
+
+- Step 4
+
+push the image to the registry using the image ID. 
+
+In this example the registry is on host named `registry-host` and listening on port `5000`. (harbor默认配置端口80，详见harbor.yml)
+
+```shell
+ # push repository:tag,
+ docker image push registry-host:5000/myadmin/rhel-httpd:latest
+ or
+ docker push registry-host:5000/myname/myimage
+```
+
+## Pull Image from Harbor
+
+[Connecting to Harbor via HTTP](<https://goharbor.io/docs/2.0.0/install-config/run-installer-script/#connect-http>)
+
+- Step 1
+
+add the option `--insecure-registry` to your client’s Docker daemon. By default, the daemon file is located at `/etc/docker/daemon.json`.
+
+```shell
+{
+"insecure-registries" : ["ip:port", "0.0.0.0"] #如果port为80，则可省略
+}
+```
+
+Restart Docker Engine.
+
+```shell
+systemctl restart docker
+```
+
+- Step 2
+
+```shell
+docker pull hostAddress/library/REPOSITORY:TAG
+```
 
 
-#### Failed to load listeners: no sockets found via socket activation: make sure the service was started by systemd
+
+# troubleshoot
+
+- Failed to load listeners: no sockets found via socket activation: make sure the service was started by systemd
 
 ```
 edit the docker’s systemd unit file and change the ExecStart:
@@ -53,14 +165,14 @@ ExecStart=
 ExecStart=/usr/bin/dockerd -H unix://
 ```
 
-#### Error creating default "bridge" network: cannot create network (docker0): conflicts with network (docker0): networks have same bridge name
+- Error creating default "bridge" network: cannot create network (docker0): conflicts with network (docker0): networks have same bridge name
 
 ```shell
 sudo rm -rf /var/lib/docker/network
 sudo systemctl start docker
 ```
 
-### accident delete /var/run/docker.sock
+- accident delete /var/run/docker.sock
 
 ```shell
 sudo systemctl stop docker

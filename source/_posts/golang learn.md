@@ -15,9 +15,7 @@ categories: GO
 
 # Syntax
 
-## base
-
-### sclice
+## sclice
 
 > sclice selects a half-open range which includes the first element, but excludes the last one.
 
@@ -48,9 +46,7 @@ for sum < 1000 {
 }
 ```
 
-
-
-### error
+## error
 
 -  errors are values, so we can refactor it out into a variable and have a single source of truth for it.
 
@@ -68,7 +64,7 @@ for sum < 1000 {
 
 - [Don’t just check errors, handle them gracefully](https://dave.cheney.net/2016/04/27/dont-just-check-errors-handle-them-gracefully)
 
-### pointer
+## pointer
 
 > A pointer holds the memory address of a value.
 >
@@ -105,28 +101,18 @@ func (w *Wallet) Balance() int {
 2. 绝大多数被视为**临时结果**的值都是不可寻址的。算术操作的结果值属于临时结果，针对值字面量的表达式结果值也属于临时结果。但有一个例外，对切片字面量的索引结果值虽然也属于临时结果，但却是可寻址的。
 3. 若拿到某值的指针可能会破坏程序的一致性，那么就是**不安全的**，该值就不可寻址。由于字典的内部机制，对字典的索引结果值的取址操作都是不安全的。另外，获取由字面量或标识符代表的函数或方法的地址显然也是不安全的。
 
-
-
-### assert
+## assert
 
 ```go
 value, ok := interface{}(container).(map[int]string)
 ```
 
-### data type
+## data type
 
 - 引用类型：切片、字典、通道、函数
 - 值类型：数组、基础数据类型以及结构体类型
 
-### 
 
-# tool
-
-- errcheck
-
-  ```go
-  errcheck .
-  ```
 
 # concurrency
 
@@ -145,6 +131,10 @@ PMG stands for P (logical **p**rocessors), M (**m**achine threads), and G (**g**
 - `WaitGroup` is a means of waiting for goroutines to finish jobs
 
 - `RWMutex` 读写锁
+
+## channel
+
+> they provide a way to send data from one goroutine to another, ensuring smooth communication and synchronization in concurrent programs.
 
 # best practise
 
@@ -205,6 +195,27 @@ project-root/
 ```shell
 # 测试指定目录下的某个方法
 go test -v /path/to/package -run ^FuncName$
-# e.g. go test -v ./http -run ^TestRunning$
+# e.g. go test -v ./http -run ^TestRunning$  # 注意 "./" 这个是必须的
 ```
+
+# tool
+
+- errcheck
+
+  ```go
+  errcheck .
+  ```
+
+# A vs B
+
+- Golang's goroutine VS Python's coroutine
+
+| **Aspect**            | **Go (Goroutines)**                                     | **Python (Coroutines)**                          |
+| --------------------- | ------------------------------------------------------- | ------------------------------------------------ |
+| **Concurrency Model** | Preemptive, managed by Go runtime (M:N threading)       | Cooperative, event-loop-based (async/await)      |
+| **Execution Model**   | True concurrency, can run in parallel on multiple cores | Single-threaded, asynchronous (mostly I/O-bound) |
+| **Syntax**            | `go func()`                                             | `async def` and `await`                          |
+| **Task Management**   | Automatic, via Go runtime                               | Manual, via event loop (e.g., `asyncio`)         |
+| **Performance**       | Efficient, ideal for both I/O-bound and CPU-bound tasks | Efficient for I/O-bound, not CPU-bound tasks     |
+| **Error Handling**    | Requires manual management via channels or sync         | Propagates through `await`/event loop            |
 

@@ -5,6 +5,108 @@ tags: learn
 categories: fs
 ---
 
+# storage
+
+## overview
+
+| Feature              | **Object Storage**                          | **Block Storage**                     | **File Storage**                               |
+| -------------------- | ------------------------------------------- | ------------------------------------- | ---------------------------------------------- |
+| **Data Structure**   | Stores as objects (data + metadata)         | Stores in blocks (raw chunks of data) | Stores as files in directories                 |
+| **Access Protocols** | HTTP APIs (e.g., S3)                        | iSCSI, Fibre Channel                  | NFS, SMB/CIFS                                  |
+| **Performance**      | High scalability, slower access             | Low latency, high IOPS                | Moderate, varies by file system                |
+| **Scalability**      | Virtually unlimited (distributed)           | Scales well with SAN, but complex     | Limited by file system performance             |
+| **Cost Efficiency**  | High for large amounts of unstructured data | Can be expensive at scale             | Moderate to expensive                          |
+| **Best Use Cases**   | Media content, backups, big data, archives  | Databases, VMs, transactional systems | Shared access, collaboration, home directories |
+| **Metadata**         | Rich, customizable per object               | None                                  | Minimal (file permissions, attributes)         |
+| **Concurrency**      | Excellent for concurrent access             | Not designed for shared access        | Designed for shared access                     |
+| **Example Systems**  | AWS S3, MinIO, Google Cloud Storage         | AWS EBS, iSCSI, Fibre Channel         | NFS, SMB/CIFS, GlusterFS                       |
+
+- **Object Storage**: Best for large-scale unstructured data, low cost, scalable but not suitable for low-latency or transactional workloads.
+- **Block Storage**: High performance, low latency, granular control over data, ideal for VMs, databases, but can be costly to scale.
+- **File Storage**: File-based storage for shared access, good for collaboration, but less scalable for large datasets.
+
+**Object storage**, **block storage**, and **file storage** are all methods of storing and accessing data, but they differ in structure, management, and how they handle data. Despite their differences, they often complement each other in modern storage systems, and sometimes, the boundaries between them blur depending on use cases.
+
+### Relation Between Object, Block, and File Storage:
+- **Different Levels of Abstraction**:
+  - **Block Storage** is the most granular, dealing with raw blocks of data.
+  - **File Storage** is built on top of block storage, organizing data into files and directories.
+  - **Object Storage** exists at a higher level, organizing data into objects with associated metadata and accessed through APIs, not files or blocks.
+  
+- **Integration in Systems**:
+  - Object storage can use block storage underneath to store objects.
+  - File storage is typically built on block storage, where the blocks form the basis of a file system.
+  - Many modern systems (especially in cloud environments) allow the coexistence of these types of storage, where object storage holds bulk data, block storage serves databases and high-performance workloads, and file storage provides shared file access.
+
+### Example to Illustrate the Relationship
+
+#### Scenario: A Cloud-Based Photo Sharing Application
+Let’s say we’re developing a photo-sharing application. Here's how each storage type might be used:
+
+1. **Block Storage**: 
+   - The application’s **database** (such as MySQL or PostgreSQL) will store metadata about users, photos, and comments. Databases need low-latency, fast read/write operations, which makes block storage ideal. Each database table or index is stored in blocks, providing high performance and reliability.
+   - Example: An AWS EC2 instance uses **Amazon Elastic Block Store (EBS)** for fast data access in the application’s database.
+   
+2. **File Storage**:
+   - For **user-generated content**, like profile pictures or documents that may need to be shared and updated by multiple users, file storage is the best fit. It allows users to upload, read, and modify files easily. The hierarchical structure also works well for organizing files into folders.
+   - Example: The application uses **NFS (Network File System)** or **SMB/CIFS** to store shared user profiles, document uploads, or configuration files. In this case, multiple application servers can access the same files.
+   
+3. **Object Storage**:
+   - For **large photos and videos** uploaded by users, object storage is the best choice due to its scalability and cost efficiency. Each file (photo or video) is stored as an object with metadata like date uploaded, user ID, etc. Object storage is ideal because it can easily scale to store millions of large media files.
+   - Example: The application stores users’ photos and videos in **Amazon S3** or **MinIO** as objects, where each photo or video is stored independently and accessed through an API.
+
+### The Workflow Example:
+- When a user uploads a new photo:
+  1. **File Storage** stores any accompanying text (e.g., captions, metadata) that might be shared or updated by other users.
+  2. **Block Storage** is used to store transaction information, user details, and other relational data in the app's database.
+  3. **Object Storage** stores the actual image file (the photo itself) as an object, and the app accesses it via an HTTP API when needed.
+
+### Visual Relationship
+
+```plaintext
+Object Storage (High-level, flat structure)
+|-- Stores: Photos, Videos
+|-- Metadata: Filename, upload time, user ID
+|-- Access via: APIs (e.g., S3 API)
+
+File Storage (Intermediate level, hierarchical structure)
+|-- Stores: Text files, configuration files, shared resources
+|-- Hierarchical access: Files are accessed via paths (/photos/, /users/)
+|-- Access via: NFS, SMB/CIFS
+
+Block Storage (Low-level, raw storage)
+|-- Stores: Database records, application data, raw volumes
+|-- Managed by: File systems (ext4, XFS) or directly by applications (databases)
+|-- Access via: iSCSI, Fibre Channel, or direct local access
+```
+
+### Key Integration Points
+1. **Data flows between storage types**:
+   - Object storage may rely on block storage for its underlying infrastructure. For instance, in a cloud service, object storage systems often store objects across distributed blocks on physical storage.
+   - File storage often relies on block storage (e.g., a disk or volume formatted with a file system) to organize files into directories. 
+
+2. **Shared Purpose**:
+   - All three storage types can coexist in a modern system, handling different parts of the same application. Block storage handles the core operational data; file storage manages shared, accessible data; and object storage is used for scalable, long-term archival of data.
+
+In summary, **block storage** is the foundational layer, **file storage** organizes files in a hierarchical structure on top of block storage, and **object storage** organizes data in a flat, scalable way with metadata and API-based access. Each serves a different purpose but can be used together for a comprehensive data storage solution in complex applications.
+
+## S3 Gateway
+
+S3 Gateway acts as an intermediary to facilitate interactions between your application and the object storage system. This includes common operations on **buckets** and **objects** such as:
+
+- **Creating buckets** (e.g., `CreateBucket` API call)
+- **Reading objects** (e.g., `GetObject`)
+- **Uploading or writing objects** (e.g., `PutObject`)
+- **Deleting objects or buckets** (e.g., `DeleteObject`, `DeleteBucket`)
+
+The S3 gateway translates these requests into **S3 API calls** that the object storage system understands. This is especially useful when:
+1. Your application isn't natively using S3 but requires access to an S3-compatible storage system (via the gateway).
+2. You're in a hybrid or on-premises environment where you want applications to interact with object storage in the same way they would with a cloud-based S3 service.
+
+For example, if you have a legacy application that doesn't natively support the S3 API but needs to manage objects (e.g., create or read files), the S3 gateway can allow the application to perform these tasks as if it were working with a regular file system. The gateway will handle the **CRUD** (Create, Read, Update, Delete) operations on **buckets** and **objects** by mapping them to the appropriate S3 commands.
+
+So, when operating on buckets and objects, especially in environments where direct S3 API calls are not feasible or supported, using an S3 gateway is a key method. The gateway allows you to continue using familiar protocols while interacting with S3-compatible storage systems.
+
 # concept
 
 ## FS type

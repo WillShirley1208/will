@@ -1,9 +1,8 @@
 ---
 title: linux file command
-date: 2015-10-16 12:01:30
+date: 2016-10-16 12:01:30
 tags: command
 categories: linux
-
 ---
 
 ## grep
@@ -335,8 +334,6 @@ head -n 3 表示显示前面查询结果的前三条记录
 grep -v xxx
 ```
 
-
-
 ## wget
 
 - 下载指定目录
@@ -344,8 +341,6 @@ grep -v xxx
 ```bash
 wget -r --no-parent http://abc.tamu.edu/projects/tzivi/repository/revisions/2/raw/tzivi/
 ```
-
-
 
 ## 软连接
 
@@ -355,15 +350,12 @@ wget -r --no-parent http://abc.tamu.edu/projects/tzivi/repository/revisions/2/ra
   ln  -s  [源文件或目录]  [目标文件或目录]
   ```
 
-  
-
 - 查找指定目录的软连接文件
 
   ```shell
   ls -alR | grep ^l
   ```
 
-  
 
 ## sort
 

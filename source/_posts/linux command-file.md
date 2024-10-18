@@ -5,6 +5,59 @@ tags: command
 categories: linux
 ---
 
+## dd
+
+```shell
+dd if=<input> of=<output> [options]
+```
+
+​	•	if: Specifies the **input file** or device (e.g., /dev/sda or /path/to/file).
+
+​	•	of: Specifies the **output file** or device (e.g., /dev/sdb or /path/to/file).
+
+​	•	**bs=SIZE**: Block size, defining how much data to read and write at a time. It can be set to values like 512, 4M, etc. Example: bs=1M reads and writes 1 megabyte at a time.
+
+​	•	**count=N**: Limits the number of blocks copied. For example, count=100 copies 100 blocks of the size specified by bs.
+
+​	•	**status=progress**: Shows real-time progress while copying.
+
+​	•	**conv=notrunc**: Prevents truncation of the output file (useful when appending).
+
+​	•	**conv=sync**: Pads the input to the full block size with null bytes if necessary.
+
+```shell
+# Copy specify file to specify path
+sudo dd if=/path/to/image.iso of=/dev/sdX bs=4M status=progress
+	•	if=/path/to/image.iso: Input is an ISO file.
+	•	of=/dev/sdX: Output is the target USB device (e.g., /dev/sdb).
+	•	bs=4M: Sets block size to 4MB for faster copying.
+	•	status=progress: Shows copy progress.
+	
+# Clone a disk or partition to an image file
+sudo dd if=/dev/sda of=/path/to/backup.img bs=1M status=progress
+	•	This creates a raw image backup of /dev/sda (entire disk).
+	
+# Restore the image created in the above example
+sudo dd if=/path/to/backup.img of=/dev/sda bs=1M status=progress
+
+# Erase a Disk (Overwrite with Zeros)
+sudo dd if=/dev/zero of=/dev/sdX bs=1M status=progress
+	•	if=/dev/zero: Fills the disk with zeros.
+	•	of=/dev/sdX: Target disk to be wiped.
+
+# Create a File of a Specific Size
+dd if=/dev/urandom of=randomfile.bin bs=1M count=1024  # Create a 1GB file of random data
+	•	if=/dev/urandom: Input is random data.
+	•	of=randomfile.bin: Output file.
+	•	bs=1M count=1024: Creates a 1GB file (1024 blocks of 1MB each).
+	
+# Test Disk Write Speed
+dd if=/dev/zero of=testfile bs=1M count=1024 conv=fdatasync status=progress # Measure disk performance by writing a 1GB file
+	•	conv=fdatasync: Ensures data is fully written to disk before timing stops.
+```
+
+
+
 ## grep
 
 - 去除包含特定字符串的行：

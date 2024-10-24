@@ -300,3 +300,12 @@ brew services start/stop/info redis
 - 简繁体切换
   - `ctrol + shift + F`
 
+### ja-netfilter
+
+> jetbrains activate tool
+
+```shell
+Appearance & Behavior -> System Settings -> Language and Region -> Region
+需要选择 Asia(except china mainland)
+激活脚本依然使用原来的 script/install.sh
+```

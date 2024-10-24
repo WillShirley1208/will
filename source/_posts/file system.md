@@ -7,7 +7,7 @@ categories: fs
 
 # storage
 
-## overview
+## Object, Block and File Storage
 
 | Feature              | **Object Storage**                          | **Block Storage**                     | **File Storage**                               |
 | -------------------- | ------------------------------------------- | ------------------------------------- | ---------------------------------------------- |
@@ -27,7 +27,7 @@ categories: fs
 
 **Object storage**, **block storage**, and **file storage** are all methods of storing and accessing data, but they differ in structure, management, and how they handle data. Despite their differences, they often complement each other in modern storage systems, and sometimes, the boundaries between them blur depending on use cases.
 
-### Relation Between Object, Block, and File Storage:
+### Relation
 - **Different Levels of Abstraction**:
   - **Block Storage** is the most granular, dealing with raw blocks of data.
   - **File Storage** is built on top of block storage, organizing data into files and directories.
@@ -38,9 +38,8 @@ categories: fs
   - File storage is typically built on block storage, where the blocks form the basis of a file system.
   - Many modern systems (especially in cloud environments) allow the coexistence of these types of storage, where object storage holds bulk data, block storage serves databases and high-performance workloads, and file storage provides shared file access.
 
-### Example to Illustrate the Relationship
+#### A Cloud-Based Photo Sharing Application
 
-#### Scenario: A Cloud-Based Photo Sharing Application
 Let’s say we’re developing a photo-sharing application. Here's how each storage type might be used:
 
 1. **Block Storage**: 
@@ -55,7 +54,8 @@ Let’s say we’re developing a photo-sharing application. Here's how each stor
    - For **large photos and videos** uploaded by users, object storage is the best choice due to its scalability and cost efficiency. Each file (photo or video) is stored as an object with metadata like date uploaded, user ID, etc. Object storage is ideal because it can easily scale to store millions of large media files.
    - Example: The application stores users’ photos and videos in **Amazon S3** or **MinIO** as objects, where each photo or video is stored independently and accessed through an API.
 
-### The Workflow Example:
+#### The Workflow Example:
+
 - When a user uploads a new photo:
   1. **File Storage** stores any accompanying text (e.g., captions, metadata) that might be shared or updated by other users.
   2. **Block Storage** is used to store transaction information, user details, and other relational data in the app's database.
@@ -141,7 +141,69 @@ So, when operating on buckets and objects, especially in environments where dire
   NTFS：支持最大分区2TB，最大文件2TB，安全性和稳定性非常好，不易出现文件碎片。
   ```
 
+## inode
 
+>  In computer science, an **inode** (short for "index node") is a data structure that represents a file or directory in a file system. Inodes are the basic building blocks of a file system, and they play a crucial role in managing files and directories.                                                                                                                
+
+### properties
+
+An inode is a unique identifier for a file or directory on a file system. It contains metadata about the file or directory, An inode typically has several properties:             
+
+ **Type**: The type of file or directory (e.g., regular file, directory, symbolic link)                        
+
+**Permissions**: The access rights for the file or directory (owner, group, other)                          
+
+**Timestamps**: Creation, modification, and access timestamps                                     
+
+**Inode number**: A unique identifier for the inode        
+
+**Block count**: The number of blocks allocated to the file                                      
+
+**Block offset**: The starting block offset for the file           
+
+**Inodes vs. Blocks**                                                                                                                             
+
+When a file is created on a file system, it's divided into smaller blocks of data, called **blocks**. Each block contains a portion of the file's contents. The inode, on the other hand, contains metadata about the file, including the location of the blocks that make up the file.
+
+Think of an inode as a "directory entry" for a file, and a block as a chunk of data stored in a file system. When you create or delete a file, the inode is updated to reflect changes in the file's metadata,                                 
+
+while the blocks remain intact.
+
+### **File System Operations**                     
+
+When you perform file system operations like create, delete, or modify a file, the following happens:                  
+
+1. **Create file**:                         
+
+​    \* A new inode is created with the specified type and permissions.                                
+
+​    \* Blocks are allocated to fill out the file's contents.                                     
+
+2. **Delete file**:                         
+
+​    \* The inode associated with the file is deleted.                                        
+
+​    \* Any blocks allocated to the file are freed.        
+
+3. **Modify file**:                         
+
+​    \* The existing inode is updated with the new metadata (e.g., changes in permissions, timestamps).                
+
+​    \* No new blocks need to be allocated; any changes occur within the existing block structure.                  
+
+### **Inode Number**                          
+
+The inode number is a unique identifier for an inode. It's used by the operating system and file system to manage files and directories. When you delete a file, the inode number is updated to indicate that it no longer exists.
+
+**In summary**
+
+Inodes represent files and directories in a file system.
+
+They contain metadata such as type, permissions, timestamps, and inode number.
+
+Blocks contain the actual data for a file or directory.
+
+Inodes are updated when files or directories are created, deleted, or modified. 
 
 ## LVM (Logical Volume Manager)
 
@@ -292,6 +354,18 @@ So, When you bind mount `directory1` (which is mounted to external file system A
 
 - Accessing `directory2` will show the contents of file system A.
 - Any data written to `directory2` will be stored in file system A, not the local file system.
+
+## hard link vs soft link             
+
+|                            | Hard Link           | Soft Link (Symbolic Link) |
+| -------------------------- | ------------------- | ------------------------- |
+| Shared storage             | Same file on disk   | Separate file on disk     |
+| Modifying one affects both | Yes                 | No                        |
+| Separated copy             | One copy, two names | Two separate files        |
+
+- Hard links share the same storage location on disk and modify together.
+
+- Soft links point to an alias or shortcut that does not share the same storage location. Modifying one does not affect the other.
 
 ## tmpfs
 

@@ -32,7 +32,7 @@ docker run xxx
 docker rmi xxx
 
 # 删除所有tag为 none 的镜像
-  sudo docker images -q --filter "dangling=true" | sudo xargs docker rmi
+sudo docker images -q --filter "dangling=true" | sudo xargs docker rmi
 
 docker images : 列出本地镜像。
 
@@ -50,7 +50,7 @@ OPTIONS说明：
 - 导出镜像
 
   ```shell
-  docker save $REPOSITORY:$TAG > $PATH/$NAME.tar
+  docker save -o <output-file>.tar <image-name>
   # 注意$后面的变量需要替换
   ```
 

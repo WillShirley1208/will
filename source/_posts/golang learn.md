@@ -202,9 +202,17 @@ go test -v /path/to/package -run ^FuncName$
 
 - errcheck
 
-  ```go
+  ```shell
   errcheck .
   ```
+
+- format
+
+  ```shell
+  gofmt -w yourfile.go
+  ```
+
+  
 
 # A vs B
 

@@ -69,8 +69,8 @@ OPTIONS说明：
   --name test：给容器取个名字，嫌麻烦可以省去
   $REPOSITORY:$TAG：容器是用哪个镜像启动的（一个容器，必须依赖一个镜像启动）
   -v 指定了宿主机上的目录用来作为docker仓库的存储位置，如果不指定的话，registry镜像重启之后会丢失已经存储在本地仓库的镜像文件
-  -p hostPort:containerPort
-  -v hostVolume:containerVolume 这两个地址如果不存在都会创建，一旦容器运行，两部分会完全同步
+  🚨-p hostPort:containerPort
+  🚨-v hostVolume:containerVolume 这两个地址如果不存在都会创建，一旦容器运行，两部分会完全同步
   ```
 
   #### volume

@@ -227,3 +227,38 @@ go test -v /path/to/package -run ^FuncName$
 | **Performance**       | Efficient, ideal for both I/O-bound and CPU-bound tasks | Efficient for I/O-bound, not CPU-bound tasks     |
 | **Error Handling**    | Requires manual management via channels or sync         | Propagates through `await`/event loop            |
 
+**1. Scheduling:**
+
+**Goroutines:** In Go, a goroutine is a lightweight thread that runs concurrently with other goroutines in the same process. The scheduler of the operating system determines which goroutine to run next.
+
+ **Coroutines:** In Python, a coroutine is an asynchronous function that can suspend its execution at specific points and resume from there later. Coroutines are scheduled by the runtime environment (e.g., CPython) itself.
+
+**2. Context switching:**
+
+ **Goroutines:** In Go, context switching between goroutines is relatively cheap because goroutines share the same memory space as their parent process.
+
+ **Coroutines:** In Python, context switching between coroutines can be more expensive because each coroutine has its own stack and local variables.
+
+**3. Yielding control:**
+
+ **Goroutines:** Go's goroutines do not have a concept of yielding control to another goroutine or task. Once a goroutine is scheduled, it runs until completion.
+
+ **Coroutines:** Python coroutines can yield control to other coroutines using the `yield` keyword, allowing them to suspend and resume their execution at specific points.
+
+**4. Looping:**
+
+ **Goroutines:** Go's goroutines do not have a loop mechanism like Python's coroutines. Goroutines must be scheduled manually using `runtime.Gosched()` or other scheduling APIs.
+
+ **Coroutines:** Python coroutines can use loops, such as `for` loops, to iterate over data and switch between different coroutine implementations.
+
+**5. Error handling:**
+
+ **Goroutines:** Go's goroutines handle errors internally when a panic occurs. The parent process receives the error through the `main` function.
+
+ **Coroutines:** Python coroutines can also handle errors, but they typically use exceptions or try-except blocks to manage errors.
+
+**6. Global variables:**
+
+ **Goroutines:** Go's goroutines do not have access to global variables by default. They must be passed explicitly using channels or shared data structures.
+
+ **Coroutines:** Python coroutines can access global variables, but it's generally recommended to avoid sharing mutable state between coroutines.

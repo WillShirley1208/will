@@ -279,6 +279,21 @@ brew services start/stop/info redis
 
 
 
+## mc
+
+```shell
+# binary file
+curl https://dl.min.io/client/mc/release/darwin-arm64/mc -o $HOME/Applications/minio-binaries/mc
+
+# directory
+$HOME/Applications/minio-binaries
+
+# command link
+sudo ln -s $HOME/Applications/minio-binaries/mc /usr/local/bin/mc
+```
+
+
+
 ## 破解软件安装
 
 - https://xmac.app/
@@ -309,3 +324,4 @@ Appearance & Behavior -> System Settings -> Language and Region -> Region
 需要选择 Asia(except china mainland)
 激活脚本依然使用原来的 script/install.sh
 ```
+

@@ -27,7 +27,8 @@ categories: fs
 
 **Object storage**, **block storage**, and **file storage** are all methods of storing and accessing data, but they differ in structure, management, and how they handle data. Despite their differences, they often complement each other in modern storage systems, and sometimes, the boundaries between them blur depending on use cases.
 
-### Relation
+**Relation**
+
 - **Different Levels of Abstraction**:
   - **Block Storage** is the most granular, dealing with raw blocks of data.
   - **File Storage** is built on top of block storage, organizing data into files and directories.
@@ -38,7 +39,7 @@ categories: fs
   - File storage is typically built on block storage, where the blocks form the basis of a file system.
   - Many modern systems (especially in cloud environments) allow the coexistence of these types of storage, where object storage holds bulk data, block storage serves databases and high-performance workloads, and file storage provides shared file access.
 
-#### A Cloud-Based Photo Sharing Application
+**senario**: A Cloud-Based Photo Sharing Application
 
 Let’s say we’re developing a photo-sharing application. Here's how each storage type might be used:
 
@@ -54,14 +55,14 @@ Let’s say we’re developing a photo-sharing application. Here's how each stor
    - For **large photos and videos** uploaded by users, object storage is the best choice due to its scalability and cost efficiency. Each file (photo or video) is stored as an object with metadata like date uploaded, user ID, etc. Object storage is ideal because it can easily scale to store millions of large media files.
    - Example: The application stores users’ photos and videos in **Amazon S3** or **MinIO** as objects, where each photo or video is stored independently and accessed through an API.
 
-#### The Workflow Example:
+**The Workflow Example**:
 
 - When a user uploads a new photo:
   1. **File Storage** stores any accompanying text (e.g., captions, metadata) that might be shared or updated by other users.
   2. **Block Storage** is used to store transaction information, user details, and other relational data in the app's database.
   3. **Object Storage** stores the actual image file (the photo itself) as an object, and the app accesses it via an HTTP API when needed.
 
-### Visual Relationship
+**Visual Relationship**
 
 ```plaintext
 Object Storage (High-level, flat structure)
@@ -80,7 +81,8 @@ Block Storage (Low-level, raw storage)
 |-- Access via: iSCSI, Fibre Channel, or direct local access
 ```
 
-### Key Integration Points
+- **Key Integration Points**
+
 1. **Data flows between storage types**:
    - Object storage may rely on block storage for its underlying infrastructure. For instance, in a cloud service, object storage systems often store objects across distributed blocks on physical storage.
    - File storage often relies on block storage (e.g., a disk or volume formatted with a file system) to organize files into directories. 
@@ -145,7 +147,7 @@ So, when operating on buckets and objects, especially in environments where dire
 
 >  In computer science, an **inode** (short for "index node") is a data structure that represents a file or directory in a file system. Inodes are the basic building blocks of a file system, and they play a crucial role in managing files and directories.                                                                                                                
 
-### properties
+- **properties**
 
 An inode is a unique identifier for a file or directory on a file system. It contains metadata about the file or directory, An inode typically has several properties:             
 
@@ -169,7 +171,7 @@ Think of an inode as a "directory entry" for a file, and a block as a chunk of d
 
 while the blocks remain intact.
 
-### **File System Operations**                     
+- **File System Operations**
 
 When you perform file system operations like create, delete, or modify a file, the following happens:                  
 
@@ -191,7 +193,7 @@ When you perform file system operations like create, delete, or modify a file, t
 
 ​    \* No new blocks need to be allocated; any changes occur within the existing block structure.                  
 
-### **Inode Number**                          
+- **Inode Number**                          
 
 The inode number is a unique identifier for an inode. It's used by the operating system and file system to manage files and directories. When you delete a file, the inode number is updated to indicate that it no longer exists.
 
@@ -205,9 +207,9 @@ Blocks contain the actual data for a file or directory.
 
 Inodes are updated when files or directories are created, deleted, or modified. 
 
-## LVM (Logical Volume Manager)
+## LVM 
 
->  Represents the LVM system that manages the disks (physical volumes), creates VGs, and allocates LVs.
+>  (Logical Volume Manager) Represents the LVM system that manages the disks (physical volumes), creates VGs, and allocates LVs.
 
 ​	•	**Disk**: Represents the physical disks, such as /dev/sda or /dev/vdb.
 
@@ -223,7 +225,8 @@ Inodes are updated when files or directories are created, deleted, or modified.
 
 The key difference between **partitions** and **LVM** (Logical Volume Management) lies in how they manage and allocate disk space. Here’s a breakdown of each:
 
-### 1. **Partitioning**:
+**Partitioning**:
+
 Partitioning is a traditional way to divide a disk into sections, with each section functioning as a separate storage unit. These partitions are created directly on the disk, and once created, they are static unless you re-partition the disk (which can be complex and risky if the partitions contain data).
 
 - **Physical Disk-Based**: Partitions are fixed divisions of a physical disk, where each partition has a specific size.
@@ -231,14 +234,18 @@ Partitioning is a traditional way to divide a disk into sections, with each sect
 - **Limited**: Typically, you are limited to a small number of primary partitions (e.g., 4 primary partitions on an MBR disk, though extended partitions can allow more).
 - **Direct Mounting**: Partitions can be formatted with a filesystem (e.g., `xfs`, `ext4`) and mounted directly to the filesystem.
 
-#### Example:
+Example:
+
 ```
 /dev/sda1  ->  /boot
 /dev/sda2  ->  /
 /dev/sda3  ->  /home
 ```
 
-### 2. **LVM (Logical Volume Management)**:
+**LVM**
+
+>  Logical Volume Management
+
 LVM is a more flexible and advanced disk management system. Instead of dividing a disk into fixed partitions, it uses logical volumes that can span across multiple physical disks. LVM allows you to create, resize, and move logical volumes much more easily than traditional partitions.
 
 - **Flexible**: Logical volumes can be resized, expanded, or shrunk easily without affecting data. You can add more disks to an LVM group to increase space.
@@ -247,12 +254,14 @@ LVM is a more flexible and advanced disk management system. Instead of dividing 
 - **Spanning Disks**: LVM allows logical volumes to span multiple physical disks or partitions, meaning you are not limited by the size of a single disk.
 - **Snapshots and RAID**: LVM supports features like snapshots and can be combined with RAID for redundancy.
 
-#### Components:
+Components:
+
 1. **Physical Volume (PV)**: These are physical disks or partitions that are part of an LVM system.
 2. **Volume Group (VG)**: A pool of storage made up of one or more physical volumes.
 3. **Logical Volume (LV)**: A virtual partition that you can format and mount like a traditional partition. It is created from the space in the volume group.
 
-#### Example:
+Example:
+
 1. You create a **Volume Group** (`vg1`) using two physical disks (`/dev/sdb`, `/dev/sdc`).
 2. From the volume group, you create **Logical Volumes** (`lv_root`, `lv_home`) and mount them.
    
@@ -261,7 +270,7 @@ LVM is a more flexible and advanced disk management system. Instead of dividing 
    /dev/vg1/lv_home  ->  /home
    ```
 
-### Comparison of Partition and LVM
+**Comparison**
 
 | Feature                 | Partition                                | LVM                                                   |
 | ----------------------- | ---------------------------------------- | ----------------------------------------------------- |
@@ -272,13 +281,14 @@ LVM is a more flexible and advanced disk management system. Instead of dividing 
 | **Snapshots**           | Not supported                            | Supports snapshots for backups                        |
 | **Management**          | Basic partition management tools         | Advanced management with `lvcreate`, `lvextend`, etc. |
 
-### Example Scenario:
+**Example Scenario**:
 
 1. **Partition**: You have a 500GB disk, and you partition it into `/boot`, `/`, and `/home`. If you need more space for `/home`, you'd have to resize or repartition the disk, which is not easy.
 
 2. **LVM**: With LVM, you create a Volume Group from a few physical volumes (disks or partitions), and you can create logical volumes (`/`, `/home`) from that pool of space. If `/home` needs more space, you can easily expand it by adding another disk or reallocating space within the volume group.
 
-### Summary:
+**Summary**:
+
 - **Partitioning** is a simple, traditional way to divide a disk, but it’s rigid and hard to manage once the partitions are set.
 - **LVM** is a flexible, powerful storage management tool that allows you to create logical volumes that can be resized, expanded, and managed more easily, often spanning multiple disks.
 

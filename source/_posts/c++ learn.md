@@ -35,6 +35,9 @@ Typically, good solutions have the following characteristics:
   ```shell
   # use
   g++ -o my_program my_program.cpp
+  
+  # specify compiler standard
+  g++ --std=gnu++17 {filename}.cpp
   ```
 
   **clang++（Clang C++ Frontend）**
@@ -44,6 +47,9 @@ Typically, good solutions have the following characteristics:
   ```shell
   # use
   clang++ -o my_program my_program.cpp
+  
+  # specify compiler standard
+  clang++ --std=c++17 {filename}.cpp
   ```
 
   

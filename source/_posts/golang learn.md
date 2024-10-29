@@ -175,6 +175,15 @@ project-root/
 └── README.md
 ```
 
+## dependency
+
+```shell
+# get depends
+go get github.com/jackblack369/minio@feat-gateway
+```
+
+
+
 # Paraphrasing
 
 - Use channels when passing ownership of data

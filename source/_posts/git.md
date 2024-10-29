@@ -732,23 +732,40 @@ git commit -m "update .gitignore"
 
   [Passing information between jobs](https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/passing-information-between-jobs)
 
-## security
+## github cli
+
+### install
+
+```shell
+sudo dnf install 'dnf-command(config-manager)'
+sudo dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
+sudo dnf install gh --repo gh-cli
+
+# 或 直接下载二进制文件进行安装
+https://github.com/cli/cli/releases
+```
+
+### security
 
 - create/check gh_token
 
   ```shell
   settings/Developer Settings/Personal access tokens (classic)
   ```
-  
-  
 
-- create secret
+
+- senario
 
   ```shell
+  # senario 1 在git push的时候，输入password的时候，直接复制上面的tokens即可
+  
+  # senario 2 在workflow中使用
   gh secret set SECRET_NAME
   # or
   gh secret set SECRET_NAME < secret.txt
   ```
 
   
+
+
 

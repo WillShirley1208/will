@@ -178,7 +178,7 @@ project-root/
 ## dependency
 
 ```shell
-# get depends
+# get depends by specify branch
 go get github.com/jackblack369/minio@feat-gateway
 ```
 

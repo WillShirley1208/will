@@ -93,21 +93,30 @@ docker cp <source-path> <container-name>:<destination-path>
 
 ## network
 
+| Driver    | Description                                                  |
+| :-------- | :----------------------------------------------------------- |
+| `bridge`  | The default network driver.                                  |
+| `host`    | Remove network isolation between the container and the Docker host. |
+| `none`    | Completely isolate a container from the host and other containers. |
+| `overlay` | Overlay networks connect multiple Docker daemons together.   |
+| `ipvlan`  | IPvlan networks provide full control over both IPv4 and IPv6 addressing. |
+| `macvlan` | Assign a MAC address to a container.                         |
+
 - 列出docker的所有网络模式
-  
+
   ```shell
   docker network ls
   ```
 
 - 针对bridge和host分别查找有哪些container在其中
-  
+
   ```shell
   docker network inspect bridge
   docker network inspect host
   ```
 
 - 直接查看container的信息，找到network段查看。或者用grep筛选出network。
-  
+
   ```shell
   docker inspect 容器名/容器ID
   docker inspect 容器名/容器ID | grep -i “network” # 其中grep的“-i”表示不区分大小写。

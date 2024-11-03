@@ -42,13 +42,19 @@ categories: words
 ### 中文碎片
 
 - 虽千万人，吾往矣。
-- 在一个跪下去才能活着的时代，请给站着的人一点掌声！
-- 一个人一旦接触到真相，便无法再回头去相信谎言！
+
+- 在一个跪下去才能活着的时代，请给站着的人一点掌声
+
+- 一个人一旦接触到真相，便无法再回头去相信谎言
+
 - 码农不问出处，大佬不看岁数
+
 - 英雄不问出处，流氓不看岁数
+
 - 长多大屁股，穿多大裤衩
+
 - 没有最好的开发语言，只有最好的开发者
-- 能干的人，不在情绪上计较，只在做事上认真；无能的人！不在做事上认真，只在情绪上计较。
+
 - 把每一次练习都当成一次考试
 
   
@@ -66,3 +72,5 @@ categories: words
 ### 技术碎片
 
 - compare two things at different points, this not only makes them easy to compare but also makes it easy to remember differences.
+
+- **WET**(Write everything twice) is a reminder for programmers to strive for excellence in writing readable, well-documented, and maintainable code that benefits both themselves and their colleagues.

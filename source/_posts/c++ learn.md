@@ -62,3 +62,59 @@ Typically, good solutions have the following characteristics:
 
 - **Run/start** executes the executable from a prior build. Some IDEs (e.g. Visual Studio) will invoke a “build” before doing a “run” to ensure you are running the latest version of your code. Otherwise (e.g. Code::Blocks) will just execute the prior executable.
 
+# grammer
+
+## Basics
+
+### operator
+
+- The `:: `symbol is an operator called the **scope resolution operator**.
+
+### iostream
+
+- std::endl
+
+  output a newline; Using `std::endl` is often inefficient than `'\n'`
+
+```
+std::cin and std::cout always go on the left-hand side of the operator.
+std::cout is used to output a value (cout = character output).
+std::cin is used to get an input value (cin = character input).
+<< is used with std::cout, and shows the direction that data is moving. std::cout << 4 moves the value 4 to the console.
+>> is used with std::cin, and shows the direction that data is moving. std::cin >> x moves the value the user entered from the keyboard into variable x.
+```
+
+- Avoid implementation-defined and unspecified behavior whenever possible, as they may cause your program to malfunction on other implementations.
+
+addition (`+`), subtraction (`-`), multiplication (`*`), division (`/`).  assignment (`=`)
+
+## function
+
+- When a function parameter exists but is not used in the body of the function, do not give it a name. You can optionally put a name inside a comment.
+
+  ```c++
+  void doSomething(int) // ok: unnamed parameter will not generate warning
+  {
+  }
+  
+  void doSomething(int /*count*/)
+  {
+  }
+  ```
+
+- Names used for function parameters or variables declared in a function body are only visible within the function that declares them. This means local variables within a function can be named without regard for the names of variables in other functions. This helps keep functions independent.
+- Define your local variables as close to their first use as reasonable.
+
+- **declaration**, tells the *compiler* about the *existence* of an identifier and its associated type information.
+
+  ```c++
+  int add(int x, int y); // tells the compiler about a function named "add" that takes two int parameters and returns an int.  No body!
+  int x;                 // tells the compiler about an integer variable named x
+  ```
+
+- **definition** is a declaration that actually implements (for functions and types) or instantiates (for variables) the identifier.
+  In C++, all definitions are declarations. Therefore `int x;` is both a definition and a declaration.
+
+- the compiler compiles each file individually. 
+
+  

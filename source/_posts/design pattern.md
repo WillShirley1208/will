@@ -7,6 +7,8 @@ categories: design pattern
 
 ### build
 
+- java
+
 ```java
 //Computer
 
@@ -75,7 +77,6 @@ public static class ComputerBuilder{
     }
 
 }
-}
 
 //ComputerBuilder
 
@@ -90,6 +91,5 @@ public static void main(String[] args) {
             "500 GB", "2 GB").setBluetoothEnabled(true)
             .setGraphicsCardEnabled(true).build();
 }
-} ```
 ```
 

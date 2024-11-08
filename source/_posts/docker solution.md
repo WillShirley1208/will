@@ -11,13 +11,13 @@ categories: docker
 
 1. Create the `docker` group.
 
-   ```
+   ```shell
    $ sudo groupadd docker
    ```
 
 2. Add your user to the `docker` group.
 
-   ```
+   ```shell
    $ sudo usermod -aG docker $USER
    ```
 

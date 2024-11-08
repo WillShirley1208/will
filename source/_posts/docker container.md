@@ -46,8 +46,11 @@ docker start 容器名或容器 id
 docker stop [NAME]/[CONTAINER ID]:将容器退出。
 docker kill [NAME]/[CONTAINER ID]:强制停止一个容器。
 
+# 清理已经停止的容器
+docker container prune
+
 # 查看容器端口
-docker port 容器名或容器id
+docker port {container_id}
 
 # 查看容器启动命令
 docker inspect -f '{{.Config.Cmd}}' {container_id}

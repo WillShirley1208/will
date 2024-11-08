@@ -32,7 +32,7 @@ docker run xxx
 docker rmi xxx
 
 # 删除所有tag为 none 的镜像
-sudo docker images -q --filter "dangling=true" | sudo xargs docker rmi
+docker images -q --filter "dangling=true" | sudo xargs docker rmi
 
 docker images : 列出本地镜像。
 

@@ -251,6 +251,7 @@ tr -- translate or delete characters
 ### 查看指定服务的运行情况
 
 - `journalctl -u xxx.service`
+- `journalctl ex`
 
 
 

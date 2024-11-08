@@ -136,6 +136,16 @@ PMG stands for P (logical **p**rocessors), M (**m**achine threads), and G (**g**
 
 > they provide a way to send data from one goroutine to another, ensuring smooth communication and synchronization in concurrent programs.
 
+# concepts
+
+- subroutines
+
+Every programmer today is familiar with function calls (subroutines): F calls G, which stops F and runs G. G does its work, potentially calling and waiting for other functions, and eventually returns. When G returns, G is gone and F continues running. In this pattern, only one function is running at a time, while its callers wait, all the way up the call stack.
+
+- coroutines
+
+In contrast to subroutines, coroutines run concurrently on different stacks, but it’s still true that only one is running at a time, while its caller waits. F starts G, but G does not run immediately. Instead, F must explicitly *resume* G, which then starts running. At any point, G may turn around and *yield* back to F. That pauses G and continues F from its resume operation. Eventually F calls resume again, which pauses F and continues G from its yield. On and on they go, back and forth, until G returns, which cleans up G and continues F from its most recent resume, with some signal to F that G is done and that F should no longer try to resume G. In this pattern, only one coroutine is running at a time, while its caller waits on a different stack. They take turns in a well-defined, coordinated manner.
+
 # best practise
 
 ## directory

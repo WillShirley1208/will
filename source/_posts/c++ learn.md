@@ -16,7 +16,7 @@ Typically, good solutions have the following characteristics:
 - They are built modularly, so parts can be reused or changed later without impacting other parts of the program.
 - They can recover gracefully or give useful error messages when something unexpected happens.
 
-# point
+# compiler
 
 - **Build** compiles all *modified* code files in the project or workspace/solution, and then links the object files into an executable. If no code files have been modified since the last build, this option does nothing.
 
@@ -117,4 +117,100 @@ addition (`+`), subtraction (`-`), multiplication (`*`), division (`/`).  assign
 
 - the compiler compiles each file individually. 
 
+- Use double quotes to include header files that you’ve written or are expected to be found in the current directory. Use angled brackets to include headers that come with your compiler, OS, or third-party libraries you’ve installed elsewhere on your system.
+
+- header guard
+
+  ```c++
+  #ifndef ADD_H
+  #define ADD_H
   
+  int add(int x, int y);
+  
+  #endif
+  ```
+
+  
+
+## Fundamental Data Types
+
+- The smallest unit of memory is a **binary digit** (also called a **bit**), which can hold a value of 0 or 1.
+- Each memory address holds 1 byte of data. A **byte** is a group of bits that are operated on as a unit. The modern standard is that a byte is comprised of 8 sequential bits.
+
+| Types                                                        | Category             | Meaning                                          | Example |
+| :----------------------------------------------------------- | :------------------- | :----------------------------------------------- | :------ |
+| float double long double                                     | Floating Point       | a number with a fractional part                  | 3.14159 |
+| bool                                                         | Integral (Boolean)   | true or false                                    | true    |
+| char <br />wchar_t <br />char8_t (C++20) <br />char16_t (C++11) <br />char32_t (C++11) | Integral (Character) | a single character of text                       | ‘c’     |
+| short int int long int long long int (C++11)                 | Integral (Integer)   | positive and negative whole numbers, including 0 | 64      |
+| std::nullptr_t (C++11)                                       | Null Pointer         | a null pointer                                   | nullptr |
+| void                                                         | Void                 | no type                                          | n/a     |
+
+| Category       | Type           | Minimum Size | Typical Size       | Note                  |
+| :------------- | :------------- | :----------- | :----------------- | :-------------------- |
+| Boolean        | bool           | 1 byte       | 1 byte             |                       |
+| character      | char           | 1 byte       | 1 byte             | always exactly 1 byte |
+|                | wchar_t        | 1 byte       | 2 or 4 bytes       |                       |
+|                | char8_t        | 1 byte       | 1 byte             |                       |
+|                | char16_t       | 2 bytes      | 2 bytes            |                       |
+|                | char32_t       | 4 bytes      | 4 bytes            |                       |
+| integer        | short          | 2 bytes      | 2 bytes            |                       |
+|                | int            | 2 bytes      | 4 bytes            |                       |
+|                | long           | 4 bytes      | 4 or 8 bytes       |                       |
+|                | long long      | 8 bytes      | 8 bytes            |                       |
+| floating point | float          | 4 bytes      | 4 bytes            |                       |
+|                | double         | 8 bytes      | 8 bytes            |                       |
+|                | long double    | 8 bytes      | 8, 12, or 16 bytes |                       |
+| pointer        | std::nullptr_t | 4 bytes      | 4 or 8 bytes       |                       |
+### integer
+| Size / Type   | Range                                                   |
+| :------------ | :------------------------------------------------------ |
+| 8-bit signed  | -128 to 127                                             |
+| 16-bit signed | -32,768 to 32,767                                       |
+| 32-bit signed | -2,147,483,648 to 2,147,483,647                         |
+| 64-bit signed | -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807 |
+
+| Name          | Type            | Range                                                   | Notes                                                        |
+| :------------ | :-------------- | :------------------------------------------------------ | :----------------------------------------------------------- |
+| std::int8_t   | 1 byte signed   | -128 to 127                                             | Treated like a signed char on many systems. See note below.  |
+| std::uint8_t  | 1 byte unsigned | 0 to 255                                                | Treated like an unsigned char on many systems. See note below. |
+| std::int16_t  | 2 byte signed   | -32,768 to 32,767                                       |                                                              |
+| std::uint16_t | 2 byte unsigned | 0 to 65,535                                             |                                                              |
+| std::int32_t  | 4 byte signed   | -2,147,483,648 to 2,147,483,647                         |                                                              |
+| std::uint32_t | 4 byte unsigned | 0 to 4,294,967,295                                      |                                                              |
+| std::int64_t  | 8 byte signed   | -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807 |                                                              |
+| std::uint64_t | 8 byte unsigned |                                                         |                                                              |
+
+### floating point
+
+| Size                                    | Range                                     | Precision                              |
+| :-------------------------------------- | :---------------------------------------- | :------------------------------------- |
+| 4 bytes                                 | ±1.18 x 10-38 to ±3.4 x 1038 and 0.0      | 6-9 significant digits, typically 7    |
+| 8 bytes                                 | ±2.23 x 10-308 to ±1.80 x 10308 and 0.0   | 15-18 significant digits, typically 16 |
+| 80-bits (typically uses 12 or 16 bytes) | ±3.36 x 10-4932 to ±1.18 x 104932 and 0.0 | 18-21 significant digits               |
+| 16 bytes                                | ±3.36 x 10-4932 to ±1.18 x 104932 and 0.0 | 33-36 significant digits               |
+
+- When outputting floating point numbers, `std::cout` has a default precision of 6 -- that is, it assumes all floating point variables are only significant to 6 digits (the minimum precision of a float), and hence it will truncate anything after that.
+- **Inf**, which represents infinity. Inf can be positive or negative.  **NaN**, which stands for “Not a Number”.
+
+# tool
+
+## vscode
+
+### config file
+
+- c_cpp_properties.json
+
+  ```shell
+  # config include path
+  Open the Command Palette (Ctrl+Shift+P) and type C/C++: Edit Configurations (UI).
+  This will open the c_cpp_properties.json file. If it doesn't exist, it will be created.
+  ```
+
+- setting.json
+- tasks.json
+
+
+
+
+

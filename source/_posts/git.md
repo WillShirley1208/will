@@ -420,13 +420,24 @@ git branch bk-dev HEAD
 
 ## commit rule
 
-```
-<type>(<scope>): <subject>
+- config commit identity
 
-<body>
+  ```shell
+  git config --global user.email "you@example.com"
+  git config --global user.name "Your Name"
+  # Setting these values with --global applies them to all repositories on your machine. You can also set them at the repository level by omitting --global, in which case they will override the global settings for that specific project.
+  # e.g.
+  git config  user.email "jackblack369@163.com"
+  git config  user.name "Wei Dong"
+  ```
 
-<footer>
-```
+- commit info
+
+  ```
+  <type>(<scope>): <subject>
+  <body>
+  <footer>
+  ```
 
 - Type
 

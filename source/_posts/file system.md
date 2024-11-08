@@ -207,6 +207,38 @@ Blocks contain the actual data for a file or directory.
 
 Inodes are updated when files or directories are created, deleted, or modified. 
 
+## dentry
+
+> Directory Entry
+
+A dentry (directory entry) represents a mapping between a file name and an inode. Essentially, a dentry links a file or directory name to its respective inode.
+
+**Key Characteristics of Dentries:**
+
+​	•	**Path Resolution**: Dentries assist in translating file paths to inodes, making it faster for the OS to locate files in complex directory structures.
+
+​	•	**Caches for Performance**: Dentries are cached to speed up file lookups, especially for frequently accessed files. When you access a file, the system checks the dentry cache first, reducing the need to repeatedly search the disk.
+
+​	•	**Relationship with Inodes**: Dentries reference inodes rather than storing file metadata or data directly.
+
+**How Inodes and Dentries Work Together:**
+
+When accessing a file (e.g., opening or modifying it), the filesystem:
+
+1. Uses the directory path to locate the **dentry** for each component of the path, starting from the root (/) to the desired file.
+
+2. Each **dentry** provides a reference to the **inode** that holds the file’s metadata and data block locations.
+
+	3.	Once the correct **inode** is found, the system can access the data blocks on the disk to perform the desired file operation.
+
+**Summary:**
+
+​	•	**Inodes** store metadata and data pointers for each file, managing essential details and the physical location of data.
+
+​	•	**Dentries** map filenames to inodes, facilitating path resolution and improving filesystem performance through caching.
+
+This division helps optimize file access and management, making filesystems more efficient and scalable.
+
 ## LVM 
 
 >  (Logical Volume Manager) Represents the LVM system that manages the disks (physical volumes), creates VGs, and allocates LVs.
@@ -393,20 +425,25 @@ So, When you bind mount `directory1` (which is mounted to external file system A
   dnf install fuse fuse-libs
   ```
 
-  
 
 # command
 
 ```shell
 # list avaliable disk
-sudo fdisk -l
+fdisk -l
+
+# list nvme
+nvme list
+
+# list block disk
+lsblk
 ```
 
-
+# case
 
 ## LVM
 
-## delete existed volume
+- delete lvm
 
 ```shell
 # step 1:
@@ -430,7 +467,7 @@ sudo lvchange -an /dev/ceph-d79fdfae-bdd5-4ea7-a907-740181f88091/osd-block-37262
 sudo vgremove ceph-d79fdfae-bdd5-4ea7-a907-740181f88091
 ```
 
-### create lvm 
+- create lvm 
 
 ```shell
 # step1 create vg(volume group)
@@ -455,7 +492,7 @@ Filesystem                  Size  Used Avail Use% Mounted on
 /dev/mapper/s3_vg-minio_lv   50G  389M   50G   1% /mnt/minio
 ```
 
-### umount lvm
+- umount lvm
 
 ```shell
 # step1 umount directory
@@ -474,7 +511,7 @@ sudo vgremove volume_group
 sudo pvremove /dev/sdX
 ```
 
-### other
+- check
 
 ```shell
 # check vgs

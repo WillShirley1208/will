@@ -7,6 +7,27 @@ categories: docker
 
 # best practices
 
+## config default data directory
+
+- default data directory `/var/lib/docker`
+
+- change default directory
+
+  ```shell
+  # step1
+  vim /etc/docker/daemon.json
+  
+  {
+    "data-root": "/path/to/directory"
+  }
+  
+  # step2
+  systemctl restart docker 
+  
+  # check modify available
+  docker info | grep "Docker Root Dir"
+  ```
+
 ## non-root user manage docker
 
 1. Create the `docker` group.

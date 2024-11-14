@@ -143,6 +143,40 @@ So, when operating on buckets and objects, especially in environments where dire
   NTFS：支持最大分区2TB，最大文件2TB，安全性和稳定性非常好，不易出现文件碎片。
   ```
 
+## Blocks
+
+- **Definition**: A block is the smallest unit of storage that the filesystem can manage and read/write. Blocks are fixed-size data units (e.g., 4KB or 8KB), commonly used by the filesystem.
+
+- **Purpose**: Blocks enable efficient storage and management of data on physical media, allowing the filesystem to allocate, read, and write specific portions of data without needing to process an entire file.
+
+- **In FUSE**:
+
+  - FUSE-based filesystems often work with underlying block devices (like HDDs or SSDs) or other storage solutions (like networked file systems) that use block-level access.
+
+  - FUSE translates file operations (e.g., open, read, write) into these block operations, allowing efficient data management despite being in userspace, which typically has more overhead than kernel space.
+
+## **Chunks**
+
+- **Definition**: A chunk is a larger, logical grouping of data that may span multiple blocks. Chunks are often used in distributed or object storage systems where data is split into parts for parallelism, redundancy, or ease of distribution.
+
+- **Purpose**: Chunks allow data to be divided and distributed, making it possible for distributed filesystems to store data across multiple nodes, providing redundancy, load balancing, and better performance.
+
+- **In FUSE**:
+
+  - Distributed filesystems or object storage systems accessible via FUSE (like Ceph, GlusterFS, or MinIO gateways) may break files into chunks. FUSE then handles data in terms of these chunks, passing it to the storage backend, which manages chunk distribution and retrieval.
+
+  - Chunks provide advantages in scalability and reliability when FUSE is used to interface with distributed storage systems, allowing filesystems to grow seamlessly across multiple devices.
+
+**How Blocks and Chunks Work Together on FUSE**
+
+In a FUSE-based setup, **blocks** are typically handled at the disk or device level (within a single node), while **chunks** are managed at a higher level (often in a distributed or networked environment). FUSE enables interoperability by translating file operations, letting the application layer access chunks and blocks transparently.
+
+For example, a file request from an application to a FUSE-mounted distributed filesystem may be:
+
+​	1.	Split into chunks (for parallel access across nodes).
+
+​	2.	Each chunk is further divided into blocks if stored on a block-based medium, facilitating storage efficiency and reliability.
+
 ## inode
 
 >  In computer science, an **inode** (short for "index node") is a data structure that represents a file or directory in a file system. Inodes are the basic building blocks of a file system, and they play a crucial role in managing files and directories.                                                                                                                
@@ -425,8 +459,9 @@ So, When you bind mount `directory1` (which is mounted to external file system A
   dnf install fuse fuse-libs
   ```
 
-
 # command
+
+## disk
 
 ```shell
 # list avaliable disk
@@ -438,8 +473,6 @@ nvme list
 # list block disk
 lsblk
 ```
-
-# case
 
 ## LVM
 
@@ -520,8 +553,14 @@ sudo vgs
 
 
 
+# toubleshooting
 
+- resolve `d?????????` status directory
 
-reference
+  ```shell
+  umount -l /path/to/mount
+  # or 
+  fusermount -uz /path/to/mount
+  ```
 
-[https://www.yinxiang.com/everhub/note/0312ed71-61f5-4c75-9c77-3db0ffdeb613](https://www.yinxiang.com/everhub/note/0312ed71-61f5-4c75-9c77-3db0ffdeb613)
+  

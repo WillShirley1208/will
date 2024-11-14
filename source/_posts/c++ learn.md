@@ -170,16 +170,16 @@ addition (`+`), subtraction (`-`), multiplication (`*`), division (`/`).  assign
 | 32-bit signed | -2,147,483,648 to 2,147,483,647                         |
 | 64-bit signed | -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807 |
 
-| Name          | Type            | Range                                                   | Notes                                                        |
-| :------------ | :-------------- | :------------------------------------------------------ | :----------------------------------------------------------- |
-| std::int8_t   | 1 byte signed   | -128 to 127                                             | Treated like a signed char on many systems. See note below.  |
-| std::uint8_t  | 1 byte unsigned | 0 to 255                                                | Treated like an unsigned char on many systems. See note below. |
-| std::int16_t  | 2 byte signed   | -32,768 to 32,767                                       |                                                              |
-| std::uint16_t | 2 byte unsigned | 0 to 65,535                                             |                                                              |
-| std::int32_t  | 4 byte signed   | -2,147,483,648 to 2,147,483,647                         |                                                              |
-| std::uint32_t | 4 byte unsigned | 0 to 4,294,967,295                                      |                                                              |
-| std::int64_t  | 8 byte signed   | -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807 |                                                              |
-| std::uint64_t | 8 byte unsigned |                                                         |                                                              |
+| Name          | Type            | Range                                                   | Notes                                               |
+| :------------ | :-------------- | :------------------------------------------------------ | :-------------------------------------------------- |
+| std::int8_t   | 1 byte signed   | -128 to 127                                             | **Treated like a signed char on many systems. **    |
+| std::uint8_t  | 1 byte unsigned | 0 to 255                                                | **Treated like an unsigned char on many systems. ** |
+| std::int16_t  | 2 byte signed   | -32,768 to 32,767                                       |                                                     |
+| std::uint16_t | 2 byte unsigned | 0 to 65,535                                             |                                                     |
+| std::int32_t  | 4 byte signed   | -2,147,483,648 to 2,147,483,647                         |                                                     |
+| std::uint32_t | 4 byte unsigned | 0 to 4,294,967,295                                      |                                                     |
+| std::int64_t  | 8 byte signed   | -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807 |                                                     |
+| std::uint64_t | 8 byte unsigned |                                                         |                                                     |
 
 ### floating point
 
@@ -192,6 +192,67 @@ addition (`+`), subtraction (`-`), multiplication (`*`), division (`/`).  assign
 
 - When outputting floating point numbers, `std::cout` has a default precision of 6 -- that is, it assumes all floating point variables are only significant to 6 digits (the minimum precision of a float), and hence it will truncate anything after that.
 - **Inf**, which represents infinity. Inf can be positive or negative.  **NaN**, which stands for “Not a Number”.
+
+- By default, floating point values whose decimal part is 0 print without the decimal places (e.g. `5.0` prints as `5`).
+
+## const and string
+
+**const vs constexpr**
+
+- **Purpose:** `const` is used to specify that a variable or function parameter cannot be modified, while `constexpr` is used to specify that an expression can be evaluated at compile-time.
+
+- **Scope:** A `const` variable can have a scope that includes the current block, while a `constexpr` expression must be within the scope of a function or class definition.
+
+- **Evaluation time:** A `const` variable is evaluated at runtime, while a `constexpr` expression is evaluated at compile-time.
+
+**Numeral systems**
+
+- There are 4 main numeral systems available in C++. In order of popularity, these are: decimal (base 10), binary (base 2), hexadecimal (base 16), and octal (base 8).
+
+  To use an octal literal, prefix your literal with a `0 (zero)`, e.g. `int x{ 012 }`
+
+  To use a hexadecimal literal, prefix your literal with `0x`, e.g.  `int x{ 0xF }`
+
+  By default, C++ outputs values in decimal. However, you can change the output format via use of the `std::dec`, `std::oct`, and `std::hex` I/O manipulators:
+
+  ```c++
+  int x { 12 };
+  std::cout << x << '\n'; // decimal (by default)
+  std::cout << std::hex << x << '\n'; // hexadecimal
+  std::cout << x << '\n'; // now hexadecimal
+  std::cout << std::oct << x << '\n'; // octal
+  std::cout << std::dec << x << '\n'; // return to decimal
+  std::cout << x << '\n'; // decimal
+  ```
+
+## scope duration linkage
+
+| Type                                     | Example                         | Scope  | Duration  | Linkage  | Notes                        |
+| :--------------------------------------- | :------------------------------ | :----- | :-------- | :------- | :--------------------------- |
+| Local variable                           | int x;                          | Block  | Automatic | None     |                              |
+| Static local variable                    | static int s_x;                 | Block  | Static    | None     |                              |
+| Dynamic local variable                   | int* x { new int{} };           | Block  | Dynamic   | None     |                              |
+| Function parameter                       | void foo(int x)                 | Block  | Automatic | None     |                              |
+| Internal non-const global variable       | static int g_x;                 | Global | Static    | Internal | Initialized or uninitialized |
+| External non-const global variable       | int g_x;                        | Global | Static    | External | Initialized or uninitialized |
+| Inline non-const global variable (C++17) | inline int g_x;                 | Global | Static    | External | Initialized or uninitialized |
+| Internal constant global variable        | constexpr int g_x { 1 };        | Global | Static    | Internal | Must be initialized          |
+| External constant global variable        | extern const int g_x { 1 };     | Global | Static    | External | Must be initialized          |
+| Inline constant global variable (C++17)  | inline constexpr int g_x { 1 }; | Global | Static    | External | Must be initialized          |
+
+- Variables declared inside a namespace are also global variables.
+
+  Prefer defining global variables inside a namespace rather than in the global namespace.
+
+- Scope determines where a variable is accessible. Duration determines when a variable is created and destroyed. 
+- Linkage determines whether the variable can be exported to another file or not.
+- Global variables can have either internal or external linkage, via the static and extern keywords respectively.
+
+- Initialize your static local variables. Static local variables are only initialized the first time the code is executed, not on subsequent calls.
+
+## control flow
+
+
 
 # tool
 

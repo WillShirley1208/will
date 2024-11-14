@@ -281,3 +281,11 @@ go test -v /path/to/package -run ^FuncName$
  **Goroutines:** Go's goroutines do not have access to global variables by default. They must be passed explicitly using channels or shared data structures.
 
  **Coroutines:** Python coroutines can access global variables, but it's generally recommended to avoid sharing mutable state between coroutines.
+
+# ide
+
+## vscode
+
+- enable debug
+
+  **First options** is to fix it by running `"Go: Install/Update Tools"` command from the Command Palette (***Linux/Windows***: Ctrl+Shift+P, ***Mac***: ⇧+⌘+P). Then, mark `dlv` & `dlv-dap` from the menu, and hit **ok** to start install/update.

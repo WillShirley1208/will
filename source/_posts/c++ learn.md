@@ -130,9 +130,10 @@ addition (`+`), subtraction (`-`), multiplication (`*`), division (`/`).  assign
   #endif
   ```
 
-  
 
-## Fundamental Data Types
+- If a parameter is given a default argument, all subsequent parameters (to the right) must also be given default arguments.
+
+## Data Types
 
 - The smallest unit of memory is a **binary digit** (also called a **bit**), which can hold a value of 0 or 1.
 - Each memory address holds 1 byte of data. A **byte** is a group of bits that are operated on as a unit. The modern standard is that a byte is comprised of 8 sequential bits.
@@ -195,6 +196,8 @@ addition (`+`), subtraction (`-`), multiplication (`*`), division (`/`).  assign
 
 - By default, floating point values whose decimal part is 0 print without the decimal places (e.g. `5.0` prints as `5`).
 
+
+
 ## const and string
 
 **const vs constexpr**
@@ -252,7 +255,40 @@ addition (`+`), subtraction (`-`), multiplication (`*`), division (`/`).  assign
 
 ## control flow
 
+| Category               | Meaning                                                      | Implemented in C++ by            |
+| :--------------------- | :----------------------------------------------------------- | :------------------------------- |
+| Conditional statements | Causes a sequence of code to execute only if some condition is met. | if, else, switch                 |
+| Jumps                  | Tells the CPU to start executing the statements at some other location. | goto, break, continue            |
+| Function calls         | Jump to some other location and back.                        | function calls, return           |
+| Loops                  | Repeatedly execute some sequence of code zero or more times, until some condition is met. | while, do-while, for, ranged-for |
+| Halts                  | Terminate the program.                                       | std::exit(), std::abort()        |
+| Exceptions             | A special kind of flow control structure designed for error handling. | try, throw, catch                |
 
+## References and Pointers
+
+**Lvalue**
+
+- Lvalue expressions evaluate to an identifiable object.
+  - An lvalue reference  acts as an alias for an existing lvalue (such as a variable).
+  - Lvalue references can only bind to modifiable lvalues.
+  - Lvalue references to const can bind to modifiable lvalues, non-modifiable lvalues, and rvalues. This makes them a much more flexible type of reference.
+
+**Rvalue**
+
+- Rvalue expressions evaluate to a value.
+
+  
+
+**Reference**
+
+- Pass by reference allows us to pass arguments to a function without making copies of those arguments each time the function is called.
+- Pass by reference can only accept modifiable lvalue arguments
+- Class types can be expensive to copy (sometimes significantly so), so they are typically passed by const reference. Fundamental types and enumerated types are cheap to copy, so they are typically passed by value.
+
+**Pointer**
+
+- A pointer is an object that holds a *memory address* (typically of another variable) as its value. This allows us to store the address of some other object to use later.
+- Use `nullptr` when you need a null pointer literal for initialization, assignment, or passing a null pointer to a function.
 
 # tool
 
@@ -271,7 +307,7 @@ addition (`+`), subtraction (`-`), multiplication (`*`), division (`/`).  assign
 - setting.json
 - tasks.json
 
+## error detection and handing
 
-
-
+- Favor `static_assert` over `assert()` whenever possible.
 

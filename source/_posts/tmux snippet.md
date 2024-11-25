@@ -1,7 +1,7 @@
 ---
-title: tmux snippet
+title: tmux
 date: 2023-11-15 11:48:27
-tags: snippet
+tags: tool
 categories: tmux
 ---
 

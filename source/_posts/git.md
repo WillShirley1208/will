@@ -255,7 +255,22 @@ git branch -m new-branch-name
 git branch bk-dev HEAD
 ```
 
+## conflict
 
+- 查看冲突文件
+
+  ```shell
+  # Highlight conflicts within files
+  git diff
+  
+  # List conflict files directly
+  git diff --name-only --diff-filter=U
+  
+  # Check merge conflicts interactively
+  git mergetool
+  ```
+
+  
 
 ## 暂存区
 

@@ -5,6 +5,14 @@ tags: command
 categories: linux
 ---
 
+# basic
+
+## du
+
+```shell
+du -h --max-depth=1 --exclude='proc' --exclude='home' --exclude='mnt'
+```
+
 ## dd
 
 ```shell
@@ -68,6 +76,46 @@ grep -v "pattern" inputfile > outputfile
 
 参数 `-v` 是用来反向匹配的选项，它会将不匹配指定模式的行输出
 
+- 查找指定目录下的文件内容
+
+```shell
+grep -rn "info" *
+
+# 指定检索目录，指定排出目录（exclude-dir可多次使用）
+grep -rn "info" /home/rdx --exclude-dir="log"
+```
+
+- 查询大文件里面的内容
+
+格式：
+
+```shell
+// 使用管道符可以实现过滤既满足时间又满足ip的行。
+grep -n -e “10.198.2.133” prometheus.log |grep -e “2019-09-24”|head -n 3
+```
+
+参数解释：
+-n 参数的作用是显示查找结果的所在行号
+-e 参数表示我们需要搜索的关键字，多个关键字就用多个 -e 参数
+prometheus.log 表示待搜索的大日志文件
+head -n 3 表示显示前面查询结果的前三条记录
+
+- 排除指定内容
+
+要仅打印与搜索模式不匹配的行，可以使用grep的`-v`或`--invert-match`选项。进行反转的匹配。
+
+```shell
+grep -v xxx
+```
+
+- 限定查询结果之后的前几行
+
+   `grep -m 10 <pattern> <file> `
+
+- 限定查询结果倒数的几行
+
+   `grep <pattern> <file> | tail -10`
+
 ## delete
 
 **1.** To delete all files in a directory except filename, type the command below:
@@ -130,23 +178,18 @@ find /path/to/directory -type f -mtime +7 -delete
   
   awk '{ $5=""; print }' file
 
-## 统计文件行数
+## wc
 
+- 语法
+
+```shell
 语法：wc [选项] 文件…
+  - c 统计字节数。
+  - l 统计行数。
+  - w 统计字数。
+```
 
-说明：该命令统计给定文件中的字节数、字数、行数。如果没有给出文件名，则从标准输入读取。wc同时也给出所有指定文件的总统计数。字是由空格字符区分开的最大字符串。
-
-该命令各选项含义如下：
-
-　　- c 统计字节数。
-
-　　- l 统计行数。
-
-　　- w 统计字数。
-
-这些选项可以组合使用。
-
-## 权限
+## chmod
 
 使文件可以直接执行的命令：chmod +x filename
 
@@ -158,6 +201,151 @@ r=4，w=2，x=1
 若要rw-属性则4+2=6；
 若要r-x属性则4+1=7
 ```
+
+## find
+
+- 查找具体文件    
+
+```shell
+find / -name 文件名称
+```
+
+- 查找指定用户的文件
+
+```shell
+find ./* -user 用户名
+```
+
+- 查找指定用户组的文件
+
+```shell
+find ./* -group 用户组
+```
+
+- 匹配查找除了某个特定文件类型以外的所有文件，并将结果传递给 `rm` 命令进行删除
+
+  ```shell
+  find . ! -name "*.txt" -delete
+  ```
+
+- 匹配多个
+
+  ```shell
+  find . ! \( -name "log4j*" -o -name "flink*" \)
+  ```
+
+
+- 指定天数数据
+
+  ```shell
+  # 查找30天之前的文件
+  find <directory> -type f -name "*.tar.gz" -mtime +30
+  
+  # 查找30天之内的文件
+  find <directory> -type f -name "*.tar.gz" -mtime -30
+  ```
+
+  
+
+## ls
+
+`ls -lh`以可读性G、M查看文件的大小
+
+## SED
+
+- 替换字符
+  
+  linux环境：
+  
+  ```shell
+  sed -i 's/Search_String/Replacement_String/g' Input_File
+  ```
+  
+  mac环境（需要设置备份，以防文件损坏）
+  
+  ```shell
+  sed -i .bak 's/Search_String/Replacement_String/g' Input_File
+  ```
+
+- 删除指定多行
+
+  ```shell
+  sed -i '1,5d' example.txt
+  ```
+
+  
+
+## tar
+
+- c – Creates a new .tar archive file.
+
+- x — to untar or extract a tar file
+
+- v – Verbosely show the .tar file progress.
+
+- f – File name type of the archive file.
+
+- z — gzip archive file
+
+- j —  bz2 feature compress and create archive file
+
+- t — to list the contents of tar archive file
+
+## wget
+
+- 下载指定目录
+
+```bash
+wget -r --no-parent http://abc.tamu.edu/projects/tzivi/repository/revisions/2/raw/tzivi/
+```
+
+## link
+
+- 创建软连接
+
+  ```shell
+  ln  -s  [源文件或目录]  [目标文件或目录]
+  ```
+
+- 查找指定目录的软连接文件
+
+  ```shell
+  ls -alR | grep ^l
+  ```
+
+
+## sort
+
+```
+sort --parallel=8 -S 4G -T /data -k2,3 largefile.txt > sorted_file.txt
+```
+
+> 使用了8个线程并行排序，并且sort命令在排序过程中最多使用4GB的内存缓冲区。我们还使用了`-T /data`选项，指定sort命令使用/data目录来存储临时文件，而不是默认路径。
+>
+> “-k1,2”表示先按照第1列排序，若第1列相同则按照第2列排序。
+
+## base64
+
+- 解码
+
+  `echo [base64-encoded-string] | base64 --decode`
+
+- 编码
+
+  `echo "your string" | base64`
+
+## tr
+
+tr -- translate or delete characters 
+
+- 大小写转换
+
+  ```shell
+  cat file | tr A-Z a-z 
+  cat file | tr a-z A-Z
+  ```
+
+# senario
 
 ## 文件分割
 
@@ -211,83 +399,12 @@ cat files_name_1 files_name_2 files_name_3 > files_name
   echo 字符 | wc -m
   ```
 
-  
 
-## markdown
+## 批量替换文件名
 
-- markdown文件转word文件
-  
-  ```shell
-    pandoc -o output.docx -f markdown -t docx filename.md
-  ```
-
-## find
-
-- 查找具体文件    
-
-```shell
-find / -name 文件名称
+```bash
+rename -n -e 's/待替换字符串/替换字符串/'  *.png
 ```
-
-- 查找指定用户的文件
-
-```shell
-find ./* -user 用户名
-```
-
-- 查找指定用户组的文件
-
-```shell
-find ./* -group 用户组
-```
-
-- 匹配查找除了某个特定文件类型以外的所有文件，并将结果传递给 `rm` 命令进行删除
-
-  ```shell
-  find . ! -name "*.txt" -delete
-  ```
-
-- 匹配多个
-
-  ```shell
-  find . ! \( -name "log4j*" -o -name "flink*" \)
-  ```
-
-  
-
-## ls
-
-`ls -lh`以可读性G、M查看文件的大小
-
-## 格式化json
-
-```shell
-echo '{"kind": "Service", "apiVersion": "v1", "status": {"loadBalancer": true}}'|jq .
-```
-
-## SED
-
-- 替换字符
-  
-  linux环境：
-  
-  ```shell
-  sed -i 's/Search_String/Replacement_String/g' Input_File
-  ```
-  
-  mac环境（需要设置备份，以防文件损坏）
-  
-  ```shell
-  sed -i .bak 's/Search_String/Replacement_String/g' Input_File
-  ```
-
-- 删除指定多行
-
-  ```shell
-  sed -i '1,5d' example.txt
-  ```
-
-  
 
 ## 转换文件编码格式
 
@@ -316,7 +433,7 @@ $ iconv -f UTF-8 -t GBK input.file -o output.file
 ```
 
 - 如果遇到]iconv: 未知xxxx处的非法输入序列,一种解决方法是加入 -c选项：忽略无效字符
-  
+
   ```shell
   iconv -c  -f gb2312 -t utf8 test.txt -o output.file
   ```
@@ -327,21 +444,11 @@ iconv -f gb18030 -t UTF-8 input.file -o output.file
 gb18030
 ```
 
-## tar
+## 格式化json
 
-- c – Creates a new .tar archive file.
-
-- x — to untar or extract a tar file
-
-- v – Verbosely show the .tar file progress.
-
-- f – File name type of the archive file.
-
-- z — gzip archive file
-
-- j —  bz2 feature compress and create archive file
-
-- t — to list the contents of tar archive file
+```shell
+echo '{"kind": "Service", "apiVersion": "v1", "status": {"loadBalancer": true}}'|jq .
+```
 
 ## 加密
 
@@ -352,82 +459,9 @@ zip -re filename.zip filename
 回车，输入2次密码
 ```
 
-## 批量替换文件名
-
-```bash
-rename -n -e 's/待替换字符串/替换字符串/'  *.png
-```
-
-## 查找指定目录下的文件内容
+## markdown转word
 
 ```shell
-grep -rn "info" *
+pandoc -o output.docx -f markdown -t docx filename.md
 ```
 
-## 查询大文件里面的内容
-
-格式：
-
-```shell
-// 使用管道符可以实现过滤既满足时间又满足ip的行。
-grep -n -e “10.198.2.133” prometheus.log |grep -e “2019-09-24”|head -n 3
-```
-
-参数解释：
--n 参数的作用是显示查找结果的所在行号
--e 参数表示我们需要搜索的关键字，多个关键字就用多个 -e 参数
-prometheus.log 表示待搜索的大日志文件
-head -n 3 表示显示前面查询结果的前三条记录
-
-## 排除指定内容
-
-要仅打印与搜索模式不匹配的行，可以使用grep的`-v`或`--invert-match`选项。进行反转的匹配。
-
-```shell
-grep -v xxx
-```
-
-## wget
-
-- 下载指定目录
-
-```bash
-wget -r --no-parent http://abc.tamu.edu/projects/tzivi/repository/revisions/2/raw/tzivi/
-```
-
-## 软连接
-
-- 创建软连接
-
-  ```shell
-  ln  -s  [源文件或目录]  [目标文件或目录]
-  ```
-
-- 查找指定目录的软连接文件
-
-  ```shell
-  ls -alR | grep ^l
-  ```
-
-
-## sort
-
-```
-sort --parallel=8 -S 4G -T /data -k2,3 largefile.txt > sorted_file.txt
-```
-
-> 使用了8个线程并行排序，并且sort命令在排序过程中最多使用4GB的内存缓冲区。我们还使用了`-T /data`选项，指定sort命令使用/data目录来存储临时文件，而不是默认路径。
->
-> “-k1,2”表示先按照第1列排序，若第1列相同则按照第2列排序。
-
-## 编码
-
-- Base64
-
-  - 解码
-
-    `echo [base64-encoded-string] | base64 --decode`
-
-  - 编码
-
-    `echo "your string" | base64`

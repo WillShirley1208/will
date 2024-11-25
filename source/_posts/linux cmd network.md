@@ -1,5 +1,5 @@
 ---
-title: linux network
+title: linux network command
 date: 2017-05-9 10:01:30
 tags: command
 categories: linux
@@ -132,3 +132,17 @@ CIDR（无类别域间路由）表示法通常用于指定IP地址的子网掩�
 对于 IPv4 地址，每个 IP 地址都由 32 位二进制数表示。通过将前 24 位作为网络地址并保留最后 8 位作为主机地址，可以创建一个包含 256 个可能主机地址的网络。这被称为 "24 位网络" 或 "24 位子网"，它的子网掩码是 255.255.255.0。
 
 因此，当你配置一个 IP 地址并添加 /24 后缀时，你正在指定该地址所属的网络和子网掩码。这样可以帮助确定该地址所在的网络，并确保与其他设备进行通信时，数据包能够正确地路由到目标设备。
+
+# route
+
+```shell
+# check existed ip route
+ip route
+
+# delete specify ip route
+sudo ip route del 172.21.0.0/16
+
+# delete specify ip link
+sudo ip link delete br-900457b8a29e
+```
+

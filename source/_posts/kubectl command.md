@@ -5,7 +5,7 @@ tags: command
 categories: kubectl
 ---
 
-# common
+## common
 
 ### version
 
@@ -37,15 +37,15 @@ kubectl get pods -A
 kubectl get nodes --show-labels
 ```
 
-
-
 ### namespace
 
 ```bash
 kubectl get namespaces
 ```
 
-### pod
+## pod
+
+### basic
 
 ```shell
 # list namespace's pod
@@ -53,35 +53,24 @@ kubectl get pod -n {namespace}
 
 # force delete pod
 kubectl delete pod {pod_name} --grace-period=0 --force -n {namespace}
+
+# describe
+kubectl describe pod {podName}
 ```
-
-### expose yaml
-
-```shell
-kubectl get pod <pod-name> -n <namespace> -o yaml > pod-config.yaml
-```
-
-###  daemonsets
-
-```shell
-kubectl get daemonsets --all-namespaces
-```
-
-
 
 ### log
 
-​	•	-c <container-name>: Specify which container to retrieve logs from.
-
-​	•	-f: Stream the logs in real-time.
-
-​	•	--previous: Show logs from the last terminated container.
-
-​	•	--since=<duration>: Return logs for the last period (e.g., 1h, 30m).
-
-​	•	--tail=<lines>: Limit the number of log lines returned.
-
-​	•	--all-containers=true: Get logs from all containers in the pod.
+> ​	•	-c <container-name>: Specify which container to retrieve logs from.
+>
+> ​	•	-f: Stream the logs in real-time.
+>
+> ​	•	--previous: Show logs from the last terminated container.
+>
+> ​	•	--since=<duration>: Return logs for the last period (e.g., 1h, 30m).
+>
+> ​	•	--tail=<lines>: Limit the number of log lines returned.
+>
+> ​	•	--all-containers=true: Get logs from all containers in the pod.
 
 ```shell
 # pod
@@ -91,14 +80,13 @@ kubectl logs -f {podId} -n {namespace}
 kubectl logs <pod-name> -c <container-name> -n <namespace>
 ```
 
-### config info
+### config
 
-```
-kubectl get pod 容器id --kubeconfig=/path/to/configfile -o yaml > env-vq48.yaml
-```
-
-```
-kubectl get -o yaml 这样的参数，会将指定的 Pod API 对象以 YAML 的方式展示出来。
+```sehll
+kubectl get pod <容器id> --kubeconfig=/path/to/configfile -o yaml > env-vq48.yaml
+# kubectl get -o yaml 这样的参数，会将指定的 Pod API 对象以 YAML 的方式展示出来。
+# expose
+kubectl get pod <pod-name> -n <namespace> -o yaml > pod-config.yaml
 ```
 
 ### exec
@@ -110,16 +98,16 @@ without kubeconfig
 kubectl exec -it {pod_id} -n {namespace} -c {container_id} -- sh
 ```
 
-### describe
-
-```shell
-kubectl describe pod {podName}
-```
-
-### cp
+### copy
 
 ```shell
 kubectl cp 命令空间/容器id:/path/to/source_file ./path/to/local_file
+```
+
+## daemonsets
+
+```shell
+kubectl get daemonsets --all-namespaces
 ```
 
 ## storage
@@ -154,6 +142,3 @@ kubectl patch pv PV_NAME -p '{"spec":{"persistentVolumeReclaimPolicy":"Delete"}}
 ## step2: delete
 kubectl delete pv PV_NAME
 ```
-
-
-

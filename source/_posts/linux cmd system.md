@@ -146,7 +146,7 @@ rpm -ivh name.rpm
 Ctrl+a：光标回到命令行首。 （a：ahead）
 Ctrl+e：光标回到命令行尾。 （e：end）
 Ctrl+b：光标向行首移动一个字符。 （b：backwards）
-Ctrl+ f：光标向行尾移动一个字符。 （f：forwards）
+Ctrl+f：光标向行尾移动一个字符。 （f：forwards）
 Ctrl+w: 删除光标处到行首的字符。
 Ctrl+k：删除光标处到行尾的字符。
 Ctrl+u：删除整个命令行文本字符。
@@ -349,3 +349,15 @@ sync; echo 1 > /proc/sys/vm/drop_caches
 ## 查看buff/cache
 
 - 工具推荐 https://github.com/silenceshell/hcache
+
+# troubleshooting
+
+- 鼠标按键会在终端输入乱码
+
+  ```shell
+  # the `reset` command helps restore the terminal to a known good state, which can be helpful in troubleshooting issues or clearing screen clutter.
+  reset
+  ```
+
+  
+

@@ -433,7 +433,7 @@ git branch bk-dev HEAD
 
    
 
-## commit rule
+## commit
 
 - config commit identity
 
@@ -525,8 +525,6 @@ git branch bk-dev HEAD
    ```
 
    
-
-
 
 ## remote
 
@@ -643,13 +641,19 @@ git submodule update --remote
 
 ### 在已有项目添加子模块
 
-```shell
-git submodule add https://xxx.git configserver
 ```
+# add the submodule
+git submodule add https://github.com/example/submodule.git submodule-dir
 
+# fetch and checkout the specific tag
+cd submodule-dir
+git fetch --tags
+git checkout <xxx>
+cd ..
 
-
-
+# check submodule
+git submodule status
+```
 
 ## 其它
 

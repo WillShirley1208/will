@@ -51,10 +51,10 @@ OPTIONS说明：
 
   ```shell
   docker save -o <output-file>.tar <image-name>
-  # 注意$后面的变量需要替换
   ```
 
-- 导入镜像
+  - 导入镜像
+
 
   ```shell
   docker load --input $PATH/$NAME.tar

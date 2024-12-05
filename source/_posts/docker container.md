@@ -58,7 +58,6 @@ docker inspect -f '{{.Config.Cmd}}' {container_id}
 # 查看容器挂载信息
 docker inspect {container_id} --format='{{json .Mounts}}' | jq
 
-
 # 删除
 docker rm -f 容器id
 # 导出
@@ -71,7 +70,9 @@ docker restart $container_id
 docker logs $container_id
 
 # 复制文件 在容器运行和停止的状态均可执行
-docker cp <source-path> <container-name>:<destination-path>
+docker cp /host/path/ <container_id>:/path/to/file
+or
+docker cp <container_id>:/path/to/file /host/path/
 ```
 
 ## volume

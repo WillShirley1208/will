@@ -410,19 +410,15 @@ rename -n -e 's/待替换字符串/替换字符串/'  *.png
 
 - 查看编码
 
-首先我们来看看在 Linux 系统中如何查看文件的编码格式，可以在 vim 中使用如下命令查看：
+  ```shell
+  # vim
+  :set fileencoding
+  
+  # file
+  file -i filename
+  ```
 
-```shell
-:set fileencoding
-```
-
-输出可能是这样
-
-```
-fileencoding=utf-81
-```
-
-也可以使用 `file` 和 `identify` 命令查看。
+  
 
 - 转换编码
 

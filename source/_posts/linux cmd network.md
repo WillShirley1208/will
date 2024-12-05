@@ -5,7 +5,7 @@ tags: command
 categories: linux
 ---
 
-## PORT
+## port
 
 - Check the listening ports
   
@@ -41,8 +41,16 @@ categories: linux
 - 通过进程名查看占用端口
   
   - 先查看进程pid    `ps -ef | grep 进程名 `
-  - 再通过pid查看占用端口    `netstat -nap | grep 进程pid `
-
+  
+  - 再通过pid查看占用端口  
+  
+    ```
+    netstat -nap | grep <pid>
+    lsof -p <pid>
+    ```
+  
+    
+  
 - 通过端口查看进程
   
   ```shell
@@ -50,7 +58,7 @@ categories: linux
   lsof -i:<portnumber>
   ```
 
-## 进程号
+## pid
 
 - 根据进程号查看启动文件所在位置
 
@@ -60,7 +68,11 @@ categories: linux
 
   `cat /proc/<线程ID>/cmdline`
 
-## 网络代理
+- 根据PID查看子进程
+
+  `netstat -lntp |grep PID`
+
+## proxy
 
 - 查看本地网络代理
   
@@ -80,7 +92,7 @@ categories: linux
 
   curl 'address:port' | json_pp
 
-## 端口远程访问
+## netstat
 
 检测端口是否允许远程访问
 
@@ -115,13 +127,9 @@ netstat -an | grep <port>
    sudo ufw status numbered
    ```
 
-## 根据PID查看子进程
+## subnet mask
 
-```
-netstat -lntp |grep PID
-```
-
-## 子网掩码
+> 子网掩码
 
 xx.xx.xx.xx/24
 

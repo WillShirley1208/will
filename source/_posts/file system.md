@@ -461,13 +461,13 @@ So, When you bind mount `directory1` (which is mounted to external file system A
 
 # command
 
-## disk
+## basic
 
 ```shell
 # list avaliable disk
 fdisk -l
 
-# list nvme
+# list nvme (sudo dnf install -y nvme-cli)
 nvme list
 
 # list block disk

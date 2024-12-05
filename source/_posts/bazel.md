@@ -7,6 +7,8 @@ categories: build
 
 **MODULE.bazel**
 
+> is equal WORKSPACE at old bazel version
+
 - The `MODULE.bazel` file, which identifies the directory and its contents as a Bazel workspace and lives at the root of the project's directory structure. It's also where you specify your external dependencies.
 
 **BUILD**

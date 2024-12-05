@@ -176,13 +176,25 @@ mc cat <ALIAS>/<BUCKET>/<OBJECT>
 # delete object
 mc rm <ALIAS>/<BUCKET>/<OBJECT>
 
+# delete according specify time 
+mc find <alias/bucket-name> --older-than <time> --exec "mc rm {}"
+# e.g. mc find myminio/mybucket --older-than 30d --exec "mc rm {}"
+
 # delete all data
 mc rm --recursive --force <ALIAS>/<BUCKET>
 
 # force delete bucket
-mc rb --force <ALIAS>/<BUCKET>
-
+mc rb --force <ALIAS>/<BUCKET>  # must delete bucket's object file first
 ```
+
+- heal
+
+```shell
+# Use MinIO’s heal command to ensure the data and metadata are consistent:
+mc admin heal -r <ALIAS>/
+```
+
+
 
 - erasure code
 
@@ -195,3 +207,120 @@ mc admin config set myminio storage_class standard=EC:0
 mc admin config get myminio storage_class
 ```
 
+# TLS
+
+- [enabling-tls](https://min.io/docs/minio/linux/operations/network-encryption.html#enabling-tls)
+
+> 172.20.61.102 minio1.dev.net 
+> 172.20.61.103 minio2.dev.net 
+> 172.20.61.105 minio3.dev.net
+>
+> /etc/default/minio: 
+> MINIO_VOLUMES="https://minio{1...3}.dev.net:19000/mnt/minio{1...2}" 
+> MINIO_OPTS=' --console-address=":19001" --address=":19000" '
+
+By default, the MinIO server looks for the TLS keys and certificates for each node in the following directory: `${HOME}/.minio/certs` (该证书存放各自机器的`private.key` 和 `public.crt`， 每台机器的 `private.key` 和 `public.crt`都不一样)
+
+If using Certificates signed by a non-global or non-public Certificate Authority, *or* if using a global CA that requires the use of intermediate certificates, you must provide those CAs to the MinIO Server `/root/.minio/certs/CAs` (用来存放私有的证书`ca.crt`，该证书用于生成机器的`private.key` 和 `public.crt`， 集群的每台机器存放的`ca.crt`应该保持一致)
+
+1. **Generate CA and Certificates `generate_certificate.sh`**
+
+```bash
+# Generate CA private key
+openssl genrsa -out ca.key 4096
+
+# Create CA certificate
+openssl req -x509 -new -nodes -key ca.key -sha256 -days 3650 \
+    -out ca.crt \
+    -subj "/C=US/ST=YourState/L=YourCity/O=YourOrg/OU=YourUnit/CN=MinioCA"
+
+# Generate server private keys for each node
+for node in minio1 minio2 minio3; do
+    openssl genrsa -out ${node}.key 2048
+    
+    # Create server certificate signing request (CSR)
+    openssl req -new -key ${node}.key -out ${node}.csr \
+        -subj "/C=US/ST=YourState/L=YourCity/O=YourOrg/OU=YourUnit/CN=${node}.dev.net"
+    
+    # Create server certificate configuration
+    cat > ${node}.ext << EOF
+authorityKeyIdentifier=keyid,issuer
+basicConstraints=CA:FALSE
+keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
+subjectAltName = @alt_names
+
+[alt_names]
+DNS.1 = ${node}.dev.net
+IP.1 = 172.20.61.$(grep ${node} /etc/hosts | awk '{print $1}' | cut -d. -f4)
+EOF
+
+    # Sign server certificate with CA
+    openssl x509 -req -in ${node}.csr -CA ca.crt -CAkey ca.key \
+        -CAcreateserial -out ${node}.crt -days 3650 \
+        -sha256 -extfile ${node}.ext
+done
+```
+
+2. **Distribute Certificates `copy_certificate.sh`**
+```bash
+# Create certificate directories
+for node in minio1 minio2 minio3; do
+    # Copy node-specific certificate and key
+    scp ${node}.crt root@${node}.dev.net:/root/.minio/certs/public.crt
+    scp ${node}.key root@${node}.dev.net:/root/.minio/certs/private.key
+    
+    # Copy CA certificate to trusted CAs
+    scp ca.crt root@${node}.dev.net:/root/.minio/certs/CAs/
+done
+```
+
+3. **Update MinIO Configuration**
+Modify `/etc/default/minio` on each node to ensure proper TLS configuration:
+```bash
+# Update MINIO_VOLUMES to use https
+MINIO_VOLUMES="https://minio{1...3}.dev.net:19000/mnt/minio{1...2}"
+```
+
+4. Set Correct Permissions (optional)
+```bash
+for node in minio1 minio2 minio3; do
+    ssh root@${node}.dev.net "
+    chown -R minio:minio /root/.minio/certs
+    chmod 700 /root/.minio/certs
+    chmod 600 /root/.minio/certs/private.key
+    chmod 644 /root/.minio/certs/public.crt /root/.minio/certs/CAs/*
+    "
+done
+```
+
+5. **Restart MinIO Cluster**
+```bash
+systemctl daemon-reload
+systemctl restart minio
+```
+
+6.  **Trust certificate globally**
+
+   > 每台机器均需要操作一遍
+
+   ```shell
+   cp ca.crt /etc/pki/ca-trust/source/anchors/
+   update-ca-trust extract
+   openssl verify -CAfile /etc/pki/tls/certs/ca-bundle.crt /etc/pki/ca-trust/source/anchors/ca.crt
+   ```
+
+7. Verification
+
+```bash
+# Check TLS configuration on each node
+for node in minio1 minio2 minio3; do
+    echo "Checking ${node}:"
+    ssh root@${node}.dev.net "
+    openssl x509 -in /root/.minio/certs/public.crt -text -noout
+    echo '---'
+    netstat -tuln | grep 19000
+    echo '---'
+    systemctl status minio
+    "
+done
+```

@@ -5,8 +5,6 @@ tags: tool
 categories: monitor
 ---
 
-
-
 # Prometheus
 
 ## node_exporter

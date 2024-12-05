@@ -284,11 +284,51 @@ addition (`+`), subtraction (`-`), multiplication (`*`), division (`/`).  assign
 - Pass by reference allows us to pass arguments to a function without making copies of those arguments each time the function is called.
 - Pass by reference can only accept modifiable lvalue arguments
 - Class types can be expensive to copy (sometimes significantly so), so they are typically passed by const reference. Fundamental types and enumerated types are cheap to copy, so they are typically passed by value.
+- When an object being referenced is destroyed before a reference to it, the reference is left referencing an object that no longer exists. Such a reference is called a *dangling reference*
 
 **Pointer**
 
 - A pointer is an object that holds a *memory address* (typically of another variable) as its value. This allows us to store the address of some other object to use later.
 - Use `nullptr` when you need a null pointer literal for initialization, assignment, or passing a null pointer to a function.
+- When we pass an address to a function, that address is copied from the argument into the pointer parameter (which is fine, because copying an address is fast). 
+- pointers must hold the address of an object ( can’t have a pointer to a reference, since references aren’t objects )
+- Objects returned by reference must live beyond the scope of the function returning the reference, or a dangling reference will result. Never return a (non-static) local variable or temporary by reference.
+
+**summary**
+
+- Prefer pass by reference to pass by address unless you have a specific reason to use pass by address.
+
+## Compound Types
+
+> Enums and Structs
+
+| Type            | Meaning                                                      | Examples                             |
+| :-------------- | :----------------------------------------------------------- | :----------------------------------- |
+| Fundamental     | A type built into the core C++ language                      | int, std::nullptr_t                  |
+| Compound        | A type built from fundamental types                          | int&, double*, std::string, Fraction |
+| User-defined    | A class type or enumerated type (Includes those defined in the standard library or implementation) (In casual use, typically used to mean program-defined types) | std::string, Fraction                |
+| Program-defined | A class type or enumerated type (Excludes those defined in standard library or implementation) | Fraction                             |
+
+- A **class template** is a template definition for instantiating class types (structs, classes, or unions). **Class template argument deduction (CTAD)** is a C++17 feature that allows the compiler to deduce the template type arguments from an initializer.
+- The members of a struct are public by default
+
+## classes
+
+| Access level | Access specifier | Member access | Derived class access | Public access |
+| :----------- | :--------------- | :------------ | :------------------- | :------------ |
+| Public       | public:          | yes           | yes                  | yes           |
+| Protected    | protected:       | yes           | yes                  | no            |
+| Private      | private:         | yes           | no                   | no            |
+
+- The members of a class are private by default. Private members can be accessed by other members of the class, but can not be accessed by the public.
+
+  A class with private members is no longer an aggregate, and therefore can no longer use aggregate initialization.
+
+- Classes should generally make member variables private (or protected), and member functions public.
+
+  Structs should generally avoid using access specifiers (all members will default to public).
+
+- Prefer using the member initializer list to initialize your members over assigning values in the body of the constructor.
 
 # tool
 

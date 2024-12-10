@@ -5,6 +5,22 @@ tags: csi
 categories: Kubernetes
 ---
 
+# RPC
+
+In Kubernetes, the CSI (Container Storage Interface) plugin uses Unix domain sockets for communication between the kubelet and CSI drivers:
+
+- Socket Location:  
+  - `/var/lib/kubelet/plugins/csi.dingofs.com/csi-controller.sock`
+  - `/var/lib/kubelet/plugins/csi.dingofs.com/csi.sock`
+
+- Role: 
+
+  - The CSI driver exposes its RPC interface via the Unix domain socket.
+
+  - Kubelet connects to this socket to invoke RPC methods like CreateVolume or NodePublishVolume.
+
+This approach ensures efficient and secure communication between the kubelet and the storage driver, without exposing the RPC interface over a network.
+
 # basic
 
 > Container Storage Interface **容器的持久化存储的含义**，就是用来保存容器存储状态的重要手段：存储插件会在容器里挂载一个基于网络或者其他机制的远程数据卷，使得在容器里创建的文件，实际上是保存在远程存储服务器上，或者以分布式的方式保存在多个节点上，而与当前宿主机没有任何绑定关系。这样，无论你在其他哪个宿主机上启动新的容器，都可以请求挂载指定的持久化存储卷，从而访问到数据卷里保存的内容。

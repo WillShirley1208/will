@@ -231,7 +231,16 @@ go test -v /path/to/package -run ^FuncName$
   gofmt -w yourfile.go
   ```
 
-  
+
+- mod
+
+  `go mod tidy` is used to clean up the module directory by removing any unnecessary files, such as: Unused dependencies, Duplicate entries, Empty directories
+
+  `go mod vendor` is a part of Go's vendor tooling, which allows you to manage dependencies in your project by creating a separate directory called `vendor`. This directory contains all the dependencies required for your project.
+
+  **Purpose**: `go mod tidy` is used for cleaning up the module directory, while `go mod vendor` is used for managing dependencies in a separate `vendor` directory.
+
+  **Output**: `go mod tidy` updates the `go.mod` file, while `go mod vendor` creates or updates the `vendor` directory.
 
 # A vs B
 

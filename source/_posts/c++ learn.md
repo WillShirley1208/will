@@ -330,6 +330,14 @@ addition (`+`), subtraction (`-`), multiplication (`*`), division (`/`).  assign
 
 - Prefer using the member initializer list to initialize your members over assigning values in the body of the constructor.
 
+- If you want your class to be able to be evaluated at compile-time, make your member functions and constructor constexpr.
+
+- A non-const member function can modify members of non-const objects.
+
+- A constexpr member function can be called in either runtime contexts or compile-time contexts.
+
+- All non-static member functions have a `this` const pointer that holds the address of the implicit object.
+
 # tool
 
 ## vscode

@@ -3,9 +3,7 @@ title: hexo
 date: 2016-05-01 06:00:30
 ---
 
-# hexo 
-
-## command
+# command
 
 ### Create a new post
 
@@ -44,6 +42,16 @@ $ hexo clean
 ```
 
 More info: [Deployment](https://hexo.io/docs/deployment.html)
+
+# image reference
+
+```shell
+# markdown syntax
+![](/images/flink/flink_schedule_architecture.png)
+
+# html
+<img src="/images/minio/cert.jpg" style="zoom: 60%">
+```
 
 # theme
 

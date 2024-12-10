@@ -347,6 +347,18 @@ tr -- translate or delete characters
 
 # senario
 
+## 创建文件
+
+```shell
+# method 2
+fallocate -l 1G fileName
+
+# method 1
+dd if=/dev/zero of=fileName bs=1M count=1024
+```
+
+
+
 ## 文件分割
 
 ```shell

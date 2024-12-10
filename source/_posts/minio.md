@@ -301,12 +301,12 @@ systemctl restart minio
 
 6.  **Trust certificate globally**
 
-   > 每台机器均需要操作一遍
+   > 每台机器均需要操作一遍（这样可以保证mc设置alias成功）
 
    ```shell
-   cp ca.crt /etc/pki/ca-trust/source/anchors/
-   update-ca-trust extract
-   openssl verify -CAfile /etc/pki/tls/certs/ca-bundle.crt /etc/pki/ca-trust/source/anchors/ca.crt
+   sudo cp ca.crt /etc/pki/ca-trust/source/anchors/
+   sudo update-ca-trust extract
+   sudo openssl verify -CAfile /etc/pki/tls/certs/ca-bundle.crt /etc/pki/ca-trust/source/anchors/ca.crt
    ```
 
 7. Verification
@@ -324,3 +324,7 @@ for node in minio1 minio2 minio3; do
     "
 done
 ```
+
+browser check
+
+<img src="/images/minio/cert.jpg" style="zoom: 60%">

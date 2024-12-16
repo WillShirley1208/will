@@ -16,6 +16,10 @@ Typically, good solutions have the following characteristics:
 - They are built modularly, so parts can be reused or changed later without impacting other parts of the program.
 - They can recover gracefully or give useful error messages when something unexpected happens.
 
+# terminology
+
+- CTAD (class template argument deduction) 
+
 # compiler
 
 - **Build** compiles all *modified* code files in the project or workspace/solution, and then links the object files into an executable. If no code files have been modified since the last build, this option does nothing.
@@ -337,6 +341,20 @@ addition (`+`), subtraction (`-`), multiplication (`*`), division (`/`).  assign
 - A constexpr member function can be called in either runtime contexts or compile-time contexts.
 
 - All non-static member functions have a `this` const pointer that holds the address of the implicit object.
+
+## vector
+
+- Avoid array indexing with integral values whenever possible.
+- For range-based for loops, prefer to define the element type as:
+  - `auto` when you want to modify copies of the elements.
+  - `auto&` when you want to modify the original elements.
+  - `const auto&` otherwise (when you just need to view the original elements).
+- The length of a vector is how many elements are “in use”.
+  The capacity of a vector is how many elements have been allocated in memory.
+- Tracking capacity separately from length allows the `std::vector` to avoid some reallocations when length is changed.
+- To increase the number of elements in a `std::vector`:
+  Use `resize()` when accessing a vector via indexing. This changes the length of the vector so your indices will be valid.
+  Use `reserve()` when accessing a vector using stack operations. This adds capacity without changing the length of the vector.
 
 # tool
 

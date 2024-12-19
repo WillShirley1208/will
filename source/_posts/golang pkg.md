@@ -1,5 +1,8 @@
 ---
-
+title: GO PKG
+date: 2024-12-13 11:40:09
+tags: pkg
+categories: GO
 ---
 
 # fmt
@@ -73,3 +76,18 @@
   ```
 
   
+
+# cobra
+
+## PersistentFlag vs Flag
+
+**PersistentFlag**
+
+- Flags that are available to the command and all its subcommands. but not explicitly added to the main command's help output.
+
+**Flag**
+
+- Definition: Flags that are only available to the specific command they are defined on.
+
+- Example: If you set a flag on a specific command, it will not be available to its parent or sibling commands.
+

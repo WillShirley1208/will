@@ -234,6 +234,25 @@ lifecycle:
           port: 8080
 ```
 
+### bootstram command
+
+`sh -c` allows running multiple commands in a single shell
+
+`exec` ensures the mount process becomes the main process of the container
+
+e.g.
+
+```shell
+containers:
+- name: juicefs-mount
+  command: 
+    - sh
+    - -c
+    - |
+      /usr/local/bin/juicefs format ... 
+      exec /bin/mount.juicefs ...
+```
+
 
 
 ## Secret
@@ -260,6 +279,12 @@ lifecycle:
   kubectl create configmap ui-config --from-file=example/ui.properties
   ```
 
+- delete
+
+  ```shell
+  kubectl delete configmap <name> -n <namespace>
+  ```
+  
 - get yaml
 
   ```shell

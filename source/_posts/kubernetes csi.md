@@ -127,3 +127,40 @@ sequenceDiagram
     APIServer->>User: PVC Expansion Complete
 ```
 
+# code
+
+## request
+
+- `volCap := req.GetVolumeCapability()`
+```
+get volume_capability:
+appName="test-dingofs-app" volumeId="pvc-a96af0fb-2df7-435f-bde9-b3b3f0853023"
+volCap=
+{
+	"AccessType": {
+		"Mount": {
+			"mount_flags": ["diskCache.diskCacheType=2", "block_cache.cache_store=disk", "disk_cache.cache_dir=/curvefs/client/data/cache/1:10240;/curvefs/client/data/cache/2:10240;/curvefs/client/data/cache/3:10240", "disk_cache.cache_size_mb=102400"]
+		}
+	},
+	"access_mode": {
+		"mode": 5
+	}
+}
+```
+
+- `volCtx := req.GetVolumeContext()`
+```
+get volume context:
+appName="test-dingofs-app" volumeId="pvc-a96af0fb-2df7-435f-bde9-b3b3f0853023"
+volCtx=
+{
+	"capacity": "21474836480",
+	"csi.storage.k8s.io/ephemeral": "false",
+	"csi.storage.k8s.io/pod.name": "test-dingofs-app",
+	"csi.storage.k8s.io/pod.namespace": "test-dingofs-mountpod",
+	"csi.storage.k8s.io/pod.uid": "98ad53c2-e99f-4ccf-b98c-841d9ec5a5b8",
+	"csi.storage.k8s.io/serviceAccount.name": "default",
+	"storage.kubernetes.io/csiProvisionerIdentity": "1734407521827-8081-csi.dingofs.v2",
+	"subPath": "pvc-a96af0fb-2df7-435f-bde9-b3b3f0853023"
+}
+```

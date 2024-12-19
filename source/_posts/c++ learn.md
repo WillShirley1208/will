@@ -356,6 +356,11 @@ addition (`+`), subtraction (`-`), multiplication (`*`), division (`/`).  assign
   Use `resize()` when accessing a vector via indexing. This changes the length of the vector so your indices will be valid.
   Use `reserve()` when accessing a vector using stack operations. This adds capacity without changing the length of the vector.
 
+## array
+
+- Define  `std::array` as constexpr whenever possible. If your `std::array` is not constexpr, consider using a `std::vector` instead.
+- Use class template argument deduction (CTAD) to have the compiler deduce the type and length of a `std::array` from its initializers.
+
 # tool
 
 ## vscode

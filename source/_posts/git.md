@@ -255,6 +255,30 @@ git branch -m new-branch-name
 git branch bk-dev HEAD
 ```
 
+## tag
+
+- 拉取并切换指定tag 分支
+
+  ```shell
+  git fetch --all --tags
+  git tag  # list all tag
+  git checkout <tag_name>
+
+- 对指定commit进行标记tag
+
+  ```shell
+  git tag <tag_name> <commit_hash>
+  git push origin <tag_name>
+  ```
+
+- 根据tag创建分支
+
+  ```shell
+  git checkout -b <new_branch_name> <tag_name>
+  ```
+
+  
+
 ## conflict
 
 - 查看冲突文件
@@ -286,7 +310,6 @@ git branch bk-dev HEAD
   git reset
   ```
 
-  
 
 ## stash
 
@@ -528,11 +551,9 @@ git branch bk-dev HEAD
 
 ## remote
 
-### fork remote
-
 [docs.github.com](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork)
 
-#### 初始化仓库
+- **初始化仓库**
 
 1. List the current configured remote repository for your fork.
 
@@ -558,7 +579,7 @@ git branch bk-dev HEAD
    > upstream  https://github.com/ORIGINAL_OWNER/ORIGINAL_REPOSITORY.git (push)
    ```
 
-#### 同步代码
+- **同步代码**
 
 1. Change the current working directory to your local project.
 
@@ -619,27 +640,27 @@ git branch bk-dev HEAD
 >
 >  https://git-scm.com/book/zh/v2/Git-%E5%B7%A5%E5%85%B7-%E5%AD%90%E6%A8%A1%E5%9D%97
 
-### 如何是首次克隆，初始化代码需要
+- 如果是首次克隆，初始化代码需要
 
 `git clone --recurse-submodules https://github.com/chaconinc/MainProject`
 
-​		或如果首次没有使用`--recurse-submodules`，那后面可以通过
+或如果首次没有使用`--recurse-submodules`，那后面可以通过
 
-​		`git submodule init`和`git submodule update`，进行子模块的拉取更新
+`git submodule init`和`git submodule update`，进行子模块的拉取更新
 
-### 如何要对子模块的代码也用克隆地址
+- 如何要对子模块的代码也用克隆地址
 
 1. `git config -f .gitmodules -e    # opens editor, update URLs for your forks`
 
 2. `git submodule sync`
 
-### 后期从远程仓库更新submodule代码
+- 后期从远程仓库更新submodule代码
 
 ```shell
 git submodule update --remote
 ```
 
-### 在已有项目添加子模块
+- 在已有项目添加子模块
 
 ```
 # add the submodule
@@ -734,6 +755,19 @@ git commit -m "update .gitignore"
 
 # github
 
+## https
+
+- 使用 https 协议拉取项目代码
+
+```shell
+git config credential.helper cache
+git config credential.helper store
+
+# global (optional)
+git config --global credential.helper cache
+git config --global credential.helper store
+```
+
 ## ISSUES
 
 ## search
@@ -741,8 +775,6 @@ git commit -m "update .gitignore"
 `searchKeyWord is:issue is:closed repo:Alamofire/Alamofire` 
 
 这条搜索，searchKeyWord是搜索关键字, `is:issue` 表示我们要搜索 issue， `is:closed` 表示已经关闭的 issue， `repo:Alamofire/Alamofire` 表示我们只搜索这个仓库范围的 issue
-
-
 
 ## workflow
 
@@ -764,7 +796,7 @@ git commit -m "update .gitignore"
 
 ## github cli
 
-### install
+**install**
 
 ```shell
 sudo dnf install 'dnf-command(config-manager)'
@@ -775,11 +807,12 @@ sudo dnf install gh --repo gh-cli
 https://github.com/cli/cli/releases
 ```
 
-### security
+**security**
 
 - create/check gh_token
 
   ```shell
+  # github网站设置
   settings/Developer Settings/Personal access tokens (classic)
   ```
 
@@ -793,6 +826,22 @@ https://github.com/cli/cli/releases
   gh secret set SECRET_NAME
   # or
   gh secret set SECRET_NAME < secret.txt
+  ```
+
+
+- use
+
+  ```shell
+  # login
+  gh auth login
+  
+  # set
+  gh secret set DOCKERHUB_USERNAME 
+  gh secret set DOCKERHUB_TOKEN 
+  gh secret set GH_TOKEN 
+  
+  # check
+  gh secret list
   ```
 
   

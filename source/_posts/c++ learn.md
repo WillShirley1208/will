@@ -361,6 +361,13 @@ addition (`+`), subtraction (`-`), multiplication (`*`), division (`/`).  assign
 - Define  `std::array` as constexpr whenever possible. If your `std::array` is not constexpr, consider using a `std::vector` instead.
 - Use class template argument deduction (CTAD) to have the compiler deduce the type and length of a `std::array` from its initializers.
 
+## memory allocation
+
+- **Static memory allocation** happens for static and global variables. Memory for these types of variables is allocated once when your program is run and persists throughout the life of your program.
+- **Automatic memory allocation** happens for function parameters and local variables. Memory for these types of variables is allocated when the relevant block is entered, and freed when the block is exited, as many times as necessary.
+
+- accessing heap-allocated objects is generally slower than accessing stack-allocated objects. Because the compiler knows the address of stack-allocated objects, it can go directly to that address to get a value. Heap allocated objects are typically accessed via pointer. This requires two steps: one to get the address of the object (from the pointer), and another to get the value.
+
 # tool
 
 ## vscode

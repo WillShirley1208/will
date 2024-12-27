@@ -38,6 +38,12 @@ Hello, John
 Debugging mode is now off
 ```
 
+## shift 2
+
+- Removes the first two positional parameters from command line arguments
+- Shifts remaining parameters left by 2 positions
+- Useful when processing command line options/arguments in loops
+
 
 
 # point

@@ -83,6 +83,12 @@ OPTIONS说明：
 >
 > docker使用volume实现数据的持久化，不仅如此volume还能帮助容器和容器之间，容器和host之间共享数据。
 
+- 进入镜像
+
+  ```shell
+  docker run -it $IMAGE_ID bash
+  ```
+
 - 进入运行的容器
 
   ```shell

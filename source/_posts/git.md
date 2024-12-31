@@ -277,8 +277,6 @@ git branch bk-dev HEAD
   git checkout -b <new_branch_name> <tag_name>
   ```
 
-  
-
 ## conflict
 
 - 查看冲突文件
@@ -781,6 +779,54 @@ git config --global credential.helper store
 > GitHub Actions is a continuous integration and continuous delivery (CI/CD) platform that allows you to automate your build, test, and deployment pipeline.
 
 - [runner host](https://docs.github.com/en/actions/using-github-hosted-runners/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources)
+
+- home
+
+  ```shell
+  # 情况一
+  runs-on: ubuntu-latest
+  
+  $HOME=/home/runner/work/<projectName>/<projectName>
+  
+  # 情况二
+  runs-on: ubuntu-latest
+  container: dingodatabase/dingo-eureka:rocky9
+  
+  $HOME=/__w/<projectName>/<projectName>
+  ```
+
+- disk usage
+
+  ```shell
+  # 情况一：
+  runs-on: ubuntu-latest
+  
+  Filesystem      Size  Used Avail Use% Mounted on
+  /dev/root        72G   47G   26G  65% /
+  tmpfs           3.9G   84K  3.9G   1% /dev/shm
+  tmpfs           1.6G  1.1M  1.6G   1% /run
+  tmpfs           5.0M     0  5.0M   0% /run/lock
+  /dev/sda16      881M   59M  761M   8% /boot
+  /dev/sda15      105M  6.1M   99M   6% /boot/efi
+  tmpfs           794M   12K  794M   1% /run/user/1001
+  
+  # 情况二：
+  runs-on: ubuntu-latest
+  container: dingodatabase/dingo-eureka:rocky9
+  
+  Filesystem      Size  Used Avail Use% Mounted on
+  overlay          73G   60G   14G  82% /
+  tmpfs            64M     0   64M   0% /dev
+  shm              64M     0   64M   0% /dev/shm
+  /dev/root        73G   60G   14G  82% /__w
+  tmpfs           1.6G  1.2M  1.6G   1% /run/docker.sock
+  tmpfs           3.9G     0  3.9G   0% /proc/acpi
+  tmpfs           3.9G     0  3.9G   0% /proc/scsi
+  tmpfs           3.9G     0  3.9G   0% /sys/firmware
+  ```
+
+  
+
 - event
 
 

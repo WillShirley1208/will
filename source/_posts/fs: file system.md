@@ -474,6 +474,22 @@ nvme list
 lsblk
 ```
 
+### Check Disk Health
+
+```shell
+dmesg | grep -i 'error'
+```
+
+### umount
+
+- Unmount Using umount -l (Lazy Unmount)
+
+  ```shell
+  sudo umount -l <path/to/mount>
+  ```
+
+  The -l (lazy) option detaches the filesystem immediately and postpones the actual unmount until it’s no longer in use. This should allow you to unmount the device without needing to terminate the processes that are holding it.
+
 ## LVM
 
 - delete lvm

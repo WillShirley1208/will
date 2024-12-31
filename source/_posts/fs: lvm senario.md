@@ -5,6 +5,10 @@ tags: lvm
 categories: fs
 ---
 
+# overview
+
+<img src="/images/fs/lvm_overview-1.svg">
+
 # create LVs 
 
 >  If you want to create **three Logical Volumes (LVs)** of sizes 1TB, 1TB, and 5TB on a single Volume Group (VG) for each disk, here’s how you can do it step by step.

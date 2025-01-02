@@ -160,8 +160,22 @@ Ctrl + xx ：在命令行尾和光标之间移动
 
 [CentOS 7 时区设置](https://www.cnblogs.com/zhangeamon/p/5500744.html)
 
-- GMT（格林尼治标准时间）是格林尼治时间，没有夏令时调整。
-- UTC（协调世界时）是国际时间标准，通常与GMT相同，但在某些情况下，UTC可能会有闰秒的调整。
+- UTC（Coordinated Universal Time ）是国际时间标准，通常与GMT相同，但在某些情况下，UTC可能会有闰秒的调整。
+
+  - UTC is the global standard for timekeeping.
+
+  - It does not observe Daylight Saving Time (DST).
+  - Used as a reference for time zones worldwide.
+
+  - Offset: UTC is the baseline, so its offset is **0 hours**.
+
+- GMT（Greenwich Mean Time）是格林尼治时间，没有夏令时调整。
+  - GMT was historically the global time standard but has largely been replaced by UTC.
+- UTC+N or GMT+N
+  - In most practical cases, **UTC+N** and **GMT+N** are equivalent.
+  - Refers to a time zone that is **N hours ahead of UTC (Coordinated Universal Time)**.
+  - **UTC+N** is the modern term and is more precise in technical or scientific contexts (e.g., aviation, computing, telecommunications).
+  - **GMT+N** is an older term that is still widely recognized but less commonly used in formal applications.
 
 ### 日期
 
@@ -179,7 +193,6 @@ Ctrl + xx ：在命令行尾和光标之间移动
   date +%s
   ```
 
-  
 
 ### 剪切板
 
@@ -190,8 +203,8 @@ Ctrl + xx ：在命令行尾和光标之间移动
 ### securtCRT
 
 ```
-下载服务器文件    sz filename
-上传本地文件 rz filename
+下载服务器文件  sz filename
+上传本地文件   rz filename
 ```
 
 ### top
@@ -267,6 +280,13 @@ root  19496  0.0  2.4 4826152 1603360 ?     Sl    2020 503:15 java -jar -Xms1024
 
 # system
 
+## core
+
+```shell
+# 设置 core 文件的存放路径
+echo "/core/core.%e.%p" > /proc/sys/kernel/core_pattern
+```
+
 ## time
 
 - unning duration or uptime
@@ -279,7 +299,6 @@ root  19496  0.0  2.4 4826152 1603360 ?     Sl    2020 503:15 java -jar -Xms1024
   who -b
   ```
 
-  
 
 ## process
 

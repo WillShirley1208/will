@@ -9,11 +9,11 @@ categories: git
 
 <img src="/images/git/git flow.JPG" style="zoom:50%">
 
-# command
+**command**
 
 <img src="/images/git/git command.JPG" style="zoom:100%">
 
-## 文件
+## 文件相关
 
 - 提交单个文件
   
@@ -39,10 +39,59 @@ categories: git
   git add . ':!<file-to-exclude>'
   ```
   
-  
-  
+- 比较文件，在不同版本的区别
 
-#### Git fork后的分支，更新最新的源代码
+  ```shell
+  # uncommited file to HEAD
+  git diff <path>
+  
+  # uncommited file to before last commit
+  git diff HEAD^ -- <path>
+  
+  #last commit to before last commit
+  git diff HEAD^ HEAD -- <path>
+  
+  #difference between HEAD and n-th grandparent
+  git diff HEAD~n HEAD -- <path>
+  
+  #Another cool feature is whatchanged command
+  git whatchanged -- <path>
+  ```
+
+- 删除远程仓库文件，但保留本地文件系统的文件
+
+  ```shell
+  # 文件
+  git rm --cached path/to/file
+  # 目录
+  git rm -r --cached path/to/directory
+  ```
+
+- 撤销代码修改
+
+  ```shell
+  git restore <file>
+  ```
+
+- 删除未被追踪的文件或目录
+
+  ```shell
+  # 查看将要删除的文件
+  git clean -n
+  
+  # 删除未追踪的文件
+  git clean -f
+  
+  # 删除未追踪的文件和目录
+  git clean -fd
+  
+  # 删除未追踪的文件、目录和忽略的文件
+  git clean -fdx
+  ```
+
+## fork 相关
+
+Git fork后的分支，更新最新的源代码
 
 ```shell
 sourcer为源项目代码
@@ -68,49 +117,64 @@ git merge source/master
 git push origin master
 ```
 
-#### 比较文件，在不同版本的区别
+## commit相关
 
-```shell
-# uncommited file to HEAD
-git diff <path>
+- 查看每一行是哪次提交最后修改的
 
-# uncommited file to before last commit
-git diff HEAD^ -- <path>
+  ```shell
+  git blame filename 
+  ```
 
-#last commit to before last commit
-git diff HEAD^ HEAD -- <path>
+- 列出文件的所有修改记录
 
-#difference between HEAD and n-th grandparent
-git diff HEAD~n HEAD -- <path>
+  ```shell
+  git log -p filename
+  ```
 
-#Another cool feature is whatchanged command
-git whatchanged -- <path>
-```
+### config
 
+- config commit identity
 
+  ```shell
+  git config --global user.email "you@example.com"
+  git config --global user.name "Your Name"
+  # Setting these values with --global applies them to all repositories on your machine. You can also set them at the repository level by omitting --global, in which case they will override the global settings for that specific project.
+  # e.g.
+  git config  user.email "jackblack369@163.com"
+  git config  user.name "Wei Dong"
+  ```
 
-#### 查看每一行是哪次提交最后修改的
+- commit info
 
-```shell
-git blame filename 
-```
+  ```
+  <type>(<scope>): <subject>
+  <body>
+  <footer>
+  ```
 
-#### 列出文件的所有修改记录
+- Type
 
-```shell
-git log -p filename
-```
+  > You can use your own commit types, but here are the most common use cases:
 
-#### 删除远程仓库文件，但保留本地文件系统的文件
+  - feat: a new feature, or change to an existing feature.
 
-```shell
-# 文件
-git rm --cached path/to/file
-# 目录
-git rm -r --cached path/to/directory
-```
+  - fix: Fixing a bug or known issue in code.
 
-#### 回滚分支代码
+  - test: Adding additional tests for existing features.
+
+  - chore: Updating build tools, like webpack, gulp, ascripts, etc.
+
+  - docs: Update to documentation like README, wiki, etc.
+
+- Scope
+
+  > The scope of the commit can be kept as granular as required and is bound to change based on the complexity of the project. If you are starting off a project, it might not seem necessary at the beginning, although, it is highly recommended as it makes you think twice and harder about the changes that you are about to push.
+
+- reference [7 Rules for Writing a Good Commit Message](https://hackernoon.com/7-rules-for-writing-a-good-commit-message)
+
+## 
+
+## 回滚
 
 - method 1: 重置当前分支的 HEAD 指针以及工作目录和暂存区的内容到指定的提交，擦除了目标提交之后的所有提交历史。
 
@@ -124,47 +188,7 @@ git rm -r --cached path/to/directory
   git revert <commit-id>
   ```
 
-#### 撤销代码修改
-
-```shell
-git restore <file>
-```
-
-#### 删除未被追踪的文件或目录
-
-```shell
-# 查看将要删除的文件
-git clean -n
-
-# 删除未追踪的文件
-git clean -f
-
-# 删除未追踪的文件和目录
-git clean -fd
-
-# 删除未追踪的文件、目录和忽略的文件
-git clean -fdx
-```
-
-
-
-## 分支
-
-#### 查看分支提交历史
-
-```shell
-git log --oneline --graph --decorate
-```
-
-#### 查看分支对应的远程分支
-
-`git branch -vv`
-
-#### 更改当前分支对应的远程分支
-
-`git branch -u origin/develop`
-
-#### 回滚远程分支
+- 回滚远程分支
 
 1、本地代码回滚到上一版本
 
@@ -178,43 +202,55 @@ git log --oneline --graph --decorate
 
 >  git push -f
 
-#### 拉取远程分支
+## 分支
 
-First, fetch the remote branches:
+- 查看分支提交历史
 
-**git fetch origin**
+```shell
+git log --oneline --graph --decorate
+```
 
-Next, checkout the branch you want. In this case, the branch we want is called “branchxyz”.
+- 查看分支对应的远程分支
 
-**git checkout -b branchxyz origin/branchxyz**
+`git branch -vv`
 
-#### 新建分支
+- 更改当前分支对应的远程分支
 
-- To create a new branch from a branch you do NOT have checked out:
+`git branch -u origin/develop`
+
+- 拉取远程分支
+
+  ```shell
+  # First, fetch the remote branches:
+  git fetch origin
   
-  `git branch new_branch from_branch`
+  # Next, checkout the branch you want. In this case, the branch we want is called “branchxyz”.
+  git checkout -b branchxyz origin/branchxyz**
+  ```
 
-- To create a new branch from the branch you DO have checked out:
+- 新建分支
+
+  ```shell
+  # To create a new branch from a branch you do NOT have checked out:
+  git branch new_branch from_branch`
   
-  `git branch new_branch`
-
-- To create *and check out* a new branch from the branch you DO have checked out:
+  # To create a new branch from the branch you DO have checked out:
+  git branch new_branch`
   
-  `git checkout -b new_branch`
-
-- To create *and check out* a new branch from a branch you do NOT have checked out:
+  # To create *and check out* a new branch from the branch you DO have checked out:
+  git checkout -b new_branch`
   
-  `git checkout -b new_branch from_branch`
-
-- Create a new branch from that commit by using the commit hash
+  # To create *and check out* a new branch from a branch you do NOT have checked out:
+  git checkout -b new_branch from_branch`
   
-  `git checkout -b new-branch-name commit-id`
-
-- To rename a branch
+  # Create a new branch from that commit by using the commit hash
+  git checkout -b new-branch-name commit-id`
   
-  `git branch -m old_name new_name`
+  # To rename a branch
+  git branch -m old_name new_name`
+  ```
 
-#### 推送新分支到远程
+- 推送新分支到远程
 
 在新建分支完成的前提下
 
@@ -230,7 +266,7 @@ Next, checkout the branch you want. In this case, the branch we want is called �
    >
    > git branch --set-upstream-to origin new_branch
 
-#### 删除分支
+- 删除分支
 
 ```shell
 // delete branch locally (如果要删除这个分支的话，需要跳转至其他分支后进行删除操作)
@@ -243,13 +279,13 @@ git push origin --delete remoteBranchName
 git fetch -p
 ```
 
-#### 重命名分支
+- 重命名分支
 
 ```shell
 git branch -m new-branch-name
 ```
 
-#### 备份分支
+- 备份分支
 
 ```shell
 git branch bk-dev HEAD
@@ -292,7 +328,6 @@ git branch bk-dev HEAD
   git mergetool
   ```
 
-  
 
 ## 暂存区
 
@@ -451,49 +486,6 @@ git branch bk-dev HEAD
    ```
 
 5. **创建 Pull Request:** 在你的 fork 仓库中，从新分支创建一个 Pull Request（PR），将你的更改合并到原始仓库的目标分支
-
-   
-
-## commit
-
-- config commit identity
-
-  ```shell
-  git config --global user.email "you@example.com"
-  git config --global user.name "Your Name"
-  # Setting these values with --global applies them to all repositories on your machine. You can also set them at the repository level by omitting --global, in which case they will override the global settings for that specific project.
-  # e.g.
-  git config  user.email "jackblack369@163.com"
-  git config  user.name "Wei Dong"
-  ```
-
-- commit info
-
-  ```
-  <type>(<scope>): <subject>
-  <body>
-  <footer>
-  ```
-
-- Type
-
-  > You can use your own commit types, but here are the most common use cases:
-
-  - feat: a new feature, or change to an existing feature.
-
-  - fix: Fixing a bug or known issue in code.
-
-  - test: Adding additional tests for existing features.
-
-  - chore: Updating build tools, like webpack, gulp, ascripts, etc.
-
-  - docs: Update to documentation like README, wiki, etc.
-
-- Scope
-
-  > The scope of the commit can be kept as granular as required and is bound to change based on the complexity of the project. If you are starting off a project, it might not seem necessary at the beginning, although, it is highly recommended as it makes you think twice and harder about the changes that you are about to push.
-
-- reference [7 Rules for Writing a Good Commit Message](https://hackernoon.com/7-rules-for-writing-a-good-commit-message)
 
 ## squash/reword commit
 
@@ -674,9 +666,84 @@ cd ..
 git submodule status
 ```
 
-## 其它
+# cherry pick
 
-### 合并策略
+If the new commits (commit-4, commit-5, commit-6) are in the feat-alpha branch and you want to cherry-pick them into a clean branch based on upstream/main, here’s how to do it:
+
+**1. Fetch the Latest Changes from Upstream**
+
+First, ensure you have the latest changes from the upstream repository:
+
+```shell
+git fetch upstream
+git checkout main
+git merge upstream/main
+```
+
+**2. Create a Clean Branch Based on upstream/main**
+
+Create a new branch starting from the updated upstream/main. This branch will hold only the cherry-picked commits.
+
+```shell
+git checkout -b new-feature-branch upstream/main
+```
+
+**3. Cherry-Pick Commits from feat-alpha**
+
+```shell
+# Locate the hash IDs of commit-4, commit-5, and commit-6 in the feat-alpha branch using:
+git log feat-alpha --oneline
+
+# Once you have the commit hashes, cherry-pick them into the new branch:
+git cherry-pick <commit-4-hash>
+git cherry-pick <commit-5-hash>
+git cherry-pick <commit-6-hash>
+```
+
+**4. Resolve Any Conflicts**
+
+If there are conflicts during the cherry-pick process:
+
+​	1.	Git will stop and list the conflicting files.
+
+​	2.	Open the conflicting files and manually resolve the conflicts.
+
+​	3.	After resolving the conflicts, mark them as resolved:
+
+```shell
+git add <file>
+git cherry-pick --continue
+```
+
+If you encounter multiple conflicts, repeat this process for each one.
+
+If you decide to abort the cherry-pick entirely:
+
+```shell
+git cherry-pick --abort
+```
+
+**5. Push the Clean Branch**
+
+Once all desired commits are cherry-picked and conflicts are resolved, push the new branch to your forked repository:
+
+```shell
+git push origin new-feature-branch
+```
+
+**Why This Approach Works**
+
+​	1.	**Selective Commits**: Cherry-picking ensures only the necessary commits from feat-alpha are included.
+
+​	2.	**Conflict Management**: Conflicts, if any, are resolved once during cherry-picking.
+
+​	3.	**Clean PR**: The new branch has a clear history, free from irrelevant or duplicate commits.
+
+This ensures a smooth and conflict-free pull request to the upstream repository.
+
+# 其它
+
+## 合并策略
 
 warning: 不建议在没有为偏离分支指定合并策略时执行pull操作。  
 您可以在执行下一次pull操作之前执行下面一条命令来抑制本消息：
@@ -691,7 +758,7 @@ git config pull.ff only # 仅快进
 缺省的配置项。您也可以在每次执行 pull 命令时添加 --rebase、--no-rebase，  
 或者 --ff-only 参数覆盖缺省设置。
 
-### 推送本地离线项目到远程github
+## 推送本地离线项目到远程github
 
 ```shell
 mkdir my_project
@@ -704,7 +771,7 @@ git remote add origin youruser@yourserver.com:/path/to/my_project.git
 git push origin master
 ```
 
-### 更改https协议进行推送
+## 更改https协议进行推送
 
 > 如果之前是使用ssh协议进行推送，现改为http协议
 
@@ -733,7 +800,7 @@ git push origin master
 
 后记：需要注意的是，使用HTTP协议进行Git push操作的速度可能会比使用SSH协议慢一些，因为HTTP协议需要建立TCP连接、发送HTTP请求、接收HTTP响应等过程。同时，HTTP协议的安全性也比SSH协议稍低，因此在安全性要求较高的情况下，建议使用SSH协议进行Git push操作。
 
-### Git修改.gitignore不生效
+## Git修改.gitignore不生效
 
 - 在git中，如果想忽略某个文件，不让这个文件提交到版本库中，可以修改根目录中的.gitignore文件
 
@@ -748,8 +815,6 @@ git rm -r --cached <要忽略的具体文件或者目录> 或者 git rm -r --cac
 git add .
 git commit -m "update .gitignore"
 ```
-
-
 
 # github
 

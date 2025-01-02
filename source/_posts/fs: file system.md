@@ -492,6 +492,12 @@ dmesg | grep -i 'error'
 
 ## LVM
 
+- 检查指定vg的可用空间
+
+  ```shell
+  sudo vgdisplay vg_nvme2n1 | grep "Free"
+  ```
+
 - delete lvm
 
 ```shell
@@ -567,7 +573,19 @@ sudo pvremove /dev/sdX
 sudo vgs
 ```
 
+## partition
 
+- check specify disk partition
+
+  ```shell
+  # method 1
+  sudo parted /dev/<name> print
+  
+  # method 2
+  sudo fdisk -l /dev/nvme2n1
+  ```
+
+  
 
 # toubleshooting
 
@@ -577,6 +595,14 @@ sudo vgs
   umount -l /path/to/mount
   # or 
   fusermount -uz /path/to/mount
+  ```
+
+
+- 排查指定分区占用进程
+
+  ```shell
+  # 假设 /dev/nvme2n1p1 是 /dev/nvme2n1 的子分区，在对/dev/nvme2n1p1操作的时候会提示 cannot open /dev/nvme2n1p1: Device or resource busy，这时可以排查是否是主分区是否被占用，然后kill掉相应process
+  sudo lsof | grep /dev/nvme2n1
   ```
 
   

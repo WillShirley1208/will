@@ -155,3 +155,121 @@ echo '/dev/vg_nvme2/lv3 /mnt/nvme2/lv3 xfs defaults 0 0' | sudo tee -a /etc/fsta
 		lv2	1T	/mnt/nvme2/lv2
 		lv3	5T	/mnt/nvme2/lv3
 ```
+
+> defaults 0 x
+>
+> The difference is in the last number (0 vs 2) in the fstab entry, which represents the filesystem check (fsck) pass number. Here's what these numbers mean:
+>
+> Last field (6th field) in fstab:
+>
+> - `0` = No filesystem check will be done at boot time
+> - `1` = Filesystem will be checked first (typically used for root filesystem /)
+> - `2` = Filesystem will be checked after pass 1 filesystems (typically used for other filesystems)
+>
+> So:
+>
+> - `defaults 0 0` means the filesystem will never be automatically checked during boot
+> - `defaults 0 2` means the filesystem will be checked during boot, but after the root filesystem
+>
+> Best practices:
+>
+> - Use `0 1` for the root filesystem (/)
+> - Use `0 2` for other important filesystems that should be checked
+> - Use `0 0` for pseudo-filesystems (like proc, sysfs) or filesystems that don't need checking (like swap)
+
+# wipe disk and create lvm
+
+> assum dev is /dev/nvme2n1
+
+To erase all partitions on the device /dev/nvme2n1 and create multiple logical volumes (LVs) using the LVM framework, follow these steps:
+
+## 1. Verify Device and Backup Data
+
+```shell
+# Ensure you are working on the correct device. Erasing partitions will delete all data on the device.
+sudo lsblk -o NAME,SIZE,TYPE,MOUNTPOINT /dev/nvme2n1
+```
+
+## 2. Erase Existing Partitions
+
+```shell
+# Clear the Partition Table, To wipe the partition table completely:
+sudo wipefs -a /dev/nvme2n1
+
+# Verify the Disk is Clean, Check that no partitions remain
+sudo lsblk /dev/nvme2n1
+```
+
+## 3. Create Physical Volume (PV)
+
+```shell
+# Convert the entire disk into an LVM physical volume:
+sudo pvcreate /dev/nvme2n1
+
+# Verify the PV
+sudo pvdisplay
+```
+
+## 4. Create Volume Group (VG)
+
+```shell
+# Create a volume group that spans the entire disk:
+sudo vgcreate vg_nvme2n1 /dev/nvme2n1
+
+# Verify the VG:
+sudo vgdisplay
+```
+
+## 5. Create Logical Volumes (LVs)
+
+Example: Create Three LVs
+
+​	•	**LV1**: 1TB
+
+​	•	**LV2**: 1TB
+
+​	•	**LV3**: Remaining space
+
+```shell
+sudo lvcreate -L 1T -n lv1 vg_nvme2n1
+sudo lvcreate -L 1T -n lv2 vg_nvme2n1
+sudo lvcreate -l 100%FREE -n lv8 vg_nvme2n1 --wipesignatures y
+# 注意如果在lvcreate的时候一直提示 warning wipe offset xxx,那执行 sudo lvcreate xxx -y (加-y参数)
+
+# Verify the LVs:
+sudo lvdisplay
+```
+
+## 6. Format Logical Volumes
+
+```shell
+# Format each logical volume with your desired file system (e.g., XFS):
+sudo mkfs.xfs /dev/vg_nvme2n1/lv1
+
+sudo mkfs.xfs /dev/vg_nvme2n1/lv2
+
+sudo mkfs.xfs /dev/vg_nvme2n1/lv3
+```
+
+## 7. Mount Logical Volumes
+
+```shell
+# Create mount points and mount the LVs:
+sudo mkdir -p /mnt/nvme2n1/lv1 /mnt/nvme2n1/lv2 /mnt/nvme2n1/lv3
+
+sudo mount /dev/vg_nvme2n1/lv1 /mnt/nvme2n1/lv1
+sudo mount /dev/vg_nvme2n1/lv2 /mnt/nvme2n1/lv2
+sudo mount /dev/vg_nvme2n1/lv3 /mnt/nvme2n1/lv3
+# Verify the mounts:
+df -h
+```
+
+## 8. Make the Mounts Persistent
+
+```shell
+# Add entries to /etc/fstab to ensure the LVs are mounted on reboot:
+echo '/dev/vg_nvme2n1/lv1 /mnt/nvme2n1/lv1 xfs defaults 0 2' | sudo tee -a /etc/fstab
+echo '/dev/vg_nvme2n1/lv2 /mnt/nvme2n1/lv2 xfs defaults 0 2' | sudo tee -a /etc/fstab
+echo '/dev/vg_nvme2n1/lv3 /mnt/nvme2n1/lv3 xfs defaults 0 2' | sudo tee -a /etc/fstab
+```
+

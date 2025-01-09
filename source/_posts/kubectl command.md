@@ -82,7 +82,7 @@ kubectl logs <pod-name> -c <container-name> -n <namespace>
 
 ### config
 
-```sehll
+```shell
 kubectl get pod <容器id> --kubeconfig=/path/to/configfile -o yaml > env-vq48.yaml
 # kubectl get -o yaml 这样的参数，会将指定的 Pod API 对象以 YAML 的方式展示出来。
 # expose
@@ -141,4 +141,8 @@ kubectl get pv
 kubectl patch pv PV_NAME -p '{"spec":{"persistentVolumeReclaimPolicy":"Delete"}}'
 ## step2: delete
 kubectl delete pv PV_NAME
+
+# delete multiply pv
+kubectl get pv --no-headers | grep <NAME> | awk '{print $1}' | xargs kubectl delete pv
 ```
+

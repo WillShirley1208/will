@@ -280,12 +280,40 @@ root  19496  0.0  2.4 4826152 1603360 ?     Sl    2020 503:15 java -jar -Xms1024
 
 # system
 
-## core
+## kernel dumps
+
+```shell
+# Changing Kernel Crash Dump Directory (for kdump)
+sudo vi /etc/kdump.conf
+
+# Look for the line starting with path and change it to your desired directory
+path /new/crash/directory
+
+# Restart the kdump service:
+sudo systemctl restart kdump
+```
+
+## core dumps
 
 ```shell
 # 设置 core 文件的存放路径
 echo "/core/core.%e.%p" > /proc/sys/kernel/core_pattern
+
+#	%e is replaced by the executable name.
+#	%p is replaced by the process ID.
+
+# Apply the changes
+sudo sysctl -p
 ```
+
+| Feature         | Kernel Dumps                      | Core Dumps                                                |
+| --------------- | --------------------------------- | --------------------------------------------------------- |
+| Source          | Kernel crashes (kernel panic)     | User-space process crashes                                |
+| Trigger         | Kernel panic                      | Process signals (e.g., SIGSEGV)                           |
+| Contents        | Entire (or partial) system memory | Process memory                                            |
+| Tools           | kdump, crash                      | gdb, apport, ABRT                                         |
+| Debugging Scope | Kernel-level debugging            | User-level application debugging                          |
+| Location        | Typically /var/crash              | Specified by core_pattern (/proc/sys/kernel/core_pattern) |
 
 ## time
 

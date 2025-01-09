@@ -138,8 +138,6 @@ In this configuration, every object is broken into smaller pieces, with redundan
 mc admin logs myminio
 ```
 
-
-
 - development
 
 ```shell

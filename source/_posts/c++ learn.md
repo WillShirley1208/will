@@ -361,6 +361,29 @@ addition (`+`), subtraction (`-`), multiplication (`*`), division (`/`).  assign
 - Define  `std::array` as constexpr whenever possible. If your `std::array` is not constexpr, consider using a `std::vector` instead.
 - Use class template argument deduction (CTAD) to have the compiler deduce the type and length of a `std::array` from its initializers.
 
+## lambda
+
+> Lambdas are anonymous functions, A **lambda expression** (also called a **lambda** or **closure**) allows us to define an anonymous function inside another function. The nesting is important, as it allows us both to avoid namespace naming pollution, and to define the function as close to where it is used as possible (providing additional context).
+
+```
+[ captureClause ] ( parameters ) -> returnType
+{
+    statements;
+}
+```
+
+In actuality, lambdas aren’t functions (which is part of how they avoid the limitation of C++ not supporting nested functions). They’re a special kind of object called a functor. Functors are objects that contain an overloaded `operator()` that make them callable like a function.
+
+# memory
+
+The memory that a program uses is typically divided into a few different areas, called segments:
+
+- The code segment (also called a text segment), where the compiled program sits in memory. The code segment is typically read-only.
+- The bss segment (also called the uninitialized data segment), where zero-initialized global and static variables are stored.
+- The data segment (also called the initialized data segment), where initialized global and static variables are stored.
+- The heap, where dynamically allocated variables are allocated from.
+- The call stack, where function parameters, local variables, and other function-related information are stored.
+
 ## memory allocation
 
 - **Static memory allocation** happens for static and global variables. Memory for these types of variables is allocated once when your program is run and persists throughout the life of your program.

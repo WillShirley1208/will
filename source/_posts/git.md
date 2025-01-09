@@ -89,6 +89,13 @@ categories: git
   git clean -fdx
   ```
 
+- 查看指定commit提交的文件信息
+
+  ```shell
+  git show --name-only <commit-hash>
+  git show --name-status <commit-hash>
+  ```
+
 ## fork 相关
 
 Git fork后的分支，更新最新的源代码
@@ -190,33 +197,32 @@ git push origin master
 
 - 回滚远程分支
 
-1、本地代码回滚到上一版本
+  - 本地代码回滚到上一版本 `git reset --hard HEAD~1`
+  - 回滚到指定版本commitId  `git reset --hard commitId`
 
-> git reset --hard HEAD~1
 
-（或者回滚到指定版本commitId）
-
-> git reset --hard commitId
-
-2、加入-f参数，强制提交，远程端将强制跟新到reset版本
+加入-f参数，强制提交，远程端将强制跟新到reset版本
 
 >  git push -f
 
 ## 分支
 
-- 查看分支提交历史
-
 ```shell
+# 查看分支提交历史
 git log --oneline --graph --decorate
+
+# 查看分支对应的远程分支
+git branch -vv
+
+# 更改当前分支对应的远程分支
+git branch -u origin/develop
+
+# 重命名分支
+git branch -m new-branch-name
+
+# 备份分支
+git branch bk-dev HEAD
 ```
-
-- 查看分支对应的远程分支
-
-`git branch -vv`
-
-- 更改当前分支对应的远程分支
-
-`git branch -u origin/develop`
 
 - 拉取远程分支
 
@@ -232,63 +238,48 @@ git log --oneline --graph --decorate
 
   ```shell
   # To create a new branch from a branch you do NOT have checked out:
-  git branch new_branch from_branch`
+  git branch new_branch from_branch
   
   # To create a new branch from the branch you DO have checked out:
-  git branch new_branch`
+  git branch new_branch
   
   # To create *and check out* a new branch from the branch you DO have checked out:
   git checkout -b new_branch`
   
   # To create *and check out* a new branch from a branch you do NOT have checked out:
-  git checkout -b new_branch from_branch`
+  git checkout -b new_branch from_branch
   
   # Create a new branch from that commit by using the commit hash
-  git checkout -b new-branch-name commit-id`
+  git checkout -b new-branch-name commit-id
   
   # To rename a branch
-  git branch -m old_name new_name`
+  git branch -m old_name new_name
   ```
 
 - 推送新分支到远程
 
-在新建分支完成的前提下
-
-1. 将develop分支推送到远程
-   
-   `git push origin new_branch:new_branch`
-
-2. 建立本地至上游（远程）分支的链接
-   
-   `git branch --set-upstream-to=origin/new_branch new_branch`
-   
-   > 如果要推送到的远程分支 origin/new_branch 与本地分支 new_branch 名字相同，那可以使用
-   >
-   > git branch --set-upstream-to origin new_branch
+  ```shell
+  # 1. 将develop分支推送到远程
+  git push origin new_branch:new_branch
+  
+  # 2. 建立本地至上游（远程）分支的链接
+  git branch --set-upstream-to=origin/new_branch new_branch
+  
+  # 如果要推送到的远程分支 origin/new_branch 与本地分支 new_branch 名字相同，那可以使用
+  git branch --set-upstream-to origin new_branch
+  ```
 
 - 删除分支
 
 ```shell
-// delete branch locally (如果要删除这个分支的话，需要跳转至其他分支后进行删除操作)
+# delete branch locally (如果要删除这个分支的话，需要跳转至其他分支后进行删除操作)
 git branch -d localBranchName
 
-// delete branch remotely
+# delete branch remotely
 git push origin --delete remoteBranchName
 
-//If someone else has already deleted the branch, you just do below
+# If someone else has already deleted the branch, you just do below
 git fetch -p
-```
-
-- 重命名分支
-
-```shell
-git branch -m new-branch-name
-```
-
-- 备份分支
-
-```shell
-git branch bk-dev HEAD
 ```
 
 ## tag
@@ -630,41 +621,39 @@ git branch bk-dev HEAD
 >
 >  https://git-scm.com/book/zh/v2/Git-%E5%B7%A5%E5%85%B7-%E5%AD%90%E6%A8%A1%E5%9D%97
 
-- 如果是首次克隆，初始化代码需要
+- 如果是首次克隆，初始化代码需要 `git clone --recurse-submodules https://github.com/chaconinc/MainProject`
 
-`git clone --recurse-submodules https://github.com/chaconinc/MainProject`
+  或如果首次没有使用`--recurse-submodules`，那后面可以通过 `git submodule init`和`git submodule update`，进行子模块的拉取更新
 
-或如果首次没有使用`--recurse-submodules`，那后面可以通过
-
-`git submodule init`和`git submodule update`，进行子模块的拉取更新
 
 - 如何要对子模块的代码也用克隆地址
 
-1. `git config -f .gitmodules -e    # opens editor, update URLs for your forks`
-
-2. `git submodule sync`
+  ```shell
+  git config -f .gitmodules -e    # opens editor, update URLs for your forks`
+  git submodule sync
+  ```
 
 - 后期从远程仓库更新submodule代码
 
-```shell
-git submodule update --remote
-```
+  ```shell
+  git submodule update --remote
+  ```
 
 - 在已有项目添加子模块
 
-```
-# add the submodule
-git submodule add https://github.com/example/submodule.git submodule-dir
-
-# fetch and checkout the specific tag
-cd submodule-dir
-git fetch --tags
-git checkout <xxx>
-cd ..
-
-# check submodule
-git submodule status
-```
+  ```shell
+  # add the submodule
+  git submodule add https://github.com/example/submodule.git submodule-dir
+  
+  # fetch and checkout the specific tag
+  cd submodule-dir
+  git fetch --tags
+  git checkout <xxx>
+  cd ..
+  
+  # check submodule
+  git submodule status
+  ```
 
 # cherry pick
 

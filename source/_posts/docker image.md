@@ -53,8 +53,7 @@ OPTIONS说明：
   docker save -o <output-file>.tar <image-name>
   ```
 
-  - 导入镜像
-
+- 导入镜像
 
   ```shell
   docker load --input $PATH/$NAME.tar
@@ -99,7 +98,14 @@ OPTIONS说明：
 
     命令中的/bin/bash是根据` docker inspect $image_id`，根据"Cmd"配置项决定的
 
+- 测试运行镜像
 
+  ```shell
+  # 测试运行（镜像），'sleep infinity' command could keep a container running interactively
+  docker run -d $REPOSITORY:$TAG sleep infinity
+  ```
+
+  
 
 ### jar -> image
 

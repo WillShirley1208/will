@@ -1,5 +1,5 @@
 ---
-title: Prometheus&Grafana
+title: Prometheus & Grafana
 date: 2024-10-25 15:02:38
 tags: tool
 categories: monitor
@@ -98,8 +98,6 @@ categories: monitor
             group: 'metric1'
   ```
 
-  
-
 - docker container
 
 ```shell
@@ -112,8 +110,6 @@ docker run -d \
     -v prometheus-data:/prometheus \
     prom/prometheus
 ```
-
-
 
 # Grafana
 

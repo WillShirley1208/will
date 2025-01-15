@@ -313,6 +313,13 @@ wget -r --no-parent http://abc.tamu.edu/projects/tzivi/repository/revisions/2/ra
   ls -alR | grep ^l
   ```
 
+- relink
+
+  ```shell
+  ln -sf <new_target> <link_name>
+  # -s: Create a symbolic link.
+  # -f: Force overwriting an existing link.
+  ```
 
 ## sort
 

@@ -36,6 +36,9 @@ docker run -p <宿主机端口>:<容器端口> <镜像名称>[:标签]
 
 # 设置容器停止之后自动清理容器
 docker run --rm xxx  # --rm This flag tells Docker to automatically remove the container when it exits.
+
+# Run a New Container with Volume Mount
+docker run -it --name my-container -v /host/path:/container/path my-image
 ```
 - other
 ```shell

@@ -100,8 +100,8 @@ sudo -i
 
 # add user
 sudo useradd -m -s /bin/bash <username>
-	•	-m: Creates a home directory for the user.
-	•	-s /bin/bash: Sets the default shell to /bin/bash.
+#	-m: Creates a home directory for the user.
+#	-s /bin/bash: Sets the default shell to /bin/bash.
 
 # config password
 passwd <username>
@@ -112,9 +112,10 @@ usermod -aG sudo <username>
 
 - opitional-2 edit visudo
 <username> ALL=(ALL) NOPASSWD:ALL
+
+# delete user
+userdel <username>
 ```
-
-
 
 ### 卸载安装的软件
 
@@ -262,9 +263,7 @@ Ctrl + xx ：在命令行尾和光标之间移动
 ### 查看指定服务的运行情况
 
 - `journalctl -u xxx.service`
-- `journalctl ex`
-
-
+- `journalctl -xe` 查看最近系统服务日志
 
 ### 资源占用
 

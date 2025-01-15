@@ -201,3 +201,10 @@ sudo systemctl restart docker.socket
 sudo systemctl start docker
 ```
 
+- check run image error 
+
+  ```shell
+  docker inspect --format='{{.State.Status}} {{.State.ExitCode}} {{.State.Error}}' $(docker ps -alq)
+  ```
+
+  

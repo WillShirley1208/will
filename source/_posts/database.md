@@ -85,6 +85,30 @@ CREATE TABLE IF NOT EXISTS qilu.t_01(
 optimize table t_01 FINAL; # 要强制合并分区
 ```
 
+# sqlite
+
+## install
+
+```shell
+# rocky
+dnf install -y sqlite
+
+# ubuntu
+apt-get install -y sqlite3
+```
+
+## export sql file
+
+```shell
+# init database
+sqlite3 /path/to/databaseFile
+
+# dump database
+sqlite> .output /path/to/export/sqlFile  # config output file path
+sqlite> .dump
+sqlite> .exit
+```
+
 # rqlite
 
 ## build
@@ -93,8 +117,6 @@ optimize table t_01 FINAL; # 要强制合并分区
 cd $GOPATH/src/github.com/rqlite/rqlite
 go install ./...  # install in $GOPATH/bin/ directory
 ```
-
-
 
 ## deploy cluster
 
@@ -153,11 +175,28 @@ rqlited -node-id 3 -http-addr host3:4001 -raft-addr host3:4002 -join host1:4002 
   id: 3
 ```
 
+## [Restoring from SQLite](https://rqlite.io/docs/guides/backup/#restoring-from-sqlite)
 
+## load
+
+- method 1
+
+  ```shell
+  # Convert SQLite database file to set of SQL statements and then load
+  ~ $ echo '.dump' | sqlite3 restore.sqlite > restore.dump
+  ~ $ curl -XPOST localhost:4001/db/load -H "Content-type: text/plain" --data-binary @restore.dump
+  ```
+
+- method 2
+
+  ```shell
+  # Load directly from the SQLite file, which is the recommended process.
+  ~ $ curl -v -XPOST localhost:4001/db/load -H "Content-type: application/octet-stream" --data-binary @restore.dump  # restore.dump 是 sqlite dump的文件，dump后缀名只是字面含义，不是强制要求，参考上文sqlite的dump文件，对应的是 sqlFile 或 databaseFile
+  # e.g. curl -v -XPOST 172.20.0.52:14001/db/load -H "Content-type: application/octet-stream" --data-binary @dingoadm.db
+  # 或者 curl -v -XPOST 172.20.0.52:14001/db/load -H "Content-type: application/octet-stream" --data-binary @dingoadm.sql
+  ```
 
 # postgreSQL
-
-
 
 ### 终端登录pg
 

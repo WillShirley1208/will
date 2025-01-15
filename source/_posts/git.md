@@ -179,7 +179,45 @@ git push origin master
 
 - reference [7 Rules for Writing a Good Commit Message](https://hackernoon.com/7-rules-for-writing-a-good-commit-message)
 
-## 
+### amend
+
+> In Git, the --amend option is used with the git commit command to modify the most recent commit. It allows you to make changes to the last commit without creating a new one, which is helpful for fixing small mistakes such as a missing file, a typo in the commit message, or an incorrect change.
+
+- **Example 1: Fixing a Commit Message**
+
+  ```shell
+  # Suppose you made a commit but realized there was a typo in the message:
+  git commit -m "Fixing a bugg in login"
+  
+  # To correct the message, This will update the last commit with the corrected message.
+  git commit --amend -m "Fixing a bug in login"
+  ```
+
+- **Example 2: Adding Missing Changes**
+
+  ```shell
+  # You commit some changes but forgot to include a file:
+  git commit -m "Add login functionality"
+  
+  # Later, you realize that you forgot to add auth.js. To fix this:
+  # 1.	Stage the missing file:
+  git add auth.js
+  
+  # 2.	Amend the commit:
+  git commit --amend
+  ```
+
+  Git will open an editor to let you modify the commit message if needed. Save and close the editor to complete the process.
+
+**Important Notes**
+
+​	1.	**Avoid amending commits that have already been pushed**
+
+Amending changes the commit’s hash, which can lead to problems if others have already pulled the original commit.
+
+​	2.	**Use in Local Development**
+
+`git commit --amend` is best used in local branches before pushing changes to a shared repository.
 
 ## 回滚
 
@@ -789,7 +827,7 @@ git push origin master
 
 后记：需要注意的是，使用HTTP协议进行Git push操作的速度可能会比使用SSH协议慢一些，因为HTTP协议需要建立TCP连接、发送HTTP请求、接收HTTP响应等过程。同时，HTTP协议的安全性也比SSH协议稍低，因此在安全性要求较高的情况下，建议使用SSH协议进行Git push操作。
 
-## Git修改.gitignore不生效
+## Git修改.gitignore不生效	
 
 - 在git中，如果想忽略某个文件，不让这个文件提交到版本库中，可以修改根目录中的.gitignore文件
 

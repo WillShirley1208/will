@@ -41,6 +41,9 @@ kubectl get nodes --show-labels
 
 ```bash
 kubectl get namespaces
+
+# delete all resource by specify namespace
+kubectl delete all --all -n <namespace>
 ```
 
 ## pod
@@ -122,6 +125,9 @@ kubectl get csidrivers
 
 ```shell
 kubectl get storageclass
+
+# delete 
+kubectl delete storageclass <sc-name>
 ```
 
 ### pvc

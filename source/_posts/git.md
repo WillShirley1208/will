@@ -309,16 +309,16 @@ git branch bk-dev HEAD
 
 - 删除分支
 
-```shell
-# delete branch locally (如果要删除这个分支的话，需要跳转至其他分支后进行删除操作)
-git branch -d localBranchName
-
-# delete branch remotely
-git push origin --delete remoteBranchName
-
-# If someone else has already deleted the branch, you just do below
-git fetch -p
-```
+  ```shell
+  # delete branch locally (如果要删除这个分支的话，需要跳转至其他分支后进行删除操作)
+  git branch -d localBranchName
+  
+  # delete branch remotely
+  git push origin --delete remoteBranchName
+  
+  # If someone else has already deleted the branch, you just do below
+  git fetch -p
+  ```
 
 ## tag
 

@@ -56,8 +56,6 @@ Typically, good solutions have the following characteristics:
   clang++ --std=c++17 {filename}.cpp
   ```
 
-  
-
 - **Clean** removes all cached objects and executables so the next time the project is built, all files will be recompiled and a new executable produced.
 
 - **Rebuild** does a “clean”, followed by a “build”.
@@ -390,6 +388,20 @@ The memory that a program uses is typically divided into a few different areas, 
 - **Automatic memory allocation** happens for function parameters and local variables. Memory for these types of variables is allocated when the relevant block is entered, and freed when the block is exited, as many times as necessary.
 
 - accessing heap-allocated objects is generally slower than accessing stack-allocated objects. Because the compiler knows the address of stack-allocated objects, it can go directly to that address to get a value. Heap allocated objects are typically accessed via pointer. This requires two steps: one to get the address of the object (from the pointer), and another to get the value.
+
+# relationship
+
+| Property\Type                          | Composition    | Aggregation    | Association                     | Dependency          |
+| :------------------------------------- | :------------- | :------------- | :------------------------------ | :------------------ |
+| Relationship type                      | Whole/part     | Whole/part     | Otherwise unrelated             | Otherwise unrelated |
+| Members can belong to multiple classes | No             | Yes            | Yes                             | Yes                 |
+| Members existence managed by class     | Yes            | No             | No                              | No                  |
+| Directionality                         | Unidirectional | Unidirectional | Unidirectional or bidirectional | Unidirectional      |
+| Relationship verb                      | Part-of        | Has-a          | Uses-a                          | Depends-on          |
+
+## inheritance 
+
+- that C++ always constructs the “first” or “most base” class first. It then walks through the inheritance tree in order and constructs each successive derived class.
 
 # tool
 

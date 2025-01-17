@@ -449,6 +449,29 @@ So, When you bind mount `directory1` (which is mounted to external file system A
 - RAM is the hardware that holds the system’s active data, while tmpfs is a virtual filesystem that leverages RAM for storage.
 - tmpfs is useful for temporary data that doesn’t need to persist after reboots, providing fast I/O performance since it’s in memory.
 
+## nvme
+
+**NVMe (Non-Volatile Memory Express)** is a high-performance storage protocol designed to take full advantage of the speed and efficiency offered by modern solid-state drives (SSDs), particularly those using **NAND flash** or **3D NAND** memory. It was developed to overcome the limitations of older storage protocols (such as SATA and SAS) by optimizing the interaction between the storage device and the CPU over faster interfaces like **PCIe (Peripheral Component Interconnect Express)**.
+
+- NVMe is both a **protocol** and a **standard** for connecting **non-volatile memory** (such as NAND flash memory) directly to a computer system via high-speed interfaces, most commonly **PCIe**. It allows data to be transferred at much faster speeds compared to older storage protocols, enabling devices to reach their full potential and significantly reducing latency.
+
+**nvme vs lvm**
+
+- **NVMe** is the hardware interface and protocol that provides high-speed storage, primarily used for demanding workloads.
+- **LVM** is a logical volume manager that allows you to manage storage in a flexible way, and it can be used with **NVMe drives** to create logical volumes, resize them, and add new storage easily.
+
+| Feature          | NVMe                                             | LVM                                                 |
+| ---------------- | ------------------------------------------------ | --------------------------------------------------- |
+| **Type**         | Storage protocol (hardware level)                | Logical volume management (software layer)          |
+| **Main Purpose** | Fast, high-performance storage for SSDs          | Manage storage volumes dynamically                  |
+| **Speed**        | Very high (compared to SATA)                     | No direct impact on speed, but provides flexibility |
+| **Flexibility**  | Limited to storage capacity and speed            | Highly flexible with resizing and pooling storage   |
+| **Management**   | Managed directly by the OS or filesystem         | Provides abstraction and dynamic management         |
+| **Use Cases**    | High-performance workloads, low-latency apps     | Dynamic storage management, snapshots, pooling      |
+| **Interaction**  | Can be used as a physical storage device for LVM | Can manage NVMe storage via logical volumes         |
+| **Tools**        | nvme-cli, lsblk, fdisk, etc.                     | lvcreate, vgcreate, pvcreate, etc.                  |
+
+
 # FUSE
 
 > Filesystem in Userspace

@@ -115,7 +115,25 @@ Configuring the `systemd` cgroup driver
   # containerd containerd.io 1.7.19 
   ```
 
-### CRI-O
+#### config crictl(optional containerd cli) 
+
+- Config containerd `vim /etc/crictl.yaml`
+
+```yaml
+runtime-endpoint: unix:///run/containerd/containerd.sock
+image-endpoint: unix:///run/containerd/containerd.sock
+timeout: 2
+debug: true
+pull-image-on-create: false
+```
+
+- verify mirror
+
+```shell
+sudo crictl info
+```
+
+### CRI-O (optional)
 
 - set repo
 
@@ -148,7 +166,7 @@ Configuring the `systemd` cgroup driver
   kubeadm init
   ```
 
-### Docker Engine
+### Docker Engine (optional)
 
 - install docker (existing)
 
@@ -171,34 +189,20 @@ Configuring the `systemd` cgroup driver
   sudo systemctl status cri-docker.socket
   ```
 
-## config crictl
-
-- Config containerd `vim /etc/crictl.yaml`
-
-```yaml
-runtime-endpoint: unix:///run/containerd/containerd.sock
-image-endpoint: unix:///run/containerd/containerd.sock
-timeout: 2
-debug: true
-pull-image-on-create: false
-```
-
-- verify mirror
-
-```shell
-sudo crictl info
-```
-
-
-
 ## kubeadm deploy cluster
 
 ### Initializing  control-plane node
 
 ```shell
-sudo kubeadm config images pull --config kubeadm.conf
+# use flannel as Pod network add-on (CNI plugin)
+sudo kubeadm init  --apiserver-advertise-address=10.220.32.16 --pod-network-cidr=10.244.0.0/16  
 
-sudo kubeadm init --config kubeadm.conf
+# apply flannel(optional) CNI plugin 
+kubectl apply -f https://github.com/flannel-io/flannel/releases/latest/download/kube-flannel.yml
+
+# sudo kubeadm config images pull --config kubeadm.conf
+
+# sudo kubeadm init --config kubeadm.conf
 ```
 
 - (optional) resert (back to kubeadm init)
@@ -214,8 +218,6 @@ sudo kubeadm init --config kubeadm.conf
    sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
    sudo chown $(id -u):$(id -g) $HOME/.kube/config
   ```
-
-  
 
 - check the CoreDNS Pod is `Running`
 

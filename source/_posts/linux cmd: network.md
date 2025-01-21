@@ -49,8 +49,6 @@ categories: linux
     lsof -p <pid>
     ```
   
-    
-  
 - 通过端口查看进程
   
   ```shell

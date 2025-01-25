@@ -76,8 +76,8 @@ categories: linux
 - Change the I/O Scheduler
 
   ```shell
-  # To set the mq-deadline scheduler for nvme0n1, use:
-  echo mq-deadline | sudo tee /sys/block/nvme0n1/queue/scheduler
+  # To set the none scheduler for nvme0n1, use:
+  echo none | sudo tee /sys/block/nvme0n1/queue/scheduler
   ```
 
   **When to Change the Scheduler?**
@@ -109,6 +109,8 @@ categories: linux
 
 - Set Open File Limits for a Specific User
 
+  > The changes in limits.conf are only applied to new login sessions
+  
   ```shell
   sudo vim /etc/security/limits.conf
   
@@ -220,12 +222,11 @@ for performance-sensitive applications, THP can sometimes cause performance issu
   
   # Check THP Status
   cat /sys/kernel/mm/transparent_hugepage/enabled
-  
   # Expected output:
   always madvise [never]
   ```
 
-Summary: Should You Configure HP & THP Together?**
+Summary: Should You Configure HP & THP Together?
 
 For performance-sensitive applications, it’s recommended to **disable THP** and **manually configure Huge Pages (HP)** for better performance.
 

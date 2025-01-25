@@ -15,13 +15,13 @@ categories: fs
 
 Assume:
 
-​	•	**Disks**: /dev/nvme0n1, /dev/nvme1n1, /dev/nvme2n1
+**Disks**: /dev/nvme0n1, /dev/nvme1n1, /dev/nvme2n1
 
-​	•	**Volume Groups**: vg_nvme0, vg_nvme1, vg_nvme2
+**Volume Groups**: vg_nvme0, vg_nvme1, vg_nvme2
 
-​	•	**Logical Volumes (LVs)**: lv1, lv2, lv3 for each VG
+**Logical Volumes (LVs)**: lv1, lv2, lv3 for each VG
 
-​	•	**LV Sizes**: 1TB, 1TB, and 5TB
+**LV Sizes**: 1TB, 1TB, and 5TB
 
 ## 1. Create Physical Volumes (PVs)
 
@@ -224,16 +224,16 @@ sudo vgdisplay
 
 Example: Create Three LVs
 
-​	•	**LV1**: 1TB
+**LV1**: 1TB
 
-​	•	**LV2**: 1TB
+**LV2**: 1TB
 
-​	•	**LV3**: Remaining space
+**LV3**: Remaining space
 
 ```shell
 sudo lvcreate -L 1T -n lv1 vg_nvme2n1
 sudo lvcreate -L 1T -n lv2 vg_nvme2n1
-sudo lvcreate -l 100%FREE -n lv8 vg_nvme2n1 --wipesignatures y
+sudo lvcreate -l 100%FREE -n lv3 vg_nvme2n1 --wipesignatures y
 # 注意如果在lvcreate的时候一直提示 warning wipe offset xxx,那执行 sudo lvcreate xxx -y (加-y参数)
 
 # Verify the LVs:
@@ -245,9 +245,7 @@ sudo lvdisplay
 ```shell
 # Format each logical volume with your desired file system (e.g., XFS):
 sudo mkfs.xfs /dev/vg_nvme2n1/lv1
-
 sudo mkfs.xfs /dev/vg_nvme2n1/lv2
-
 sudo mkfs.xfs /dev/vg_nvme2n1/lv3
 ```
 

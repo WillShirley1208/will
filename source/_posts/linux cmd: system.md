@@ -97,6 +97,7 @@ categories: linux
 ```shell
 # sudo权限用户切换成root
 sudo -i
+sudo su -
 
 # add user
 sudo useradd -m -s /bin/bash <username>
@@ -107,10 +108,11 @@ sudo useradd -m -s /bin/bash <username>
 passwd <username>
 
 # add user to sudo group
-- opitional-1 ubuntu/debian
+# opitional-1 ubuntu/debian
 usermod -aG sudo <username>
 
-- opitional-2 edit visudo
+# opitional-2 edit visudo
+visudo
 <username> ALL=(ALL) NOPASSWD:ALL
 
 # delete user

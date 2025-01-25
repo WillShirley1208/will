@@ -170,7 +170,17 @@ systemctl restart docker
 docker pull hostAddress/library/REPOSITORY:TAG
 ```
 
+## check docker disk usage
 
+```shell
+docker system df
+```
+
+## removes unused containers, images, and volumes
+
+```shell
+docker system prune -a
+```
 
 # troubleshoot
 

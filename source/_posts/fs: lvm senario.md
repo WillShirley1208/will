@@ -271,3 +271,81 @@ echo '/dev/vg_nvme2n1/lv2 /mnt/nvme2n1/lv2 xfs defaults 0 2' | sudo tee -a /etc/
 echo '/dev/vg_nvme2n1/lv3 /mnt/nvme2n1/lv3 xfs defaults 0 2' | sudo tee -a /etc/fstab
 ```
 
+# wipe existed lv
+
+## 1. Check What’s Using the LV
+
+First, identify what is still using the LV:
+
+```
+sudo lsof | grep /dev/mapper/<lv-name>
+```
+
+Also, check active processes using the device:
+
+```
+sudo fuser -m /dev/mapper/<lv-name>
+```
+
+If any process is using the LV, stop it:
+
+```
+sudo kill -9 <PID>
+```
+
+## 2. Unmount If Mounted
+
+Check if the LV is mounted:
+
+```
+mount | grep /dev/mapper/<lv-name>
+```
+
+If it is mounted, unmount it:
+
+```
+sudo umount -l /dev/mapper/<lv-name>
+```
+
+Use -l (lazy unmount) to force unmount if needed.
+
+## 3. Disable the LV
+
+Before removing the LV, **deactivate it**:
+
+```
+sudo lvchange -an /dev/<vg-name>/<lv-name>
+```
+
+Now try to remove it:
+
+```
+sudo dmsetup remove /dev/mapper/<lv-name>
+```
+
+## 4. Forcefully Remove LV, VG, and PV
+
+If the above steps don’t work, forcefully remove everything:
+
+```
+sudo lvremove -f /dev/<vg-name>/<lv-name>
+sudo vgremove -f <vg-name>
+sudo pvremove -f /dev/<device-name>
+```
+
+Check again with:
+
+```
+lsblk
+sudo vgs
+sudo lvs
+```
+
+## 5. If Everything Fails
+
+If none of the above works, the safest option is to **reboot**:
+
+```
+sudo wipefs --all --force /dev/<device-name>
+sudo reboot
+```

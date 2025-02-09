@@ -403,6 +403,46 @@ The memory that a program uses is typically divided into a few different areas, 
 
 - that C++ always constructs the “first” or “most base” class first. It then walks through the inheritance tree in order and constructs each successive derived class.
 
+# Static and dynamic libraries
+
+## static library
+
+A **static library** (also known as an **archive**) consists of routines that are compiled and linked directly into your program. When you compile a program that uses a static library, all the functionality of the static library that your program uses becomes part of your executable. 
+
+- On Windows, static libraries typically have a **.lib** extension, whereas on Linux, static libraries typically have an **.a (archive)** extension. 
+- One advantage of static libraries is that you only have to distribute the executable in order for users to run your program. Because the library becomes part of your program, this ensures that the right version of the library is always used with your program. Also, because static libraries become part of your program, you can use them just like functionality you’ve written for your own program. 
+- On the downside, because a copy of the library becomes part of every executable that uses it, this can cause a lot of wasted space. Static libraries also can not be upgraded easy -- to update the library, the entire executable needs to be replaced.
+
+## dynamic library
+
+A **dynamic library** (also called a **shared library**) consists of routines that are loaded into your application at run time. When you compile a program that uses a dynamic library, the library does not become part of your executable -- it remains as a separate unit. 
+
+- On Windows, dynamic libraries typically have a **.dll (dynamic link library)** extension, whereas on Linux, dynamic libraries typically have a **.so (shared object)** extension. One advantage of dynamic libraries is that many programs can share one copy, which saves space. Perhaps a bigger advantage is that the dynamic library can be upgraded to a newer version without replacing all of the executables that use it.
+
+- Because dynamic libraries are not linked into your program, programs using dynamic libraries must explicitly load and interface with the dynamic library. This mechanism can be confusing, and makes interfacing with a dynamic library awkward. To make dynamic libraries easier to use, an import library can be used.
+
+- An **import library** is a library that automates the process of loading and using a dynamic library. On Windows, this is typically done via a small static library (.lib) of the same name as the dynamic library (.dll). The static library is linked into the program at compile time, and then the functionality of the dynamic library can effectively be used as if it were a static library. On Linux, the shared object (.so) file works as both a dynamic library and an import library. Most linkers can build an import library for a dynamic library when the dynamic library is created.
+
+### check
+
+```shell
+# header file
+/usr/include/xxx
+
+# use the ldconfig command to locate library
+ldconfig -p | grep xxx.so	
+```
+
+
+
+**reference**
+
+- [C++ Dynamic loading of a shared library](https://www.devxperiences.com/pzwp1/2023/05/17/c-dynamic-loading-of-a-shared-library-also-create-and-load-one-on-your-own/)
+
+# Data structures, algorithms, and design patterns
+
+TBD
+
 # tool
 
 ## vscode

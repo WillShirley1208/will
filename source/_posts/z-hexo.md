@@ -51,6 +51,9 @@ More info: [Deployment](https://hexo.io/docs/deployment.html)
 
 # html
 <img src="/images/minio/cert.jpg" style="zoom: 60%">
+
+# style support below config
+style="float: left; width: 40%; zoom: 60%; margin-right: 20px;
 ```
 
 # theme
